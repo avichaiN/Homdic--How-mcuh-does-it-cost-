@@ -16,7 +16,7 @@ const CategorySchema = new Schema({
         comments: [{
             title: String,
             desc: String,
-            price: { type: String, required },
+            price: { type: Number, required: true },
             publishedBy: String
         }]
     }]
