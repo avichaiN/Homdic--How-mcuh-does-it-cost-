@@ -5,8 +5,11 @@ mongoose.connect('mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic', 
 
 const authRouter = require('./routers/auth');
 const categoryRouter = require('./routers/category');
+
 const User = require('./models/user');
 const Category = require('./models/category');
+const Comment = require('./models/comment');
+const Post = require('./models/post');
 
 const port = process.env.PORT || 3000
 const app = express();

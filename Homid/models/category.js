@@ -8,18 +8,6 @@ const CategorySchema = new Schema({
         required: true,
         trim: true
     },
-    Post: [{
-        title: String,
-        desc: String,
-        img: String,
-        category: String,
-        comments: [{
-            title: String,
-            desc: String,
-            price: { type: Number, required: true },
-            publishedBy: String
-        }]
-    }]
 }, {
     timestamps: true
 })
