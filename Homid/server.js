@@ -7,8 +7,8 @@ mongoose.connect('mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic', 
 
 
 // Routes
-const authRouter = require('./routers/auth');
-const categoryRouter = require('./routers/category');
+const authRouter = require('./routers/authRoute');
+const categoryRouter = require('./routers/categoryRoute');
 
 
 // Mongoose Schemas
