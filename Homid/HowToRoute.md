@@ -1,7 +1,7 @@
 For new route on server.js: const *FUNCTION* = require('./routers/ROUTENAME');
 app.use('/auth', ROUTENAME);
 
-on /routers/ROUTENAME in file put: 
+on /routers/ROUTENAME.js in file put: 
 const express = require('express');
 const router = express.Router();
 
