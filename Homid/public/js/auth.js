@@ -6,8 +6,5 @@ const handleRegister = (e) => {
     console.log(username, password)
 }
 const handleLogin = (e) => {
-    e.preventDefault()
-    const username = document.getElementById('usernameInput').value;
-    const password = document.getElementById('passwordInput').value;
-    console.log(username, password)
+
 }

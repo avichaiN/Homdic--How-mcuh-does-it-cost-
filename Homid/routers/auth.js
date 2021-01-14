@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/login', (req, res) => {
-    res.render('loginRegister', {
-        title: 'Login',
-        description: 'Sign into your account'
-    })
+    res.send({ ok: true })
 })
 
 module.exports = router;
