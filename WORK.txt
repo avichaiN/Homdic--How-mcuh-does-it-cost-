@@ -10,3 +10,6 @@ Create Post - AVICHAI
 require('/data/database');
 const User = require('/models/user');
 const Category = require('/models/category');
+
+
+REGEXP IN HEBREW: /^[a-z\u0590-\u05fe]+$/i

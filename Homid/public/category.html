@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>category chose page</title>
+    <title>כמה? קטגוריות</title>
     <link rel="stylesheet" href="styles/dist/category.css">
 </head>
 
 <body>
-    <div class="cateogryPage">
+    <div class="cateogryPage" onclick="hideUserInfo()">
 
         <!-- header  -->
-        <div class="cateogryPage__header" onmouseleave="hideUserInfo()">
+        <div class="cateogryPage__header">
 
-            <div class="cateogryPage__headerHelloUser">שלום ( שם המשתמש )</div>
+            <div class="cateogryPage__headerHelloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
 
             <form class="cateogryPage__headerForm">
                 <input class="cateogryPage__headerFormInput" type="text">
@@ -23,7 +23,7 @@
 
             <!-- user info / logout / edit user // show all posts -->
             <div class="cateogryPage__headerUserInfo">
-                <button class="cateogryPage__headerUserInfoShow" onclick="showUserInfo()">התנתק מידע נוסף עזרה</button>
+                <div class="cateogryPage__headerUserInfoShow" onclick="showUserInfo(event)"></div>
                 <div class="cateogryPage__headerUserInfoDrop">
 
                     <button>פוסטים שלי</button>
@@ -35,7 +35,51 @@
         </div>
 
         <!-- categorys -->
-        <div class="cateogryPage__categorys"></div>
+        <h1>כמה יעלה לי? קטגוריות.</h1>
+        <div class="cateogryPage__categorys">
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+            <div class="cateogryPage__categorysBox">
+                <img
+                    src="https://lh3.googleusercontent.com/proxy/DMZJblGnph4vQ6q2Mf6Fdsyz_yg4aiKCR6AMdiGTzvyaiA1iP5KfgjJN8CpktAjrqWi7v2Rg24YzAzaQ0XE9EiZJMbSzxmGAxMB1">
+                <div class="cateogryPage__categorysBoxContainer">
+                    <p>רכבים</p>
+                </div>
+            </div>
+        </div>
     </div>
 
 
