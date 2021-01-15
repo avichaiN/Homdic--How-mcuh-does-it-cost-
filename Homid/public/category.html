@@ -4,15 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>category chose page</title>
+    <link rel="stylesheet" href="styles/dist/category.css">
 </head>
 
 <body>
-    category page
-    <form onsubmit="handleNewCategory(event)">
-        <input type="text" id="categoryInput" placeholder="category to add">
-        <input type="submit">
-    </form>
+    <div class="cateogryPage">
+
+        <!-- header  -->
+        <div class="cateogryPage__header" onmouseleave="hideUserInfo()">
+
+            <div class="cateogryPage__headerHelloUser">שלום ( שם המשתמש )</div>
+
+            <form class="cateogryPage__headerForm">
+                <input class="cateogryPage__headerFormInput" type="text">
+                <input class="cateogryPage__headerFormSubmit" type="submit" value="חפש">
+            </form>
+
+            <!-- user info / logout / edit user // show all posts -->
+            <div class="cateogryPage__headerUserInfo">
+                <button class="cateogryPage__headerUserInfoShow" onclick="showUserInfo()">התנתק מידע נוסף עזרה</button>
+                <div class="cateogryPage__headerUserInfoDrop">
+
+                    <button>פוסטים שלי</button>
+                    <button>עדכן פרטי חשבון</button>
+                    <button>התנתק</button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- categorys -->
+        <div class="cateogryPage__categorys"></div>
+    </div>
+
+
+    <!-- Admin add category DIV - defualt: display:none -->
+    <div class="category__admin">
+        <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
+        <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
+            <label></label><input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
+            <input value="הוסף" type="submit">
+        </form>
+    </div>
+
+
+
+
+    <script src="js/choseCategory.js"></script>
     <script src="js/createEditcategory.js"></script>
 </body>
 

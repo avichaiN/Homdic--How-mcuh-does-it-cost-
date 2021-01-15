@@ -1,0 +1,68 @@
+body {
+    direction: rtl;
+}
+
+.cateogryPage {
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    margin-top: 0;
+    border: 1px solid black;
+
+    .cateogryPage__header {
+        height: 7%;
+        padding: 0 2%;
+        background-color: lightblue;
+        display: flex;
+        justify-content: center;
+
+        .cateogryPage__headerHelloUser{
+            align-self: center;
+        }
+
+        .cateogryPage__headerUserInfo{
+            border: 1px solid black;
+            align-self: center;
+
+            .cateogryPage__headerUserInfoDrop{
+                display: none;
+                // display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .cateogryPage__headerForm {
+
+            width: 35%;
+            margin: auto;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+
+            .cateogryPage__headerFormInput {
+                min-width: 50%;
+                max-width: 100%;
+                height: 30%;
+                align-self: center;
+            }
+            .cateogryPage__headerFormSubmit {
+                width: 8%;
+                max-height: 32%;
+                align-self: center;
+            }
+        }
+    }
+}
+
+
+.category__admin {
+
+    // if admin display this
+    .category__adminAddCategory {
+        display: none;
+    }
+
+    .category__adminAddCategoryForm {
+        display: none;
+    }
+}
