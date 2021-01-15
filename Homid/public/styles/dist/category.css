@@ -66,10 +66,7 @@ body {
   background-size: contain;
 }
 .cateogryPage .cateogryPage__header .cateogryPage__headerUserInfo .cateogryPage__headerUserInfoDrop {
-  display: flex;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   padding: 10px;
