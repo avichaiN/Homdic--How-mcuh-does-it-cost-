@@ -8,15 +8,38 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/css/posts.css" />
+    <link rel="stylesheet" href="styles/dist/posts.css" />
+    <link rel="stylesheet" href="styles/dist/headerNav.css">
   </head>
   <body>
+    <div class="header">
+
+      <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+
+      <form class="header__form">
+          <input class="header__formInput" type="text">
+          <input class="header__formSubmit" type="submit" value="חפש">
+      </form>
+
+      <!-- user info / logout / edit user // show all posts -->
+      <div class="header__userInfo">
+          <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
+          <div class="header__userInfoDrop">
+
+              <button>פוסטים שלי</button>
+              <button>עדכן פרטי חשבון</button>
+              <button>התנתק</button>
+
+          </div>
+      </div>
+  </div>
+    
     <div id="app">
-        
+      
       <heder id="categoryHeder">
-        <input id="addPost" type="button" value="+" />
+        <input id="addPost" type="button" value="+" />        
         <h1>מכשירי חשמל</h1>
-        <img id="hederImg" src="" alt="" />
+        <img id="hederImg" src="./img/electircs.jfif" alt="" />
       </heder>
       <!-- start post -->
       <div class="post">

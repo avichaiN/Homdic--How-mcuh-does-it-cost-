@@ -16,21 +16,33 @@ body #app #categoryHeder {
   height: 20%;
   background-color: white;
   display: flex;
-  margin: 1%;
+  margin: 3% 1% 1% 1%;
+  display: flex;
+  justify-content: space-between;
 }
 body #app #categoryHeder h1 {
   margin-right: 5%;
+  font-size: 45px;
+  text-shadow: 1px 3px 5px silver;
+}
+body #app #categoryHeder img {
+  max-width: 20%;
+  max-height: max-content;
 }
 body #app #categoryHeder input {
   position: relative;
-  width: 6%;
-  height: 30%;
+  width: 40px;
+  height: 40px;
   right: 3%;
   top: 85%;
   background-color: #2097f5;
   color: white;
-  font-size: 50px;
+  font-size: 20px;
+  font-weight: 800;
   border-radius: 50px;
+  /*  display: grid;
+   place-items: center; */
+  text-align: center;
 }
 body #app .post {
   border-radius: 0 0 10px 10px;
@@ -40,7 +52,11 @@ body #app .post {
 }
 body #app .post #postheder {
   background-color: #cfd8dd;
+  cursor: pointer;
   padding: 2% 8% 2% 8%;
+  /*    .posttitle {
+         //  margin-right: 9%;
+     } */
 }
 body #app .post #postheder .postbudy {
   margin-right: 1%;
@@ -53,8 +69,11 @@ body #app .post .futter {
   max-width: 50%;
   justify-content: space-evenly;
 }
+body #app .post .futter div {
+  cursor: pointer;
+}
 body #app .post .futter div:active {
-  color: #2795f4;
+  color: #2097f5;
 }
 
 .material-icons {
