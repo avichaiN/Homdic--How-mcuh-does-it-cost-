@@ -8,14 +8,16 @@ var handleDisplayAddCategory = function handleDisplayAddCategory() {
 
 var handleNewCategory = function handleNewCategory(e) {
   e.preventDefault();
-  var newCategory = document.getElementById('categoryInput').value;
+  var newCategoryName = document.getElementById('categoryInput').value;
+  var newCategoryImg = document.getElementById('categoryInput').value;
   fetch('/category/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      newCategory: newCategory
+      newCategoryName: newCategoryName,
+      newCategoryImg: newCategoryImg
     })
   }).then(function (res) {
     return res.json();

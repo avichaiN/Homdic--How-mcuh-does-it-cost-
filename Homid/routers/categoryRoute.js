@@ -20,9 +20,10 @@ router.get('/', async (req, res) => {
 
 //create new category for admin
 router.post('/create', async (req, res) => {
-    const { newCategory } = req.body
+    const { newCategoryName } = req.body
+    const { newCategoryImg } = req.body
     console.log(newCategory)
-    const category = new Category({ Name: newCategory })
+    const category = new Category({ Name: newCategory, img: newCategoryImg })
     try {
         await category.save()
         res.send({ ok: true })

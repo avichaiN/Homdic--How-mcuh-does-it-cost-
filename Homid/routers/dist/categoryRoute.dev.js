@@ -45,40 +45,42 @@ router.get('/', function _callee(req, res) {
 }); //create new category for admin
 
 router.post('/create', function _callee2(req, res) {
-  var newCategory, category;
+  var newCategoryName, newCategoryImg, category;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          newCategory = req.body.newCategory;
+          newCategoryName = req.body.newCategoryName;
+          newCategoryImg = req.body.newCategoryImg;
           console.log(newCategory);
           category = new Category({
-            Name: newCategory
+            Name: newCategory,
+            img: newCategoryImg
           });
-          _context2.prev = 3;
-          _context2.next = 6;
+          _context2.prev = 4;
+          _context2.next = 7;
           return regeneratorRuntime.awrap(category.save());
 
-        case 6:
+        case 7:
           res.send({
             ok: true
           });
-          _context2.next = 13;
+          _context2.next = 14;
           break;
 
-        case 9:
-          _context2.prev = 9;
-          _context2.t0 = _context2["catch"](3);
+        case 10:
+          _context2.prev = 10;
+          _context2.t0 = _context2["catch"](4);
           console.log(_context2.t0);
           res.send({
             ok: false
           });
 
-        case 13:
+        case 14:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[3, 9]]);
+  }, null, null, [[4, 10]]);
 });
 module.exports = router;

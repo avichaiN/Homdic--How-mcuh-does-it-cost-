@@ -6,14 +6,15 @@ const handleDisplayAddCategory = () => {
 // handle new category ( admin )
 const handleNewCategory = (e) => {
     e.preventDefault()
-    const newCategory = document.getElementById('categoryInput').value;
+    const newCategoryName = document.getElementById('categoryInput').value;
+    const newCategoryImg = document.getElementById('categoryInput').value;
 
     fetch('/category/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newCategory })
+        body: JSON.stringify({ newCategoryName, newCategoryImg })
     })
         .then(res => res.json())
         .then(data => {

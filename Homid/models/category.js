@@ -8,6 +8,10 @@ const CategorySchema = new Schema({
         required: true,
         trim: true
     },
+    Img:{
+        type:String,
+        required: true
+    }
 }, {
     timestamps: true
 })
