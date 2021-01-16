@@ -5,3 +5,6 @@ const showUserDropDown = (e) => {
 const hideUserDropDown = () => {
     document.querySelector('.cateogryPage__headerUserInfoDrop').style.display = 'none'
 }
+
+//search bar
+// hello user 
