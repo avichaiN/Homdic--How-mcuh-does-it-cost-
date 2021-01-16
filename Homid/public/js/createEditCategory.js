@@ -36,11 +36,11 @@ const hideEditOrDeleteCategory = () => {
 //delete category
 const deleteCategory = (e) => {
     e.stopPropagation();
-    console.log(e.target.parentNode.dataset.name)
+    console.log(e.target.parentNode.dataset.id)
 }
 //edit category
 const editCategory = (e) => {
     e.stopPropagation();
-    console.log(e.target.parentNode.dataset.name)
+    console.log(e.target.parentNode.dataset.id)
     // add menu of edit category
 }

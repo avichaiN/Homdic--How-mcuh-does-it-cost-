@@ -58,10 +58,16 @@
   width: 50%;
   float: left;
   background: linear-gradient(to bottom, lightblue, #81c5db);
-  border-right: 1px solid #57b6d6;
+  border-right: 2px solid #57b6d6;
+  border-left: 2px solid #57b6d6;
   border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 35px;
   box-shadow: 2px 5px 3px -3px #888888;
+  margin-top: 3%;
 }
 .header .header__userInfo .header__userInfoDrop button {
+  font-size: 15px;
   margin: 2px;
 }

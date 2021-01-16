@@ -53,8 +53,6 @@
             background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png");
             background-repeat: no-repeat;
             background-size: contain;
-
-
         }
 
         .header__userInfoDrop {
@@ -65,11 +63,17 @@
             width: 50%;
             float: left;
             background: linear-gradient(to bottom, lightblue, rgb(129, 197, 219));
-            border-right: 1px solid rgb(87, 182, 214);
+            border-right: 2px solid rgb(87, 182, 214);
+            border-left: 2px solid rgb(87, 182, 214);
             border-radius: 5px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            font-size: 35px;
             box-shadow: 2px 5px 3px -3px #888888;
+            margin-top: 3%;
 
             button{
+                font-size: 15px;
                 margin: 2px;
             }
 

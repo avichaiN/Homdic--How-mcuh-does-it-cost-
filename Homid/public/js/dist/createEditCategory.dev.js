@@ -42,11 +42,11 @@ var hideEditOrDeleteCategory = function hideEditOrDeleteCategory() {
 
 var deleteCategory = function deleteCategory(e) {
   e.stopPropagation();
-  console.log(e.target.parentNode.dataset.name);
+  console.log(e.target.parentNode.dataset.id);
 }; //edit category
 
 
 var editCategory = function editCategory(e) {
   e.stopPropagation();
-  console.log(e.target.parentNode.dataset.name); // add menu of edit category
+  console.log(e.target.parentNode.dataset.id); // add menu of edit category
 };
