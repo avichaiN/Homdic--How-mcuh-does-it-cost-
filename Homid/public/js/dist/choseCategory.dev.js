@@ -1,10 +1,17 @@
 "use strict";
 
-var showUserDropDown = function showUserDropDown(e) {
-  document.querySelector('.cateogryPage__headerUserInfoDrop').style.display = 'flex';
-  e.stopPropagation();
-};
-
-var hideUserDropDown = function hideUserDropDown() {
-  document.querySelector('.cateogryPage__headerUserInfoDrop').style.display = 'none';
+var getCategories = function getCategories() {
+  fetch('/category/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      newCategory: newCategory
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+  });
 };
