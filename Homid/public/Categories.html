@@ -6,25 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>כמה? קטגוריות</title>
     <link rel="stylesheet" href="styles/dist/category.css">
+    <link rel="stylesheet" href="styles/dist/headerNav.css">
 </head>
 
 <body onload="getCategories()">
-    <div class="cateogryPage" onclick="hideUserDropDown()">
+    <div class="cateogryPage" onclick="hideUserDropDown(),hideEditOrDeleteCategory()">
 
         <!-- header  -->
-        <div class="cateogryPage__header">
+        <div class="header">
 
-            <div class="cateogryPage__headerHelloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+            <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
 
-            <form class="cateogryPage__headerForm">
-                <input class="cateogryPage__headerFormInput" type="text">
-                <input class="cateogryPage__headerFormSubmit" type="submit" value="חפש">
+            <form class="header__form">
+                <input class="header__formInput" type="text">
+                <input class="header__formSubmit" type="submit" value="חפש">
             </form>
 
             <!-- user info / logout / edit user // show all posts -->
-            <div class="cateogryPage__headerUserInfo">
-                <div class="cateogryPage__headerUserInfoShow" onclick="showUserDropDown(event)"></div>
-                <div class="cateogryPage__headerUserInfoDrop">
+            <div class="header__userInfo">
+                <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
+                <div class="header__userInfoDrop">
 
                     <button>פוסטים שלי</button>
                     <button>עדכן פרטי חשבון</button>
@@ -34,51 +35,75 @@
             </div>
         </div>
         <!-- categorys -->
-        <h1>כמה יעלה לי? קטגוריות.</h1>
+        <h1>כמה יעלה לי?</h1>
+        <h2>קטגוריות.</h2>
         <div class="cateogryPage__categorys">
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
             <div class="cateogryPage__categorysBox">
-                <img
-                    src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
-                <div class="cateogryPage__categorysBoxContainer">
+                <img src="https://c.stocksy.com/a/Qjx800/z9/2136236.jpg">
+                <div class="cateogryPage__categorysBoxContainer" data-name='PUT CATEGORY ID HERE!!'>
                     <p>רכבים</p>
+                    <button onclick="showEditOrDeleteCategory(event)" style="display: none;">admin</button>
+                    <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
+                    <!-- add menu of edit cateogry -->
+                    <button onclick='editCategory(event)' style="display: none;" class="editCategory">ערוך</button>
                 </div>
             </div>
         </div>
+
+        <a href="http://localhost:3000/newPost.html" class="newPostButton">
+            <img src="https://icons-for-free.com/iconfiles/png/512/circle+create+new+plus+sign+icon-1320085936892806512.png">
+            <label>פוסט חדש</label>
+        </a>
     </div>
 
 
