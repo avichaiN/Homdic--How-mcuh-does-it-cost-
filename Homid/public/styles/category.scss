@@ -1,3 +1,5 @@
+
+
 body {
     direction: rtl;
     background-color: #e2e1e1;
@@ -31,22 +33,25 @@ body {
     .cateogryPage__categorys {
         position: relative;
         top: 6%;
-        width: 70%;
+        width: 80%;
         height: 70%;
         margin: auto;
         margin-top: 2%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        place-items: center;
+        grid-template-columns:  repeat(auto-fill, minmax(250px, 1fr));
         grid-column-gap: 5%;
         grid-row-gap: 0%;
+
+        
 
         .cateogryPage__categorysBox:hover {
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
         }
 
         .cateogryPage__categorysBox {
-            width: 100%;
-            height: 32vh;
+           width: 250px;
+           height: 200px;
             border-radius: 5px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 

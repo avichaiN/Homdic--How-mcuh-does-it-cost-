@@ -1,3 +1,9 @@
+@use 'general';@mixin mq($size) {
+    @media only screen and (min-width: $size) {
+      @content;
+    }
+  }
+
 .header {
     position: fixed;
     top: 0;
@@ -13,6 +19,20 @@
         align-self: center;
         width: 33%;
         margin-right: 5%;
+
+        @include mq(260px) {
+           font-size: xx-small;
+        }
+        @include mq(479px) {
+            font-size: x-small;
+        }
+         @include mq(768px) {
+            font-size: large;
+        }
+         @include mq(1200px) {
+            font-size: large;
+        }
+
     }
 
     .header__form {
@@ -35,6 +55,19 @@
             height: 50%;
             align-self: center;
             border: 0;
+           /*  @include mq(260px) {
+                font-size: xx-small;
+             }
+             @include mq(479px) {
+                 font-size: x-small;
+             }
+              @include mq(768px) {
+                 font-size: large;
+             }
+              @include mq(1200px) {
+                 font-size: large;
+             } */
+     
         }
         .header__formSubmit:focus {
             outline: 1px solid black;
@@ -60,7 +93,7 @@
             flex-direction: column;
             justify-content: space-around;
             padding: 15px;
-            width: 50%;
+            min-width: 50%;
             float: left;
             background: linear-gradient(to bottom, lightblue, rgb(129, 197, 219));
             border-right: 2px solid rgb(87, 182, 214);
