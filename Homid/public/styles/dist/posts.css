@@ -8,11 +8,31 @@ body {
   height: 99vh;
 }
 body #app {
-  width: 100%;
+  margin: auto;
   height: 100%;
   background-color: #ededef;
   position: relative;
   top: 2%;
+}
+@media only screen and (min-width: 260px) {
+  body #app {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app {
+    width: 70%;
+  }
 }
 body #app #categoryHeder {
   height: 20%;

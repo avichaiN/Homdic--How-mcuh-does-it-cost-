@@ -30,6 +30,20 @@ body {
         background-color: $body-bg-color;
         position: relative;
         top: 5%;
+        /*  @include mq(260px) {
+            width: 100%;
+        }
+        @include mq(480px) {
+            width: 100%;
+        }
+        @include mq(768px) {
+            width: 80%;
+        }
+        @include mq(1000px) {
+            width: 70%;
+            margin:auto;
+        }
+ */
 
         .comments-post {
             border-radius: 0 0 10px 10px;
@@ -144,11 +158,11 @@ body {
                 font-size: 0.9rem;
             }
             @include mq(1000px) {
-                top: 52%;
+                top: 40%;
                 font-size: 1rem;
             }
-            @include mq(1200px) {
-                top: 53%;
+            @include mq(2000px) {
+                top:90%;
                 font-size: 1rem;
             }
 

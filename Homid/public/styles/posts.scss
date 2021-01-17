@@ -24,11 +24,27 @@ body {
     height: 99vh;
 
     #app {
-        width: 100%;
+        margin:auto;
+       
         height: 100%;
         background-color: $body-bg-color;
         position: relative;
         top: 2%;
+
+        @include mq(260px) {
+            width: 100%;
+        }
+        @include mq(480px) {
+            width: 100%;
+        }
+        @include mq(768px) {
+            width: 80%;
+        }
+        @include mq(1000px) {
+            width: 70%;
+        }
+
+
         #categoryHeder {
             height: 20%;
             background-color: $categoryHeder-bg-color;
