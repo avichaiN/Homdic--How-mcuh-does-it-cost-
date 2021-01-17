@@ -35,14 +35,16 @@ body {
     background-color: rgba(77, 77, 77, 0.4);
     padding: 10px;
     width: 35vw;
+   
     
   
 }
 .tab--form {
     background-color: #fff;
     display: none;
-    padding: 30px 20px 20px;
+    padding: 70px 150px 30px;
     height: 470px;
+   
 }
 
 .tab--form.active {
@@ -52,12 +54,12 @@ body {
 
 .tab--form a {
     text-decoration: none;
-    transition: 5s;
+    transition: 0.3s;
     color: #298cad;
 }
-.tab--form a:hover{
+/* .tab--form a:hover{
     color: #36d2ff;
-}
+} */
 .tab--form ul {
     list-style: none;
     padding: 0;
@@ -89,6 +91,7 @@ label.tab {
    }
    input[name="tabs"]{
        display: none;
+      
    }
 
 .tab::before {
@@ -108,11 +111,17 @@ font-weight: normal;
 .input{
     font-size: 16px;
     border: 2px solid #e9eaea;
+    border-radius: 5px;
     padding: 12px 14px;
     box-sizing: border-box;
     margin-bottom: 22px;
     color: #1e8da6;
     outline: none;
+    direction: rtl;
+}
+.input:hover{
+    border: 2px solid #bebebe;
+    transition: 0.3;
 }
 
 ::-webkit-input-placeholder {color: #c4c9c9;}
@@ -128,6 +137,12 @@ a.button {
     line-height: 46px;
     margin-top: 30px;
     margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+a.button:hover{
+    transition: 0.3s;
+    background-color:  #0c6886;
 }
 
 .social {
@@ -150,19 +165,24 @@ a.button {
     text-align: center;
 }
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1400px) {
     .formsContainer{
         width: 60vw;   
     }
-    
+    .tab--form {
+       padding: 70px 100px 30px;
+       
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .formsContainer{
-        width: 70vw;
-        
-      
+        width: 70vw;    
     }
+    .tab--form {
+        padding: 70px 70px 30px;
+        
+     }
 }  
 
 @media only screen and (max-width: 480px) {
@@ -176,9 +196,13 @@ a.button {
      .tab::before {
          font-size: 100%;
      }
+     .tab--form {
+        padding: 30px 50px 30px;
+        
+     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 280px) {
     .formsContainer{
         width: 80vw;
         
@@ -188,5 +212,9 @@ a.button {
      }
      .tab::before {
          font-size: 100%;
+     }
+     .tab--form {
+        padding: 30px 30px 30px;
+        
      }
 }
