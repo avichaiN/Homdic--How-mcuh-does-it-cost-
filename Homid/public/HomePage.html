@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Home Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='HPstyle.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/HPstyle.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
 </head>
+
 <body>
     <div class="wrapper">
         <div class="formsContainer">
 
             <label class="tab active" for="tab1" id="tab1" onclick="showPageSignIn(event)">כניסה לאתר</label>
-<label class="tab" for="tab2" id="tab2" onclick="showPageSignUp(event)">הרשמה לאתר</label>
+            <label class="tab" for="tab2" id="tab2" onclick="showPageSignUp(event)">הרשמה לאתר</label>
 
-<form id="form1" class="tab--form active">
-    <input class="input" type="email" placeholder="דואר אלקטרוני">
-    <input class="input" type="password" placeholder="סיסמה">
-    <a href="#" class="button">כניסה</a>
-    <ul class="social">
-        <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-        <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
-        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-        <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
-    </ul>
-    <a id="forgotPassword" onclick="showPageForgotPass(event)" href="#">?שכחתם סיסמה</a>
-</form>
-<form id="form2" class="tab--form">
-    <input class="input" type="text" placeholder="שם פרטי">
-    <input class="input" type="text" placeholder="שם משפחה">
-    <input class="input" type="email" placeholder="דואר אלקטרוני">
-    <input class="input" type="password" placeholder="סיסמה">
-    <input class="input" type="password" placeholder="אימות סיסמה">
-   
-    <a href="#" class="button">הרשמה</a>
-    <div class="policyApproval">
-        
-        <span id="textForCheck">הנני מאשר/ת כי קראתי את <a href="#">תקנון האתר</a> ומסכימ/ה לתנאיהם</span>
-            <input id="check" type="checkbox">
-        
-    </div>
-</form>
+            <form id="form1" class="tab--form active">
+                <input class="input" type="email" placeholder="דואר אלקטרוני">
+                <input class="input" type="password" placeholder="סיסמה">
+                <a href="#" class="button">כניסה</a>
+                <ul class="social">
+                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
+                </ul>
+                <a id="forgotPassword" onclick="showPageReset(event)" href="#">?שכחתם סיסמה</a>
+            </form>
+            <form id="form2" class="tab--form">
+                <input class="input" type="text" placeholder="שם פרטי">
+                <input class="input" type="text" placeholder="שם משפחה">
+                <input class="input" type="email" placeholder="דואר אלקטרוני">
+                <input class="input" type="password" placeholder="סיסמה">
+                <input class="input" type="password" placeholder="אימות סיסמה">
 
-<form id="form3" class="tab--form">
-    <input class="input" type="email" placeholder="דואר אלקטרוני">
-    <a href="#" class="button">אפסו את הסיסמה</a>
-    
-   
-        
-    </div>
-</form>
+                <a href="#" class="button">הרשמה</a>
+                <div class="policyApproval">
 
+                    <span id="textForCheck">הנני מאשר/ת כי קראתי את <a href="#">תקנון האתר</a> ומסכימ/ה לתנאיהם</span>
+                    <input id="check" type="checkbox">
+
+                </div>
+            </form>
+
+            <form id="form3" class="tab--form">
+                <input class="input" type="email" placeholder="דואר אלקטרוני">
+                <a href="#" class="button">אפסו את הסיסמה</a>
 
         </div>
+        </form>
+
+    </div>
     </div>
 
 
-   <script src='HPscript.js'></script>
+    <script src='js/HPscript.js'></script>
 </body>
+
 </html>
