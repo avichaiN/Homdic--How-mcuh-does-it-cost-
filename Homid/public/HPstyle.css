@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(/Homid/public/img/loft.jpg);
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.policyApproval{
+    display: flex;
+    justify-content: flex-end;
+  
+
+}
+#check{
+    width: auto;
+    height: auto;
+
+}
+#textForCheck{
+    text-align: right;
+}
+
+.input::placeholder{
+    text-align: right;
+}
+.formsContainer{
+    background-color: rgba(77, 77, 77, 0.3);
+    padding: 10px;
+    width: 35vw;
+    
+  
+}
+.tab--form {
+    background-color: #fff;
+    display: none;
+    padding: 30px 20px 20px;
+    height: 470px;
+}
+
+.tab--form.active {
+    display: block;
+}
+
+
+.tab--form a {
+    text-decoration: none;
+    transition: 5s;
+    color: #298cad;
+}
+.tab--form a:hover{
+    color: #36d2ff;
+}
+.tab--form ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.tab--form input {
+    display: block;
+    width: 100%;
+}
+
+label.tab {
+    color: #ffffff;
+    font-weight: 600;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 3px 3px 0 0;
+    margin-bottom: -1px;
+    cursor: pointer;
+   }
+
+    label.tab.active {
+    background-color: #fff;
+    color: #1d5f75;
+   } 
+
+   input[name="tabs"]:checked + label {
+    background-color: #fff;
+    color: #1d5f75;
+   }
+   input[name="tabs"]{
+       display: none;
+   }
+
+.tab::before {
+content: '\f090';
+font-family: 'FontAwesome', sans-serif;
+font-size: 24px;
+margin-right: 11px;
+font-weight: normal;
+}
+.tab[for*='2']::before {
+    content: '\f234';
+}
+
+.del {
+    display: none;
+}
+.input{
+    font-size: 16px;
+    border: 2px solid #e9eaea;
+    padding: 12px 14px;
+    box-sizing: border-box;
+    margin-bottom: 22px;
+    color: #1e8da6;
+    outline: none;
+}
+
+::-webkit-input-placeholder {color: #c4c9c9;}
+
+
+
+a.button {
+    background: #298cad;
+    color: #ffffff;
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    line-height: 46px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.social {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+}
+.social a {
+    width: 40px;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+}
+
+.social + a {
+    margin-top: 10px;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+
+  @media only screen and (max-width: 1024px) {
+    .formsContainer{
+        width: 60vw;   
+    }
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .formsContainer{
+        width: 70vw;
+        
+      
+    }
+}  
+
+@media only screen and (max-width: 480px) {
+    .formsContainer{
+        width: 80vw;
+     
+    }
+    .tab{
+        font-size: 80%; 
+     }
+     .tab::before {
+         font-size: 100%;
+     }
+}
+
+@media only screen and (max-width: 480px) {
+    .formsContainer{
+        width: 80vw;
+        
+    }
+    .tab{
+        font-size: 68%; 
+     }
+     .tab::before {
+         font-size: 100%;
+     }
+}
