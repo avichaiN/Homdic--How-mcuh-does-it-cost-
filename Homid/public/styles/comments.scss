@@ -37,13 +37,18 @@ body {
                 justify-content: space-between;
                 background-color: $postheder-bg-color;
 
-                padding: 5% 5% 2% 2%;
+                padding: 2% 5% 1% 2%;
                 .posttitle {
                     width: 80%;
                 }
                 .postbudy {
                     margin-right: 1%;
                     width: 80%;
+                }
+                #hederImg{
+                    max-width: 20%;
+                    max-width: 70%;
+                    box-shadow: 1px 1px 5px 2px;
                 }
             }
             .futter {

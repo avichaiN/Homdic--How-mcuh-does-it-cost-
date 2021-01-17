@@ -25,7 +25,7 @@ body #app .comments-post #postheder {
   display: flex;
   justify-content: space-between;
   background-color: #cfd8dd;
-  padding: 5% 5% 2% 2%;
+  padding: 2% 5% 1% 2%;
 }
 body #app .comments-post #postheder .posttitle {
   width: 80%;
@@ -33,6 +33,11 @@ body #app .comments-post #postheder .posttitle {
 body #app .comments-post #postheder .postbudy {
   margin-right: 1%;
   width: 80%;
+}
+body #app .comments-post #postheder #hederImg {
+  max-width: 20%;
+  max-width: 70%;
+  box-shadow: 1px 1px 5px 2px;
 }
 body #app .comments-post .futter {
   display: flex;
