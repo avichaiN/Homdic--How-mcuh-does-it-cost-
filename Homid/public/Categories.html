@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles/dist/headerNav.css">
 </head>
 
-<body onload="getCategories()">
+<body onload="getDisplayCategories()">
     <div class="cateogryPage" onclick="hideUserDropDown(),hideEditOrDeleteCategory()">
 
         <!-- header  -->
@@ -104,20 +104,24 @@
             <img src="https://icons-for-free.com/iconfiles/png/512/circle+create+new+plus+sign+icon-1320085936892806512.png">
             <label>פוסט חדש</label>
         </a>
-    </div>
 
-
-    <!-- Admin add category DIV - defualt: display:none -->
+            <!-- Admin add category DIV - defualt: display:none -->
     <div class="category__admin">
+        <label style="font-size: 10px;">רק למראה אדמין</label>
+        <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק או ערוך קטגוריה</button>
         <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
         <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
             <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
             <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
             <input value="הוסף" type="submit">
+            <button onclick="hideAddCategoryAndEditForm()">בטל</button>
         </form>
     </div>
 
+    <div class="category__edit">
 
+    </div>
+    </div>
 
     <script src="js/chooseCategory.js"></script>
     <script src="js/headerNav.js"></script>

@@ -2,17 +2,25 @@ const express = require('express');
 const Category = require('../models/category');
 const router = express.Router();
 
+async function categoriesFind(){
+    try {
+        return Category.find({}).exec()
+
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 // get all categories to display on category page.
 router.get('/', async (req, res) => {
 
     try {
-        await Category.find({}, (err, categories) => {
-            if (err) {
-                res.send({ ok: false })
-            } else {
-                res.send({ categories })
-            }
-        })
+        let categories = await categoriesFind()
+        if(categories === false || categories === undefined){
+            res.send({ ok: false })
+        }else{
+        res.send({ok:true, categories})
+        }
     } catch (e) {
         res.send({ ok: false })
     }
@@ -22,14 +30,58 @@ router.get('/', async (req, res) => {
 router.post('/create', async (req, res) => {
     const { newCategoryName } = req.body
     const { newCategoryImg } = req.body
-    console.log(newCategory)
-    const category = new Category({ Name: newCategory, img: newCategoryImg })
+
+    console.log(newCategoryName)
+    console.log(newCategoryImg)
+
+    const category = new Category({ Name: newCategoryName, Img: newCategoryImg })
     try {
         await category.save()
-        res.send({ ok: true })
+        let categories = await categoriesFind()
+        res.send({ ok: true,category,categories })
     } catch (e) {
         console.log(e)
         res.send({ ok: false })
+    }
+})
+router.post('/edit', async (req, res) => {
+    const {categoryId, newCategoryName, newCategoryImg} = req.body
+
+    try{
+        await Category.findOneAndUpdate({ _id: categoryId },
+            {Img: newCategoryImg, Name: newCategoryName},
+             async function (err, category) {
+            if (err) {
+                console.log(newCategoryName,newCategoryImg)
+                console.log(err)
+                res.send({ ok: false })
+            } else {
+                let categories = await categoriesFind()
+                console.log(categories)
+                res.send({ok:true, category, categories})
+            }
+        })
+    }catch(e){
+        console.log(e)
+    }
+})
+router.post('/delete', async (req, res) => {
+    const {chosenCategoryid} = req.body
+
+    try{
+        await Category.findOneAndRemove({ _id: chosenCategoryid },
+             async function (err, category) {
+            if (err) {
+                res.send({ ok: false })
+            } else {
+                let categories = await categoriesFind()
+                console.log(categories)
+                res.send({ok:true, category, categories})
+            }
+        })
+    }catch(e){
+        console.log(e)
+        res.send({ok:false})
     }
 })
 

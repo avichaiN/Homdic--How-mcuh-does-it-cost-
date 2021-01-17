@@ -35,21 +35,22 @@ body {
   margin-top: 2%;
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-column-gap: 5%;
-  grid-row-gap: 0%;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-column-gap: 3%;
+  grid-row-gap: 3%;
 }
 .cateogryPage .cateogryPage__categorys .cateogryPage__categorysBox:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .cateogryPage .cateogryPage__categorys .cateogryPage__categorysBox {
-  width: 250px;
-  height: 200px;
+  width: 300px;
+  height: 220px;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .cateogryPage .cateogryPage__categorys .cateogryPage__categorysBox img {
   width: 90%;
+  height: 9rem;
   display: block;
   margin: 2% auto auto auto;
 }
@@ -88,9 +89,52 @@ body {
   width: 75%;
 }
 
+.category__admin {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 10%;
+  height: 5rem;
+  border: 3px dotted darkblue;
+}
+.category__admin button {
+  border-radius: 4px;
+}
 .category__admin .category__adminAddCategory {
-  display: none;
+  display: block;
 }
 .category__admin .category__adminAddCategoryForm {
   display: none;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background-color: lightgray;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  width: 240px;
+  height: 100px;
+  padding: 5px;
+  z-index: 6;
+}
+
+.category__edit {
+  display: none;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  border: 1px solid darkgray;
+  background-color: lightgray;
+  border-radius: 5px;
+  width: 25%;
+  height: 10rem;
+  z-index: 6;
+  padding: 10px;
+}
+.category__edit img {
+  width: 35%;
+  height: 5rem;
+  float: left;
 }

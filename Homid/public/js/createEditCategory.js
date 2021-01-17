@@ -7,7 +7,7 @@ const handleDisplayAddCategory = () => {
 const handleNewCategory = (e) => {
     e.preventDefault()
     const newCategoryName = document.getElementById('categoryInput').value;
-    const newCategoryImg = document.getElementById('categoryInput').value;
+    const newCategoryImg = document.getElementById('categoryImgInput').value;
 
     fetch('/category/create', {
         method: 'POST',
@@ -18,29 +18,107 @@ const handleNewCategory = (e) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            if(!data.ok){
+                console.log('error addming category')
+            }else{
+                writeCategoiresToDom(data.categories)
+                console.log(data)
+            }
         })
 }
 
 // button to show menu of edit or delete for amdin.
 const showEditOrDeleteCategory = (e) => {
-    document.querySelector('.deleteCategory').style.display = 'inline'
-    document.querySelector('.editCategory').style.display = 'inline'
+
+    let deleteButton = document.querySelectorAll('.deleteCategory'), i;
+    let editButton = document.querySelectorAll('.editCategory');
+
+for (i = 0; i < deleteButton.length; ++i) {
+    deleteButton[i].style.display = "inline";
+    editButton[i].style.display = 'inline';
+}
     e.stopPropagation();
 }
 // button to hide menu of edit or delete for amdin.
 const hideEditOrDeleteCategory = () => {
-    document.querySelector('.deleteCategory').style.display = 'none'
-    document.querySelector('.editCategory').style.display = 'none'
+    let deleteButton = document.querySelectorAll('.deleteCategory'), i;
+    let editButton = document.querySelectorAll('.editCategory');
+
+for (i = 0; i < deleteButton.length; ++i) {
+    deleteButton[i].style.display = "none";
+    editButton[i].style.display = 'none';
+}
+
 }
 //delete category
 const deleteCategory = (e) => {
     e.stopPropagation();
-    console.log(e.target.parentNode.dataset.id)
+    const chosenCategoryid = e.target.parentNode.dataset.id
+    console.log(chosenCategoryid)
+    fetch('/category/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ chosenCategoryid })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            writeCategoiresToDom(data.categories)
+        })
+
 }
 //edit category
-const editCategory = (e) => {
+const editCategoryForm = (e) => {
     e.stopPropagation();
-    console.log(e.target.parentNode.dataset.id)
-    // add menu of edit category
+    const categoryName = e.target.parentNode.dataset.name
+    const categoryImg = e.target.parentNode.dataset.img
+    const categoryId = e.target.parentNode.dataset.id
+    document.querySelector('.category__edit').style.display = 'block'
+
+    let editCategoryFormHtml = `
+    <label>שם קטגוריה: ${categoryName}</label>
+    <img src="${categoryImg}">
+    <form onsubmit="editCategory(event)">
+    <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש">
+        <input type="text" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה">
+        <input type="submit" value="עדכן">
+        <button onclick='hideAddCategoryAndEditForm()'>בטל</button>
+    </form>
+    <label>כל שדה שישאר ריק ישמור את הערך הישן</label>`
+
+    document.querySelector('.category__edit').innerHTML = editCategoryFormHtml 
+}
+const hideAddCategoryAndEditForm = () =>{
+    document.querySelector('.category__edit').style.display = 'none'
+    document.querySelector('.category__adminAddCategoryForm').style.display = 'none'
+}
+const editCategory = (e) =>{
+    e.preventDefault()
+    const categoryId = e.target.children.name.dataset.id
+    const oldCategoryName = e.target.children.name.dataset.name
+    const oldCategoryImg = e.target.children.img.dataset.img
+    let newCategoryName = e.target.children.name.value
+    let newCategoryImg = e.target.children.img.value
+    if(newCategoryName=== ''){
+        newCategoryName = oldCategoryName
+    }
+    if(newCategoryImg === ''){
+        newCategoryImg = oldCategoryImg
+    }
+    console.log(newCategoryImg,newCategoryName)
+
+    fetch('/category/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ categoryId, newCategoryImg , newCategoryName })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            writeCategoiresToDom(data.categories)
+        })
 }
