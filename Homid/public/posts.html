@@ -24,7 +24,7 @@
       <!-- user info / logout / edit user // show all posts -->
       <div class="header__userInfo">
           <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
-          <div class="header__userInfoDrop">
+          <div class="header__userInfoDrop" >
 
               <button>פוסטים שלי</button>
               <button>עדכן פרטי חשבון</button>
@@ -33,15 +33,15 @@
           </div>
       </div>
   </div>
-    
+  <heder id="categoryHeder">
+    <input id="addPostbutton"    class="show" type="button" value="+" onclick="showAddpost()"/>
+    <input id="removePostbutton" class="hide" type="button" value="-" onclick= "hideAddpost()"/>        
+    <h1>מכשירי חשמל</h1>
+    <img id="hederImg" src="./img/electircs.jfif" alt="" />
+  </heder>
     <div id="app">
       
-      <heder id="categoryHeder">
-        <input id="addPostbutton" type="button" value="+" onclick="showAddpost()"/>
-        <input id="removePostbutton" class="hide" type="button" value="-" onclick="showAddpost()"/>        
-        <h1>מכשירי חשמל</h1>
-        <img id="hederImg" src="./img/electircs.jfif" alt="" />
-      </heder>
+     
       <!-- add post -->
       <div class="AddPost hide">
         <div id="postAddHeder">
@@ -61,8 +61,121 @@
       </div>
       </div>
 <!-- end post -->
+
  <!-- start post -->
  <div class="post">
+  <div id="postheder">
+    <h1 class="posttitle">מזגן</h1>
+    <p class="postbudy">מעוניין במתקין למזגן</p>
+  </div>
+  <div class="futter">
+    <div>
+      <span class="material-icons"> notifications </span>
+      <p>תזכורת</p>
+    </div>
+    <div>
+      <span class="material-icons"> info </span>
+      <p>מידע</p>
+    </div>
+    <div>
+      <span class="material-icons"> favorite </span>
+      <p>מועדפים</p>
+    </div>
+    <div>
+      <span class="material-icons">
+        add_circle_outline
+        </span>
+      <p>רשום תגובה</p>
+    </div>
+  </div>
+</div>
+<!-- end post -->
+<!-- start post -->
+<div class="post">
+  <div id="postheder">
+    <h1 class="posttitle">מזגן</h1>
+    <p class="postbudy">מעוניין במתקין למזגן</p>
+  </div>
+  <div class="futter">
+    <div>
+      <span class="material-icons"> notifications </span>
+      <p>תזכורת</p>
+    </div>
+    <div>
+      <span class="material-icons"> info </span>
+      <p>מידע</p>
+    </div>
+    <div>
+      <span class="material-icons"> favorite </span>
+      <p>מועדפים</p>
+    </div>
+    <div>
+      <span class="material-icons">
+        add_circle_outline
+        </span>
+      <p>רשום תגובה</p>
+    </div>
+  </div>
+</div>
+<!-- end post -->
+<!-- start post -->
+<div class="post">
+  <div id="postheder">
+    <h1 class="posttitle">מזגן</h1>
+    <p class="postbudy">מעוניין במתקין למזגן</p>
+  </div>
+  <div class="futter">
+    <div>
+      <span class="material-icons"> notifications </span>
+      <p>תזכורת</p>
+    </div>
+    <div>
+      <span class="material-icons"> info </span>
+      <p>מידע</p>
+    </div>
+    <div>
+      <span class="material-icons"> favorite </span>
+      <p>מועדפים</p>
+    </div>
+    <div>
+      <span class="material-icons">
+        add_circle_outline
+        </span>
+      <p>רשום תגובה</p>
+    </div>
+  </div>
+</div>
+<!-- end post -->
+<!-- start post -->
+<div class="post">
+  <div id="postheder">
+    <h1 class="posttitle">מזגן</h1>
+    <p class="postbudy">מעוניין במתקין למזגן</p>
+  </div>
+  <div class="futter">
+    <div>
+      <span class="material-icons"> notifications </span>
+      <p>תזכורת</p>
+    </div>
+    <div>
+      <span class="material-icons"> info </span>
+      <p>מידע</p>
+    </div>
+    <div>
+      <span class="material-icons"> favorite </span>
+      <p>מועדפים</p>
+    </div>
+    <div>
+      <span class="material-icons">
+        add_circle_outline
+        </span>
+      <p>רשום תגובה</p>
+    </div>
+  </div>
+</div>
+<!-- end post -->
+<!-- start post -->
+<div class="post">
   <div id="postheder">
     <h1 class="posttitle">מזגן</h1>
     <p class="postbudy">מעוניין במתקין למזגן</p>
@@ -147,12 +260,7 @@
 <!-- end post -->
     </div>
 
-<!-- <script src="/Homid/public/js/post-comment_functunality.js"></script> -->
-<script>
-  function showAddpost(){
-document.querySelector(".AddPost").classList.replace("hide", "show");   
-  
-}
-</script>
+<script src="../public/js/post-comment_functunality.js"></script>
+
   </body>
 </html>
