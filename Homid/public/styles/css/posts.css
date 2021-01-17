@@ -47,6 +47,7 @@ body #app #categoryHeder input {
   text-align: center;
 }
 body #app .AddPost {
+  display: block;
   border-radius: 0 0 10px 10px;
   box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
   background-color: #bd2222;
@@ -169,12 +170,4 @@ body #app .post .futter div p {
 .material-icons {
   display: flex;
   justify-content: center;
-}
-
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
 }

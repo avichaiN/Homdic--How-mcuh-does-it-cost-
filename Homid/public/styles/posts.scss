@@ -64,7 +64,7 @@ body {
             }
         }
         .AddPost {
-            display: none;
+           
             border-radius: 0 0 10px 10px;
             box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
             background-color: rgb(189, 34, 34);
@@ -180,4 +180,12 @@ body {
 .material-icons {
     display: flex;
     justify-content: center;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
 }
