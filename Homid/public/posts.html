@@ -37,12 +37,13 @@
     <div id="app">
       
       <heder id="categoryHeder">
-        <input id="addPost" type="button" value="+" />        
+        <input id="addPostbutton" type="button" value="+" onclick="showAddpost()"/>
+        <input id="removePostbutton" class="hide" type="button" value="-" onclick="showAddpost()"/>        
         <h1>מכשירי חשמל</h1>
         <img id="hederImg" src="./img/electircs.jfif" alt="" />
       </heder>
       <!-- add post -->
-      <div class="AddPost">
+      <div class="AddPost hide">
         <div id="postAddHeder">
           <h1 class="addPosTtitle">הוספת פוסט</h1>
           <textarea name="message" ></textarea>
@@ -145,5 +146,13 @@
 </div>
 <!-- end post -->
     </div>
+
+<!-- <script src="/Homid/public/js/post-comment_functunality.js"></script> -->
+<script>
+  function showAddpost(){
+document.querySelector(".AddPost").classList.replace("hide", "show");   
+  
+}
+</script>
   </body>
 </html>
