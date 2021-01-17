@@ -11,6 +11,8 @@ body #app {
   width: 100%;
   height: 100%;
   background-color: #ededef;
+  position: relative;
+  top: 2%;
 }
 body #app #categoryHeder {
   height: 20%;
@@ -45,6 +47,7 @@ body #app #categoryHeder input {
   text-align: center;
 }
 body #app .AddPost {
+  display: none;
   border-radius: 0 0 10px 10px;
   box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
   background-color: #bd2222;
@@ -92,12 +95,32 @@ body #app .post #postheder {
   background-color: #cfd8dd;
   cursor: pointer;
   padding: 2% 8% 2% 8%;
-  /*    .posttitle {
-      //  margin-right: 9%;
-  } */
+}
+body #app .post #postheder .posttitle {
+  margin: 0;
 }
 body #app .post #postheder .postbudy {
   margin-right: 1%;
+}
+@media only screen and (min-width: 260px) {
+  body #app .post #postheder {
+    padding: 0 5% 0.5% 5%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .post #postheder {
+    padding: 3% 8% 2% 8%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .post #postheder {
+    padding: 2% 8% 2% 8%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .post #postheder {
+    padding: 2% 8% 2% 8%;
+  }
 }
 body #app .post .futter {
   display: flex;
@@ -109,7 +132,7 @@ body #app .post .futter {
 }
 @media only screen and (min-width: 260px) {
   body #app .post .futter {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 @media only screen and (min-width: 480px) {
@@ -133,22 +156,15 @@ body #app .post .futter div {
   justify-content: center;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 6%;
+  margin-right: 6%;
 }
 body #app .post .futter div:active {
   color: #2097f5;
 }
 body #app .post .futter div p {
   margin-top: 2%;
-}
-@media only screen and (min-width: 260px) {
-  body #app .post .futter div p {
-    max-width: 50%;
-  }
-}
-@media only screen and (min-width: 529px) {
-  body #app .post .futter div p {
-    max-width: 100%;
-  }
 }
 
 .material-icons {

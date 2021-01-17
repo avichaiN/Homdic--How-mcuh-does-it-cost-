@@ -1,8 +1,3 @@
-.center {
-  display: grid;
-  place-items: center;
-}
-
 body {
   direction: rtl;
   margin: 0 !important;
@@ -16,6 +11,8 @@ body #app {
   width: 100%;
   height: 100%;
   background-color: #ededef;
+  position: relative;
+  top: 5%;
 }
 body #app .comments-post {
   border-radius: 0 0 10px 10px;
@@ -39,11 +36,55 @@ body #app .comments-post #postheder .postbudy {
   margin-right: 1%;
   width: 90%;
 }
+@media only screen and (min-width: 260px) {
+  body #app .comments-post #postheder .postbudy {
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .comments-post #postheder .postbudy {
+    font-size: 1rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .comments-post #postheder .postbudy {
+    font-size: 1.1rem;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .comments-post #postheder .postbudy {
+    font-size: 1.3rem;
+  }
+}
 body #app .comments-post #postheder #hederImg {
   margin-left: 3%;
-  max-width: 20%;
-  max-width: 20%;
+  max-width: 30%;
   box-shadow: 1px 1px 5px 2px;
+}
+@media only screen and (min-width: 260px) {
+  body #app .comments-post #postheder #hederImg {
+    margin: 10% 1% 10% 1%;
+  }
+}
+@media only screen and (min-width: 360px) {
+  body #app .comments-post #postheder #hederImg {
+    margin: 7% 1% 7% 1%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .comments-post #postheder #hederImg {
+    margin: 5% 1% 5% 1%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .comments-post #postheder #hederImg {
+    margin: 2% 1% 2% 1%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .comments-post #postheder #hederImg {
+    margin: 1% 1% 1% 1%;
+  }
 }
 body #app .comments-post .futter {
   display: flex;
@@ -53,11 +94,76 @@ body #app .comments-post .futter {
   max-width: 50%;
   justify-content: space-evenly;
 }
+@media only screen and (min-width: 260px) {
+  body #app .comments-post .futter {
+    max-width: 90%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .comments-post .futter {
+    max-width: 90%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .comments-post .futter {
+    max-width: 80%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .comments-post .futter {
+    max-width: 70%;
+  }
+}
+body #app .comments-post .futter div {
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+body #app .comments-post .futter div:active {
+  color: #2097f5;
+}
+body #app .comments-post .futter div p {
+  margin-top: 2%;
+}
 body #app .commenstsSection {
   width: 98%;
   margin: auto;
   position: relative;
-  top: 50%;
+}
+@media only screen and (min-width: 260px) {
+  body #app .commenstsSection {
+    top: 46%;
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .commenstsSection {
+    top: 50%;
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .commenstsSection {
+    top: 50%;
+    font-size: 0.9rem;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .commenstsSection {
+    top: 52%;
+    font-size: 1rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  body #app .commenstsSection {
+    top: 53%;
+    font-size: 1rem;
+  }
 }
 body #app .commenstsSection .comment {
   border: 1px solid black;

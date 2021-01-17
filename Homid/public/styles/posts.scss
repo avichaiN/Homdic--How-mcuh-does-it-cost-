@@ -27,6 +27,8 @@ body {
         width: 100%;
         height: 100%;
         background-color: $body-bg-color;
+        position: relative;
+        top: 2%;
         #categoryHeder {
             height: 20%;
             background-color: $categoryHeder-bg-color;
@@ -62,6 +64,7 @@ body {
             }
         }
         .AddPost {
+            display: none;
             border-radius: 0 0 10px 10px;
             box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
             background-color: rgb(189, 34, 34);
@@ -113,11 +116,24 @@ body {
                 background-color: $postheder-bg-color;
                 cursor: pointer;
                 padding: 2% 8% 2% 8%;
-                /*    .posttitle {
+                .posttitle {
                     //  margin-right: 9%;
-                } */
+                    margin: 0;
+                }
                 .postbudy {
                     margin-right: 1%;
+                }
+                @include mq(260px) {
+                    padding: 0 5% 0.5% 5%;
+                }
+                @include mq(480px) {
+                    padding: 3% 8% 2% 8%;
+                }
+                @include mq(768px) {
+                    padding: 2% 8% 2% 8%;
+                }
+                @include mq(1000px) {
+                    padding: 2% 8% 2% 8%;
                 }
             }
             .futter {
@@ -128,7 +144,7 @@ body {
                 max-width: 50%;
                 justify-content: space-evenly;
                 @include mq(260px) {
-                    max-width: 100%;
+                    max-width: 90%;
                 }
                 @include mq(480px) {
                     max-width: 90%;
@@ -146,18 +162,14 @@ body {
                     justify-content: center;
                     display: flex;
                     flex-direction: column;
+                    flex-wrap: wrap;
+                    margin-left: 6%;
+                    margin-right: 6%;
                     &:active {
                         color: $addButton-bg-color;
                     }
                     p {
                         margin-top: 2%;
-                        @include mq(260px) {
-                            max-width: 50%;
-                        }
-
-                        @include mq(529px) {
-                            max-width: 100%;
-                        }
                     }
                 }
             }

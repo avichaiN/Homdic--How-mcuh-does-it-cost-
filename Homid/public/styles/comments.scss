@@ -1,4 +1,8 @@
-@use 'general';
+@mixin mq($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
 
 $post-bg-color: blue;
 $body-bg-color: #ededef;
@@ -18,11 +22,14 @@ body {
     background-color: $body-bg-color;
     width: 99vw;
     height: 99vh;
+   
 
     #app {
         width: 100%;
         height: 100%;
         background-color: $body-bg-color;
+        position: relative;
+        top: 5%;
 
         .comments-post {
             border-radius: 0 0 10px 10px;
@@ -44,12 +51,40 @@ body {
                 .postbudy {
                     margin-right: 1%;
                     width: 90%;
+                    @include mq(260px) {
+                        font-size: 0.7rem;
+                    }
+                    @include mq(480px) {
+                        font-size: 1rem;
+                    }
+                    @include mq(768px) {
+                        font-size: 1.1rem;
+                    }
+                    @include mq(1000px) {
+                        font-size: 1.3rem;
+                    }
                 }
                 #hederImg {
                     margin-left: 3%;
-                    max-width: 20%;
-                    max-width: 20%;
+                    max-width: 30%;
+                  //  height: 100%;
+                 
                     box-shadow: 1px 1px 5px 2px;
+                    @include mq(260px) {
+                        margin: 10% 1% 10% 1%;
+                    }
+                    @include mq(360px) {
+                        margin: 7% 1% 7% 1%;
+                    }
+                    @include mq(480px) {
+                        margin: 5% 1% 5% 1%;
+                    }
+                    @include mq(768px) {
+                        margin: 2% 1% 2% 1%;
+                    }
+                    @include mq(1000px) {
+                        margin: 1% 1% 1% 1%;
+                    }
                 }
             }
             .futter {
@@ -59,7 +94,34 @@ body {
                 background-color: white;
                 max-width: 50%;
                 justify-content: space-evenly;
-               
+                @include mq(260px) {
+                    max-width: 90%;
+                }
+                @include mq(480px) {
+                    max-width: 90%;
+                }
+                @include mq(768px) {
+                    max-width: 80%;
+                }
+                @include mq(1000px) {
+                    max-width: 70%;
+                }
+                div {
+                    cursor: pointer;
+                    align-items: center;
+                    justify-content: center;
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    margin-left: 6%;
+                    margin-right: 6%;
+                    &:active {
+                        color: $addButton-bg-color;
+                    }
+                    p {
+                        margin-top: 2%;
+                    }
+                }
             }
         }
         .commenstsSection {
@@ -68,7 +130,27 @@ body {
             width: 98%;
             margin: auto;
             position: relative;
-            top: 50%;
+          //  top: 40%;
+            @include mq(260px) {
+                top: 46%;
+                font-size: 0.7rem;
+            }
+            @include mq(480px) {
+                top: 50%;
+                font-size: 0.8rem;
+            }
+            @include mq(768px) {
+                top: 50%;
+                font-size: 0.9rem;
+            }
+            @include mq(1000px) {
+                top: 52%;
+                font-size: 1rem;
+            }
+            @include mq(1200px) {
+                top: 53%;
+                font-size: 1rem;
+            }
 
             .comment {
                 border: 1px solid black;
