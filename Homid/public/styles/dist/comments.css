@@ -13,6 +13,20 @@ body #app {
   background-color: #ededef;
   position: relative;
   top: 5%;
+  /*  @include mq(260px) {
+             width: 100%;
+         }
+         @include mq(480px) {
+             width: 100%;
+         }
+         @include mq(768px) {
+             width: 80%;
+         }
+         @include mq(1000px) {
+             width: 70%;
+             margin:auto;
+         }
+  */
 }
 body #app .comments-post {
   border-radius: 0 0 10px 10px;
@@ -155,13 +169,13 @@ body #app .commenstsSection {
 }
 @media only screen and (min-width: 1000px) {
   body #app .commenstsSection {
-    top: 52%;
+    top: 40%;
     font-size: 1rem;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 2000px) {
   body #app .commenstsSection {
-    top: 53%;
+    top: 90%;
     font-size: 1rem;
   }
 }
