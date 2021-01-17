@@ -43,11 +43,12 @@ body {
                 }
                 .postbudy {
                     margin-right: 1%;
-                    width: 80%;
+                    width: 90%;
                 }
-                #hederImg{
+                #hederImg {
+                    margin-left: 3%;
                     max-width: 20%;
-                    max-width: 70%;
+                    max-width: 20%;
                     box-shadow: 1px 1px 5px 2px;
                 }
             }
@@ -58,32 +59,31 @@ body {
                 background-color: white;
                 max-width: 50%;
                 justify-content: space-evenly;
-                .active {
-                    cursor: pointer;
-                    &:active {
-                        color: $addButton-bg-color;
-                    }
-                }
+               
             }
         }
         .commenstsSection {
-           
-           // height: 900px;
-           // background-color: blueviolet;
+            // height: 900px;
+            // background-color: blueviolet;
             width: 98%;
             margin: auto;
             position: relative;
-            top: 57%;
-           
+            top: 50%;
+
             .comment {
                 border: 1px solid black;
                 margin-top: 1%;
                 background-color: rgb(241, 241, 241);
-                height: 130px;
-                
-                &:nth-child(even){
+                height: 80px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                &:nth-child(even) {
                     background-color: #cfcece;
-                   }
+                }
+                p {
+                    width: 80%;
+                }
             }
         }
     }
@@ -92,4 +92,11 @@ body {
 .material-icons {
     display: flex;
     justify-content: center;
+}
+
+.active {
+    cursor: pointer;
+    &:active {
+        color: $addButton-bg-color;
+    }
 }

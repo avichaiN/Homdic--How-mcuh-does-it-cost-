@@ -1,3 +1,8 @@
+.center {
+  display: grid;
+  place-items: center;
+}
+
 body {
   direction: rtl;
   margin: 0 !important;
@@ -32,11 +37,12 @@ body #app .comments-post #postheder .posttitle {
 }
 body #app .comments-post #postheder .postbudy {
   margin-right: 1%;
-  width: 80%;
+  width: 90%;
 }
 body #app .comments-post #postheder #hederImg {
+  margin-left: 3%;
   max-width: 20%;
-  max-width: 70%;
+  max-width: 20%;
   box-shadow: 1px 1px 5px 2px;
 }
 body #app .comments-post .futter {
@@ -47,29 +53,36 @@ body #app .comments-post .futter {
   max-width: 50%;
   justify-content: space-evenly;
 }
-body #app .comments-post .futter .active {
-  cursor: pointer;
-}
-body #app .comments-post .futter .active:active {
-  color: #2097f5;
-}
 body #app .commenstsSection {
   width: 98%;
   margin: auto;
   position: relative;
-  top: 57%;
+  top: 50%;
 }
 body #app .commenstsSection .comment {
   border: 1px solid black;
   margin-top: 1%;
   background-color: #f1f1f1;
-  height: 130px;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 body #app .commenstsSection .comment:nth-child(even) {
   background-color: #cfcece;
+}
+body #app .commenstsSection .comment p {
+  width: 80%;
 }
 
 .material-icons {
   display: flex;
   justify-content: center;
+}
+
+.active {
+  cursor: pointer;
+}
+.active:active {
+  color: #2097f5;
 }
