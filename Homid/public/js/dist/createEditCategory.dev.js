@@ -63,7 +63,7 @@ var deleteCategory = function deleteCategory(e) {
   var chosenCategoryid = e.target.parentNode.dataset.id;
   console.log(chosenCategoryid);
   fetch('/category/delete', {
-    method: 'POST',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },

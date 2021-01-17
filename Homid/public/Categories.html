@@ -16,8 +16,8 @@
         <div class="header">
 
             <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
-
-            <form class="header__form">
+            <button onclick="test()">add random post</button>
+            <form class="header__form" onsubmit="handleSearch(event)">
                 <input class="header__formInput" type="text">
                 <input class="header__formSubmit" type="submit" value="חפש">
             </form>
@@ -28,6 +28,7 @@
                 <div class="header__userInfoDrop">
 
                     <button>פוסטים שלי</button>
+                    <button>מועדפים שלי</button>
                     <button>עדכן פרטי חשבון</button>
                     <button>התנתק</button>
 

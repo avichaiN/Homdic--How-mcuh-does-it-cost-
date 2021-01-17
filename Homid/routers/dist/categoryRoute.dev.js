@@ -4,6 +4,8 @@ var express = require('express');
 
 var Category = require('../models/category');
 
+var Post = require('../models/post');
+
 var router = express.Router();
 
 function categoriesFind() {
@@ -188,7 +190,7 @@ router.post('/edit', function _callee4(req, res) {
     }
   }, null, null, [[1, 6]]);
 });
-router.post('/delete', function _callee6(req, res) {
+router["delete"]('/delete', function _callee6(req, res) {
   var chosenCategoryid;
   return regeneratorRuntime.async(function _callee6$(_context7) {
     while (1) {
@@ -256,4 +258,60 @@ router.post('/delete', function _callee6(req, res) {
     }
   }, null, null, [[1, 6]]);
 });
+
+var searcRegExp = function searcRegExp(searched) {
+  return Post.find({
+    $or: [{
+      title: {
+        $regex: searched,
+        $options: ""
+      }
+    }, {
+      desc: {
+        $regex: searched,
+        $options: ""
+      }
+    }]
+  }).exec();
+};
+
+router.post('/search', function _callee7(req, res) {
+  var searched, searchClean, searchRes;
+  return regeneratorRuntime.async(function _callee7$(_context8) {
+    while (1) {
+      switch (_context8.prev = _context8.next) {
+        case 0:
+          searched = req.body.searched;
+          searchClean = searched.trim();
+          _context8.next = 4;
+          return regeneratorRuntime.awrap(searcRegExp(searchClean));
+
+        case 4:
+          searchRes = _context8.sent;
+          res.send({
+            searchRes: searchRes
+          });
+
+        case 6:
+        case "end":
+          return _context8.stop();
+      }
+    }
+  });
+}); // router.post('/createrandompost', async (req, res) => {
+//     // title: String,
+//     // desc: String,
+//     // img: String,
+//     // categoryId: String
+//     const post = new Post({ title: 'בדיקה בעברית', desc: 'מזגן רכב שלום לכולם', img: '123', categoryId: "6003a3fc3500ee22fc4d04d2" })
+//     console.log(post)
+//     try {
+//         await post.save()
+//         res.send({ ok: true, post })
+//     } catch (e) {
+//         console.log(e)
+//         res.send({ ok: false })
+//     }
+// })
+
 module.exports = router;
