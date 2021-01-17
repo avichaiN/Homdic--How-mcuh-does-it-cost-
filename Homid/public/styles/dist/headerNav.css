@@ -1,3 +1,8 @@
+.center {
+  display: grid;
+  place-items: center;
+}
+
 .header {
   position: fixed;
   top: 0;
