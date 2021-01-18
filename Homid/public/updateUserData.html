@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>עדכון פרטים</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/index.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body dir="rtl">
+    <div class="wrapper">
+        <div class="formsContainer">
+
+            <label class="tab active" for="tab1" id="tab1">עדכון פרטים</label>
+
+            <form id="form1" class="tab--form active" method="POST" onsubmit="handleRegisterForm(event)" class="tab--form">
+                <input class="input" name="firstName" type="text" placeholder="שם פרטי" required>
+                <input class="input" name="lastName" type="text" placeholder="שם משפחה" required>
+                <input class="input" title="אימייל או משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
+                <input required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
+                <button type="submit" class="button">עדכן</button>
+            </form>
+    </div>
+    </div>
+    </div>
+
+
+    <script src='js/updateUserData.js'></script>
+</body>
+
+</html>

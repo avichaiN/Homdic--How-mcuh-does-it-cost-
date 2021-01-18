@@ -12,14 +12,16 @@ var saltRounds = 12;
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser");
+var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
-app.use(cookieParser());
+
+var secret = "temporary";
+router.use(cookieParser());
 router.get("/", function (req, res) {
   res.sendFile("index.html");
 });
 router.post("/", function _callee(req, res) {
-  var _req$body, username, password, userFound, match, token;
+  var _req$body, username, password, userFound;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -38,28 +40,33 @@ router.post("/", function _callee(req, res) {
 
         case 4:
           userFound = _context.sent;
-          _context.next = 7;
-          return regeneratorRuntime.awrap(bcrypt.compare(password, userFound.password));
-
-        case 7:
-          match = _context.sent;
-
-          if (match) {
-            token = jwt.encode(userFound.role, date = new Date(), secret);
-            res.cookie("userLoggedIn", token, {
-              maxAge: 7200000,
-              httpOnly: true
+          bcrypt.hash(userFound.password, saltRounds, function (err, hash) {
+            bcrypt.compare(password, hash, function (err, result) {
+              if (result) {
+                var token = jwt.encode({
+                  role: userFound.role,
+                  date: new Date()
+                }, secret);
+                res.cookie("userLoggedIn", token, {
+                  maxAge: 7200000,
+                  httpOnly: true
+                });
+                res.send({
+                  status: "authorized"
+                });
+              } else {
+                res.send({
+                  status: "unauthorized"
+                });
+                res.end();
+              }
             });
-            res.send({
-              status: "authorized"
-            });
-          }
-
-          _context.next = 16;
+          });
+          _context.next = 13;
           break;
 
-        case 11:
-          _context.prev = 11;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](1);
           console.log(_context.t0);
           res.send({
@@ -67,12 +74,12 @@ router.post("/", function _callee(req, res) {
           });
           res.end();
 
-        case 16:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 11]]);
+  }, null, null, [[1, 8]]);
 });
 router.post("/register", function (req, res) {
   var _req$body2 = req.body,
