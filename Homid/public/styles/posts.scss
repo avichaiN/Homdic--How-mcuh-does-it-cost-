@@ -3,7 +3,9 @@
         @content;
     }
 }
-
+* {
+    box-sizing: border-box;
+}
 $post-bg-color: blue;
 $body-bg-color: #ededef;
 $categoryHeder-bg-color: white;

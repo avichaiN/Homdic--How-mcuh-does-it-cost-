@@ -1,266 +1,268 @@
 <!DOCTYPE html>
 <html lang="heb" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homedic - Posts</title>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/dist/posts.css" />
-    <link rel="stylesheet" href="styles/dist/headerNav.css">
-  </head>
-  <body>
-    <div class="header">
 
-      <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homedic - Posts</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/dist/posts.css" />
+  <link rel="stylesheet" href="styles/dist/headerNav.css">
+</head>
 
-      <form class="header__form">
-          <input class="header__formInput" type="text">
-          <input class="header__formSubmit" type="submit" value="חפש">
-      </form>
+<body>
+  <div class="header" onclick="hideUserDropDown()">
 
-      <!-- user info / logout / edit user // show all posts -->
-      <div class="header__userInfo">
-          <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
-          <div class="header__userInfoDrop" >
+    <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+    <form class="header__form" onsubmit="handleSearch(event)">
+      <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
+      <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+      <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
-              <button>פוסטים שלי</button>
-              <button>עדכן פרטי חשבון</button>
-              <button>התנתק</button>
+    <!-- user info / logout / edit user // show all posts -->
 
-          </div>
+    <div class="header__userInfo">
+      <img onclick="showUserDropDown(event)"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png">
+      <div class="header__userInfoDrop">
+        <button>פוסטים שלי</button>
+        <button>מועדפים</button>
+        <button>עדכן פרטי חשבון</button>
+        <button>התנתק</button>
       </div>
+    </div>
   </div>
   <heder id="categoryHeder">
-    <input id="addPostbutton"    class="show" type="button" value="+" onclick="showAddpost()"/>
-    <input id="removePostbutton" class="hide" type="button" value="-" onclick= "hideAddpost()"/>        
+    <input id="addPostbutton" class="show" type="button" value="+" onclick="showAddpost()" />
+    <input id="removePostbutton" class="hide" type="button" value="-" onclick="hideAddpost()" />
     <h1>מכשירי חשמל</h1>
     <img id="hederImg" src="./img/electircs.jfif" alt="" />
   </heder>
-    <div id="app">
-      
-     
-      <!-- add post -->
-      <div class="AddPost hide">
-        <div id="postAddHeder">
-          <h1 class="addPosTtitle">הוספת פוסט</h1>
-          <textarea name="message" ></textarea>
+  <div id="app">
+
+
+    <!-- add post -->
+    <div class="AddPost hide">
+      <div id="postAddHeder">
+        <h1 class="addPosTtitle">הוספת פוסט</h1>
+        <textarea name="message"></textarea>
+      </div>
+      <div class="AddPostfutter">
+
+
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>הוסף</p>
         </div>
-        <div class="AddPostfutter">
-         
-           
-          <div>
-            <span class="material-icons">
-              add_circle_outline
-              </span>
-            <p>הוסף</p>
-          </div>
-       
+
       </div>
+    </div>
+    <!-- end post -->
+
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
       </div>
-<!-- end post -->
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+    <!-- start post -->
+    <div class="post">
+      <div id="postheder">
+        <h1 class="posttitle">מזגן</h1>
+        <p class="postbudy">מעוניין במתקין למזגן</p>
+      </div>
+      <div class="futter">
+        <div>
+          <span class="material-icons"> notifications </span>
+          <p>תזכורת</p>
+        </div>
+        <div>
+          <span class="material-icons"> info </span>
+          <p>מידע</p>
+        </div>
+        <div>
+          <span class="material-icons"> favorite </span>
+          <p>מועדפים</p>
+        </div>
+        <div>
+          <span class="material-icons">
+            add_circle_outline
+          </span>
+          <p>רשום תגובה</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+  </div>
+  <script src="js/headerNav.js"></script>
+  <script src="../public/js/post-comment_functunality.js"></script>
 
- <!-- start post -->
- <div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
-<!-- start post -->
-<div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
-<!-- start post -->
-<div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
-<!-- start post -->
-<div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
-<!-- start post -->
-<div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
- <!-- start post -->
- <div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
- <!-- start post -->
- <div class="post">
-  <div id="postheder">
-    <h1 class="posttitle">מזגן</h1>
-    <p class="postbudy">מעוניין במתקין למזגן</p>
-  </div>
-  <div class="futter">
-    <div>
-      <span class="material-icons"> notifications </span>
-      <p>תזכורת</p>
-    </div>
-    <div>
-      <span class="material-icons"> info </span>
-      <p>מידע</p>
-    </div>
-    <div>
-      <span class="material-icons"> favorite </span>
-      <p>מועדפים</p>
-    </div>
-    <div>
-      <span class="material-icons">
-        add_circle_outline
-        </span>
-      <p>רשום תגובה</p>
-    </div>
-  </div>
-</div>
-<!-- end post -->
-    </div>
+</body>
 
-<script src="../public/js/post-comment_functunality.js"></script>
-
-  </body>
 </html>
