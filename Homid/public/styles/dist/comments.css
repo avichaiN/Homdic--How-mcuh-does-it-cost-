@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   direction: rtl;
   margin: 0 !important;

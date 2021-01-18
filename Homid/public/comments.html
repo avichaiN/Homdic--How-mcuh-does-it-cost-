@@ -1,204 +1,180 @@
 <!DOCTYPE html>
 <html lang="heb" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homedic - comments</title>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/dist/comments.css" />
-    <link rel="stylesheet" href="styles/dist/headerNav.css" />
-  </head>
-  <body>
-    <div class="header">
-      <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
 
-      <form class="header__form">
-        <input class="header__formInput" type="text" />
-        <input class="header__formSubmit" type="submit" value="חפש" />
-      </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homedic - comments</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/dist/comments.css" />
+  <link rel="stylesheet" href="styles/dist/headerNav.css" />
+</head>
 
-      <!-- user info / logout / edit user // show all posts -->
-      <div class="header__userInfo">
-        <div
-          class="header__userInfoShow"
-          onclick="showUserDropDown(event)"
-        ></div>
-        <div class="header__userInfoDrop">
-          <button>פוסטים שלי</button>
-          <button>עדכן פרטי חשבון</button>
-          <button>התנתק</button>
-        </div>
+<body>
+  <div class="header" onclick="hideUserDropDown()">
+
+    <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+    <form class="header__form" onsubmit="handleSearch(event)">
+      <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
+      <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+      <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <!-- user info / logout / edit user // show all posts -->
+
+    <div class="header__userInfo">
+      <img onclick="showUserDropDown(event)"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png">
+      <div class="header__userInfoDrop">
+        <button>פוסטים שלי</button>
+        <button>מועדפים</button>
+        <button>עדכן פרטי חשבון</button>
+        <button>התנתק</button>
       </div>
     </div>
-    <div class="comments-post">
-      <div id="postheder">
-        
-          <h1 class="posttitle">מזגן</h1>
-          <p class="postbudy">
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          
-        <img id="hederImg" src="./img/electircs.jfif" alt="" />
-      </div>
-      <div class="futter">
-        <div>
-          <span
-            class="material-icons active"
-            title="הצג הודעה בכול פעם שתפורסם הערה חדשה לפוסט"
-          >
-            notifications
-          </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons active" title="הוסף פוסט זה למועדפים">
-            favorite
-          </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons"> visibility </span>
-          <p>נצפה 36 פעמים</p>
-        </div>
-      </div>
+  </div>
+  <div class="comments-post">
+    <div id="postheder">
 
-      <!--  start comments -->
-    </div>
-    <div id="app">
-    
-      <div class="commenstsSection">
-
-        <!-- start comments -->
-        <article class="comment">
-          <p>
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          <span
-            class="material-icons active center"
-            title="הוסף פוסט זה למועדפים"
-          >
-            favorite
-          </span>
-        </article>
-         <!-- end comments -->
-
-  <!-- start comments -->
-  <article class="comment">
-    <p>
-      לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-      תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-      ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-    </p>
-    <span
-      class="material-icons active center"
-      title="הוסף פוסט זה למועדפים"
-    >
-      favorite
-    </span>
-  </article>
-   <!-- end comments -->
-
-     <!-- start comments -->
-     <article class="comment">
-      <p>
+      <h1 class="posttitle">מזגן</h1>
+      <p class="postbudy">
         לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
         תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
         ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
       </p>
-      <span
-        class="material-icons active center"
-        title="הוסף פוסט זה למועדפים"
-      >
-        favorite
-      </span>
-    </article>
-     <!-- end comments -->
 
-       <!-- start comments -->
-       <article class="comment">
+      <img id="hederImg" src="./img/electircs.jfif" alt="" />
+    </div>
+    <div class="futter">
+      <div>
+        <span class="material-icons active" title="הצג הודעה בכול פעם שתפורסם הערה חדשה לפוסט">
+          notifications
+        </span>
+        <p>תזכורת</p>
+      </div>
+      <div>
+        <span class="material-icons active" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+        <p>מועדפים</p>
+      </div>
+      <div>
+        <span class="material-icons"> visibility </span>
+        <p>נצפה 36 פעמים</p>
+      </div>
+    </div>
+
+    <!--  start comments -->
+  </div>
+  <div id="app">
+
+    <div class="commenstsSection">
+
+      <!-- start comments -->
+      <article class="comment">
         <p>
           לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
           תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
           ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
         </p>
-        <span
-          class="material-icons active center"
-          title="הוסף פוסט זה למועדפים"
-        >
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
           favorite
         </span>
       </article>
-       <!-- end comments -->
+      <!-- end comments -->
 
-         <!-- start comments -->
-         <article class="comment">
-          <p>
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          <span
-            class="material-icons active center"
-            title="הוסף פוסט זה למועדפים"
-          >
-            favorite
-          </span>
-        </article>
-         <!-- end comments -->
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
 
-        <!-- start comments -->
-        <article class="comment">
-          <p>
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          <span
-            class="material-icons active center"
-            title="הוסף פוסט זה למועדפים"
-          >
-            favorite
-          </span>
-        </article>
-         <!-- end comments -->
-        <!-- start comments -->
-        <article class="comment">
-          <p>
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          <span
-            class="material-icons active center"
-            title="הוסף פוסט זה למועדפים"
-          >
-            favorite
-          </span>
-        </article>
-         <!-- end comments -->
-        <!-- start comments -->
-        <article class="comment">
-          <p>
-            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
-            תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
-            ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
-          </p>
-          <span
-            class="material-icons active center"
-            title="הוסף פוסט זה למועדפים"
-          >
-            favorite
-          </span>
-        </article>
-         <!-- end comments -->
-      </div>
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
+
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
+
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
+
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
+      <!-- start comments -->
+      <article class="comment">
+        <p>
+          לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
+          תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
+          ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה.
+        </p>
+        <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
+          favorite
+        </span>
+      </article>
+      <!-- end comments -->
     </div>
-  </body>
+  </div>
+  <script src="js/headerNav.js"></script>
+</body>
+
 </html>
