@@ -24,3 +24,11 @@ function ShowAddComment() {
   document.querySelector("#cancelButton").classList.replace("hide", "show");
   document.querySelector("#addComment").classList.replace("hide", "show");
 }
+
+function PostNotificationsButtonClicked() {
+  document.querySelector("#NotificationsButton").classList.toggle("Toggled");
+}
+
+function PostFavoriteButtonClicked() {
+  document.querySelector("#FavoriteButton").classList.toggle("Toggled");
+}

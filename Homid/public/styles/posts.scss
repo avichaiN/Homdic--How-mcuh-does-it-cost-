@@ -215,6 +215,14 @@ body {
                 .show{
                     display: block;
                 }
+
+                .Toggled{
+                    color: $addButton-bg-color;
+                }
+                .UnToggled{
+                    color: black;
+                }
+
             }
         }
     }

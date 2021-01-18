@@ -216,3 +216,9 @@ body #app .post .futter .hide {
 body #app .post .futter .show {
   display: block;
 }
+body #app .post .futter .Toggled {
+  color: #2097f5;
+}
+body #app .post .futter .UnToggled {
+  color: black;
+}
