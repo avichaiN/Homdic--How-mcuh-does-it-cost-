@@ -7,7 +7,7 @@ var commentSchema = new Schema({
   desc: String,
   price: {
     type: Number,
-    required: required
+    required: true
   },
   publishedBy: String,
   postId: String

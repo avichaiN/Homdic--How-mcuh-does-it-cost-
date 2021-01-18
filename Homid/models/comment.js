@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
 
     desc: String,
-    price: { type: Number, required },
+    price: { type: Number, required: true },
     publishedBy: String,
     postId: String
 }, {
