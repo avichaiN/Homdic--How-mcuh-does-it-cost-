@@ -1,44 +1,58 @@
-@use 'general';@mixin mq($size) {
-    @media only screen and (min-width: $size) {
-      @content;
-    }
-  }
+@use 'general';
 
+@mixin mq($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+
+// page must have 
+// width: 100%;
+// height: 100vh;
+// overflow: hidden;
 .header {
     position: fixed;
     top: 0;
+    left: 0;
+    // overflow: hidden;
     width: 100%;
     height: 6.5%;
-    background-color:#2795F4;
+    background-color: #8dc5f6;
     display: flex;
     justify-content: space-around;
     z-index: 5;
-    border-bottom: 2px solid #0a64b3;
 
     .header__helloUser {
         align-self: center;
         width: 33%;
         margin-right: 5%;
+        color: white;
 
         @include mq(260px) {
-           font-size: xx-small;
+            font-size: xx-small;
         }
+
         @include mq(479px) {
             font-size: x-small;
         }
-         @include mq(768px) {
+
+        @include mq(768px) {
             font-size: large;
         }
-         @include mq(1200px) {
+
+        @include mq(1200px) {
             font-size: large;
         }
     }
-    
+
     .header__form {
         width: 33%;
         height: 100%;
         display: flex;
         justify-content: center;
+
+
 
         .header__formInput {
             width: 90%;
@@ -53,21 +67,24 @@
             width: 10%;
             height: 50%;
             align-self: center;
+            display: grid;
+            justify-content: center;
             border: 0;
-           /*  @include mq(260px) {
-                font-size: xx-small;
-             }
-             @include mq(479px) {
-                 font-size: x-small;
-             }
-              @include mq(768px) {
-                 font-size: large;
-             }
-              @include mq(1200px) {
-                 font-size: large;
-             } */
-     
+            padding: 6px 10px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+
+            i{
+                align-self: center;
+            }
         }
+
+        .header__formSubmit:hover {
+            background: #ccc;
+        }
+
         .header__formSubmit:focus {
             outline: 1px solid black;
         }
@@ -79,12 +96,10 @@
         height: 45%;
         margin-left: 5%;
 
-        .header__userInfoShow {
-            width: 100%;
+        img {
+            float: left;
+            width: 6%;
             height: 100%;
-            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png");
-            background-repeat: no-repeat;
-            background-size: contain;
         }
 
         .header__userInfoDrop {
@@ -94,22 +109,92 @@
             padding: 15px;
             min-width: 50%;
             float: left;
-            background-color:#2795F4;
-            border-right: 2px solid rgb(87, 182, 214);
-            border-left: 2px solid rgb(87, 182, 214);
+            background-color: #8dc5f6;
             border-radius: 5px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             font-size: 35px;
-            box-shadow: 2px 5px 3px -3px #888888;
-            margin-top: 3%;
+            box-shadow: 0px 8px 16px 0px -2px rgba(0, 0, 0, 0.2);
+            margin-top: 7%;
+            margin-left: -8%;
 
-            button{
+            button {
+                color: black;
                 font-size: 15px;
+                font-weight: 550;
+                outline: 0;
+                background-color: none;
+                padding: 6px 12px;
+                display: block;
+                border-radius: 5px;
                 margin: 2px;
+            }
+
+            button:hover {
+                background-color: #ffffff
             }
 
         }
     }
+}
 
+@media only screen and (max-width: 1000px) {
+    .header {
+        .header__userInfo {
+            img {
+                width: 10%;
+            }
+
+            .header__userInfoDrop {
+                margin-top: 12%;
+                margin-left: -10%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .header {
+        .header__userInfo {
+            img {
+                width: 15%;
+            }
+
+            .header__userInfoDrop {
+                margin-top: 12%;
+                margin-left: -25%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .header {
+        .header__userInfo {
+            .header__userInfoDrop {
+                margin-top: 8%;
+                margin-left: -18%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 415px) {
+    .header {
+        .header__userInfo {
+            img {
+                width: 20%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .header {
+        .header__userInfo {
+            img {
+                width: 25%;
+            }
+        }
+    }
 }
