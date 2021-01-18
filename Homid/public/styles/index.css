@@ -38,7 +38,7 @@ body {
 .tab--form {
     background-color: #fff;
     display: none;
-    padding: 70px 150px 30px;
+    padding: 70px 150px 50px;
     height: 470px;
 }
 
@@ -47,7 +47,8 @@ body {
 }
 
 
-.tab--form a {
+.tab--form a,
+button {
     text-decoration: none;
     transition: 0.3s;
     color: #298cad;
@@ -123,19 +124,22 @@ font-weight: normal;
 
 
 
-a.button {
+button.button {
     background: #298cad;
     color: #ffffff;
     font-size: 18px;
     display: block;
-    text-align: center;
+    margin: auto;
     line-height: 46px;
     margin-top: 30px;
     margin-bottom: 10px;
     border-radius: 5px;
+    border: none;
+    width: 100%;
+    outline: none;
 }
 
-a.button:hover{
+button.button:hover{
     transition: 0.3s;
     background-color:  #0c6886;
 }
@@ -165,7 +169,7 @@ a.button:hover{
         width: 60vw;   
     }
     .tab--form {
-       padding: 70px 100px 30px;
+       padding: 70px 100px 50px;
        
     }
 }
@@ -175,7 +179,7 @@ a.button:hover{
         width: 70vw;    
     }
     .tab--form {
-        padding: 70px 70px 30px;
+        padding: 70px 70px 50px;
         
      }
 }  
