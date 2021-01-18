@@ -1,40 +1,84 @@
-const express = require('express')
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // Connection to DB
-mongoose.connect('mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic', { useCreateIndex:true, useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true });
-
+mongoose.connect(
+  "mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic",
+  {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  }
+);
 
 // Routes
-const authRouter = require('./routers/authRoute');
-const categoryRouter = require('./routers/categoryRoute');
-const searchRouter = require('./routers/searchRoute');
+const authRouter = require("./routers/authRoute");
+const categoryRouter = require("./routers/categoryRoute");
+const searchRouter = require("./routers/searchRoute");
 
 // Mongoose Schemas
-const User = require('./models/user');
-const Category = require('./models/category');
-const Comment = require('./models/comment');
-const Post = require('./models/post');
+const User = require("./models/user");
+const Category = require("./models/category");
+const Comment = require("./models/comment");
+const Post = require("./models/post");
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 const app = express();
 
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
+app.use("/auth", authRouter);
 
-app.use('/auth', authRouter);
+app.use("/category", categoryRouter);
 
-app.use('/category', categoryRouter);
+app.use("/search", searchRouter);
 
-app.use('/search', searchRouter);
+app.get("/", (req, res) => {
+  res.sendFile("index.html");
+});
 
-app.get('*', (req, res) => {
-    res.status('404').send({ ok: false })
-})
+app.post("/", async (req, res) => {
+  const { username, password } = req.body;
 
+  try {
+    const userFound = await User.findOne({
+      $or: [{ username: username }, { email: username }],
+    });
+    if (userFound.password == password) {
+      res.send({ status: "authorized" });
+    }
+  } catch (e) {
+    console.log(e);
+    res.send({ status: "unauthorized" });
+    res.end();
+  }
+});
+
+app.get("/register", (req, res) => {
+  res.sendFile("public/register.html", { root: __dirname });
+});
+
+app.post("/register", async (req, res) => {
+  const { firstName, lastName, username, email, password } = req.body;
+  const newUser = new User({
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    username: username,
+    password: password,
+  });
+  try {
+    await newUser.save();
+    res.send({ status: "authorized" });
+  } catch (e) {
+    console.log(e);
+    res.send({ status: "unauthorized" });
+    res.end();
+  }
+});
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));
