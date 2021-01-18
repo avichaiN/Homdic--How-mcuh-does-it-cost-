@@ -24,8 +24,9 @@ var handleSearch = function handleSearch(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    sessionStorage.setItem("postsId", data.postsId);
-    window.location.replace('/search.html'); // window.location.replace(`/search/${data.postsId}`)
+    console.log(data); // sessionStorage.setItem("postsId", data.postsId);
+    // window.location.replace('/search.html')
+    // window.location.replace(`/search/${data.postsId}`)
   });
 };
 
