@@ -14,6 +14,19 @@ $addButton-bg-color: #2097f5;
 $addButton-color: white;
 $postheder-bg-color: #cfd8dd;
 
+.material-icons {
+    display: flex;
+    justify-content: center;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 body {
     direction: rtl;
     margin: 0 !important;
@@ -154,6 +167,12 @@ body {
                     padding: 2% 8% 2% 8%;
                 }
             }
+
+            #addComment{
+                background-color:rgb(226, 231, 236);
+                height: 100px;
+                
+            }
             .futter {
                 display: flex;
                 margin: 0 auto 1% auto;
@@ -174,7 +193,7 @@ body {
                     max-width: 70%;
                 }
 
-                div {
+                .Notifications {
                     cursor: pointer;
                     align-items: center;
                     justify-content: center;
@@ -190,20 +209,24 @@ body {
                         margin-top: 2%;
                     }
                 }
+                .hide{
+                    display: none;
+                }
+                .show{
+                    display: block;
+                }
+
+                .Toggled{
+                    color: $addButton-bg-color;
+                }
+                .UnToggled{
+                    color: black;
+                }
+
             }
         }
     }
+   
+    
 }
 
-.material-icons {
-    display: flex;
-    justify-content: center;
-}
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: block;
-}

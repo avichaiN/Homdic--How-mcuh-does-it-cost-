@@ -12,3 +12,23 @@ function hideAddpost() {
   document.querySelector("#addPostbutton").classList.replace("hide", "show");
   document.querySelector("#removePostbutton").classList.replace("show", "hide");
 }
+
+function HideAddComment() {
+  document.querySelector("#AddCommentButton").classList.replace("hide", "show");
+  document.querySelector("#cancelButton").classList.replace("show", "hide");
+  document.querySelector("#addComment").classList.replace("show", "hide");
+}
+
+function ShowAddComment() {
+  document.querySelector("#AddCommentButton").classList.replace("show", "hide");
+  document.querySelector("#cancelButton").classList.replace("hide", "show");
+  document.querySelector("#addComment").classList.replace("hide", "show");
+}
+
+function PostNotificationsButtonClicked() {
+  document.querySelector("#NotificationsButton").classList.toggle("Toggled");
+}
+
+function PostFavoriteButtonClicked() {
+  document.querySelector("#FavoriteButton").classList.toggle("Toggled");
+}
