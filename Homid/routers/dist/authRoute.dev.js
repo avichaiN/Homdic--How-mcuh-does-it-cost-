@@ -14,7 +14,8 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-app.use(cookieParser());
+var secret = 'dsanjhkdnaskjdnkjsan3';
+router.use(cookieParser());
 router.get("/", function (req, res) {
   res.sendFile("index.html");
 });
@@ -45,7 +46,7 @@ router.post("/", function _callee(req, res) {
           match = _context.sent;
 
           if (match) {
-            token = jwt.encode(userFound.role, date = new Date(), secret);
+            token = jwt.encode(userFound.role, secret);
             res.cookie("userLoggedIn", token, {
               maxAge: 7200000,
               httpOnly: true

@@ -5,8 +5,9 @@ const bcrypt = require("bcrypt");
 const saltRounds = 12;
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
+var secret = 'dsanjhkdnaskjdnkjsan3';
 
-app.use(cookieParser());
+router.use(cookieParser());
 
 router.get("/", (req, res) => {
   res.sendFile("index.html");
@@ -21,8 +22,8 @@ router.post("/", async (req, res) => {
     });
     const match = await bcrypt.compare(password, userFound.password);
     if (match) {
-      var token = jwt.encode(userFound.role, (date = new Date()), secret);
-      res.cookie("userLoggedIn", token, { maxAge: 7200000, httpOnly: true });
+      var token = jwt.encode(userFound.role, secret);
+      res.cookie("userLoggedIn", token, { maxAge: 7200000, httpOnly: true })
       res.send({ status: "authorized" });
     }
   } catch (e) {

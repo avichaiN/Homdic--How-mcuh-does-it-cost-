@@ -17,6 +17,7 @@ mongoose.connect(
 const authRouter = require("./routers/authRoute");
 const categoryRouter = require("./routers/categoryRoute");
 const searchRouter = require("./routers/searchRoute");
+const adminRouter = require("./routers/adminRoute");
 
 // Mongoose Schemas
 const User = require("./models/user");
@@ -36,5 +37,7 @@ app.use("/", authRouter);
 app.use("/category", categoryRouter);
 
 app.use("/search", searchRouter);
+
+app.use("/admin", adminRouter);
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));
