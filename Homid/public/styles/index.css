@@ -12,13 +12,9 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    margin-top: 50px;
 }
-.policyApproval{
-    display: flex;
-    justify-content: flex-end;
-  
 
-}
 #check{
     width: auto;
     height: auto;
@@ -44,7 +40,6 @@ body {
     display: none;
     padding: 70px 150px 30px;
     height: 470px;
-   
 }
 
 .tab--form.active {
