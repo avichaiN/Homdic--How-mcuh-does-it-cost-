@@ -13,7 +13,7 @@ var hideUserDropDown = function hideUserDropDown() {
 var handleSearch = function handleSearch(e) {
   e.preventDefault();
   var searched = document.querySelector('.header__formInput').value;
-  fetch('/category/search', {
+  fetch('/search', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -24,20 +24,20 @@ var handleSearch = function handleSearch(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data.searchRes);
+    sessionStorage.setItem("postsId", data.postsId);
+    window.location.replace('/search.html'); // window.location.replace(`/search/${data.postsId}`)
   });
 };
 
-var test = function test() {
-  fetch('/category/createrandompost', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({})
-  }).then(function (res) {
+var getSearchedPosts = function getSearchedPosts() {
+  var postsId = sessionStorage.getItem("postsId");
+  fetch("/search/".concat(postsId)).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
+    if (data.foundPosts === undefined || data.foundPosts === null) {
+      console.log('NO POSTS FOUND');
+    } else {
+      console.log(data.foundPosts);
+    }
   });
 }; // hello user

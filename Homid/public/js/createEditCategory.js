@@ -9,7 +9,7 @@ const handleNewCategory = (e) => {
     const newCategoryName = document.getElementById('categoryInput').value;
     const newCategoryImg = document.getElementById('categoryImgInput').value;
 
-    fetch('/category/create', {
+    fetch('/category', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const deleteCategory = (e) => {
     e.stopPropagation();
     const chosenCategoryid = e.target.parentNode.dataset.id
     console.log(chosenCategoryid)
-    fetch('/category/delete', {
+    fetch('/category/', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -107,10 +107,9 @@ const editCategory = (e) =>{
     if(newCategoryImg === ''){
         newCategoryImg = oldCategoryImg
     }
-    console.log(newCategoryImg,newCategoryName)
 
-    fetch('/category/edit', {
-        method: 'POST',
+    fetch('/category/', {
+        method: 'put',
         headers: {
             'Content-Type': 'application/json'
         },

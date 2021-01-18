@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic', 
 // Routes
 const authRouter = require('./routers/authRoute');
 const categoryRouter = require('./routers/categoryRoute');
-
+const searchRouter = require('./routers/searchRoute');
 
 // Mongoose Schemas
 const User = require('./models/user');
@@ -25,12 +25,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
+
 app.use('/auth', authRouter);
 
 app.use('/category', categoryRouter);
 
+app.use('/search', searchRouter);
+
 app.get('*', (req, res) => {
     res.status('404').send({ ok: false })
 })
+
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

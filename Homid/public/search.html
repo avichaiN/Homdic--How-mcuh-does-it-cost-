@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="styles/dist/headerNav.css">
 </head>
 
-<body>
-    <div class="newPost" onclick="hideUserDropDown()">
+<body onload="getSearchedPosts()">
+    <div class="searched" onclick="hideUserDropDown()">
         <div class="header">
 
             <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+        <a style="position: absolute;top: 15%;" href="./Categories.html">go back</a>
     </div>
 
     <script src="js/headerNav.js"></script>

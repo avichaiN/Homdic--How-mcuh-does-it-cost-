@@ -7,12 +7,13 @@ const hideUserDropDown = () => {
 }
 
 //search bar
+
 const handleSearch = (e) =>{
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
 
 
-    fetch('/category/search', {
+    fetch('/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -21,23 +22,22 @@ const handleSearch = (e) =>{
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data.searchRes)
-            
+            sessionStorage.setItem("postsId", data.postsId);
+            window.location.replace('/search.html')
+            // window.location.replace(`/search/${data.postsId}`)
         })
 }
+const getSearchedPosts = () =>{
+    var postsId = sessionStorage.getItem("postsId");
 
-
-const test = () =>{
-    fetch('/category/createrandompost', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({  })
-    })
+    fetch(`/search/${postsId}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            if(data.foundPosts === undefined || data.foundPosts===null){
+                console.log('NO POSTS FOUND')
+            }else{
+                console.log(data.foundPosts)
+            }
         })
 }
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const Category = require('../models/category');
-const Post = require('../models/post');
+
+
 const router = express.Router();
 
 async function categoriesFind() {
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
 })
 
 //create new category for admin
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
     const { newCategoryName } = req.body
     const { newCategoryImg } = req.body
 
@@ -45,7 +46,7 @@ router.post('/create', async (req, res) => {
         res.send({ ok: false })
     }
 })
-router.post('/edit', async (req, res) => {
+router.put('/', async (req, res) => {
     const { categoryId, newCategoryName, newCategoryImg } = req.body
 
     try {
@@ -53,7 +54,6 @@ router.post('/edit', async (req, res) => {
             { Img: newCategoryImg, Name: newCategoryName },
             async function (err, category) {
                 if (err) {
-                    console.log(newCategoryName, newCategoryImg)
                     console.log(err)
                     res.send({ ok: false })
                 } else {
@@ -66,7 +66,7 @@ router.post('/edit', async (req, res) => {
         console.log(e)
     }
 })
-router.delete('/delete', async (req, res) => {
+router.delete('/', async (req, res) => {
     const { chosenCategoryid } = req.body
 
     try {
@@ -85,35 +85,5 @@ router.delete('/delete', async (req, res) => {
         res.send({ ok: false })
     }
 })
-
-const searcRegExp = (searched) => {
-    return Post.find({ $or: [{ title: { $regex: searched, $options: "" } }, { desc: { $regex: searched, $options: "" } }] }).exec()
-}
-
-router.post('/search', async (req, res) => {
-    const { searched } = req.body
-    const searchClean = searched.trim()
-    
-    let searchRes = await searcRegExp(searchClean)
-    
-    res.send({ searchRes })
-})
-// router.post('/createrandompost', async (req, res) => {
-//     // title: String,
-//     // desc: String,
-//     // img: String,
-//     // categoryId: String
-
-//     const post = new Post({ title: 'בדיקה בעברית', desc: 'מזגן רכב שלום לכולם', img: '123', categoryId: "6003a3fc3500ee22fc4d04d2" })
-//     console.log(post)
-//     try {
-//         await post.save()
-//         res.send({ ok: true, post })
-//     } catch (e) {
-//         console.log(e)
-//         res.send({ ok: false })
-//     }
-
-// })
 
 module.exports = router;
