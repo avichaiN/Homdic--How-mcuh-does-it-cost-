@@ -5,12 +5,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 12;
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-<<<<<<< HEAD
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
-=======
-var secret = 'dsanjhkdnaskjdnkjsan3';
->>>>>>> master
 
 router.use(cookieParser());
 
@@ -25,7 +21,6 @@ router.post("/", async (req, res) => {
     const userFound = await User.findOne({
       $or: [{ username: username }, { email: username }],
     });
-<<<<<<< HEAD
     bcrypt.hash(userFound.password, saltRounds, function (err, hash) {
       bcrypt.compare(password, hash, function (err, result) {
         if (result) {
@@ -44,14 +39,6 @@ router.post("/", async (req, res) => {
         }
       });
     });
-=======
-    const match = await bcrypt.compare(password, userFound.password);
-    if (match) {
-      var token = jwt.encode(userFound.role, secret);
-      res.cookie("userLoggedIn", token, { maxAge: 7200000, httpOnly: true })
-      res.send({ status: "authorized" });
-    }
->>>>>>> master
   } catch (e) {
     console.log(e);
     res.send({ status: "unauthorized" });
