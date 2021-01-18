@@ -79,6 +79,7 @@ body .comments-post #postheder #hederImg {
   box-shadow: 1px 1px 5px 2px;
   /*  @include mq(260px) {
       margin: 10% 1% 10% 1%;
+<<<<<<< Updated upstream
   }
   @include mq(360px) {
       margin: 5% 1% 7% 1%;
@@ -89,6 +90,18 @@ body .comments-post #postheder #hederImg {
   @include mq(768px) {
       margin: 7% 1% 2% 1%;
   }
+=======
+  }
+  @include mq(360px) {
+      margin: 5% 1% 7% 1%;
+  }
+  @include mq(480px) {
+      margin: 6% 1% 5% 1%;
+  }
+  @include mq(768px) {
+      margin: 7% 1% 2% 1%;
+  }
+>>>>>>> Stashed changes
   @include mq(1000px) {
       margin: 5% 1% 1% 1%;
   } */

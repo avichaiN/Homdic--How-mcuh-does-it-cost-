@@ -61,10 +61,17 @@ body {
                 height: 100px;
                 @include mq(320px) {
                     font-size: 0.8rem;
+<<<<<<< Updated upstream
                 }
                 @include mq(768px) {
                     font-size: 1rem;
                 }
+=======
+                }
+                @include mq(768px) {
+                    font-size: 1rem;
+                }
+>>>>>>> Stashed changes
                 @include mq(960px) {
                     font-size: 1.1rem;
                 }
