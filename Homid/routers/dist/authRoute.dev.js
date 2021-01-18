@@ -14,8 +14,12 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
+<<<<<<< HEAD
 
 var secret = "temporary";
+=======
+var secret = 'dsanjhkdnaskjdnkjsan3';
+>>>>>>> master
 router.use(cookieParser());
 router.get("/", function (req, res) {
   res.sendFile("index.html");
@@ -40,6 +44,7 @@ router.post("/", function _callee(req, res) {
 
         case 4:
           userFound = _context.sent;
+<<<<<<< HEAD
           bcrypt.hash(userFound.password, saltRounds, function (err, hash) {
             bcrypt.compare(password, hash, function (err, result) {
               if (result) {
@@ -60,6 +65,22 @@ router.post("/", function _callee(req, res) {
                 });
                 res.end();
               }
+=======
+          _context.next = 7;
+          return regeneratorRuntime.awrap(bcrypt.compare(password, userFound.password));
+
+        case 7:
+          match = _context.sent;
+
+          if (match) {
+            token = jwt.encode(userFound.role, secret);
+            res.cookie("userLoggedIn", token, {
+              maxAge: 7200000,
+              httpOnly: true
+            });
+            res.send({
+              status: "authorized"
+>>>>>>> master
             });
           });
           _context.next = 13;
