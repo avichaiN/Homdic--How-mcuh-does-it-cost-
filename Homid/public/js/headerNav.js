@@ -22,8 +22,9 @@ const handleSearch = (e) =>{
     })
         .then(res => res.json())
         .then(data => {
-            sessionStorage.setItem("postsId", data.postsId);
-            window.location.replace('/search.html')
+            console.log(data)
+            // sessionStorage.setItem("postsId", data.postsId);
+            // window.location.replace('/search.html')
             // window.location.replace(`/search/${data.postsId}`)
         })
 }

@@ -6,6 +6,30 @@ var Post = require('../models/post');
 
 var router = express.Router();
 var postsId = '';
+router.post('/', function _callee(req, res) {
+  var searched, searchClean;
+  return regeneratorRuntime.async(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          searched = req.body.searched;
+          searchClean = searched.trim(); // postsId = ''
+          // let searchRes = await searcRegExp(searchClean)
+          // searchRes.forEach(post=>{
+          //     postsId += `${post._id},`
+          // })
+
+          res.send({
+            searchClean: searchClean
+          });
+
+        case 3:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+});
 
 var searcRegExp = function searcRegExp(searched) {
   return Post.find({
@@ -22,35 +46,6 @@ var searcRegExp = function searcRegExp(searched) {
     }]
   }).exec();
 };
-
-router.post('/', function _callee(req, res) {
-  var searched, searchClean, searchRes;
-  return regeneratorRuntime.async(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          searched = req.body.searched;
-          searchClean = searched.trim();
-          postsId = '';
-          _context.next = 5;
-          return regeneratorRuntime.awrap(searcRegExp(searchClean));
-
-        case 5:
-          searchRes = _context.sent;
-          searchRes.forEach(function (post) {
-            postsId += "".concat(post._id, ",");
-          });
-          res.send({
-            postsId: postsId
-          });
-
-        case 8:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
-});
 
 var findPostById = function findPostById(id) {
   return Post.findById(id).exec();
