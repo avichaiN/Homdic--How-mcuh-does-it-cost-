@@ -171,8 +171,29 @@ body {
             #addComment{
                 background-color:rgb(226, 231, 236);
                 height: 100px;
+                display: grid;
+                align-items: center;
                 
+                form{
+                    display: grid;
+                    align-items: center;
+                    grid-template-columns: 5fr 1fr;
+                     textarea{
+                    width: 99%;
+                    height: 80px;
+                    font-size: 20px;
+                    grid-row: 1;
+                }  
+                input{
+                    width: 60px;
+                    height: 50px;
+                    grid-row: 1;
+                } 
+                }
+                
+               
             }
+            
             .futter {
                 display: flex;
                 margin: 0 auto 1% auto;
