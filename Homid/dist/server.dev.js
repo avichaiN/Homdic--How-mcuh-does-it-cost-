@@ -18,7 +18,9 @@ var authRouter = require("./routers/authRoute");
 
 var categoryRouter = require("./routers/categoryRoute");
 
-var searchRouter = require("./routers/searchRoute"); // Mongoose Schemas
+var searchRouter = require("./routers/searchRoute");
+
+var adminRouter = require("./routers/adminRoute"); // Mongoose Schemas
 
 
 var User = require("./models/user");
@@ -39,6 +41,7 @@ app.use(express["static"]("public"));
 app.use("/", authRouter);
 app.use("/category", categoryRouter);
 app.use("/search", searchRouter);
+app.use("/admin", adminRouter);
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
 });

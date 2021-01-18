@@ -15,4 +15,54 @@ body {
     width: 100%;
     height: 100vh;
     overflow: scroll;
+    border: 1px solid black;
+
+    .allUsers {
+        font-size: 15px;
+        position: relative;
+        top: 10%;
+        border: 1px solid black;
+        width: 98%;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+
+        .user {
+            height: 14rem;
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            overflow: scroll;
+            font-size: 20px;
+            margin: 3px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+    }
+
+    .editUserForm {
+        background-color: white;
+        position: absolute;
+        top: 20%;
+        left: 37%;
+        width: 50%;
+        display:none;
+
+        .editUserFormm {
+            width: 100%;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+
+            input{
+
+                width: 80%;
+            }
+            #role{
+                width: 50%;
+            }
+        }
+    }
 }

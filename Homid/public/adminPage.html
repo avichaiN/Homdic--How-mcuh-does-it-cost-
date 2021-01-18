@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload="getAllUsers()">
     <div class="adminPage" onclick="hideUserDropDown()">
         <!-- header  -->
         <div class="header">
@@ -35,9 +35,15 @@
                 </div>
             </div>
         </div>
-        <div style="position: relative;top: 250px;width: 25%;margin: auto;">This page will show all users and give option to edit or delete them. (For admin use only)</div>
-    </div>
 
+        <div class="allUsers">
+
+        </div>
+        <div class="editUserForm">
+
+        </div>
+    </div>
+    <script src="js/adminPage.js"></script>
     <script src="js/headerNav.js"></script>
 </body>
 
