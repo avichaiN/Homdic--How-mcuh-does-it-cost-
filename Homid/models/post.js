@@ -5,8 +5,8 @@ const postSchema = new Schema({
         title: String,
         desc: String,
         img: String,
-        categoryId: String
-
+        categoryId: String,
+        publishedBy: String
 }, {
     timestamps: true
 })
