@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles/dist/newPost.css">
+    <link rel="stylesheet" href="styles/dist/search.css">
     <link rel="stylesheet" href="styles/dist/headerNav.css">
 </head>
 
-<body>
-    <div class="newPost" onclick="hideUserDropDown()">
+<body onload="getSearchedPosts()">
+    <div class="search" onclick="hideUserDropDown()">
         <div class="header">
 
             <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
 
-            <form class="header__form">
-                <input class="header__formInput" type="text">
+            <form class="header__form" onsubmit="handleSearch(event)">
+                <input class="header__formInput" type="text" required>
                 <input class="header__formSubmit" type="submit" value="חפש">
             </form>
 
@@ -26,16 +26,18 @@
                 <div class="header__userInfoDrop">
 
                     <button>פוסטים שלי</button>
+                    <button>מועדפים</button>
                     <button>עדכן פרטי חשבון</button>
                     <button>התנתק</button>
 
                 </div>
             </div>
         </div>
+        <a style="position: absolute;top: 15%;" href="./Categories.html">go back</a>
+
     </div>
 
     <script src="js/headerNav.js"></script>
-    <script src="js/newPost.js"></script>
 </body>
 
 </html>

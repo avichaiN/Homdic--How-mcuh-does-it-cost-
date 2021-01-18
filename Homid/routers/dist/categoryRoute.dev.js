@@ -70,7 +70,7 @@ router.get('/', function _callee(req, res) {
   }, null, null, [[0, 7]]);
 }); //create new category for admin
 
-router.post('/create', function _callee2(req, res) {
+router.post('/', function _callee2(req, res) {
   var newCategoryName, newCategoryImg, category, categories;
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
@@ -117,7 +117,7 @@ router.post('/create', function _callee2(req, res) {
     }
   }, null, null, [[5, 14]]);
 });
-router.post('/edit', function _callee4(req, res) {
+router.put('/', function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg;
 
   return regeneratorRuntime.async(function _callee4$(_context5) {
@@ -139,23 +139,22 @@ router.post('/edit', function _callee4(req, res) {
                 switch (_context4.prev = _context4.next) {
                   case 0:
                     if (!err) {
-                      _context4.next = 6;
+                      _context4.next = 5;
                       break;
                     }
 
-                    console.log(newCategoryName, newCategoryImg);
                     console.log(err);
                     res.send({
                       ok: false
                     });
-                    _context4.next = 11;
+                    _context4.next = 10;
                     break;
 
-                  case 6:
-                    _context4.next = 8;
+                  case 5:
+                    _context4.next = 7;
                     return regeneratorRuntime.awrap(categoriesFind());
 
-                  case 8:
+                  case 7:
                     categories = _context4.sent;
                     console.log(categories);
                     res.send({
@@ -164,7 +163,7 @@ router.post('/edit', function _callee4(req, res) {
                       categories: categories
                     });
 
-                  case 11:
+                  case 10:
                   case "end":
                     return _context4.stop();
                 }
@@ -188,7 +187,7 @@ router.post('/edit', function _callee4(req, res) {
     }
   }, null, null, [[1, 6]]);
 });
-router.post('/delete', function _callee6(req, res) {
+router["delete"]('/', function _callee6(req, res) {
   var chosenCategoryid;
   return regeneratorRuntime.async(function _callee6$(_context7) {
     while (1) {

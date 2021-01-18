@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Homedic</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/index.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
+
 <body>
-    index
+    <!-- לא לשכוח שצריך להוסיף כאן ברוכים הבאים לאתר וכמה מילים מה עושים פה בכלל -->
+    <div class="wrapper">
+        <div class="formsContainer">
+
+            <label class="tab active" for="tab1" id="tab1" onclick="showPageSignIn(event)">כניסה לאתר</label>
+            <label class="tab" for="tab2" id="tab2" onclick="showPageSignUp(event)">הרשמה לאתר</label>
+
+            <form id="form1" class="tab--form active" method="POST" onsubmit="handleLoginForm(event)">
+                <input class="input" name="username" type="text" placeholder="שם משתמש או אימייל">
+                <input class="input" name="password" type="password" placeholder="סיסמה">
+                <button type="submit" class="button">כניסה</button>
+                <ul class="social">
+                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
+                </ul>
+                <a id="forgotPassword" onclick="showPageReset(event)" href="#">?שכחתם סיסמה</a>
+            </form>
+            <form id="form2" method="POST" onsubmit="handleRegisterForm(event)" class="tab--form">
+                <input class="input" name="firstName" type="text" placeholder="שם פרטי">
+                <input class="input" name="lastName" type="text" placeholder="שם משפחה">
+                <input class="input" name="username" type="text" placeholder="שם משתמש">
+                <input required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
+                <input class="input" type="password" placeholder="סיסמה" name="password" oninput="document.getElementById('confirm').pattern = this.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')" required>
+                <input class="input" type="password" id="confirm" name="confirm" pattern="" placeholder="אימות סיסמה" required>
+                <button type="submit" class="button">הרשמה</button>
+
+                <!-- <div class="policyApproval">
+
+                    <span id="textForCheck">הנני מאשר/ת כי קראתי את <a href="#">תקנון האתר</a> ומסכימ/ה לתנאיהם</span>
+                    <input id="check" type="checkbox">
+
+                    אנחנו לא נרשום תקנון כנראה אז נראלי לא צריך את זה
+
+                </div> -->
+            </form>
+
+            <form id="form3" class="tab--form">
+                <input class="input" type="email" placeholder="דואר אלקטרוני">
+                <button type="submit" class="button">אפסו את הסיסמה</button>
+            </form>
+
+    </div>
+
+    </div>
+    </div>
+
+
+    <script src='js/index.js'></script>
 </body>
+
 </html>
