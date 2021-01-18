@@ -37,6 +37,4 @@ app.use("/category", categoryRouter);
 
 app.use("/search", searchRouter);
 
-
-
 app.listen(port, () => console.log(`server now running on port: ${port}`));

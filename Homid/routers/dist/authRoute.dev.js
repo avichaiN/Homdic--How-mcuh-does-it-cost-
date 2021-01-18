@@ -1,16 +1,25 @@
 "use strict";
 
-var express = require('express');
+var express = require("express");
 
 var router = express.Router();
 
-var User = require('../models/user');
+var User = require("../models/user");
 
+var bcrypt = require("bcrypt");
+
+var saltRounds = 12;
+
+var jwt = require("jwt-simple");
+
+var cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 router.get("/", function (req, res) {
   res.sendFile("index.html");
 });
 router.post("/", function _callee(req, res) {
-  var _req$body, username, password, userFound;
+  var _req$body, username, password, userFound, match, token;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -29,18 +38,28 @@ router.post("/", function _callee(req, res) {
 
         case 4:
           userFound = _context.sent;
+          _context.next = 7;
+          return regeneratorRuntime.awrap(bcrypt.compare(password, userFound.password));
 
-          if (userFound.password == password) {
+        case 7:
+          match = _context.sent;
+
+          if (match) {
+            token = jwt.encode(userFound.role, date = new Date(), secret);
+            res.cookie("userLoggedIn", token, {
+              maxAge: 7200000,
+              httpOnly: true
+            });
             res.send({
               status: "authorized"
             });
           }
 
-          _context.next = 13;
+          _context.next = 16;
           break;
 
-        case 8:
-          _context.prev = 8;
+        case 11:
+          _context.prev = 11;
           _context.t0 = _context["catch"](1);
           console.log(_context.t0);
           res.send({
@@ -48,58 +67,59 @@ router.post("/", function _callee(req, res) {
           });
           res.end();
 
-        case 13:
+        case 16:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 8]]);
+  }, null, null, [[1, 11]]);
 });
-router.get("/register", function (req, res) {
-  res.sendFile("public/register.html", {
-    root: __dirname
+router.post("/register", function (req, res) {
+  var _req$body2 = req.body,
+      firstName = _req$body2.firstName,
+      lastName = _req$body2.lastName,
+      username = _req$body2.username,
+      email = _req$body2.email,
+      password = _req$body2.password;
+  var newUser = new User({
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    username: username,
+    password: password
   });
-});
-router.post("/register", function _callee2(req, res) {
-  var _req$body2, firstName, lastName, username, email, password, newUser;
+  bcrypt.hash(password, saltRounds, function _callee2(err, hash) {
+    return regeneratorRuntime.async(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            newUser.password = hash;
+            _context2.next = 4;
+            return regeneratorRuntime.awrap(newUser.save());
 
-  return regeneratorRuntime.async(function _callee2$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          _req$body2 = req.body, firstName = _req$body2.firstName, lastName = _req$body2.lastName, username = _req$body2.username, email = _req$body2.email, password = _req$body2.password;
-          newUser = new User({
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            username: username,
-            password: password
-          });
-          _context2.prev = 2;
-          _context2.next = 5;
-          return regeneratorRuntime.awrap(newUser.save());
+          case 4:
+            res.send({
+              status: "authorized"
+            });
+            _context2.next = 12;
+            break;
 
-        case 5:
-          res.send({
-            status: "authorized"
-          });
-          _context2.next = 13;
-          break;
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            console.log(_context2.t0);
+            res.send({
+              status: "unauthorized"
+            });
+            res.end();
 
-        case 8:
-          _context2.prev = 8;
-          _context2.t0 = _context2["catch"](2);
-          console.log(_context2.t0);
-          res.send({
-            status: "unauthorized"
-          });
-          res.end();
-
-        case 13:
-        case "end":
-          return _context2.stop();
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
       }
-    }
-  }, null, null, [[2, 8]]);
+    }, null, null, [[0, 7]]);
+  });
 });
 module.exports = router;
