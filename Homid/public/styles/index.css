@@ -33,20 +33,36 @@ body {
   width: 35vw;
 }
 .tab--form {
+<<<<<<< HEAD
   background-color: #fff;
   display: none;
   padding: 70px 150px 30px;
   height: 470px;
+=======
+    background-color: #fff;
+    display: none;
+    padding: 70px 150px 50px;
+    height: 470px;
+>>>>>>> master
 }
 
 .tab--form.active {
   display: block;
 }
 
+<<<<<<< HEAD
 .tab--form a {
   text-decoration: none;
   transition: 0.3s;
   color: #298cad;
+=======
+
+.tab--form a,
+button {
+    text-decoration: none;
+    transition: 0.3s;
+    color: #298cad;
+>>>>>>> master
 }
 /* .tab--form a:hover{
     color: #36d2ff;
@@ -118,6 +134,7 @@ input[name="tabs"] {
   color: #c4c9c9;
 }
 
+<<<<<<< HEAD
 a.button {
   background: #298cad;
   color: #ffffff;
@@ -133,6 +150,26 @@ a.button {
 a.button:hover {
   transition: 0.3s;
   background-color: #0c6886;
+=======
+button.button {
+    background: #298cad;
+    color: #ffffff;
+    font-size: 18px;
+    display: block;
+    margin: auto;
+    line-height: 46px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+
+button.button:hover{
+    transition: 0.3s;
+    background-color:  #0c6886;
+>>>>>>> master
 }
 
 .social {
@@ -155,6 +192,7 @@ a.button:hover {
   text-align: center;
 }
 
+<<<<<<< HEAD
 @media only screen and (max-width: 1400px) {
   .formsContainer {
     width: 60vw;
@@ -172,6 +210,27 @@ a.button:hover {
     padding: 70px 70px 30px;
   }
 }
+=======
+  @media only screen and (max-width: 1400px) {
+    .formsContainer{
+        width: 60vw;   
+    }
+    .tab--form {
+       padding: 70px 100px 50px;
+       
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .formsContainer{
+        width: 70vw;    
+    }
+    .tab--form {
+        padding: 70px 70px 50px;
+        
+     }
+}  
+>>>>>>> master
 
 @media only screen and (max-width: 480px) {
   .formsContainer {

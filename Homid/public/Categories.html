@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>כמה? קטגוריות</title>
+    <title>Homdic? Categoires</title>
     <link rel="stylesheet" href="styles/dist/category.css">
     <link rel="stylesheet" href="styles/dist/headerNav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body onload="getDisplayCategories()">
@@ -17,51 +18,51 @@
 
             <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
             <form class="header__form" onsubmit="handleSearch(event)">
-                <input class="header__formInput" type="text">
-                <input class="header__formSubmit" type="submit" value="חפש">
+                <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
+                <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+                <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
             </form>
 
             <!-- user info / logout / edit user // show all posts -->
-            <div class="header__userInfo">
-                <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
-                <div class="header__userInfoDrop">
 
+            <div class="header__userInfo">
+                <img onclick="showUserDropDown(event)"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png">
+                <div class="header__userInfoDrop">
                     <button>פוסטים שלי</button>
-                    <button>מועדפים שלי</button>
+                    <button>מועדפים</button>
                     <button>עדכן פרטי חשבון</button>
                     <button>התנתק</button>
-
                 </div>
             </div>
         </div>
         <!-- categorys -->
-        <h1>כמה יעלה לי?</h1>
-        <h2>קטגוריות.</h2>
+        <div class="titles">
+            <h1>כמה יעלה לי?</h1>
+            <h2>קטגוריות.</h2>
+        </div>
         <div class="cateogryPage__categorys">
             <!-- categories render here -->
         </div>
 
-        <a href="newPost.html" class="newPostButton">
-            <img src="https://icons-for-free.com/iconfiles/png/512/circle+create+new+plus+sign+icon-1320085936892806512.png">
-            <label>פוסט חדש</label>
-        </a>
+        <button onclick="goToNewPostPage()" class="newPost">פוסט חדש</button>
+        <!-- Admin add category DIV - defualt: display:none -->
+        <div class="category__admin">
+            <label style="font-size: 10px;">רק למראה אדמין</label>
+            <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק
+                או ערוך קטגוריה</button>
+            <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
+            <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
+                <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
+                <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
+                <input value="הוסף" type="submit">
+                <button onclick="hideAddCategoryAndEditForm()">בטל</button>
+            </form>
+        </div>
 
-            <!-- Admin add category DIV - defualt: display:none -->
-    <div class="category__admin">
-        <label style="font-size: 10px;">רק למראה אדמין</label>
-        <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק או ערוך קטגוריה</button>
-        <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
-        <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
-            <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
-            <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
-            <input value="הוסף" type="submit">
-            <button onclick="hideAddCategoryAndEditForm()">בטל</button>
-        </form>
-    </div>
+        <div class="category__edit">
 
-    <div class="category__edit">
-
-    </div>
+        </div>
     </div>
 
     <script src="js/chooseCategory.js"></script>

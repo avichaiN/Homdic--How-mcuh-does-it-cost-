@@ -1,8 +1,6 @@
-
-
 body {
     direction: rtl;
-    background-color: #e2e1e1;
+    background-color: #f6f6f6;
     margin: 0 !important;
     padding: 0 !important;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,19 +12,14 @@ body {
 }
 
 .cateogryPage {
-    position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    overflow: scroll;
 
-
-    h1{
+    .titles {
+        width: 100%;
         position: relative;
-        top: 6%;
-        text-align: center;
-    }
-    h2{
-        position: relative;
-        top: 5%;
+        top: 7%;
         text-align: center;
     }
 
@@ -34,24 +27,25 @@ body {
         position: relative;
         top: 6%;
         width: 80%;
-        height: 70%;
+        height: 65%;
         margin: auto;
         margin-top: 2%;
         display: grid;
         place-items: center;
-        grid-template-columns:  repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-column-gap: 3%;
         grid-row-gap: 3%;
 
-        
+
 
         .cateogryPage__categorysBox:hover {
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
         }
 
         .cateogryPage__categorysBox {
-           width: 300px;
-           height: 220px;
+            background-color: rgb(241, 241, 241);
+            width: 300px;
+            height: 220px;
             border-radius: 5px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
@@ -67,6 +61,7 @@ body {
 
                 p {
                     margin: 0;
+                    margin-top: 1%;
                     padding: 2% 0;
                     font-weight: 550;
                     font-size: 25px;
@@ -74,38 +69,41 @@ body {
             }
         }
     }
-    .newPostButton{
-        width: 6%;
-        top: 7.5%;
-        right: 8%;
-        position:absolute;
-        text-decoration: none;
-        color:black;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
 
-        img{
-            width: 65%;
-            align-self: center;
-        }
-        label{
-            align-self: center;
-            font-weight: 550;
-        }
+    .newPost {
+        top: 10%;
+        right: 3%;
+        position: absolute;
+        border: none;
+        color: white;
+        padding: 12px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 17px;
+        border-radius: 20px;
+
+        transition: all 0.4s ease-in;
+        cursor: pointer;
+        background-color: #008CBA;
+        color: white;
+        border: 1px solid white;
     }
-    .newPostButton:hover{
-        right: 7.9%;
-        img{
-            width: 75%;
-        }
+
+    .newPost:hover {
+        font-weight: 550;
+        background-color: white;
+        color: black;
+    }
+    .newPost:focus{
+        outline: 0;
     }
 }
 
 
 
 .category__admin {
-    display: flex;
+    display: inline-block;
     justify-content: center;
     flex-direction: column;
     position: absolute;
@@ -115,9 +113,10 @@ body {
     height: 5rem;
     border: 3px dotted darkblue;
 
-    button{
+    button {
         border-radius: 4px;
     }
+
     // if admin: display this
     .category__adminAddCategory {
         display: block;
@@ -127,7 +126,7 @@ body {
         display: none;
         position: absolute;
         top: -5px;
-        left:-5px;
+        left: -5px;
         background-color: lightgray;
         border: 1px solid darkgray;
         border-radius: 5px;
@@ -137,11 +136,12 @@ body {
         z-index: 6;
     }
 }
-.category__edit{
+
+.category__edit {
     display: none;
     position: absolute;
     top: 10%;
-    left:5%;
+    left: 5%;
     border: 1px solid darkgray;
     background-color: lightgray;
     border-radius: 5px;
@@ -149,9 +149,22 @@ body {
     height: 10rem;
     z-index: 6;
     padding: 10px;
-    img{
+
+    img {
         width: 35%;
         height: 5rem;
         float: left;
+    }
+}
+
+
+@media only screen and (max-width: 1100px) {
+    .cateogryPage {
+        .newPost {
+            right: -0.1%;
+            padding: 8px 16px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
 }
