@@ -18,9 +18,9 @@ const handleNewCategory = (e) => {
     })
         .then(res => res.json())
         .then(data => {
-            if(!data.ok){
+            if (!data.ok) {
                 console.log('error addming category')
-            }else{
+            } else {
                 writeCategoiresToDom(data.categories)
                 console.log(data)
             }
@@ -33,10 +33,10 @@ const showEditOrDeleteCategory = (e) => {
     let deleteButton = document.querySelectorAll('.deleteCategory'), i;
     let editButton = document.querySelectorAll('.editCategory');
 
-for (i = 0; i < deleteButton.length; ++i) {
-    deleteButton[i].style.display = "inline";
-    editButton[i].style.display = 'inline';
-}
+    for (i = 0; i < deleteButton.length; ++i) {
+        deleteButton[i].style.display = "inline";
+        editButton[i].style.display = 'inline';
+    }
     e.stopPropagation();
 }
 // button to hide menu of edit or delete for amdin.
@@ -44,10 +44,10 @@ const hideEditOrDeleteCategory = () => {
     let deleteButton = document.querySelectorAll('.deleteCategory'), i;
     let editButton = document.querySelectorAll('.editCategory');
 
-for (i = 0; i < deleteButton.length; ++i) {
-    deleteButton[i].style.display = "none";
-    editButton[i].style.display = 'none';
-}
+    for (i = 0; i < deleteButton.length; ++i) {
+        deleteButton[i].style.display = "none";
+        editButton[i].style.display = 'none';
+    }
 
 }
 //delete category
@@ -88,23 +88,23 @@ const editCategoryForm = (e) => {
     </form>
     <label>כל שדה שישאר ריק ישמור את הערך הישן</label>`
 
-    document.querySelector('.category__edit').innerHTML = editCategoryFormHtml 
+    document.querySelector('.category__edit').innerHTML = editCategoryFormHtml
 }
-const hideAddCategoryAndEditForm = () =>{
+const hideAddCategoryAndEditForm = () => {
     document.querySelector('.category__edit').style.display = 'none'
     document.querySelector('.category__adminAddCategoryForm').style.display = 'none'
 }
-const editCategory = (e) =>{
+const editCategory = (e) => {
     e.preventDefault()
     const categoryId = e.target.children.name.dataset.id
     const oldCategoryName = e.target.children.name.dataset.name
     const oldCategoryImg = e.target.children.img.dataset.img
     let newCategoryName = e.target.children.name.value
     let newCategoryImg = e.target.children.img.value
-    if(newCategoryName=== ''){
+    if (newCategoryName === '') {
         newCategoryName = oldCategoryName
     }
-    if(newCategoryImg === ''){
+    if (newCategoryImg === '') {
         newCategoryImg = oldCategoryImg
     }
 
@@ -113,7 +113,7 @@ const editCategory = (e) =>{
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ categoryId, newCategoryImg , newCategoryName })
+        body: JSON.stringify({ categoryId, newCategoryImg, newCategoryName })
     })
         .then(res => res.json())
         .then(data => {

@@ -31,54 +31,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 
 app.use("/category", categoryRouter);
 
 app.use("/search", searchRouter);
 
-app.get("/", (req, res) => {
-  res.sendFile("index.html");
-});
 
-app.post("/", async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const userFound = await User.findOne({
-      $or: [{ username: username }, { email: username }],
-    });
-    if (userFound.password == password) {
-      res.send({ status: "authorized" });
-    }
-  } catch (e) {
-    console.log(e);
-    res.send({ status: "unauthorized" });
-    res.end();
-  }
-});
-
-app.get("/register", (req, res) => {
-  res.sendFile("public/register.html", { root: __dirname });
-});
-
-app.post("/register", async (req, res) => {
-  const { firstName, lastName, username, email, password } = req.body;
-  const newUser = new User({
-    email: email,
-    firstName: firstName,
-    lastName: lastName,
-    username: username,
-    password: password,
-  });
-  try {
-    await newUser.save();
-    res.send({ status: "authorized" });
-  } catch (e) {
-    console.log(e);
-    res.send({ status: "unauthorized" });
-    res.end();
-  }
-});
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

@@ -17,7 +17,7 @@
 
             <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
             <form class="header__form" onsubmit="handleSearch(event)">
-                <input class="header__formInput" type="text">
+                <input class="header__formInput" type="text" required>
                 <input class="header__formSubmit" type="submit" value="חפש">
             </form>
 
@@ -27,7 +27,7 @@
                 <div class="header__userInfoDrop">
 
                     <button>פוסטים שלי</button>
-                    <button>מועדפים שלי</button>
+                    <button>מועדפים</button>
                     <button>עדכן פרטי חשבון</button>
                     <button>התנתק</button>
 
@@ -42,26 +42,28 @@
         </div>
 
         <a href="newPost.html" class="newPostButton">
-            <img src="https://icons-for-free.com/iconfiles/png/512/circle+create+new+plus+sign+icon-1320085936892806512.png">
+            <img
+                src="https://icons-for-free.com/iconfiles/png/512/circle+create+new+plus+sign+icon-1320085936892806512.png">
             <label>פוסט חדש</label>
         </a>
 
-            <!-- Admin add category DIV - defualt: display:none -->
-    <div class="category__admin">
-        <label style="font-size: 10px;">רק למראה אדמין</label>
-        <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק או ערוך קטגוריה</button>
-        <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
-        <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
-            <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
-            <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
-            <input value="הוסף" type="submit">
-            <button onclick="hideAddCategoryAndEditForm()">בטל</button>
-        </form>
-    </div>
+        <!-- Admin add category DIV - defualt: display:none -->
+        <div class="category__admin">
+            <label style="font-size: 10px;">רק למראה אדמין</label>
+            <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק
+                או ערוך קטגוריה</button>
+            <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
+            <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
+                <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
+                <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
+                <input value="הוסף" type="submit">
+                <button onclick="hideAddCategoryAndEditForm()">בטל</button>
+            </form>
+        </div>
 
-    <div class="category__edit">
+        <div class="category__edit">
 
-    </div>
+        </div>
     </div>
 
     <script src="js/chooseCategory.js"></script>

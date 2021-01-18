@@ -2,37 +2,29 @@ const express = require('express');
 const Post = require('../models/post');
 
 const router = express.Router();
-let postsId = ''
+
 
 
 router.post('/', async (req, res) => {
     const { searched } = req.body
     const searchClean = searched.trim()
-    // postsId = ''
-    // let searchRes = await searcRegExp(searchClean)
-    // searchRes.forEach(post=>{
-    //     postsId += `${post._id},`
-    // })
-    res.send({searchClean})
+
+    res.send({ searchClean })
 
 })
+
 const searcRegExp = (searched) => {
     return Post.find({ $or: [{ title: { $regex: searched, $options: "" } }, { desc: { $regex: searched, $options: "" } }] }).exec()
 }
-const findPostById = (id) =>{
-    return Post.findById(id).exec()
-}
 
-router.use('/:id',async (req,res)=>{
-    let foundPosts = []
-    let splitedIDs = req.params.id.split(',')
-    splitedIDs.pop() 
-
-    for(i=0;i<splitedIDs.length;i++){
-        let post = await findPostById(splitedIDs[i])
-        foundPosts.push(post)
+router.use('/:keywords', async (req, res) => {
+    let searched = req.params.keywords
+    let posts = await searcRegExp(searched)
+    if(posts.length === 0){
+        res.send({ok:false})
+    }else{
+        res.send({ posts, ok:true })
     }
-    res.send({foundPosts})
 })
 
 module.exports = router;

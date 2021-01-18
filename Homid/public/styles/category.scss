@@ -2,7 +2,7 @@
 
 body {
     direction: rtl;
-    background-color: #e2e1e1;
+    background-color: #f6f6f6;
     margin: 0 !important;
     padding: 0 !important;
     font-family: Arial, Helvetica, sans-serif;
@@ -50,6 +50,7 @@ body {
         }
 
         .cateogryPage__categorysBox {
+            background-color: rgb(241, 241, 241);
            width: 300px;
            height: 220px;
             border-radius: 5px;

@@ -8,38 +8,45 @@ const hideUserDropDown = () => {
 
 //search bar
 
-const handleSearch = (e) =>{
+const handleSearch = (e) => {
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
-
-
-    fetch('/search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ searched })
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            // sessionStorage.setItem("postsId", data.postsId);
-            // window.location.replace('/search.html')
-            // window.location.replace(`/search/${data.postsId}`)
+    if(searched.length > 2){
+        fetch('/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ searched })
         })
+            .then(res => res.json())
+            .then(data => {
+                sessionStorage.setItem("keywords", data.searchClean);
+                window.location.replace(`/search.html`)
+            })
+    }else{
+        document.querySelector('.header__formInput').value = ""
+        document.querySelector('.header__formInput').placeholder = "חיפוש חייב להיות מעל 2 תווים"
+    }
 }
-const getSearchedPosts = () =>{
-    var postsId = sessionStorage.getItem("postsId");
 
-    fetch(`/search/${postsId}`)
-        .then(res => res.json())
-        .then(data => {
-            if(data.foundPosts === undefined || data.foundPosts===null){
-                console.log('NO POSTS FOUND')
-            }else{
-                console.log(data.foundPosts)
-            }
-        })
+const getSearchedPosts = () => {
+    const keywords = sessionStorage.getItem("keywords");
+    document.querySelector('.header__formInput').value = keywords
+
+    if (keywords === '') {
+        console.log('no posts found')
+    } else {
+        fetch(`/search/${keywords}`)
+            .then(res => res.json())
+            .then(data => {
+                if(!data.ok){
+                    console.log('no posts found')
+                }else{
+                    console.log(data.posts)
+                }
+            })
+    }
 }
 
 

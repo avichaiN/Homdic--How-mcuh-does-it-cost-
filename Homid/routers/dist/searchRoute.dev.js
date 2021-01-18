@@ -5,7 +5,6 @@ var express = require('express');
 var Post = require('../models/post');
 
 var router = express.Router();
-var postsId = '';
 router.post('/', function _callee(req, res) {
   var searched, searchClean;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -13,12 +12,7 @@ router.post('/', function _callee(req, res) {
       switch (_context.prev = _context.next) {
         case 0:
           searched = req.body.searched;
-          searchClean = searched.trim(); // postsId = ''
-          // let searchRes = await searcRegExp(searchClean)
-          // searchRes.forEach(post=>{
-          //     postsId += `${post._id},`
-          // })
-
+          searchClean = searched.trim();
           res.send({
             searchClean: searchClean
           });
@@ -47,45 +41,31 @@ var searcRegExp = function searcRegExp(searched) {
   }).exec();
 };
 
-var findPostById = function findPostById(id) {
-  return Post.findById(id).exec();
-};
-
-router.use('/:id', function _callee2(req, res) {
-  var foundPosts, splitedIDs, post;
+router.use('/:keywords', function _callee2(req, res) {
+  var searched, posts;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          foundPosts = [];
-          splitedIDs = req.params.id.split(',');
-          splitedIDs.pop();
-          i = 0;
+          searched = req.params.keywords;
+          _context2.next = 3;
+          return regeneratorRuntime.awrap(searcRegExp(searched));
 
-        case 4:
-          if (!(i < splitedIDs.length)) {
-            _context2.next = 12;
-            break;
+        case 3:
+          posts = _context2.sent;
+
+          if (posts.length === 0) {
+            res.send({
+              ok: false
+            });
+          } else {
+            res.send({
+              posts: posts,
+              ok: true
+            });
           }
 
-          _context2.next = 7;
-          return regeneratorRuntime.awrap(findPostById(splitedIDs[i]));
-
-        case 7:
-          post = _context2.sent;
-          foundPosts.push(post);
-
-        case 9:
-          i++;
-          _context2.next = 4;
-          break;
-
-        case 12:
-          res.send({
-            foundPosts: foundPosts
-          });
-
-        case 13:
+        case 5:
         case "end":
           return _context2.stop();
       }
