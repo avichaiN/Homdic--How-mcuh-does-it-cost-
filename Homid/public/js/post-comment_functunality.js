@@ -11,3 +11,14 @@ function showAddpost(){
   document.querySelector("#removePostbutton").classList.replace("show","hide");   
     
   }
+  function HideAddComment(){
+    document.querySelector("#AddCommentButton").classList.replace("hide","show");
+    document.querySelector("#cancelButton").classList.replace("show","hide");
+    document.querySelector("#addComment").classList.replace("show","hide");
+  }
+
+  function ShowAddComment(){
+    document.querySelector("#AddCommentButton").classList.replace("show","hide");
+    document.querySelector("#cancelButton").classList.replace("hide","show");
+    document.querySelector("#addComment").classList.replace("hide","show");
+  }

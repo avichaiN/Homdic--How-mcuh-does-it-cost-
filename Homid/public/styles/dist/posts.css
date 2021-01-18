@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+.material-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 body {
   direction: rtl;
   margin: 0 !important;
@@ -149,6 +162,10 @@ body #app .post #postheder .postbudy {
     padding: 2% 8% 2% 8%;
   }
 }
+body #app .post #addComment {
+  background-color: #e2e7ec;
+  height: 100px;
+}
 body #app .post .futter {
   display: flex;
   margin: 0 auto 1% auto;
@@ -177,7 +194,7 @@ body #app .post .futter {
     max-width: 70%;
   }
 }
-body #app .post .futter div {
+body #app .post .futter .Notifications {
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -187,22 +204,15 @@ body #app .post .futter div {
   margin-left: 6%;
   margin-right: 6%;
 }
-body #app .post .futter div:active {
+body #app .post .futter .Notifications:active {
   color: #2097f5;
 }
-body #app .post .futter div p {
+body #app .post .futter .Notifications p {
   margin-top: 2%;
 }
-
-.material-icons {
-  display: flex;
-  justify-content: center;
-}
-
-.hide {
+body #app .post .futter .hide {
   display: none;
 }
-
-.show {
+body #app .post .futter .show {
   display: block;
 }
