@@ -2,11 +2,11 @@ const getAllUsers = () => {
     fetch('/admin')
         .then(res => res.json())
         .then(data => {
-            if(!data.admin){
+            if (!data.admin) {
                 window.location.replace('index.html')
-            }else{
-            console.log(data.allUsers)
-            writeUsersToDom(data.allUsers)
+            } else {
+                console.log(data.allUsers)
+                writeUsersToDom(data.allUsers)
             }
         })
 }
@@ -58,11 +58,9 @@ const handleOpenEditUser = (e) => {
     const role = e.target.parentNode.dataset.role
     const id = e.target.parentNode.dataset.id
 
-
-
     document.querySelector('.editUserForm').style.display = 'block'
     let html = document.querySelector('.editUserForm')
-    html.innerHTML = `<form class="editUserFormm" onsubmit="handleEditUser(event, '${username}','${email}','${firstName}','${lastName}','${id}')">
+    html.innerHTML = `<form class="editUserFormm" onsubmit="handleEditUser(event, '${username}','${email}','${firstName}','${lastName}','${role}','${id}')">
 
         <label>משתמש שאתה עורך:</label>
             <label>שם משתמש: ${username}</label>
@@ -76,6 +74,7 @@ const handleOpenEditUser = (e) => {
         <input type="text" name="firstName" placeholder="שם פרטי">
         <input type="text" name="lastName" placeholder="שם משפחה">
         <select id="role" name="role">
+        <option selected hidden>בחר תפקיד</option>
         <option value="public">Public</option>
         <option value="admin">Admin</option>
       </select>
@@ -86,7 +85,7 @@ const handleOpenEditUser = (e) => {
 const hideEditForm = () => {
     document.querySelector('.editUserForm').style.display = 'none'
 }
-const handleEditUser = (e, username, email, firstName, lastName, id) => {
+const handleEditUser = (e, username, email, firstName, lastName,role, id) => {
     e.preventDefault()
     // console.log(username, email, firstName, lastName, role)
     let newEmail = e.target.children.email.value
@@ -95,9 +94,11 @@ const handleEditUser = (e, username, email, firstName, lastName, id) => {
     let newUsername = e.target.children.username.value
     let newRole = e.target.children.role.selectedIndex
 
-    if (newRole === 0) {
+    if(newRole === 0){
+        newRole = role
+    }else if (newRole === 1) {
         newRole = 'public'
-    } else if (newRole === 1) {
+    } else if (newRole === 2) {
         newRole = 'admin'
     }
 
@@ -122,7 +123,7 @@ const handleEditUser = (e, username, email, firstName, lastName, id) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newEmail,newUsername,newfName,newlName,newRole,id })
+        body: JSON.stringify({ newEmail, newUsername, newfName, newlName, newRole, id })
     })
         .then(res => res.json())
         .then(data => {

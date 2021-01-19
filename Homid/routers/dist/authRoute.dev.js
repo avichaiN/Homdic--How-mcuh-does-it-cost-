@@ -207,4 +207,13 @@ router.get('/getUserName', function (req, res) {
     decoded: decoded
   });
 });
+router.get('/logout', function (req, res) {
+  res.cookie("userLoggedIn", '', {
+    expires: new Date(0)
+  }); // this delete cookie (sets it to a date that is gone)
+
+  res.send({
+    loggedout: true
+  });
+});
 module.exports = router;

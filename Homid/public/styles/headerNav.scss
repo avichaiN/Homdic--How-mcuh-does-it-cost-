@@ -121,7 +121,7 @@
             margin-top: 7%;
             margin-left: -8%;
 
-            a {
+            a, button {
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
@@ -129,20 +129,16 @@
                 font-size: 15px;
                 font-weight: 550;
                 outline: 0;
-                background-color: none;
                 padding: 6px 12px;
                 border: 2px solid rgb(96, 96, 247);
                 background-color: white;
                 border-radius: 5px;
                 margin: 2px;
+                cursor: pointer;
             }
-            a:hover, a:active{
+            a:hover, a:active, button:hover, button:active{
                 background-color: rgb(34, 86, 134);
                 color: white;
-            }
-
-            button:hover {
-                background-color: #ffffff
             }
 
         }
