@@ -10,26 +10,14 @@ const router = express.Router();
 
 router.use(cookieParser());
 
-// const checkUserToken =  (req, res, next) => {
-//     const token = req.cookies.userLoggedIn;
-//     console.log(token)
-//     if (token) {
-//         console.log('1')
-//       const decoded = jwt.decode(token, secret);
-//       req.userInfo = decoded;
-//       next();
-//     } else {
-//       console.log('2')
-//         res.send({user:false})
-//     }
-//   };
+
 
 function checkAdmin(req, res, next) {
     const token = req.cookies.userLoggedIn;
 
     if (token) {
         var decoded = jwt.decode(token, secret);
-        console.log(decoded.role);
+
         if (decoded.role === "admin") {
             next();
         } else {
@@ -92,7 +80,6 @@ router.put("/", checkAdmin, async (req, res) => {
                     res.send({ ok: false });
                 } else {
                     let categories = await categoriesFind();
-                    console.log(categories);
                     res.send({ ok: true, category, categories });
                 }
             }

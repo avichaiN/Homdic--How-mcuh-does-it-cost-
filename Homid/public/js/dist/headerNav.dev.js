@@ -9,6 +9,30 @@ var sayHelloToUser = function sayHelloToUser(name) {
   sayHello.innerHTML = "".concat(greet, ", ").concat(name);
 };
 
+var displayGoToAdminPage = function displayGoToAdminPage() {
+  var checkAdmin;
+  return regeneratorRuntime.async(function displayGoToAdminPage$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return regeneratorRuntime.awrap(handleCheckAdmin());
+
+        case 2:
+          checkAdmin = _context.sent;
+
+          if (checkAdmin) {
+            document.querySelector('.header__adminPage').style.display = 'block';
+          }
+
+        case 4:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+};
+
 var showUserDropDown = function showUserDropDown(e) {
   document.querySelector('.header__userInfoDrop').style.display = 'flex';
   e.stopPropagation();

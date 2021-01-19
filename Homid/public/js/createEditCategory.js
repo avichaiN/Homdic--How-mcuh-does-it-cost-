@@ -1,13 +1,10 @@
 //if admin display this.
-const checkAdmin = () => {
-    fetch('/admin/check')
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if (data.admin) {
-                document.querySelector('.category__admin').style.display = 'inline-block'
-            }
-        })
+const displayAdminCategory = async () => {
+    let checkAdmin = await handleCheckAdmin()
+
+    if(checkAdmin){
+        document.querySelector('.category__admin').style.display = 'block'
+    }
 }
 const handleDisplayAddCategory = () => {
     document.querySelector(".category__adminAddCategoryForm").style.display = "block";
@@ -31,7 +28,6 @@ const handleNewCategory = (e) => {
                 console.log('error addming category')
             } else {
                 writeCategoiresToDom(data.categories)
-                console.log(data)
             }
         })
 }
@@ -63,7 +59,7 @@ const hideEditOrDeleteCategory = () => {
 const deleteCategory = (e) => {
     e.stopPropagation();
     const chosenCategoryid = e.target.parentNode.dataset.id
-    console.log(chosenCategoryid)
+
     fetch('/category/', {
         method: 'DELETE',
         headers: {
@@ -73,7 +69,6 @@ const deleteCategory = (e) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             writeCategoiresToDom(data.categories)
         })
 
@@ -126,7 +121,6 @@ const editCategory = (e) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             writeCategoiresToDom(data.categories)
         })
 }

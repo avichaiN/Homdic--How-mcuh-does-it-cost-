@@ -1,6 +1,13 @@
 "use strict";
 
-// get all categories when loading page
+var startLoad = function startLoad() {
+  getDisplayCategories();
+  getUserInfo();
+  displayAdminCategory();
+  displayGoToAdminPage();
+}; // get all categories when loading page
+
+
 var getDisplayCategories = function getDisplayCategories() {
   fetch('/category').then(function (res) {
     return res.json();

@@ -1,14 +1,26 @@
 "use strict";
 
 //if admin display this.
-var checkAdmin = function checkAdmin() {
-  fetch('/admin/check').then(function (res) {
-    return res.json();
-  }).then(function (data) {
-    console.log(data);
+var displayAdminCategory = function displayAdminCategory() {
+  var checkAdmin;
+  return regeneratorRuntime.async(function displayAdminCategory$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return regeneratorRuntime.awrap(handleCheckAdmin());
 
-    if (data.admin) {
-      document.querySelector('.category__admin').style.display = 'inline-block';
+        case 2:
+          checkAdmin = _context.sent;
+
+          if (checkAdmin) {
+            document.querySelector('.category__admin').style.display = 'block';
+          }
+
+        case 4:
+        case "end":
+          return _context.stop();
+      }
     }
   });
 };
@@ -38,7 +50,6 @@ var handleNewCategory = function handleNewCategory(e) {
       console.log('error addming category');
     } else {
       writeCategoiresToDom(data.categories);
-      console.log(data);
     }
   });
 }; // button to show menu of edit or delete for amdin.
@@ -73,7 +84,6 @@ var hideEditOrDeleteCategory = function hideEditOrDeleteCategory() {
 var deleteCategory = function deleteCategory(e) {
   e.stopPropagation();
   var chosenCategoryid = e.target.parentNode.dataset.id;
-  console.log(chosenCategoryid);
   fetch('/category/', {
     method: 'DELETE',
     headers: {
@@ -85,7 +95,6 @@ var deleteCategory = function deleteCategory(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
     writeCategoiresToDom(data.categories);
   });
 }; //edit category
@@ -135,7 +144,6 @@ var editCategory = function editCategory(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
     writeCategoiresToDom(data.categories);
   });
 };

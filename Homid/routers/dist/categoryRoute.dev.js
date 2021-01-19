@@ -14,26 +14,13 @@ var secret = "temporary";
 var checkUserToken = require('../routers/checkUserToken');
 
 var router = express.Router();
-router.use(cookieParser()); // const checkUserToken =  (req, res, next) => {
-//     const token = req.cookies.userLoggedIn;
-//     console.log(token)
-//     if (token) {
-//         console.log('1')
-//       const decoded = jwt.decode(token, secret);
-//       req.userInfo = decoded;
-//       next();
-//     } else {
-//       console.log('2')
-//         res.send({user:false})
-//     }
-//   };
+router.use(cookieParser());
 
 function checkAdmin(req, res, next) {
   var token = req.cookies.userLoggedIn;
 
   if (token) {
     var decoded = jwt.decode(token, secret);
-    console.log(decoded.role);
 
     if (decoded.role === "admin") {
       next();
@@ -190,7 +177,7 @@ router.put("/", checkAdmin, function _callee4(req, res) {
                     res.send({
                       ok: false
                     });
-                    _context4.next = 10;
+                    _context4.next = 9;
                     break;
 
                   case 5:
@@ -199,14 +186,13 @@ router.put("/", checkAdmin, function _callee4(req, res) {
 
                   case 7:
                     categories = _context4.sent;
-                    console.log(categories);
                     res.send({
                       ok: true,
                       category: category,
                       categories: categories
                     });
 
-                  case 10:
+                  case 9:
                   case "end":
                     return _context4.stop();
                 }

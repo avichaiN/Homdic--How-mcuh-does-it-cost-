@@ -46,6 +46,23 @@
             font-size: large;
         }
     }
+    .header__adminPage{
+        display: none;
+        position: absolute;
+        right: 24%;
+        width: 8%;
+        padding: 5px 10px;
+        text-decoration: none;
+        text-align: center;
+        color: black;
+        align-self: center;
+        background-color: white;
+        border-radius: 5px;
+    }
+    .header__adminPage:hover{
+        color: white;
+        background-color: rgb(107, 107, 107);
+    }
 
     .header__form {
         width: 33%;

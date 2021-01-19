@@ -40,6 +40,23 @@
     font-size: large;
   }
 }
+.header .header__adminPage {
+  display: none;
+  position: absolute;
+  right: 24%;
+  width: 8%;
+  padding: 5px 10px;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  align-self: center;
+  background-color: white;
+  border-radius: 5px;
+}
+.header .header__adminPage:hover {
+  color: white;
+  background-color: #6b6b6b;
+}
 .header .header__form {
   width: 33%;
   height: 100%;

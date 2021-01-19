@@ -14,7 +14,13 @@ const sayHelloToUser = (name) =>{
         sayHello.innerHTML = `${greet}, ${name}`
 }
 
+const displayGoToAdminPage = async () =>{
+    let checkAdmin = await handleCheckAdmin()
 
+    if(checkAdmin){
+        document.querySelector('.header__adminPage').style.display = 'block'
+    }
+}
 const showUserDropDown = (e) => {
     document.querySelector('.header__userInfoDrop').style.display = 'flex'
     e.stopPropagation();
