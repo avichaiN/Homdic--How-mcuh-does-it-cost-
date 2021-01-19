@@ -25,7 +25,7 @@
 
     <div class="header__userInfo">
       <img onclick="showUserDropDown(event)"
-      src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
+        src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
       <div class="header__userInfoDrop">
         <button>פוסטים שלי</button>
         <button>מועדפים</button>
@@ -47,11 +47,15 @@
     <div class="AddPost hide">
       <div id="postAddHeder">
         <h1 class="addPosTtitle">הוספת פוסט</h1>
-        <textarea name="message"></textarea>
+        <!--  <textarea name="message"></textarea> -->
       </div>
-      <div class="AddPostfutter">
-
-
+      <div id="AddPostBody">
+        <form action="">
+          <textarea name="message"></textarea>
+          <input id="avatar" type="file" value="..."  name="avatar" accept="image/png, image/jpeg, image/jpg">
+        </form>
+      </div>
+      <div ID="AddPostfutter">
         <div>
           <span class="material-icons">
             add_circle_outline
@@ -63,215 +67,13 @@
     </div>
     <!-- end post -->
 
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-     <!--  add comment form -->
-      <div id="addComment" class="hide">  <!--hide -->
-        <form action="" >
-          <textarea name="message"></textarea>
-          <input type="button" value="OK">
-        </form>
-      </div>
-       <!--  end add comment form -->
-      <div class="futter">
-        <div id="NotificationsButton" class="Notifications" onclick="PostNotificationsButtonClicked()">
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div id="FavoriteButton" class="Notifications" onclick="PostFavoriteButtonClicked()">
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div id="cancelButton" class="Notifications hide" onclick="HideAddComment()">
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>בטל</p>
-        </div>
-        <div id="AddCommentButton" class="Notifications show" onclick="ShowAddComment()">
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
-    <!-- start post -->
-    <div class="post">
-      <div id="postheder">
-        <h1 class="posttitle">מזגן</h1>
-        <p class="postbudy">מעוניין במתקין למזגן</p>
-      </div>
-      <div class="futter">
-        <div>
-          <span class="material-icons"> notifications </span>
-          <p>תזכורת</p>
-        </div>
-        <div>
-          <span class="material-icons"> info </span>
-          <p>מידע</p>
-        </div>
-        <div>
-          <span class="material-icons"> favorite </span>
-          <p>מועדפים</p>
-        </div>
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>רשום תגובה</p>
-        </div>
-      </div>
-    </div>
-    <!-- end post -->
+    
+    
   </div>
   <script src="js/headerNav.js"></script>
-  <script src="../public/js/post-comment_functunality.js"></script>
+  <script src="js/post-comment_render.js"></script>
+  <script src="js/post-comment_functunality.js"></script>
+  
 
 </body>
 

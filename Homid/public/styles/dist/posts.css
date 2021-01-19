@@ -102,12 +102,22 @@ body #app .AddPost #postAddHeder {
 body #app .AddPost #postAddHeder .addPosTtitle {
   margin-bottom: 0%;
 }
-body #app .AddPost #postAddHeder textarea {
+body #app .AddPost #AddPostBody {
+  background-color: #cfd8dd;
+  height: 100%;
+}
+body #app .AddPost #AddPostBody form {
+  padding: 1% 4% 1% 4%;
+}
+body #app .AddPost #AddPostBody form textarea {
   margin-right: 2%;
   width: 100%;
   height: 100px;
 }
-body #app .AddPost .AddPostfutter {
+body #app .AddPost #AddPostBody form input {
+  margin-right: 2%;
+}
+body #app .AddPost #AddPostfutter {
   display: flex;
   margin: 0 auto 1% auto;
   margin-top: 0.5%;
@@ -115,13 +125,13 @@ body #app .AddPost .AddPostfutter {
   max-width: 50%;
   justify-content: space-evenly;
 }
-body #app .AddPost .AddPostfutter div {
+body #app .AddPost #AddPostfutter div {
   cursor: pointer;
 }
-body #app .AddPost .AddPostfutter div:active {
+body #app .AddPost #AddPostfutter div:active {
   color: #2097f5;
 }
-body #app .AddPost .AddPostfutter div p {
+body #app .AddPost #AddPostfutter div p {
   margin-top: 2%;
   margin-bottom: 20%;
 }
@@ -162,26 +172,31 @@ body #app .post #postheder .postbudy {
     padding: 2% 8% 2% 8%;
   }
 }
-body #app .post #addComment {
+body #app .post #addComment div {
   background-color: #e2e7ec;
-  height: 100px;
-  display: grid;
-  align-items: center;
+  padding: 1%;
+  row-gap: 100px;
+  align-self: center;
+  margin-bottom: 1%;
 }
-body #app .post #addComment form {
+body #app .post #addComment div p {
+  margin: 0;
+}
+body #app .post #addComment div form {
   display: grid;
   align-items: center;
+  align-self: center;
   grid-template-columns: 5fr 1fr;
 }
-body #app .post #addComment form textarea {
+body #app .post #addComment div form textarea {
   width: 99%;
   height: 80px;
   font-size: 20px;
   grid-row: 1;
 }
-body #app .post #addComment form input {
+body #app .post #addComment div form input {
   width: 60px;
-  height: 50px;
+  height: 80px;
   grid-row: 1;
 }
 body #app .post .futter {

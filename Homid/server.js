@@ -18,6 +18,7 @@ const authRouter = require("./routers/authRoute");
 const categoryRouter = require("./routers/categoryRoute");
 const searchRouter = require("./routers/searchRoute");
 const adminRouter = require("./routers/adminRoute");
+const updateUserDataRouter = require("./routers/updateUserDataRoute");
 
 // Mongoose Schemas
 const User = require("./models/user");
@@ -40,16 +41,18 @@ app.use("/search", searchRouter);
 
 app.use("/admin", adminRouter);
 
+app.use("/updateUserData", updateUserDataRouter);
+
 //middleware check for user token
 
 const checkUserToken = async (req, res, next) => {
   const token = req.cookies.userLoggedIn;
   if (token) {
-    var decoded = jwt.decode(token, secret);
+    const decoded = jwt.decode(token, secret);
     req.userInfo = decoded;
     next();
   } else {
-    res.send({ user: "unauthorized" });
+    res.redirect("/");
   }
 };
 

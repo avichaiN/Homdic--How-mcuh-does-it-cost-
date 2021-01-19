@@ -10,11 +10,6 @@ const secret = "temporary";
 
 router.use(cookieParser());
 
-
-router.get("/", (req, res) => {
-  res.sendFile("index.html");
-});
-
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
