@@ -48,7 +48,7 @@ function handleLoginForm(e) {
           confirmButtonText: "אישור",
         });
       } else {
-        window.location.href = "/";
+        window.location.href = "/categories.html";
       }
     });
 }

@@ -1,25 +1,45 @@
 const express = require('express');
-const user = require('../models/user');
 const router = express.Router();
 const User = require('../models/user');
-
+const jwt = require("jwt-simple");
+const cookieParser = require("cookie-parser");
+// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+const secret = "temporary";
+router.use(cookieParser());
 
 
 function checkAdmin(req, res, next) {
-    // make function to check if admin!!!
+    const token = req.cookies.userLoggedIn
 
-    next()
+    if(token){
+        var decoded = jwt.decode(token, secret);
+        console.log(decoded.role)
+        if(decoded.role==='admin'){
+            next()
+        }else{
+            res.send({admin:false})
+        }
+    }else{
+        res.send({admin:false})
+    }
 }
 
 function getAllUsers() {
-    return user.find().exec()
+    return User.find().exec()
 }
 function deleteUserById(id) {
-    return user.findOneAndDelete({ _id: id }).exec()
+    return User.findOneAndDelete({ _id: id }).exec()
 }
+
 router.get("/", checkAdmin, async (req, res) => {
     let allUsers = await getAllUsers()
-    res.send({ allUsers })
+    res.send({ allUsers,admin:true })
+});
+
+router.get("/check", checkAdmin, async (req, res) => {
+
+    res.send({ admin:true })
+    
 });
 
 router.delete("/", checkAdmin, async (req, res) => {
@@ -32,7 +52,7 @@ router.delete("/", checkAdmin, async (req, res) => {
 
 
 function updateUser(newEmail, newUsername, newfName, newlName, newRole, id) {
-    return user.findByIdAndUpdate(id, { username: newUsername, email: newEmail, firstName: newfName, lastName: newlName , role: newRole }).exec()
+    return User.findByIdAndUpdate(id, { username: newUsername, email: newEmail, firstName: newfName, lastName: newlName , role: newRole }).exec()
 }
 
 router.put("/", checkAdmin, async (req, res) => {

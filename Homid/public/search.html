@@ -7,29 +7,30 @@
     <title>Homdic? Posts</title>
     <link rel="stylesheet" href="styles/dist/search.css">
     <link rel="stylesheet" href="styles/dist/headerNav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body onload="getSearchedPosts()">
     <div class="search" onclick="hideUserDropDown()">
         <div class="header">
 
-            <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
-
+            <div class="header__helloUser"></div>
             <form class="header__form" onsubmit="handleSearch(event)">
-                <input class="header__formInput" type="text" required>
-                <input class="header__formSubmit" type="submit" value="חפש">
+                <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
+                <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+                <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
             </form>
 
             <!-- user info / logout / edit user // show all posts -->
+
             <div class="header__userInfo">
-                <div class="header__userInfoShow" onclick="showUserDropDown(event)"></div>
+                <img onclick="showUserDropDown(event)"
+                src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
                 <div class="header__userInfoDrop">
-
-                    <button>פוסטים שלי</button>
-                    <button>מועדפים</button>
-                    <button>עדכן פרטי חשבון</button>
-                    <button>התנתק</button>
-
+                    <a href="#">פוסטים שלי</a>
+                    <a href="#">מועדפים</a>
+                    <a href="updateUserData.html">עדכן פרטי חשבון</a>
+                    <a href="#">התנתק</a>
                 </div>
             </div>
         </div>

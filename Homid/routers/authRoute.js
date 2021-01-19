@@ -21,11 +21,12 @@ router.post("/", async (req, res) => {
     const userFound = await User.findOne({
       $or: [{ username: username }, { email: username }],
     });
-    bcrypt.hash(userFound.password, saltRounds, function (err, hash) {
+
+    hash=userFound.password
       bcrypt.compare(password, hash, function (err, result) {
         if (result) {
           const token = jwt.encode(
-            { role: userFound.role, date: new Date() },
+            { role: userFound.role, username: userFound.username, name: userFound.firstName, date: new Date() },
             secret
           );
           res.cookie("userLoggedIn", token, {
@@ -38,7 +39,6 @@ router.post("/", async (req, res) => {
           res.end();
         }
       });
-    });
   } catch (e) {
     console.log(e);
     res.send({ status: "unauthorized" });
@@ -48,6 +48,7 @@ router.post("/", async (req, res) => {
 
 router.post("/register", (req, res) => {
   const { firstName, lastName, username, email, password } = req.body;
+
   const newUser = new User({
     email: email,
     firstName: firstName,
@@ -68,4 +69,32 @@ router.post("/register", (req, res) => {
     }
   });
 });
+
+// check if user logged in
+const checkUser = (req,res,next) =>{
+  const token = req.cookies.userLoggedIn
+
+  if(token){
+      var decoded = jwt.decode(token, secret);
+      if(decoded.role==='public' || decoded.role === 'admin'){
+          next()
+      }else{
+          res.send({user:false})
+      }
+  }else{
+      res.send({user:false})
+  }
+}
+
+router.get('/isLoggedIn', checkUser, (req,res)=>{
+  res.send({user:true})
+})
+router.get('/getUserName',(req,res)=>{
+
+      const token = req.cookies.userLoggedIn
+      var decoded = jwt.decode(token, secret);
+
+      res.send({decoded})
+})
+
 module.exports = router;

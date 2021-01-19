@@ -1,3 +1,29 @@
+const getUserName = () =>{
+    fetch('/getUserName')
+    .then(res => res.json())
+    .then(data => {
+        const name = data.decoded.name
+        sayHelloToUser(name)
+    })
+}
+const sayHelloToUser = (name) =>{
+    const myDate = new Date();
+    const hrs = myDate.getHours();
+    let greet;
+    let sayHello = document.querySelector('.header__helloUser')
+
+    if (hrs < 12)
+        greet = 'בוקר טוב';
+    else if (hrs >= 12 && hrs <= 17)
+        greet = 'צהרים טובים';
+    else if (hrs >= 17 && hrs <= 24)
+        greet = 'ערב טוב';
+
+
+        sayHello.innerHTML = `${greet}, ${name}`
+}
+
+
 const showUserDropDown = (e) => {
     document.querySelector('.header__userInfoDrop').style.display = 'flex'
     e.stopPropagation();
@@ -6,8 +32,9 @@ const hideUserDropDown = () => {
     document.querySelector('.header__userInfoDrop').style.display = 'none'
 }
 
-//search bar
 
+
+//search bar
 const handleSearch = (e) => {
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value

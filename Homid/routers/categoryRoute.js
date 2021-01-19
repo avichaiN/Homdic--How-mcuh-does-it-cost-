@@ -1,9 +1,30 @@
 const express = require('express');
 const Category = require('../models/category');
-
+const jwt = require("jwt-simple");
+const cookieParser = require("cookie-parser");
+// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+const secret = "temporary";
 
 const router = express.Router();
 
+router.use(cookieParser());
+
+
+function checkAdmin(req, res, next) {
+    const token = req.cookies.userLoggedIn
+
+    if(token){
+        var decoded = jwt.decode(token, secret);
+        console.log(decoded.role)
+        if(decoded.role==='admin'){
+            next()
+        }else{
+            res.send({admin:false})
+        }
+    }else{
+        res.send({admin:false})
+    }
+}
 async function categoriesFind() {
     try {
         return Category.find({}).exec()
@@ -29,7 +50,7 @@ router.get('/', async (req, res) => {
 })
 
 //create new category for admin
-router.post('/', async (req, res) => {
+router.post('/', checkAdmin, async (req, res) => {
     const { newCategoryName } = req.body
     const { newCategoryImg } = req.body
 
@@ -46,7 +67,7 @@ router.post('/', async (req, res) => {
         res.send({ ok: false })
     }
 })
-router.put('/', async (req, res) => {
+router.put('/',checkAdmin, async (req, res) => {
     const { categoryId, newCategoryName, newCategoryImg } = req.body
 
     try {
@@ -66,7 +87,7 @@ router.put('/', async (req, res) => {
         console.log(e)
     }
 })
-router.delete('/', async (req, res) => {
+router.delete('/',checkAdmin, async (req, res) => {
     const { chosenCategoryid } = req.body
 
     try {

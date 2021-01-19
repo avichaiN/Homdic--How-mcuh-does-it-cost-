@@ -1,5 +1,14 @@
 //if admin display this.
-
+const checkAdmin = () =>{
+    fetch('/admin/check')
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if(data.admin){
+            document.querySelector('.category__admin').style.display = 'inline-block'
+        }
+    })
+}
 const handleDisplayAddCategory = () => {
     document.querySelector(".category__adminAddCategoryForm").style.display = "block";
 }

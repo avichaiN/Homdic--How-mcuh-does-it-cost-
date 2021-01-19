@@ -2,8 +2,12 @@ const getAllUsers = () => {
     fetch('/admin')
         .then(res => res.json())
         .then(data => {
+            if(!data.admin){
+                window.location.replace('index.html')
+            }else{
             console.log(data.allUsers)
             writeUsersToDom(data.allUsers)
+            }
         })
 }
 
