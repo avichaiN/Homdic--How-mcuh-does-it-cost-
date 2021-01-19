@@ -21,8 +21,14 @@ const displayPostBox = (e) =>{
 // }
 document.onclick = function(e){
 
-    className = e.target.className
+    className = e.srcElement.className
     console.log(className)
+    var classNameInclude = className.includes()
+    if(className==='newPostBox' || className=== 'box'){
+        console.log('box clicked')
+    }else{
+        console.log('not box')
+    }
 }
 const getCategoiresCheckBox = () => {
     let categoriesNames = `<option selected hidden>בחר קטגוריוה</option>`
