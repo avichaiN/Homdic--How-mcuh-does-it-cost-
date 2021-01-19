@@ -24,6 +24,12 @@
     justify-content: space-around;
     z-index: 5;
 
+    input::-webkit-input-placeholder{
+        font-size: 15px;
+        padding-right: 5px;
+        color: rgb(179, 179, 179);
+    }
+
     .header__helloUser {
         align-self: center;
         width: 33%;

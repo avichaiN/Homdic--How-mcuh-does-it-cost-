@@ -26,8 +26,8 @@ body {
     padding: 0 !important;
     font-family: Arial, Helvetica, sans-serif;
     background-color: $body-bg-color;
-    width: 99vw;
-    height: 99vh;
+    //width: 99vw;
+    //height: 99vh;
 
     .comments-post {
         border-radius: 0 0 10px 10px;
@@ -38,8 +38,9 @@ body {
         width: 98%;
         z-index: 1;
         top: 6.5%;
-        max-height: 360px;
-        min-height: 300px;
+        height: 290px; //+
+        //max-height: 360px;
+        min-height: 290px;
 
         #postheder {
             display: grid;
@@ -47,6 +48,7 @@ body {
             background-color: $postheder-bg-color;
             grid-template-columns: 2fr 1fr;
             grid-template-rows: 1fr 2fr;
+            height: 210px;
 
             .posttitle {
                 width: 80%;
@@ -187,13 +189,13 @@ body {
 
 
         .commenstsSection {
-
+        margin-top: 380px; //+
 
             .comment {
                 border: 1px solid black;
                 margin-top: 1%;
                 background-color: rgb(241, 241, 241);
-                height: 80px;
+                //height: 80px;
                 display: grid;
                 grid-template-rows: repeat(3, 1fr);
                 grid-template-columns: repeat(8, 1fr);
@@ -252,3 +254,10 @@ body {
         color: $addButton-bg-color;
     }
 }
+
+@media only screen and (max-width: 650px){
+    body #app .commenstsSection{
+        margin-top: 350px;
+    }
+}
+
