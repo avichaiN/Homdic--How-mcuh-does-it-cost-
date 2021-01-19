@@ -49,7 +49,7 @@ const checkUserToken = async (req, res, next) => {
     req.userInfo = decoded;
     next();
   } else {
-    res.send({ user: "unauthorized" });
+    res.redirect("/");
   }
 };
 
