@@ -14,12 +14,12 @@ var displayPostBox = function displayPostBox(e) {
 };
 
 document.onclick = function (e) {
-  className = e.srcElement.className;
+  className = e.target.className;
   var classNameInclude = className.includes('box');
 
   if (!classNameInclude) {
     postBox.style.opacity = '0';
-    postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1);';
+    postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1)';
     setTimeout(function () {
       postBox.style.display = 'none';
     }, 100);
