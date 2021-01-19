@@ -2,6 +2,7 @@ const express = require('express');
 const Category = require('../models/category');
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
+const checkUserToken = require('../routers/authRoute')
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
 
@@ -35,7 +36,7 @@ async function categoriesFind() {
 }
 
 // get all categories to display on category page.
-router.get('/', async (req, res) => {
+router.get('/',checkUserToken ,async (req, res) => {
 
     try {
         let categories = await categoriesFind()

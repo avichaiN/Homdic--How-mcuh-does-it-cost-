@@ -12,7 +12,9 @@ var saltRounds = 12;
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var cookieParser = require("cookie-parser");
+
+var path = require('path'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
@@ -31,7 +33,7 @@ var checkUserToken = function checkUserToken(req, res, next) {
             req.userInfo = decoded;
             next();
           } else {
-            res.redirect("/");
+            res.redirect('/');
           }
 
         case 2:
@@ -40,10 +42,13 @@ var checkUserToken = function checkUserToken(req, res, next) {
       }
     }
   });
-};
+}; // router.get('/out',(req,res)=>{
+//   console.log('hereee')
+// })
 
-router.get("/", checkUserToken, function (req, res) {
-  res.sendFile("index.html");
+
+router.get("/", function (req, res) {
+  res.sendFile('index.html');
 });
 router.post("/", function _callee(req, res) {
   var _req$body, username, password, userFound;
