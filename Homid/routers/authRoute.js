@@ -5,10 +5,12 @@ const bcrypt = require("bcrypt");
 const saltRounds = 12;
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
+
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
 
 router.use(cookieParser());
+
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
@@ -84,11 +86,17 @@ router.post("/register", (req, res) => {
   });
 });
 
-// check if user logged in
+
+router.get("/userInfo", (req, res) => {
+  const token = req.cookies.userLoggedIn;
+  const decoded = jwt.decode(token, secret);
+  const name = decoded.name
+  res.send({ name });
+});
 
 router.get("/logout", (req, res) => {
   res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
   res.send({ loggedout: true });
 });
-module.exports = router;
+module.exports = [router];

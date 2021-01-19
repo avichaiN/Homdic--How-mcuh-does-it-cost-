@@ -137,8 +137,15 @@ router.post("/register", function (req, res) {
       }
     }, null, null, [[0, 9]]);
   });
-}); // check if user logged in
-
+});
+router.get("/userInfo", function (req, res) {
+  var token = req.cookies.userLoggedIn;
+  var decoded = jwt.decode(token, secret);
+  var name = decoded.name;
+  res.send({
+    name: name
+  });
+});
 router.get("/logout", function (req, res) {
   res.cookie("userLoggedIn", "", {
     expires: new Date(0)
@@ -148,4 +155,4 @@ router.get("/logout", function (req, res) {
     loggedout: true
   });
 });
-module.exports = router;
+module.exports = [router];

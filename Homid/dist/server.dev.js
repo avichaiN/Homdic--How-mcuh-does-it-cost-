@@ -44,32 +44,7 @@ app.use("/", authRouter);
 app.use("/category", categoryRouter);
 app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
-app.use("/updateUserData", updateUserDataRouter); //middleware check for user token
-
-var checkUserToken = function checkUserToken(req, res, next) {
-  var token, decoded;
-  return regeneratorRuntime.async(function checkUserToken$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          token = req.cookies.userLoggedIn;
-
-          if (token) {
-            decoded = jwt.decode(token, secret);
-            req.userInfo = decoded;
-            next();
-          } else {
-            res.redirect("/");
-          }
-
-        case 2:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
-};
-
+app.use("/updateUserData", updateUserDataRouter);
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
 });

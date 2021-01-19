@@ -43,17 +43,5 @@ app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
 
-//middleware check for user token
-
-const checkUserToken = async (req, res, next) => {
-  const token = req.cookies.userLoggedIn;
-  if (token) {
-    const decoded = jwt.decode(token, secret);
-    req.userInfo = decoded;
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

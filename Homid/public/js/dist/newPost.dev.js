@@ -11,14 +11,7 @@ var displayPostBox = function displayPostBox(e) {
     postBox.style.transform = 'none';
     getCategoiresCheckBox();
   }, 100);
-}; // const hidePostBox = () =>{
-//     postBox.style.opacity = '0'
-//     postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1);'
-//     setTimeout(function(){ 
-//         postBox.style.display = 'none'
-//      }, 100);
-// }
-
+};
 
 document.onclick = function (e) {
   className = e.srcElement.className;

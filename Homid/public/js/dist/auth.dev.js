@@ -1,18 +1,14 @@
 "use strict";
 
-// const checkUser = () => {
-//     fetch('/isLoggedIn')
-//         .then(res => res.json())
-//         .then(data => {
-//             console.log(data)
-//             if (!data.user) {
-//                 window.location.replace('index.html')
-//             } else {
-//                 const name = data.userInfo.name
-//                 sayHelloToUser(name)
-//             }
-//         })
-// }
+var getUserInfo = function getUserInfo() {
+  fetch('/userInfo').then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    var name = data.name;
+    sayHelloToUser(name);
+  });
+};
+
 var handleLogout = function handleLogout() {
   fetch('/logout').then(function (res) {
     return res.json();

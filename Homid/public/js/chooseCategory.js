@@ -1,18 +1,23 @@
+
+
 // get all categories when loading page
 const getDisplayCategories = () => {
     fetch('/category')
         .then(res => res.json())
         .then(data => {
-            let categories = data.categories
-            console.log(categories)
-            writeCategoiresToDom(categories)
+            if (data.status === 'unauthorized') {
+                window.location.replace('index.html')
+            } else {
+                let categories = data.categories
+                writeCategoiresToDom(categories)
+            }
         })
 }
-const writeCategoiresToDom = (categories) =>{
+const writeCategoiresToDom = (categories) => {
     const categoryDiv = document.querySelector('.cateogryPage__categorys')
     let categoriesHtml = ''
 
-    categories.forEach(category=>{
+    categories.forEach(category => {
         categoriesHtml += `<div onclick="goToClickedCategory(event)" class="cateogryPage__categorysBox" data-name='${category.Name}' data-id='${category._id}'>
         <img src="${category.Img}">
         <div class="cateogryPage__categorysBoxContainer" data-img='${category.Img}' data-name='${category.Name}' data-id='${category._id}'>
@@ -26,10 +31,10 @@ const writeCategoiresToDom = (categories) =>{
     categoryDiv.innerHTML = categoriesHtml
 }
 // go to clicked category
-const goToClickedCategory = (e) =>{
+const goToClickedCategory = (e) => {
     let chosenCategoryId = e.target.dataset.id
-    if(chosenCategoryId===undefined){
-        chosenCategoryId=e.target.parentNode.dataset.id
+    if (chosenCategoryId === undefined) {
+        chosenCategoryId = e.target.parentNode.dataset.id
     }
     console.log(chosenCategoryId)
 }
