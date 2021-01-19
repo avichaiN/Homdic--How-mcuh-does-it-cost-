@@ -10,7 +10,18 @@ const secret = "temporary";
 
 router.use(cookieParser());
 
-router.get("/", (req, res) => {
+const checkUserToken = async (req, res, next) => {
+  const token = req.cookies.userLoggedIn;
+  if (token) {
+    var decoded = jwt.decode(token, secret);
+    req.userInfo = decoded;
+    next();
+  } else {
+    res.redirect("/");
+  }
+};
+
+router.get("/", checkUserToken, (req, res) => {
   res.sendFile("index.html");
 });
 
@@ -22,23 +33,28 @@ router.post("/", async (req, res) => {
       $or: [{ username: username }, { email: username }],
     });
 
-    hash=userFound.password
-      bcrypt.compare(password, hash, function (err, result) {
-        if (result) {
-          const token = jwt.encode(
-            { role: userFound.role, username: userFound.username, name: userFound.firstName, date: new Date() },
-            secret
-          );
-          res.cookie("userLoggedIn", token, {
-            maxAge: 7200000,
-            httpOnly: true,
-          });
-          res.send({ status: "authorized" });
-        } else {
-          res.send({ status: "unauthorized" });
-          res.end();
-        }
-      });
+    hash = userFound.password;
+    bcrypt.compare(password, hash, function (err, result) {
+      if (result) {
+        const token = jwt.encode(
+          {
+            role: userFound.role,
+            username: userFound.username,
+            name: userFound.firstName,
+            date: new Date(),
+          },
+          secret
+        );
+        res.cookie("userLoggedIn", token, {
+          maxAge: 7200000,
+          httpOnly: true,
+        });
+        res.send({ status: "authorized" });
+      } else {
+        res.send({ status: "unauthorized" });
+        res.end();
+      }
+    });
   } catch (e) {
     console.log(e);
     res.send({ status: "unauthorized" });
@@ -71,43 +87,10 @@ router.post("/register", (req, res) => {
 });
 
 // check if user logged in
-const checkUserToken = async (req,res,next) =>{
-  const token = req.cookies.userLoggedIn
 
-  if(token){
-      var decoded = jwt.decode(token, secret);
-      req.userInfo = decoded
-      let checkDB = await checkIfUserExists(decoded.username)
+router.get("/logout", checkUserToken, (req, res) => {
+  res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
-      if(checkDB.length < 1){
-        res.send({user:false})
-      }else{
-        next()
-      }
-  }else{
-      res.send({user:false})
-  }
-}
-const checkIfUserExists = async (username) =>{
-   return User.find({username: username}).exec()
-}
-router.get('/isLoggedIn', checkUserToken, (req,res)=>{
-  let userInfo = req.userInfo
-
-  res.send({user:true, userInfo})
-})
-
-router.get('/getUserName',(req,res)=>{
-
-      const token = req.cookies.userLoggedIn
-      var decoded = jwt.decode(token, secret);
-
-      res.send({decoded})
-})
-router.get('/logout',(req,res)=>{
-
-  res.cookie("userLoggedIn", '', {expires: new Date(0)}); // this delete cookie (sets it to a date that is gone)
-
-  res.send({loggedout:true})
-})
+  res.send({ loggedout: true });
+});
 module.exports = router;

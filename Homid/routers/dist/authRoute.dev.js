@@ -17,19 +17,44 @@ var cookieParser = require("cookie-parser"); // לזכור להעלים מפה �
 
 var secret = "temporary";
 router.use(cookieParser());
-router.get("/", function (req, res) {
+
+var checkUserToken = function checkUserToken(req, res, next) {
+  var token, decoded;
+  return regeneratorRuntime.async(function checkUserToken$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          token = req.cookies.userLoggedIn;
+
+          if (token) {
+            decoded = jwt.decode(token, secret);
+            req.userInfo = decoded;
+            next();
+          } else {
+            res.redirect("/");
+          }
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+};
+
+router.get("/", checkUserToken, function (req, res) {
   res.sendFile("index.html");
 });
 router.post("/", function _callee(req, res) {
   var _req$body, username, password, userFound;
 
-  return regeneratorRuntime.async(function _callee$(_context) {
+  return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {
-      switch (_context.prev = _context.next) {
+      switch (_context2.prev = _context2.next) {
         case 0:
           _req$body = req.body, username = _req$body.username, password = _req$body.password;
-          _context.prev = 1;
-          _context.next = 4;
+          _context2.prev = 1;
+          _context2.next = 4;
           return regeneratorRuntime.awrap(User.findOne({
             $or: [{
               username: username
@@ -39,7 +64,7 @@ router.post("/", function _callee(req, res) {
           }));
 
         case 4:
-          userFound = _context.sent;
+          userFound = _context2.sent;
           hash = userFound.password;
           bcrypt.compare(password, hash, function (err, result) {
             if (result) {
@@ -63,13 +88,13 @@ router.post("/", function _callee(req, res) {
               res.end();
             }
           });
-          _context.next = 14;
+          _context2.next = 14;
           break;
 
         case 9:
-          _context.prev = 9;
-          _context.t0 = _context["catch"](1);
-          console.log(_context.t0);
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](1);
+          console.log(_context2.t0);
           res.send({
             status: "unauthorized"
           });
@@ -77,7 +102,7 @@ router.post("/", function _callee(req, res) {
 
         case 14:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
     }
   }, null, null, [[1, 9]]);
@@ -97,26 +122,26 @@ router.post("/register", function (req, res) {
     password: password
   });
   bcrypt.hash(password, saltRounds, function _callee2(err, hash) {
-    return regeneratorRuntime.async(function _callee2$(_context2) {
+    return regeneratorRuntime.async(function _callee2$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            _context2.prev = 0;
+            _context3.prev = 0;
             newUser.password = hash;
-            _context2.next = 4;
+            _context3.next = 4;
             return regeneratorRuntime.awrap(newUser.save());
 
           case 4:
             res.send({
               status: "authorized"
             });
-            _context2.next = 12;
+            _context3.next = 12;
             break;
 
           case 7:
-            _context2.prev = 7;
-            _context2.t0 = _context2["catch"](0);
-            console.log(_context2.t0);
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            console.log(_context3.t0);
             res.send({
               status: "unauthorized"
             });
@@ -124,91 +149,15 @@ router.post("/register", function (req, res) {
 
           case 12:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
     }, null, null, [[0, 7]]);
   });
 }); // check if user logged in
 
-var checkUserToken = function checkUserToken(req, res, next) {
-  var token, decoded, checkDB;
-  return regeneratorRuntime.async(function checkUserToken$(_context3) {
-    while (1) {
-      switch (_context3.prev = _context3.next) {
-        case 0:
-          token = req.cookies.userLoggedIn;
-
-          if (!token) {
-            _context3.next = 10;
-            break;
-          }
-
-          decoded = jwt.decode(token, secret);
-          req.userInfo = decoded;
-          _context3.next = 6;
-          return regeneratorRuntime.awrap(checkIfUserExists(decoded.username));
-
-        case 6:
-          checkDB = _context3.sent;
-
-          if (checkDB.length < 1) {
-            res.send({
-              user: false
-            });
-          } else {
-            next();
-          }
-
-          _context3.next = 11;
-          break;
-
-        case 10:
-          res.send({
-            user: false
-          });
-
-        case 11:
-        case "end":
-          return _context3.stop();
-      }
-    }
-  });
-};
-
-var checkIfUserExists = function checkIfUserExists(username) {
-  return regeneratorRuntime.async(function checkIfUserExists$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          return _context4.abrupt("return", User.find({
-            username: username
-          }).exec());
-
-        case 1:
-        case "end":
-          return _context4.stop();
-      }
-    }
-  });
-};
-
-router.get('/isLoggedIn', checkUserToken, function (req, res) {
-  var userInfo = req.userInfo;
-  res.send({
-    user: true,
-    userInfo: userInfo
-  });
-});
-router.get('/getUserName', function (req, res) {
-  var token = req.cookies.userLoggedIn;
-  var decoded = jwt.decode(token, secret);
-  res.send({
-    decoded: decoded
-  });
-});
-router.get('/logout', function (req, res) {
-  res.cookie("userLoggedIn", '', {
+router.get("/logout", checkUserToken, function (req, res) {
+  res.cookie("userLoggedIn", "", {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)
 
