@@ -2,7 +2,7 @@ const express = require('express');
 const Category = require('../models/category');
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-const checkUserToken = require('../routers/authRoute')
+const path = require('path')
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
 
@@ -10,6 +10,19 @@ const router = express.Router();
 
 router.use(cookieParser());
 
+const checkUserToken = async (req, res, next) => {
+    const token = req.cookies.userLoggedIn;
+    if (token) {
+      var decoded = jwt.decode(token, secret);
+      req.userInfo = decoded;
+      next();
+    } else {
+        console.log('er')
+        res.sendFile(path.join(__dirname, '../public/index.html'))
+
+    //   res.send({ user: "unauthorized" });
+    }
+  };
 
 function checkAdmin(req, res, next) {
     const token = req.cookies.userLoggedIn
@@ -36,8 +49,8 @@ async function categoriesFind() {
 }
 
 // get all categories to display on category page.
-router.get('/',checkUserToken ,async (req, res) => {
-
+router.get('/', checkUserToken ,async (req, res) => {
+    console.log('123')
     try {
         let categories = await categoriesFind()
         if (categories === false || categories === undefined) {
