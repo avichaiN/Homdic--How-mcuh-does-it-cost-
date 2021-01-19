@@ -1,14 +1,14 @@
 "use strict";
 
-var express = require('express');
+var express = require("express");
 
-var Category = require('../models/category');
+var Category = require("../models/category");
 
 var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-var checkUserToken = require('../routers/authRoute'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var checkUserToken = require("../routers/authRoute"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
@@ -22,7 +22,7 @@ function checkAdmin(req, res, next) {
     var decoded = jwt.decode(token, secret);
     console.log(decoded.role);
 
-    if (decoded.role === 'admin') {
+    if (decoded.role === "admin") {
       next();
     } else {
       res.send({
@@ -58,7 +58,7 @@ function categoriesFind() {
 } // get all categories to display on category page.
 
 
-router.get('/', checkUserToken, function _callee(req, res) {
+router.get("/", checkUserToken, function _callee(req, res) {
   var categories;
   return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {
@@ -100,7 +100,7 @@ router.get('/', checkUserToken, function _callee(req, res) {
   }, null, null, [[0, 7]]);
 }); //create new category for admin
 
-router.post('/', checkAdmin, function _callee2(req, res) {
+router.post("/", checkAdmin, function _callee2(req, res) {
   var newCategoryName, newCategoryImg, category, categories;
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
@@ -147,7 +147,7 @@ router.post('/', checkAdmin, function _callee2(req, res) {
     }
   }, null, null, [[5, 14]]);
 });
-router.put('/', checkAdmin, function _callee4(req, res) {
+router.put("/", checkAdmin, function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg;
 
   return regeneratorRuntime.async(function _callee4$(_context5) {
@@ -217,7 +217,7 @@ router.put('/', checkAdmin, function _callee4(req, res) {
     }
   }, null, null, [[1, 6]]);
 });
-router["delete"]('/', checkAdmin, function _callee6(req, res) {
+router["delete"]("/", checkAdmin, function _callee6(req, res) {
   var chosenCategoryid;
   return regeneratorRuntime.async(function _callee6$(_context7) {
     while (1) {

@@ -20,7 +20,9 @@ var categoryRouter = require("./routers/categoryRoute");
 
 var searchRouter = require("./routers/searchRoute");
 
-var adminRouter = require("./routers/adminRoute"); // Mongoose Schemas
+var adminRouter = require("./routers/adminRoute");
+
+var updateUserDataRouter = require("./routers/updateUserDataRoute"); // Mongoose Schemas
 
 
 var User = require("./models/user");
@@ -41,7 +43,8 @@ app.use(express["static"]("public"));
 app.use("/", authRouter);
 app.use("/category", categoryRouter);
 app.use("/search", searchRouter);
-app.use("/admin", adminRouter); //middleware check for user token
+app.use("/admin", adminRouter);
+app.use("/updateUserData", updateUserDataRouter); //middleware check for user token
 
 var checkUserToken = function checkUserToken(req, res, next) {
   var token, decoded;

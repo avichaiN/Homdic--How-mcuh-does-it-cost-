@@ -42,11 +42,11 @@
 
             <label class="tab active" for="tab1" id="tab1">עדכון פרטים</label>
 
-            <form id="form1" class="tab--form active" method="POST" onsubmit="handleRegisterForm(event)" class="tab--form">
-                <input class="input" name="firstName" type="text" placeholder="שם פרטי" required>
-                <input class="input" name="lastName" type="text" placeholder="שם משפחה" required>
-                <input class="input" title="אימייל או משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
-                <input required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
+            <form id="form1" class="tab--form active" method="POST" onsubmit="handleUpdateForm(event)" class="tab--form">
+                <input id='firstName' class="input" name="firstName" type="text" placeholder="שם פרטי" required>
+                <input id='lastName' class="input" name="lastName" type="text" placeholder="שם משפחה" required>
+                <input id='username' class="input" title="שם משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
+                <input id='email' required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
                 <button type="submit" class="button">עדכן</button>
             </form>
     </div>
