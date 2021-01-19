@@ -10,18 +10,8 @@ const secret = "temporary";
 
 router.use(cookieParser());
 
-const checkUserToken = async (req, res, next) => {
-  const token = req.cookies.userLoggedIn;
-  if (token) {
-    var decoded = jwt.decode(token, secret);
-    req.userInfo = decoded;
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
 
-router.get("/", checkUserToken, (req, res) => {
+router.get("/", (req, res) => {
   res.sendFile("index.html");
 });
 
@@ -77,6 +67,19 @@ router.post("/register", (req, res) => {
     try {
       newUser.password = hash;
       await newUser.save();
+      const token = jwt.encode(
+        {
+          role: newUser.role,
+          username: newUser.username,
+          name: newUser.firstName,
+          date: new Date(),
+        },
+        secret
+      );
+      res.cookie("userLoggedIn", token, {
+        maxAge: 7200000,
+        httpOnly: true,
+      });
       res.send({ status: "authorized" });
     } catch (e) {
       console.log(e);
@@ -88,7 +91,7 @@ router.post("/register", (req, res) => {
 
 // check if user logged in
 
-router.get("/logout", checkUserToken, (req, res) => {
+router.get("/logout", (req, res) => {
   res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
   res.send({ loggedout: true });

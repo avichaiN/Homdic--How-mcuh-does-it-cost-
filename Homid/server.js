@@ -40,4 +40,17 @@ app.use("/search", searchRouter);
 
 app.use("/admin", adminRouter);
 
+//middleware check for user token
+
+const checkUserToken = async (req, res, next) => {
+  const token = req.cookies.userLoggedIn;
+  if (token) {
+    var decoded = jwt.decode(token, secret);
+    req.userInfo = decoded;
+    next();
+  } else {
+    res.send({ user: "unauthorized" });
+  }
+};
+
 app.listen(port, () => console.log(`server now running on port: ${port}`));

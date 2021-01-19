@@ -23,7 +23,7 @@
             <form id="form1" class="tab--form active" method="POST" onsubmit="handleLoginForm(event)">
                 <h1>ברוכים הבאים ל- Homedic</h1>
                 <p>פשוט תשאלו כמה עולה והקהילה שלנו כבר תתן לכם תשובה.</p>
-                <input class="input" title="אימייל או משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש או אימייל">
+                <input class="input" title="אימייל או משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+|[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="username" type="text" placeholder="שם משתמש או אימייל">
                 <input class="input" name="password" type="password" placeholder="סיסמה">
                 <button type="submit" class="button">כניסה</button>
                 <ul class="social">
@@ -37,7 +37,7 @@
             <form id="form2" method="POST" onsubmit="handleRegisterForm(event)" class="tab--form">
                 <input class="input" name="firstName" type="text" placeholder="שם פרטי" required>
                 <input class="input" name="lastName" type="text" placeholder="שם משפחה" required>
-                <input class="input" title="אימייל או משתמש באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
+                <input class="input" title="באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
                 <input required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
                 <input class="input"  type="password" placeholder="סיסמה" name="password" oninput="document.getElementById('confirm').pattern = this.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="הסיסמה אמורה להכיל 6 תווים ומהם לפחות אות אחת ומספר אחד">
                 <input class="input" title="שים לב, הסיסמה אינה תואמת" type="password" id="confirm" name="confirm"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="אימות סיסמה" required>
