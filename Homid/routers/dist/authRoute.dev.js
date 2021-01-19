@@ -131,29 +131,73 @@ router.post("/register", function (req, res) {
   });
 }); // check if user logged in
 
-var checkUser = function checkUser(req, res, next) {
-  var token = req.cookies.userLoggedIn;
+var checkUserToken = function checkUserToken(req, res, next) {
+  var token, decoded, checkDB;
+  return regeneratorRuntime.async(function checkUserToken$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          token = req.cookies.userLoggedIn;
 
-  if (token) {
-    var decoded = jwt.decode(token, secret);
+          if (!token) {
+            _context3.next = 10;
+            break;
+          }
 
-    if (decoded.role === 'public' || decoded.role === 'admin') {
-      next();
-    } else {
-      res.send({
-        user: false
-      });
+          decoded = jwt.decode(token, secret);
+          req.userInfo = decoded;
+          _context3.next = 6;
+          return regeneratorRuntime.awrap(checkIfUserExists(decoded.username));
+
+        case 6:
+          checkDB = _context3.sent;
+
+          if (checkDB.length < 1) {
+            res.send({
+              user: false
+            });
+          } else {
+            next();
+          }
+
+          _context3.next = 11;
+          break;
+
+        case 10:
+          res.send({
+            user: false
+          });
+
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
     }
-  } else {
-    res.send({
-      user: false
-    });
-  }
+  });
 };
 
-router.get('/isLoggedIn', checkUser, function (req, res) {
+var checkIfUserExists = function checkIfUserExists(username) {
+  return regeneratorRuntime.async(function checkIfUserExists$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          return _context4.abrupt("return", User.find({
+            username: username
+          }).exec());
+
+        case 1:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+};
+
+router.get('/isLoggedIn', checkUserToken, function (req, res) {
+  var userInfo = req.userInfo;
   res.send({
-    user: true
+    user: true,
+    userInfo: userInfo
   });
 });
 router.get('/getUserName', function (req, res) {

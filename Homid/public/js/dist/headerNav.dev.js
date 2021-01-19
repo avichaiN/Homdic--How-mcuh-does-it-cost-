@@ -1,14 +1,5 @@
 "use strict";
 
-var getUserName = function getUserName() {
-  fetch('/getUserName').then(function (res) {
-    return res.json();
-  }).then(function (data) {
-    var name = data.decoded.name;
-    sayHelloToUser(name);
-  });
-};
-
 var sayHelloToUser = function sayHelloToUser(name) {
   var myDate = new Date();
   var hrs = myDate.getHours();

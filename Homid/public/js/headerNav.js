@@ -1,11 +1,3 @@
-const getUserName = () =>{
-    fetch('/getUserName')
-    .then(res => res.json())
-    .then(data => {
-        const name = data.decoded.name
-        sayHelloToUser(name)
-    })
-}
 const sayHelloToUser = (name) =>{
     const myDate = new Date();
     const hrs = myDate.getHours();

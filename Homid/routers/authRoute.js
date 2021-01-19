@@ -71,24 +71,32 @@ router.post("/register", (req, res) => {
 });
 
 // check if user logged in
-const checkUser = (req,res,next) =>{
+const checkUserToken = async (req,res,next) =>{
   const token = req.cookies.userLoggedIn
 
   if(token){
       var decoded = jwt.decode(token, secret);
-      if(decoded.role==='public' || decoded.role === 'admin'){
-          next()
+      req.userInfo = decoded
+      let checkDB = await checkIfUserExists(decoded.username)
+
+      if(checkDB.length < 1){
+        res.send({user:false})
       }else{
-          res.send({user:false})
+        next()
       }
   }else{
       res.send({user:false})
   }
 }
+const checkIfUserExists = async (username) =>{
+   return User.find({username: username}).exec()
+}
+router.get('/isLoggedIn', checkUserToken, (req,res)=>{
+  let userInfo = req.userInfo
 
-router.get('/isLoggedIn', checkUser, (req,res)=>{
-  res.send({user:true})
+  res.send({user:true, userInfo})
 })
+
 router.get('/getUserName',(req,res)=>{
 
       const token = req.cookies.userLoggedIn
