@@ -4,7 +4,7 @@ const jwt = require("jwt-simple");
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
 
-// Add this to top of route which using this function 
+// Add this to top of route which using this function
 // const checkUserToken = require('../routers/checkUserToken');
 // will send back user:false if no good
 // then you can simply do this:
@@ -14,10 +14,9 @@ const secret = "temporary";
 
 // }
 
-
 //middleware check for user token
 
-const checkUserToken =  (req, res, next) => {
+const checkUserToken = (req, res, next) => {
   const token = req.cookies.userLoggedIn;
 
   if (token) {
@@ -26,9 +25,8 @@ const checkUserToken =  (req, res, next) => {
 
     next();
   } else {
-      res.send({status: "unauthorized"})
+    res.redirect("/");
   }
 };
-
 
 module.exports = checkUserToken;

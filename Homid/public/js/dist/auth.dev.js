@@ -8,7 +8,7 @@ var handleCheckAdmin = function handleCheckAdmin() {
         case 0:
           admin = false;
           _context.next = 3;
-          return regeneratorRuntime.awrap(fetch('/admin/check').then(function (res) {
+          return regeneratorRuntime.awrap(fetch("/admin/check").then(function (res) {
             return res.json();
           }).then(function (data) {
             if (data.admin) {
@@ -30,7 +30,7 @@ var handleCheckAdmin = function handleCheckAdmin() {
 };
 
 var getUserInfo = function getUserInfo() {
-  fetch('/userInfo').then(function (res) {
+  fetch("/userInfo").then(function (res) {
     return res.json();
   }).then(function (data) {
     var name = data.name;
@@ -39,11 +39,11 @@ var getUserInfo = function getUserInfo() {
 };
 
 var handleLogout = function handleLogout() {
-  fetch('/logout').then(function (res) {
+  fetch("/logout").then(function (res) {
     return res.json();
   }).then(function (data) {
     if (data.loggedout) {
-      window.location.replace('/index.html');
+      window.location.replace("/index.html");
     }
   });
 };

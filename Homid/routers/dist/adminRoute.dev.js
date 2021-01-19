@@ -1,10 +1,10 @@
 "use strict";
 
-var express = require('express');
+var express = require("express");
 
 var router = express.Router();
 
-var User = require('../models/user');
+var User = require("../models/user");
 
 var jwt = require("jwt-simple");
 
@@ -21,7 +21,7 @@ function checkAdmin(req, res, next) {
     var decoded = jwt.decode(token, secret);
     console.log(decoded.role);
 
-    if (decoded.role === 'admin') {
+    if (decoded.role === "admin") {
       next();
     } else {
       res.send({
@@ -29,9 +29,7 @@ function checkAdmin(req, res, next) {
       });
     }
   } else {
-    res.send({
-      admin: false
-    });
+    res.redirect("/");
   }
 }
 
@@ -155,3 +153,4 @@ router.put("/", checkAdmin, function _callee4(req, res) {
   });
 });
 module.exports = router;
+module.exports = checkAdmin;

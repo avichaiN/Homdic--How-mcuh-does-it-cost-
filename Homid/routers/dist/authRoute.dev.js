@@ -12,7 +12,9 @@ var saltRounds = 12;
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var cookieParser = require("cookie-parser");
+
+var checkAdmin = require("../routers/adminRoute"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
@@ -138,15 +140,22 @@ router.post("/register", function (req, res) {
     }, null, null, [[0, 9]]);
   });
 });
-router.get("/userInfo", function (req, res) {
+router.get("/userInfo", checkAdmin, function (req, res) {
   var token = req.cookies.userLoggedIn;
-  var decoded = jwt.decode(token, secret);
-  var name = decoded.name;
-  res.send({
-    name: name
-  });
+
+  if (token) {
+    var decoded = jwt.decode(token, secret);
+    var name = decoded.name;
+    res.send({
+      name: name
+    });
+  } else {
+    res.send({
+      ok: false
+    });
+  }
 });
-router.get("/logout", function (req, res) {
+router.get("/logout", checkAdmin, function (req, res) {
   res.cookie("userLoggedIn", "", {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)

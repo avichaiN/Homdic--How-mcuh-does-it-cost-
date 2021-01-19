@@ -8,7 +8,7 @@ var User = require("../models/user");
 
 var jwt = require("jwt-simple");
 
-var checkUserToken = require('../routers/checkUserToken'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var checkUserToken = require("../routers/checkUserToken"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
