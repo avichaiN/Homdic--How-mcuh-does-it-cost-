@@ -12,13 +12,48 @@ var saltRounds = 12;
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var cookieParser = require("cookie-parser");
+
+var path = require('path'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
 router.use(cookieParser());
+<<<<<<< HEAD
 router.get("/", function (req, res) {
   res.sendFile("index.html");
+=======
+
+var checkUserToken = function checkUserToken(req, res, next) {
+  var token, decoded;
+  return regeneratorRuntime.async(function checkUserToken$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          token = req.cookies.userLoggedIn;
+
+          if (token) {
+            decoded = jwt.decode(token, secret);
+            req.userInfo = decoded;
+            next();
+          } else {
+            res.redirect('/');
+          }
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+}; // router.get('/out',(req,res)=>{
+//   console.log('hereee')
+// })
+
+
+router.get("/", function (req, res) {
+  res.sendFile('index.html');
+>>>>>>> master
 });
 router.post("/", function _callee(req, res) {
   var _req$body, username, password, userFound;

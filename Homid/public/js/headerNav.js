@@ -11,7 +11,6 @@ const sayHelloToUser = (name) =>{
     else if (hrs >= 17 && hrs <= 24)
         greet = 'ערב טוב';
 
-
         sayHello.innerHTML = `${greet}, ${name}`
 }
 

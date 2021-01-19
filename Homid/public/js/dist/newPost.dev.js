@@ -21,8 +21,16 @@ var displayPostBox = function displayPostBox(e) {
 
 
 document.onclick = function (e) {
-  className = e.target.className;
-  console.log(className);
+  className = e.srcElement.className;
+  var classNameInclude = className.includes('box');
+
+  if (!classNameInclude) {
+    postBox.style.opacity = '0';
+    postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1);';
+    setTimeout(function () {
+      postBox.style.display = 'none';
+    }, 100);
+  }
 };
 
 var getCategoiresCheckBox = function getCategoiresCheckBox() {

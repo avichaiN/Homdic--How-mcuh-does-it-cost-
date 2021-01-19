@@ -2,15 +2,15 @@ let postBox = document.querySelector('.newPostBox')
 let categoryCheckBox = document.getElementById('category')
 
 
-const displayPostBox = (e) =>{
+const displayPostBox = (e) => {
     e.stopPropagation();
     postBox.style.display = 'block'
-    setTimeout(function(){ 
+    setTimeout(function () {
         postBox.style.opacity = '1'
         postBox.style.transform = 'none'
         getCategoiresCheckBox()
-        
-     }, 100);
+
+    }, 100);
 }
 // const hidePostBox = () =>{
 //     postBox.style.opacity = '0'
@@ -19,10 +19,17 @@ const displayPostBox = (e) =>{
 //         postBox.style.display = 'none'
 //      }, 100);
 // }
-document.onclick = function(e){
+document.onclick = function (e) {
 
-    className = e.target.className
-    console.log(className)
+    className = e.srcElement.className
+    const classNameInclude = className.includes('box')
+    if (!classNameInclude) {
+        postBox.style.opacity = '0'
+        postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1);'
+        setTimeout(function () {
+            postBox.style.display = 'none'
+        }, 100);
+    }
 }
 const getCategoiresCheckBox = () => {
     let categoriesNames = `<option selected hidden>בחר קטגוריוה</option>`
@@ -30,7 +37,7 @@ const getCategoiresCheckBox = () => {
         .then(res => res.json())
         .then(data => {
             let categories = data.categories
-            categories.forEach(category=>{
+            categories.forEach(category => {
                 categoriesNames += `<option data-id='${category._id}' value="${category.Name}">${category.Name}</option>`
             })
             categoryCheckBox.innerHTML = categoriesNames

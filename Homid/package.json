@@ -16,7 +16,8 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jwt-simple": "^0.5.6",
-    "mongoose": "^5.11.12"
+    "mongoose": "^5.11.12",
+    "path": "^0.12.7"
   },
   "devDependencies": {},
   "description": ""

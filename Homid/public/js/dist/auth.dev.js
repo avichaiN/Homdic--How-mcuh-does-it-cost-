@@ -1,20 +1,18 @@
 "use strict";
 
-var checkUser = function checkUser() {
-  fetch('/isLoggedIn').then(function (res) {
-    return res.json();
-  }).then(function (data) {
-    console.log(data);
-
-    if (!data.user) {
-      window.location.replace('index.html');
-    } else {
-      var name = data.userInfo.name;
-      sayHelloToUser(name);
-    }
-  });
-};
-
+// const checkUser = () => {
+//     fetch('/isLoggedIn')
+//         .then(res => res.json())
+//         .then(data => {
+//             console.log(data)
+//             if (!data.user) {
+//                 window.location.replace('index.html')
+//             } else {
+//                 const name = data.userInfo.name
+//                 sayHelloToUser(name)
+//             }
+//         })
+// }
 var handleLogout = function handleLogout() {
   fetch('/logout').then(function (res) {
     return res.json();

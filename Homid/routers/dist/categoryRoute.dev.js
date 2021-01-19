@@ -6,7 +6,9 @@ var Category = require('../models/category');
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var cookieParser = require("cookie-parser");
+
+var checkUserToken = require('../routers/authRoute'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
@@ -56,7 +58,7 @@ function categoriesFind() {
 } // get all categories to display on category page.
 
 
-router.get('/', function _callee(req, res) {
+router.get('/', checkUserToken, function _callee(req, res) {
   var categories;
   return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {
