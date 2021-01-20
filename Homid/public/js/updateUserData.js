@@ -30,8 +30,15 @@ function handleUpdateForm(e) {
     body: JSON.stringify({ firstName, lastName, username, email }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       if (data.user == "updated") {
+        await Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "פרטייך עודכנו במערכת",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         window.location.replace("/category");
       } else {
         Swal.fire({

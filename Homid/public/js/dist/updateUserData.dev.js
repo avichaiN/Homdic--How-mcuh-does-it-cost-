@@ -28,17 +28,44 @@ function handleUpdateForm(e) {
     })
   }).then(function (res) {
     return res.json();
-  }).then(function (data) {
-    if (data.user == "updated") {
-      window.location.replace("/category");
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "אופס...",
-        text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
-        confirmButtonColor: "red",
-        confirmButtonText: "אישור"
-      });
-    }
+  }).then(function _callee(data) {
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(data.user == "updated")) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 3;
+            return regeneratorRuntime.awrap(Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "פרטייך עודכנו במערכת",
+              showConfirmButton: false,
+              timer: 1000
+            }));
+
+          case 3:
+            window.location.replace("/category");
+            _context.next = 7;
+            break;
+
+          case 6:
+            Swal.fire({
+              icon: "error",
+              title: "אופס...",
+              text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
+              confirmButtonColor: "red",
+              confirmButtonText: "אישור"
+            });
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
   });
 }

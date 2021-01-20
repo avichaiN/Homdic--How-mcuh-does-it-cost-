@@ -1,12 +1,14 @@
 const express = require("express");
+const jwt = require("jwt-simple");
 const router = express.Router();
 const User = require("../models/user");
 const checkUserToken = require("../routers/checkUserToken");
 
 router.get("/", checkUserToken, async (req, res) => {
   try {
-    const userId = req.userInfo.id;
-    const userFound = await User.findOne({ _id: userId });
+    const userCookie = req.cookies.userLoggedIn;
+    const decoded = jwt.decode(userCookie, process.env.SECRET);
+    const userFound = await User.findOne({ _id: decoded.id });
     res.send({ userFound });
   } catch (e) {
     console.log(e);
@@ -15,11 +17,11 @@ router.get("/", checkUserToken, async (req, res) => {
 
 router.post("/", checkUserToken, async (req, res) => {
   const { firstName, lastName, username, email } = req.body;
-  const userId = req.userInfo.id;
-
+  const userCookie = req.cookies.userLoggedIn;
+  const decoded = jwt.decode(userCookie, process.env.SECRET);
   try {
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
+      { _id: decoded.id },
       {
         firstName: firstName,
         lastName: lastName,
