@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
             role: userFound.role,
             username: userFound.username,
             name: userFound.firstName,
-            date: new Date(),
+            time: new Date().getTime(),
           },
           process.env.SECRET
         );
@@ -68,7 +68,7 @@ router.post("/register", (req, res) => {
           role: newUser.role,
           username: newUser.username,
           name: newUser.firstName,
-          date: new Date(),
+          time: new Date().getTime(),
         },
         process.env.SECRET
       );

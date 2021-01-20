@@ -47,7 +47,7 @@ router.post("/", function _callee(req, res) {
                 role: userFound.role,
                 username: userFound.username,
                 name: userFound.firstName,
-                date: new Date()
+                time: new Date().getTime()
               }, process.env.SECRET);
               res.cookie("userLoggedIn", token, {
                 maxAge: 7200000,
@@ -112,7 +112,7 @@ router.post("/register", function (req, res) {
               role: newUser.role,
               username: newUser.username,
               name: newUser.firstName,
-              date: new Date()
+              time: new Date().getTime()
             }, process.env.SECRET);
             res.cookie("userLoggedIn", token, {
               maxAge: 7200000,

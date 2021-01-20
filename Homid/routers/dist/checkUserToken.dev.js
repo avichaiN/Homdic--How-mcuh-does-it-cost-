@@ -17,11 +17,22 @@ require("dotenv").config(); // Add this to top of route which using this functio
 
 var checkUserToken = function checkUserToken(req, res, next) {
   var token = req.cookies.userLoggedIn;
+  var time = new Date().getTime();
+  var oneday = 60 * 60 * 24 * 1000;
+  var oneDayAgo = time - oneday;
 
   if (token) {
     var decoded = jwt.decode(token, process.env.SECRET);
-    req.userInfo = decoded;
-    next();
+    var tokenMadeTime = decoded.time;
+
+    if (tokenMadeTime > oneDayAgo) {
+      next();
+    } else {
+      status = "unauthorized";
+      res.send({
+        status: status
+      });
+    }
   } else {
     status = "unauthorized";
     res.send({
