@@ -4,10 +4,12 @@ var express = require("express");
 
 var bodyParser = require("body-parser");
 
-var mongoose = require("mongoose"); // Connection to DB
+var mongoose = require("mongoose");
+
+require("dotenv").config(); // Connection to DB
 
 
-mongoose.connect("mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic", {
+mongoose.connect("mongodb+srv://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@cluster0.7lig6.mongodb.net/homdic", {
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
@@ -22,16 +24,7 @@ var searchRouter = require("./routers/searchRoute");
 
 var adminRouter = require("./routers/adminRoute");
 
-var updateUserDataRouter = require("./routers/updateUserDataRoute"); // Mongoose Schemas
-
-
-var User = require("./models/user");
-
-var Category = require("./models/category");
-
-var Comment = require("./models/comment");
-
-var Post = require("./models/post");
+var updateUserDataRouter = require("./routers/updateUserDataRoute");
 
 var port = process.env.PORT || 3000;
 var app = express();

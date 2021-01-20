@@ -8,7 +8,7 @@ var User = require("../models/user");
 
 var bcrypt = require("bcrypt");
 
-var saltRounds = 12;
+var saltRounds = process.env.SALT;
 
 var jwt = require("jwt-simple");
 
