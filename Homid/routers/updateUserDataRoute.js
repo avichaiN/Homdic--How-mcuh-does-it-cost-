@@ -1,15 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
-const jwt = require("jwt-simple");
-const checkUserToken = require("../routers/checkUserToken"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-const secret = "temporary";
+const checkUserToken = require("../routers/checkUserToken");
 
 router.get("/", checkUserToken, async (req, res) => {
   try {
-    const username = req.userInfo.username;
-    const userFound = await User.findOne({ username: username });
+    const userId = req.userInfo.id;
+    const userFound = await User.findOne({ _id: userId });
     res.send({ userFound });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/", checkUserToken, async (req, res) => {
+  const { firstName, lastName, username, email } = req.body;
+  const userId = req.userInfo.id;
+
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+      }
+    );
+    res.send({ user: "updated" });
   } catch (e) {
     console.log(e);
   }

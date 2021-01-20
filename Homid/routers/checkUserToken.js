@@ -1,8 +1,6 @@
 const express = require("express");
 const jwt = require("jwt-simple");
-
-// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-const secret = "temporary";
+require("dotenv").config();
 
 // Add this to top of route which using this function
 // const checkUserToken = require('../routers/checkUserToken');
@@ -20,13 +18,13 @@ const checkUserToken = (req, res, next) => {
   const token = req.cookies.userLoggedIn;
 
   if (token) {
-    const decoded = jwt.decode(token, secret);
+    const decoded = jwt.decode(token, process.env.SECRET);
     req.userInfo = decoded;
 
     next();
   } else {
-    status = 'unauthorized'
-    res.send({status})
+    status = "unauthorized";
+    res.send({ status });
   }
 };
 

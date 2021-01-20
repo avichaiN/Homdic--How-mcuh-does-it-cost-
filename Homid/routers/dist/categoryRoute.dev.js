@@ -6,16 +6,13 @@ var Category = require("../models/category");
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-
-
-var secret = "temporary";
+var cookieParser = require("cookie-parser");
 
 var checkUserToken = require("../routers/checkUserToken");
 
 var checkAdmin = require("../routers/adminRoute");
 
-var path = require('path');
+var path = require("path");
 
 var router = express.Router();
 router.use(cookieParser());
@@ -43,7 +40,7 @@ function categoriesFind() {
 
 
 router.get("/", checkUserToken, function (req, res) {
-  res.sendFile(path.join(__dirname, '../public', 'Categories.html'));
+  res.sendFile(path.join(__dirname, "../public", "Categories.html"));
 });
 router.get("/get", checkUserToken, function _callee(req, res) {
   var categories;

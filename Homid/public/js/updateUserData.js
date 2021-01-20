@@ -18,25 +18,30 @@ fetch("/updateUserData")
 
 function handleUpdateForm(e) {
   e.preventDefault();
-  fetch("/", {
+  const firstName = e.target.children.firstName.value;
+  const lastName = e.target.children.lastName.value;
+  const username = e.target.children.username.value;
+  const email = e.target.children.email.value;
+
+  fetch("/updateUserData", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ firstName, lastName, username, email, password }),
+    body: JSON.stringify({ firstName, lastName, username, email }),
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.status == "unauthorized") {
+      if (data.user == "updated") {
+        window.location.replace("/category");
+      } else {
         Swal.fire({
           icon: "error",
           title: "אופס...",
-          text: "כנראה שהפרטים שהזנת לא נכונים או קיימים במערכת, נסה שנית",
+          text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
           confirmButtonColor: "red",
           confirmButtonText: "אישור",
         });
-      } else {
-        window.location.href = "/";
       }
     });
 }

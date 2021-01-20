@@ -10,11 +10,11 @@ const getDisplayCategories = () => {
   fetch("/category/get")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
+      console.log(data);
       if (data.status === "unauthorized") {
         window.location.replace("index.html");
       } else {
-        console.log(data)
+        console.log(data);
         let categories = data.categories;
         writeCategoiresToDom(categories);
       }
