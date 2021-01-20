@@ -2,20 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-<<<<<<< HEAD
-require("dotenv").config();
-const saltRounds = 12;
-=======
->>>>>>> master
 const jwt = require("jwt-simple");
-const saltRounds = 12
+const saltRounds = 12;
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-
 router.use(cookieParser());
-
-
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
@@ -68,7 +60,6 @@ router.post("/register", (req, res) => {
 
   bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
     try {
-
       newUser.password = hash;
       await newUser.save();
 

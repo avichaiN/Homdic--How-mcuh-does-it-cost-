@@ -8,11 +8,9 @@ var User = require("../models/user");
 
 var bcrypt = require("bcrypt");
 
-require("dotenv").config();
+var jwt = require("jwt-simple");
 
 var saltRounds = 12;
-
-var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
@@ -96,7 +94,7 @@ router.post("/register", function (req, res) {
     username: username,
     password: password
   });
-  bcrypt.hash(password, saltRounds, function _callee2(err, hash) {
+  bcrypt.hash(newUser.password, saltRounds, function _callee2(err, hash) {
     var token;
     return regeneratorRuntime.async(function _callee2$(_context2) {
       while (1) {
@@ -127,7 +125,7 @@ router.post("/register", function (req, res) {
           case 9:
             _context2.prev = 9;
             _context2.t0 = _context2["catch"](0);
-            console.log(_context2.t0);
+            console.log(_context2.t0.message);
             res.send({
               status: "unauthorized"
             });
@@ -161,8 +159,7 @@ router.get("/logout", function (req, res) {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)
 
-  res.sendFile(path.join(__dirname, "../public", "index.html")); // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
-  // res.send({ loggedout: true });
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 router.get("/logout/user", function (req, res) {
   res.cookie("userLoggedIn", "", {
