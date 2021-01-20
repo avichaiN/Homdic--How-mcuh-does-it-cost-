@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const saltRounds = process.env.SALT;
+require("dotenv").config();
+const saltRounds = 12;
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-require("dotenv").config();
 
 router.use(cookieParser());
 

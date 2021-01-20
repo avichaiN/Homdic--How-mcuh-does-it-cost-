@@ -24,7 +24,7 @@ const categoryRouter = require("./routers/categoryRoute");
 const searchRouter = require("./routers/searchRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
-
+const updateUserPassword = require("./routers/updateUserPasswordRoute");
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -42,5 +42,7 @@ app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
+
+app.use("/resetpassword/:id", updateUserPassword);
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

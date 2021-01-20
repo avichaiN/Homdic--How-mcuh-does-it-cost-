@@ -26,6 +26,8 @@ var adminRouter = require("./routers/adminRoute");
 
 var updateUserDataRouter = require("./routers/updateUserDataRoute");
 
+var updateUserPassword = require("./routers/updateUserPasswordRoute");
+
 var port = process.env.PORT || 3000;
 var app = express();
 app.use(bodyParser.json());
@@ -38,6 +40,7 @@ app.use("/category", categoryRouter);
 app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
+app.use("/resetpassword/:id", updateUserPassword);
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
 });

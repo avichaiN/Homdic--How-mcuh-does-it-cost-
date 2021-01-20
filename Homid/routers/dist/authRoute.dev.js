@@ -8,15 +8,15 @@ var User = require("../models/user");
 
 var bcrypt = require("bcrypt");
 
-var saltRounds = process.env.SALT;
+require("dotenv").config();
+
+var saltRounds = 12;
 
 var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
 var path = require("path");
-
-require("dotenv").config();
 
 router.use(cookieParser());
 router.post("/", function _callee(req, res) {
