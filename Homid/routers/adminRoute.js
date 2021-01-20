@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-const checkAdmin = require("../routers/checkAdmin");
+const checkAdmin = require("../routers/gFunctions/checkAdmin");
 require("dotenv").config();
 
 router.use(cookieParser());
