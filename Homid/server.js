@@ -5,11 +5,7 @@ require("dotenv").config();
 
 // Connection to DB
 mongoose.connect(
-  "mongodb+srv://" +
-    process.env.USERNAME +
-    ":" +
-    process.env.PASSWORD +
-    "@cluster0.7lig6.mongodb.net/homdic",
+  `${process.env.DATABASE_URL}`,
   {
     useCreateIndex: true,
     useFindAndModify: false,
