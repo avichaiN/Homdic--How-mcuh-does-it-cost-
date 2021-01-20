@@ -10,8 +10,7 @@ var cookieParser = require("cookie-parser");
 
 var checkUserToken = require("../routers/checkUserToken");
 
-var checkAdmin = require("../routers/checkAdmin"); // const checkAdmin = require("../routers/adminRoute");
-
+var checkAdmin = require("../routers/checkAdmin");
 
 var path = require("path");
 

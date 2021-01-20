@@ -1,10 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // Connection to DB
 mongoose.connect(
-  "mongodb+srv://avichai:123@cluster0.7lig6.mongodb.net/homdic",
+  "mongodb+srv://" +
+    process.env.USERNAME +
+    ":" +
+    process.env.PASSWORD +
+    "@cluster0.7lig6.mongodb.net/homdic",
   {
     useCreateIndex: true,
     useFindAndModify: false,
@@ -20,11 +25,6 @@ const searchRouter = require("./routers/searchRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
 
-// Mongoose Schemas
-const User = require("./models/user");
-const Category = require("./models/category");
-const Comment = require("./models/comment");
-const Post = require("./models/post");
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -32,7 +32,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
 
 app.use("/", authRouter);
 
@@ -43,6 +42,5 @@ app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
-
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

@@ -17,6 +17,7 @@
         <div class="header">
 
             <div class="header__helloUser"></div>
+            <a href="adminPage.html" class="header__adminPage">דף אדמין</a>
             <form class="header__form" onsubmit="handleSearch(event)">
                 <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
                 <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
@@ -32,7 +33,8 @@
                     <a href="#">פוסטים שלי</a>
                     <a href="#">מועדפים</a>
                     <a href="updateUserData.html">עדכן פרטי חשבון</a>
-                    <a href="#">התנתק</a>
+                    <button onclick="handleLogout()">התנתק</button>
+                    <!-- <a href="#">התנתק</a> -->
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
 const checkUserToken = require("../routers/checkUserToken");
 const checkAdmin = require("../routers/checkAdmin");
-// const checkAdmin = require("../routers/adminRoute");
 const path = require("path");
 
 const router = express.Router();
