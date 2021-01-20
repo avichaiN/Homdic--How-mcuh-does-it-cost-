@@ -52,7 +52,7 @@ function handleLoginForm(e) {
         confirmButtonText: "אישור"
       });
     } else {
-      window.location.replace = "/categories.html";
+      window.location.href = "/categories.html";
     }
   });
 }
