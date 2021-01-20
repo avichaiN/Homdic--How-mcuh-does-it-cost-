@@ -26,9 +26,6 @@ const checkUserToken = (req, res, next) => {
 
       if (tokenMadeTime > oneDayAgo) {
         next();
-      } else {
-        status = "unauthorized";
-        res.send({ status });
       }
 
     } else {
