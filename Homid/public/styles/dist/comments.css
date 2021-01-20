@@ -21,6 +21,7 @@ body .comments-post {
   top: 6.5%;
   height: 290px;
   min-height: 290px;
+  min-width: 360px;
 }
 body .comments-post #postheder {
   display: grid;
@@ -28,7 +29,7 @@ body .comments-post #postheder {
   background-color: #cfd8dd;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 2fr;
-  height: 210px;
+  height: 100%;
 }
 body .comments-post #postheder .posttitle {
   width: 80%;
@@ -38,33 +39,28 @@ body .comments-post #postheder .posttitle {
   margin: 0;
   align-self: center;
 }
-body .comments-post #postheder .postbudy {
+body .comments-post #postheder #postbudy {
   padding: 0 5% 0 2%;
   grid-row: 2;
   grid-column: 1;
   margin-right: 1%;
   width: 90%;
-  height: 100px;
-}
-@media only screen and (min-width: 320px) {
-  body .comments-post #postheder .postbudy {
-    font-size: 0.8rem;
-  }
-}
-@media only screen and (min-width: 768px) {
-  body .comments-post #postheder .postbudy {
-    font-size: 1rem;
-  }
-}
-@media only screen and (min-width: 960px) {
-  body .comments-post #postheder .postbudy {
-    font-size: 1.1rem;
-  }
-}
-@media only screen and (min-width: 1366px) {
-  body .comments-post #postheder .postbudy {
-    font-size: 1.3rem;
-  }
+  height: 200px;
+  /*   @include mq(320px) {
+        font-size: 0.8rem;
+    }
+
+    @include mq(768px) {
+        font-size: 1rem;
+    }
+
+    @include mq(960px) {
+        font-size: 1.1rem;
+    }
+
+    @include mq(1366px) {
+        font-size: 1.3rem;
+    } */
 }
 body .comments-post #postheder #hederImg {
   margin-left: 1%;

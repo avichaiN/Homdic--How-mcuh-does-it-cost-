@@ -1,13 +1,39 @@
-renderOnePost("fff","shdhd","shgdfhgds");
+const type = "post";
+const massage ="לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע";
+const title = "מזגן";
+const NmTimesViewed = "36"
+const postID = "sklgkh78h89xchv"
+
+renderOnePost(type/*post or comment*/,title,massage,NmTimesViewed,postID);
+
+
 
 
 function renderpostsPage(){
 document.getElementById("app").innerHTML = ``;
-
 }
 
-function renderOnePost(title,massage,postID){
-    document.getElementById("app").innerHTML += 
+function renderOnePost(type/*post or comment*/,title,massage,NmTimesViewed,postID){
+    const AddCommentButton = ` <div id="AddCommentButton" class="Notifications show" onclick="ShowAddComment()">
+    <span class="material-icons">
+      add_circle_outline
+    </span>`
+    const TimesViewed = ` <div id="TimesViewed">
+    <span class="material-icons"> visibility </span>
+    <p>נצפה ${NmTimesViewed} פעמים</p>
+  </div>`
+let leftButton;
+  if(type=="post"){
+    leftButton = AddCommentButton;
+  }else{
+    if(type=="comment"){
+      leftButton = TimesViewed;
+    }else{
+      leftButton = "error rong input type"
+    }
+  }
+  
+  document.getElementById("app").innerHTML += 
    `<div class="post">
     <div id="postheder">
       <h1 class="posttitle">${title}</h1>
@@ -15,16 +41,7 @@ function renderOnePost(title,massage,postID){
     </div>
     <!--  add comment form -->
     <div id="addComment" class="hide">
-
-      <!--hide -->
-      <div>
-        <p>הוסף תגובה</p>
-        <form action="">
-          <textarea name="message"></textarea>
-          <input type="button" value="שלח">
-        </form>
-      </div>
-
+      <!--hide -->     
     </div>
     <!--  end add comment form -->
     <div class="futter">
@@ -42,11 +59,10 @@ function renderOnePost(title,massage,postID){
         </span>
         <p>בטל</p>
       </div>
-      <div id="AddCommentButton" class="Notifications show" onclick="ShowAddComment()">
-        <span class="material-icons">
-          add_circle_outline
-        </span>
+      <div id="leftButton">
+      ${leftButton}
         <p>רשום תגובה</p>
+      </div>
       </div>
     </div>
   </div>`;
