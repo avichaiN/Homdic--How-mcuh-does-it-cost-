@@ -3,7 +3,6 @@
 fetch("/updateUserData").then(function (r) {
   return r.json();
 }).then(function (data) {
-  console.log(data);
   document.getElementById("firstName").setAttribute("value", "".concat(data.userFound.firstName));
   document.getElementById("lastName").setAttribute("value", "".concat(data.userFound.lastName));
   document.getElementById("username").setAttribute("value", "".concat(data.userFound.username));
@@ -12,7 +11,11 @@ fetch("/updateUserData").then(function (r) {
 
 function handleUpdateForm(e) {
   e.preventDefault();
-  fetch("/", {
+  var firstName = e.target.children.firstName.value;
+  var lastName = e.target.children.lastName.value;
+  var username = e.target.children.username.value;
+  var email = e.target.children.email.value;
+  fetch("/updateUserData", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -21,22 +24,21 @@ function handleUpdateForm(e) {
       firstName: firstName,
       lastName: lastName,
       username: username,
-      email: email,
-      password: password
+      email: email
     })
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    if (data.status == "unauthorized") {
+    if (data.user == "updated") {
+      window.location.replace("/category");
+    } else {
       Swal.fire({
         icon: "error",
         title: "אופס...",
-        text: "כנראה שהפרטים שהזנת לא נכונים או קיימים במערכת, נסה שנית",
+        text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
         confirmButtonColor: "red",
         confirmButtonText: "אישור"
       });
-    } else {
-      window.location.href = "/";
     }
   });
 }

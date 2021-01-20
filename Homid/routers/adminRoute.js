@@ -3,15 +3,15 @@ const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-const secret = "temporary";
+require("dotenv").config();
+
 router.use(cookieParser());
 
 function checkAdmin(req, res, next) {
   const token = req.cookies.userLoggedIn;
 
   if (token) {
-    var decoded = jwt.decode(token, secret);
+    var decoded = jwt.decode(token, process.env.SECRET);
 
     if (decoded.role === "admin") {
       next();
@@ -68,11 +68,9 @@ router.put("/", checkAdmin, async (req, res) => {
     newRole,
     id
   );
-  console.log(update);
   let allUsers = await getAllUsers();
 
   res.send({ allUsers, update });
 });
 
 module.exports = [router, checkAdmin];
-// module.exports = checkAdmin;

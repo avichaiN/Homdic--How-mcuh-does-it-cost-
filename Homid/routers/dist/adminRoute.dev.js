@@ -8,17 +8,17 @@ var User = require("../models/user");
 
 var jwt = require("jwt-simple");
 
-var cookieParser = require("cookie-parser"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var cookieParser = require("cookie-parser");
 
+require("dotenv").config();
 
-var secret = "temporary";
 router.use(cookieParser());
 
 function checkAdmin(req, res, next) {
   var token = req.cookies.userLoggedIn;
 
   if (token) {
-    var decoded = jwt.decode(token, secret);
+    var decoded = jwt.decode(token, process.env.SECRET);
 
     if (decoded.role === "admin") {
       next();
@@ -133,22 +133,21 @@ router.put("/", checkAdmin, function _callee4(req, res) {
 
         case 3:
           update = _context4.sent;
-          console.log(update);
-          _context4.next = 7;
+          _context4.next = 6;
           return regeneratorRuntime.awrap(getAllUsers());
 
-        case 7:
+        case 6:
           allUsers = _context4.sent;
           res.send({
             allUsers: allUsers,
             update: update
           });
 
-        case 9:
+        case 8:
         case "end":
           return _context4.stop();
       }
     }
   });
 });
-module.exports = [router, checkAdmin]; // module.exports = checkAdmin;
+module.exports = [router, checkAdmin];

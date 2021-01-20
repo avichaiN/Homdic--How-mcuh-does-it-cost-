@@ -2,16 +2,13 @@ const express = require("express");
 const Category = require("../models/category");
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-const secret = "temporary";
 const checkUserToken = require("../routers/checkUserToken");
 const checkAdmin = require("../routers/adminRoute");
-const path = require('path')
+const path = require("path");
 
 const router = express.Router();
 
 router.use(cookieParser());
-
 
 async function categoriesFind() {
   try {
@@ -23,10 +20,10 @@ async function categoriesFind() {
 
 // get all categories to display on category page.
 router.get("/", checkUserToken, (req, res) => {
-      res.sendFile(path.join(__dirname, '../public', 'Categories.html'))
+  res.sendFile(path.join(__dirname, "../public", "Categories.html"));
 });
 
-router.get("/get",checkUserToken, async(req,res)=>{
+router.get("/get", checkUserToken, async (req, res) => {
   try {
     let categories = await categoriesFind();
     if (categories === false || categories === undefined) {
@@ -37,15 +34,12 @@ router.get("/get",checkUserToken, async(req,res)=>{
   } catch (e) {
     res.send({ ok: false });
   }
-})
+});
 
 //create new category for admin
 router.post("/", checkAdmin, async (req, res) => {
   const { newCategoryName } = req.body;
   const { newCategoryImg } = req.body;
-
-  console.log(newCategoryName);
-  console.log(newCategoryImg);
 
   const category = new Category({ Name: newCategoryName, Img: newCategoryImg });
   try {
@@ -89,7 +83,6 @@ router.delete("/", checkAdmin, async (req, res) => {
           res.send({ ok: false });
         } else {
           let categories = await categoriesFind();
-          console.log(categories);
           res.send({ ok: true, category, categories });
         }
       }

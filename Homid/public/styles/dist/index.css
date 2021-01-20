@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   margin: 0;
   padding: 0;
@@ -6,62 +7,49 @@ body {
   -webkit-background-size: cover;
   background-size: cover;
   text-align: center;
+  /* .tab--form a:hover{
+      color: #36d2ff;
+  } */
 }
-
-.wrapper {
+body .wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 70px;
 }
-
-#check {
-  width: auto;
-  height: auto;
-}
-#textForCheck {
+body .input::placeholder {
   text-align: right;
 }
-
-.input::placeholder {
-  text-align: right;
-}
-.formsContainer {
+body .formsContainer {
   background-color: rgba(77, 77, 77, 0.4);
   padding: 10px;
   width: 35vw;
 }
-.tab--form {
+body .tab--form {
   background-color: #fff;
   display: none;
   padding: 70px 150px 50px;
   height: 470px;
 }
-
-.tab--form.active {
+body .tab--form.active {
   display: block;
 }
-
-.tab--form a {
+body .tab--form a {
   text-decoration: none;
   transition: 0.3s;
   color: #298cad;
 }
-/* .tab--form a:hover{
-    color: #36d2ff;
-} */
-.tab--form ul {
+body .tab--form ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.tab--form input {
+body .tab--form input {
   display: block;
   width: 100%;
 }
-
-label.tab {
+body label.tab {
   color: #ffffff;
   font-weight: 600;
   padding: 15px;
@@ -70,35 +58,31 @@ label.tab {
   margin-bottom: -1px;
   cursor: pointer;
 }
-
-label.tab.active {
+body label.tab.active {
   background-color: #fff;
   color: #1d5f75;
 }
-
-input[name="tabs"]:checked + label {
+body input[name=tabs]:checked + label {
   background-color: #fff;
   color: #1d5f75;
 }
-input[name="tabs"] {
+body input[name=tabs] {
   display: none;
 }
-
-.tab::before {
-  content: "\f090";
+body .tab::before {
+  content: "";
   font-family: "FontAwesome", sans-serif;
   font-size: 24px;
   margin-right: 11px;
   font-weight: normal;
 }
-.tab[for*="2"]::before {
-  content: "\f234";
+body .tab[for*="2"]::before {
+  content: "";
 }
-
-.del {
+body .del {
   display: none;
 }
-.input {
+body .input {
   font-size: 16px;
   border: 2px solid #e9eaea;
   border-radius: 5px;
@@ -109,16 +93,14 @@ input[name="tabs"] {
   outline: none;
   direction: rtl;
 }
-.input:hover {
+body .input:hover {
   border: 2px solid #bebebe;
   transition: 0.3;
 }
-
-::-webkit-input-placeholder {
+body ::-webkit-input-placeholder {
   color: #c4c9c9;
 }
-
-button.button {
+body button.button {
   background: #298cad;
   color: #ffffff;
   font-size: 18px;
@@ -132,76 +114,69 @@ button.button {
   width: 100%;
   outline: none;
 }
-
-button.button:hover {
+body button.button:hover {
   transition: 0.3s;
   background-color: #0c6886;
 }
-
-.social {
+body .social {
   display: flex;
   justify-content: space-between;
   font-size: 24px;
 }
-.social a {
+body .social a {
   width: 40px;
   height: 40px;
   display: block;
   line-height: 40px;
   text-align: center;
 }
-
-.social + a {
+body .social + a {
   margin-top: 10px;
   display: block;
   font-size: 16px;
   text-align: center;
 }
-
 @media only screen and (max-width: 1400px) {
-  .formsContainer {
+  body .formsContainer {
     width: 60vw;
   }
-  .tab--form {
+  body .tab--form {
     padding: 70px 100px 50px;
   }
 }
-
 @media only screen and (max-width: 600px) {
-  .formsContainer {
+  body .formsContainer {
     width: 70vw;
   }
-  .tab--form {
+  body .tab--form {
     padding: 70px 70px 50px;
   }
 }
-
 @media only screen and (max-width: 480px) {
-  .formsContainer {
+  body .formsContainer {
     width: 80vw;
   }
-  .tab {
+  body .tab {
     font-size: 80%;
   }
-  .tab::before {
+  body .tab::before {
     font-size: 100%;
   }
-  .tab--form {
+  body .tab--form {
     padding: 30px 50px 50px;
   }
 }
-
 @media only screen and (max-width: 280px) {
-  .formsContainer {
+  body .formsContainer {
     width: 80vw;
   }
-  .tab {
+  body .tab {
     font-size: 68%;
   }
-  .tab::before {
+  body .tab::before {
     font-size: 100%;
   }
-  .tab--form {
+  body .tab--form {
     padding: 30px 30px 30px;
   }
 }

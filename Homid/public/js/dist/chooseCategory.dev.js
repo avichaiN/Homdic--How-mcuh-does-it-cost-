@@ -12,12 +12,9 @@ var getDisplayCategories = function getDisplayCategories() {
   fetch("/category/get").then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
-
     if (data.status === "unauthorized") {
       window.location.replace("index.html");
     } else {
-      console.log(data);
       var categories = data.categories;
       writeCategoiresToDom(categories);
     }
@@ -40,6 +37,4 @@ var goToClickedCategory = function goToClickedCategory(e) {
   if (chosenCategoryId === undefined) {
     chosenCategoryId = e.target.parentNode.dataset.id;
   }
-
-  console.log(chosenCategoryId);
 };

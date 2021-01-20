@@ -14,12 +14,10 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-var checkAdmin = require("../routers/adminRoute");
+var path = require("path");
 
-var path = require('path'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+require("dotenv").config();
 
-
-var secret = "temporary";
 router.use(cookieParser());
 router.post("/", function _callee(req, res) {
   var _req$body, username, password, userFound;
@@ -45,11 +43,12 @@ router.post("/", function _callee(req, res) {
           bcrypt.compare(password, hash, function (err, result) {
             if (result) {
               var token = jwt.encode({
+                id: userFound._id,
                 role: userFound.role,
                 username: userFound.username,
                 name: userFound.firstName,
                 date: new Date()
-              }, secret);
+              }, process.env.SECRET);
               res.cookie("userLoggedIn", token, {
                 maxAge: 7200000,
                 httpOnly: true
@@ -114,7 +113,7 @@ router.post("/register", function (req, res) {
               username: newUser.username,
               name: newUser.firstName,
               date: new Date()
-            }, secret);
+            }, process.env.SECRET);
             res.cookie("userLoggedIn", token, {
               maxAge: 7200000,
               httpOnly: true
@@ -146,7 +145,7 @@ router.get("/userInfo", function (req, res) {
   var token = req.cookies.userLoggedIn;
 
   if (token) {
-    var decoded = jwt.decode(token, secret);
+    var decoded = jwt.decode(token, process.env.SECRET);
     var name = decoded.name;
     res.send({
       name: name
@@ -162,7 +161,7 @@ router.get("/logout", function (req, res) {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)
 
-  res.sendFile(path.join(__dirname, '../public', 'index.html')); // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
+  res.sendFile(path.join(__dirname, "../public", "index.html")); // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
   // res.send({ loggedout: true });
 });
 router.get("/logout/user", function (req, res) {

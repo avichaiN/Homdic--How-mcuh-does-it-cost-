@@ -5,11 +5,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 12;
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-const checkAdmin = require("../routers/adminRoute");
-const path = require('path')
-
-// לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-const secret = "temporary";
+const path = require("path");
+require("dotenv").config();
 
 router.use(cookieParser());
 
@@ -26,12 +23,13 @@ router.post("/", async (req, res) => {
       if (result) {
         const token = jwt.encode(
           {
+            id: userFound._id,
             role: userFound.role,
             username: userFound.username,
             name: userFound.firstName,
             date: new Date(),
           },
-          secret
+          process.env.SECRET
         );
         res.cookie("userLoggedIn", token, {
           maxAge: 7200000,
@@ -72,7 +70,7 @@ router.post("/register", (req, res) => {
           name: newUser.firstName,
           date: new Date(),
         },
-        secret
+        process.env.SECRET
       );
       res.cookie("userLoggedIn", token, {
         maxAge: 7200000,
@@ -90,7 +88,7 @@ router.post("/register", (req, res) => {
 router.get("/userInfo", (req, res) => {
   const token = req.cookies.userLoggedIn;
   if (token) {
-    const decoded = jwt.decode(token, secret);
+    const decoded = jwt.decode(token, process.env.SECRET);
     const name = decoded.name;
     res.send({ name });
   } else {
@@ -100,7 +98,7 @@ router.get("/userInfo", (req, res) => {
 
 router.get("/logout", (req, res) => {
   res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
-  res.sendFile(path.join(__dirname, '../public', 'index.html'))
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
   // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
   // res.send({ loggedout: true });

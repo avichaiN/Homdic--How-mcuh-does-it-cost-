@@ -6,23 +6,19 @@ var router = express.Router();
 
 var User = require("../models/user");
 
-var jwt = require("jwt-simple");
+var checkUserToken = require("../routers/checkUserToken");
 
-var checkUserToken = require("../routers/checkUserToken"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
-
-
-var secret = "temporary";
 router.get("/", checkUserToken, function _callee(req, res) {
-  var username, userFound;
+  var userId, userFound;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          username = req.userInfo.username;
+          userId = req.userInfo.id;
           _context.next = 4;
           return regeneratorRuntime.awrap(User.findOne({
-            username: username
+            _id: userId
           }));
 
         case 4:
@@ -44,5 +40,45 @@ router.get("/", checkUserToken, function _callee(req, res) {
       }
     }
   }, null, null, [[0, 8]]);
+});
+router.post("/", checkUserToken, function _callee2(req, res) {
+  var _req$body, firstName, lastName, username, email, userId, updatedUser;
+
+  return regeneratorRuntime.async(function _callee2$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _req$body = req.body, firstName = _req$body.firstName, lastName = _req$body.lastName, username = _req$body.username, email = _req$body.email;
+          userId = req.userInfo.id;
+          _context2.prev = 2;
+          _context2.next = 5;
+          return regeneratorRuntime.awrap(User.findOneAndUpdate({
+            _id: userId
+          }, {
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email
+          }));
+
+        case 5:
+          updatedUser = _context2.sent;
+          res.send({
+            user: "updated"
+          });
+          _context2.next = 12;
+          break;
+
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](2);
+          console.log(_context2.t0);
+
+        case 12:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
 });
 module.exports = router;
