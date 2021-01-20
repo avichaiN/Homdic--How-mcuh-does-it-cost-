@@ -74,4 +74,4 @@ router.put("/", checkAdmin, async (req, res) => {
   res.send({ allUsers, update });
 });
 
-module.exports = [router, checkAdmin];
+module.exports = [router];

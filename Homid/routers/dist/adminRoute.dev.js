@@ -146,4 +146,4 @@ router.put("/", checkAdmin, function _callee4(req, res) {
     }
   });
 });
-module.exports = [router, checkAdmin];
+module.exports = [router];
