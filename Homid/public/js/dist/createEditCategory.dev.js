@@ -14,7 +14,7 @@ var displayAdminCategory = function displayAdminCategory() {
           checkAdmin = _context.sent;
 
           if (checkAdmin) {
-            document.querySelector('.category__admin').style.display = 'block';
+            document.querySelector(".category__admin").style.display = "block";
           }
 
         case 4:
@@ -32,12 +32,12 @@ var handleDisplayAddCategory = function handleDisplayAddCategory() {
 
 var handleNewCategory = function handleNewCategory(e) {
   e.preventDefault();
-  var newCategoryName = document.getElementById('categoryInput').value;
-  var newCategoryImg = document.getElementById('categoryImgInput').value;
-  fetch('/category', {
-    method: 'POST',
+  var newCategoryName = document.getElementById("categoryInput").value;
+  var newCategoryImg = document.getElementById("categoryImgInput").value;
+  fetch("/category", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       newCategoryName: newCategoryName,
@@ -47,7 +47,7 @@ var handleNewCategory = function handleNewCategory(e) {
     return res.json();
   }).then(function (data) {
     if (!data.ok) {
-      console.log('error addming category');
+      console.log("error adding category");
     } else {
       writeCategoiresToDom(data.categories);
     }
@@ -56,13 +56,13 @@ var handleNewCategory = function handleNewCategory(e) {
 
 
 var showEditOrDeleteCategory = function showEditOrDeleteCategory(e) {
-  var deleteButton = document.querySelectorAll('.deleteCategory'),
+  var deleteButton = document.querySelectorAll(".deleteCategory"),
       i;
-  var editButton = document.querySelectorAll('.editCategory');
+  var editButton = document.querySelectorAll(".editCategory");
 
   for (i = 0; i < deleteButton.length; ++i) {
     deleteButton[i].style.display = "inline";
-    editButton[i].style.display = 'inline';
+    editButton[i].style.display = "inline";
   }
 
   e.stopPropagation();
@@ -70,13 +70,13 @@ var showEditOrDeleteCategory = function showEditOrDeleteCategory(e) {
 
 
 var hideEditOrDeleteCategory = function hideEditOrDeleteCategory() {
-  var deleteButton = document.querySelectorAll('.deleteCategory'),
+  var deleteButton = document.querySelectorAll(".deleteCategory"),
       i;
-  var editButton = document.querySelectorAll('.editCategory');
+  var editButton = document.querySelectorAll(".editCategory");
 
   for (i = 0; i < deleteButton.length; ++i) {
     deleteButton[i].style.display = "none";
-    editButton[i].style.display = 'none';
+    editButton[i].style.display = "none";
   }
 }; //delete category
 
@@ -84,10 +84,10 @@ var hideEditOrDeleteCategory = function hideEditOrDeleteCategory() {
 var deleteCategory = function deleteCategory(e) {
   e.stopPropagation();
   var chosenCategoryid = e.target.parentNode.dataset.id;
-  fetch('/category/', {
-    method: 'DELETE',
+  fetch("/category/", {
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       chosenCategoryid: chosenCategoryid
@@ -105,14 +105,14 @@ var editCategoryForm = function editCategoryForm(e) {
   var categoryName = e.target.parentNode.dataset.name;
   var categoryImg = e.target.parentNode.dataset.img;
   var categoryId = e.target.parentNode.dataset.id;
-  document.querySelector('.category__edit').style.display = 'block';
+  document.querySelector(".category__edit").style.display = "block";
   var editCategoryFormHtml = "\n    <label>\u05E9\u05DD \u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4: ".concat(categoryName, "</label>\n    <img src=\"").concat(categoryImg, "\">\n    <form onsubmit=\"editCategory(event)\">\n    <input type=\"text\" data-name='").concat(categoryName, "' data-id='").concat(categoryId, "' name='name' placeholder=\"\u05E9\u05DD \u05D7\u05D3\u05E9\">\n        <input type=\"text\" data-img='").concat(categoryImg, "' name='img' placeholder=\"\u05EA\u05DE\u05D5\u05E0\u05D4 \u05D7\u05D3\u05E9\u05D4\">\n        <input type=\"submit\" value=\"\u05E2\u05D3\u05DB\u05DF\">\n        <button onclick='hideAddCategoryAndEditForm()'>\u05D1\u05D8\u05DC</button>\n    </form>\n    <label>\u05DB\u05DC \u05E9\u05D3\u05D4 \u05E9\u05D9\u05E9\u05D0\u05E8 \u05E8\u05D9\u05E7 \u05D9\u05E9\u05DE\u05D5\u05E8 \u05D0\u05EA \u05D4\u05E2\u05E8\u05DA \u05D4\u05D9\u05E9\u05DF</label>");
-  document.querySelector('.category__edit').innerHTML = editCategoryFormHtml;
+  document.querySelector(".category__edit").innerHTML = editCategoryFormHtml;
 };
 
 var hideAddCategoryAndEditForm = function hideAddCategoryAndEditForm() {
-  document.querySelector('.category__edit').style.display = 'none';
-  document.querySelector('.category__adminAddCategoryForm').style.display = 'none';
+  document.querySelector(".category__edit").style.display = "none";
+  document.querySelector(".category__adminAddCategoryForm").style.display = "none";
 };
 
 var editCategory = function editCategory(e) {
@@ -123,18 +123,18 @@ var editCategory = function editCategory(e) {
   var newCategoryName = e.target.children.name.value;
   var newCategoryImg = e.target.children.img.value;
 
-  if (newCategoryName === '') {
+  if (newCategoryName === "") {
     newCategoryName = oldCategoryName;
   }
 
-  if (newCategoryImg === '') {
+  if (newCategoryImg === "") {
     newCategoryImg = oldCategoryImg;
   }
 
-  fetch('/category/', {
-    method: 'put',
+  fetch("/category/", {
+    method: "put",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       categoryId: categoryId,

@@ -92,44 +92,42 @@ router.post("/", checkAdmin, function _callee2(req, res) {
         case 0:
           newCategoryName = req.body.newCategoryName;
           newCategoryImg = req.body.newCategoryImg;
-          console.log(newCategoryName);
-          console.log(newCategoryImg);
           category = new Category({
             Name: newCategoryName,
             Img: newCategoryImg
           });
-          _context3.prev = 5;
-          _context3.next = 8;
+          _context3.prev = 3;
+          _context3.next = 6;
           return regeneratorRuntime.awrap(category.save());
 
-        case 8:
-          _context3.next = 10;
+        case 6:
+          _context3.next = 8;
           return regeneratorRuntime.awrap(categoriesFind());
 
-        case 10:
+        case 8:
           categories = _context3.sent;
           res.send({
             ok: true,
             category: category,
             categories: categories
           });
-          _context3.next = 18;
+          _context3.next = 16;
           break;
 
-        case 14:
-          _context3.prev = 14;
-          _context3.t0 = _context3["catch"](5);
+        case 12:
+          _context3.prev = 12;
+          _context3.t0 = _context3["catch"](3);
           console.log(_context3.t0);
           res.send({
             ok: false
           });
 
-        case 18:
+        case 16:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[5, 14]]);
+  }, null, null, [[3, 12]]);
 });
 router.put("/", checkAdmin, function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg;
@@ -225,7 +223,7 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
                     res.send({
                       ok: false
                     });
-                    _context6.next = 9;
+                    _context6.next = 8;
                     break;
 
                   case 4:
@@ -234,14 +232,13 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
 
                   case 6:
                     categories = _context6.sent;
-                    console.log(categories);
                     res.send({
                       ok: true,
                       category: category,
                       categories: categories
                     });
 
-                  case 9:
+                  case 8:
                   case "end":
                     return _context6.stop();
                 }

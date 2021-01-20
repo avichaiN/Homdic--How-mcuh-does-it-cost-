@@ -17,7 +17,6 @@ router.post("/", async (req, res) => {
     const userFound = await User.findOne({
       $or: [{ username: username }, { email: username }],
     });
-    console.log(userFound);
 
     hash = userFound.password;
     bcrypt.compare(password, hash, function (err, result) {

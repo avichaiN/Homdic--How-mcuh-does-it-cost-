@@ -133,18 +133,17 @@ router.put("/", checkAdmin, function _callee4(req, res) {
 
         case 3:
           update = _context4.sent;
-          console.log(update);
-          _context4.next = 7;
+          _context4.next = 6;
           return regeneratorRuntime.awrap(getAllUsers());
 
-        case 7:
+        case 6:
           allUsers = _context4.sent;
           res.send({
             allUsers: allUsers,
             update: update
           });
 
-        case 9:
+        case 8:
         case "end":
           return _context4.stop();
       }

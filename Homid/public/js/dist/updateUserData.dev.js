@@ -3,7 +3,6 @@
 fetch("/updateUserData").then(function (r) {
   return r.json();
 }).then(function (data) {
-  console.log(data);
   document.getElementById("firstName").setAttribute("value", "".concat(data.userFound.firstName));
   document.getElementById("lastName").setAttribute("value", "".concat(data.userFound.lastName));
   document.getElementById("username").setAttribute("value", "".concat(data.userFound.username));

@@ -1,7 +1,6 @@
 fetch("/updateUserData")
   .then((r) => r.json())
   .then((data) => {
-    console.log(data);
     document
       .getElementById("firstName")
       .setAttribute("value", `${data.userFound.firstName}`);

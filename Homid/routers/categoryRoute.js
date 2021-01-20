@@ -41,9 +41,6 @@ router.post("/", checkAdmin, async (req, res) => {
   const { newCategoryName } = req.body;
   const { newCategoryImg } = req.body;
 
-  console.log(newCategoryName);
-  console.log(newCategoryImg);
-
   const category = new Category({ Name: newCategoryName, Img: newCategoryImg });
   try {
     await category.save();
@@ -86,7 +83,6 @@ router.delete("/", checkAdmin, async (req, res) => {
           res.send({ ok: false });
         } else {
           let categories = await categoriesFind();
-          console.log(categories);
           res.send({ ok: true, category, categories });
         }
       }

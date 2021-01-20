@@ -39,7 +39,6 @@ router.post("/", function _callee(req, res) {
 
         case 4:
           userFound = _context.sent;
-          console.log(userFound);
           hash = userFound.password;
           bcrypt.compare(password, hash, function (err, result) {
             if (result) {
@@ -64,11 +63,11 @@ router.post("/", function _callee(req, res) {
               res.end();
             }
           });
-          _context.next = 15;
+          _context.next = 14;
           break;
 
-        case 10:
-          _context.prev = 10;
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](1);
           console.log(_context.t0);
           res.send({
@@ -76,12 +75,12 @@ router.post("/", function _callee(req, res) {
           });
           res.end();
 
-        case 15:
+        case 14:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 10]]);
+  }, null, null, [[1, 9]]);
 });
 router.post("/register", function (req, res) {
   var _req$body2 = req.body,

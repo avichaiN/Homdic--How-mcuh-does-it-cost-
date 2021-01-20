@@ -68,7 +68,6 @@ router.put("/", checkAdmin, async (req, res) => {
     newRole,
     id
   );
-  console.log(update);
   let allUsers = await getAllUsers();
 
   res.send({ allUsers, update });
