@@ -1,80 +1,114 @@
 <!DOCTYPE html>
 <html lang="heb" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homedic - Posts</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/dist/posts.css" />
+    <link rel="stylesheet" href="styles/dist/headerNav.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homedic - Posts</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="styles/dist/posts.css" />
-  <link rel="stylesheet" href="styles/dist/headerNav.css">
-</head>
+  <body>
+    <div class="header" onclick="hideUserDropDown()">
+      <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
+      <form class="header__form" onsubmit="handleSearch(event)">
+        <input
+          class="header__formInput"
+          placeholder="חפש פוסטים"
+          type="text"
+          required
+        />
+        <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+        <button class="header__formSubmit" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
 
-<body>
-  <div class="header" onclick="hideUserDropDown()">
+      <!-- user info / logout / edit user // show all posts -->
 
-    <div class="header__helloUser">בוקר/ערב/לילה טוב ( שם המשתמש )</div>
-    <form class="header__form" onsubmit="handleSearch(event)">
-      <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
-      <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
-      <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
-    </form>
-
-    <!-- user info / logout / edit user // show all posts -->
-
-    <div class="header__userInfo">
-      <img onclick="showUserDropDown(event)"
-        src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
-      <div class="header__userInfoDrop">
-        <button>פוסטים שלי</button>
-        <button>מועדפים</button>
-        <button>עדכן פרטי חשבון</button>
-        <button>התנתק</button>
-      </div>
-    </div>
-  </div>
-  <heder id="categoryHeder">
-    <input id="addPostbutton" class="show" type="button" value="+" onclick="showAddpost()" />
-    <input id="removePostbutton" class="hide" type="button" value="-" onclick="hideAddpost()" />
-    <h1>מכשירי חשמל</h1>
-    <img id="hederImg" src="./img/electircs.jfif" alt="" />
-  </heder>
-  <div id="app">
-
-
-    <!-- add post -->
-    <div class="AddPost hide">
-      <div id="postAddHeder">
-        <h1 class="addPosTtitle">הוספת פוסט</h1>
-        <!--  <textarea name="message"></textarea> -->
-      </div>
-      <div id="AddPostBody">
-        <form action="">
-          <textarea name="message"></textarea>
-          <input id="avatar" type="file" value="..."  name="avatar" accept="image/png, image/jpeg, image/jpg">
-        </form>
-      </div>
-      <div ID="AddPostfutter">
-        <div>
-          <span class="material-icons">
-            add_circle_outline
-          </span>
-          <p>הוסף</p>
+      <div class="header__userInfo">
+        <img
+          onclick="showUserDropDown(event)"
+          src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg"
+        />
+        <div class="header__userInfoDrop">
+          <button>פוסטים שלי</button>
+          <button>מועדפים</button>
+          <button>עדכן פרטי חשבון</button>
+          <button>התנתק</button>
         </div>
-
       </div>
     </div>
-    <!-- end post -->
 
     
-    
-  </div>
-  <script src="js/headerNav.js"></script>
-  <script src="js/post-comment_render.js"></script>
-  <script src="js/post-comment_functunality.js"></script>
-  
-
-</body>
-
+    <heder id="categoryHeder">
+      <input
+        id="addPostbutton"
+        class="show"
+        type="button"
+        value="+"
+        onclick="showAddpost()"
+      />
+      <input
+        id="removePostbutton"
+        class="hide"
+        type="button"
+        value="-"
+        onclick="hideAddpost()"
+      />
+      <h1>מכשירי חשמל</h1>
+      <img id="hederImg" src="./styles/img/electircs.jfif" alt="" />
+    </heder>
+    <div id="app">
+      <!-- add post -->
+      <div class="AddPost hide">
+        <div id="postAddHeder">
+          <h1 class="addPosTtitle">הוספת פוסט</h1>
+          <!--  <textarea name="message"></textarea> -->
+        </div>
+        <div id="AddPostBody">
+          <form action="">
+            <textarea name="message"></textarea>
+            <input
+              id="avatar"
+              type="file"
+              value="..."
+              name="avatar"
+              accept="image/png, image/jpeg, image/jpg"
+            />
+          </form>
+        </div>
+        <div id="AddPostfutter">
+          <div>
+            <span class="material-icons"> add_circle_outline </span>
+            <p>הוסף</p>
+          </div>
+        </div>
+      </div>
+      <!-- end post -->
+    </div>
+    <script src="js/headerNav.js"></script>
+    <script src="js/post-comment_render.js"></script>
+    <script src="js/post-comment_functunality.js"></script>
+    <script>
+      const html = buildOnePost(
+        type /*post or comment*/,
+        title,
+        massage,
+        NmTimesViewed,
+        postID
+      );
+      const app = document.getElementById('app');
+      app.innerHTML += html;
+      /* newApp = app.replace('<div class="commenstsSection">', Html);*/
+    </script>
+  </body>
 </html>
