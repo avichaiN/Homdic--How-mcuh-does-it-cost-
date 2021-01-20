@@ -8,9 +8,9 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-var checkUserToken = require("../routers/checkUserToken");
+var checkUserToken = require("../routers/gFunctions/checkUserToken");
 
-var checkAdmin = require("../routers/checkAdmin");
+var checkAdmin = require("../routers/gFunctions/checkAdmin");
 
 var path = require("path");
 

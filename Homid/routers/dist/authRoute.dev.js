@@ -161,8 +161,7 @@ router.get("/logout", function (req, res) {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)
 
-  res.sendFile(path.join(__dirname, "../public", "index.html")); // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
-  // res.send({ loggedout: true });
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 router.get("/logout/user", function (req, res) {
   res.cookie("userLoggedIn", "", {

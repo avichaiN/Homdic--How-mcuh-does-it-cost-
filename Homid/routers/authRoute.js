@@ -10,6 +10,8 @@ require("dotenv").config();
 
 router.use(cookieParser());
 
+
+
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
@@ -99,9 +101,6 @@ router.get("/userInfo", (req, res) => {
 router.get("/logout", (req, res) => {
   res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
   res.sendFile(path.join(__dirname, "../public", "index.html"));
-  // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
-
-  // res.send({ loggedout: true });
 });
 router.get("/logout/user", (req, res) => {
   res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)

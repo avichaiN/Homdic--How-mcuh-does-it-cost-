@@ -8,7 +8,7 @@ var router = express.Router();
 
 var User = require("../models/user");
 
-var checkUserToken = require("../routers/checkUserToken");
+var checkUserToken = require("../routers/gFunctions/checkUserToken");
 
 router.get("/", checkUserToken, function _callee(req, res) {
   var userCookie, decoded, userFound;

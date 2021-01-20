@@ -10,7 +10,7 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-var checkAdmin = require("../routers/checkAdmin");
+var checkAdmin = require("../routers/gFunctions/checkAdmin");
 
 require("dotenv").config();
 

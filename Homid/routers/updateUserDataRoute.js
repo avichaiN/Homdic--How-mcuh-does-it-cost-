@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jwt-simple");
 const router = express.Router();
 const User = require("../models/user");
-const checkUserToken = require("../routers/checkUserToken");
+const checkUserToken = require("../routers/gFunctions/checkUserToken");
 
 router.get("/", checkUserToken, async (req, res) => {
   try {
