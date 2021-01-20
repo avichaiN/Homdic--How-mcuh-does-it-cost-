@@ -49,17 +49,18 @@
 
         <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
         <div class="newPostBox box">
+            <img class='closeNewPost' src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
             <h1 class='box'>פוסט חדש</h1>
-            <form class='box'>
+            <form class='box' onsubmit="handleNewPost(event)">
                 
-                <select class='box' id="category" name="category">
+                <select required name='category' class='box' id="category" name="category">
                  <!-- categoires get pushed here -->
                 </select>
-                <label class='box' for="title">כותרת</label>
-                <input class='box' placeholder='כותרת' type="text" maxlength="45" id="title">
+                <label class='box' required for="title">כותרת</label>
+                <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
                 <label class='box' for="desc">שאלה</label>
-                <textarea class='box' placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
-                <label class='img box' for="img">העלה תמונה</label>
+                <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
+                <label class='img box' name='img' for="img">העלה תמונה</label>
                 <input class='box' type="file" style="visibility:hidden;display: none;" id="img" name="img" accept="image/*">
                 <input class='box' type="submit" value="פרסם">
             </form>

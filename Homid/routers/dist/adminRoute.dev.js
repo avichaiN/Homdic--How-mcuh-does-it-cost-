@@ -10,27 +10,23 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
+var checkAdmin = require("../routers/checkAdmin");
+
 require("dotenv").config();
 
-router.use(cookieParser());
-
-function checkAdmin(req, res, next) {
-  var token = req.cookies.userLoggedIn;
-
-  if (token) {
-    var decoded = jwt.decode(token, process.env.SECRET);
-
-    if (decoded.role === "admin") {
-      next();
-    } else {
-      res.send({
-        admin: false
-      });
-    }
-  } else {
-    res.redirect("/");
-  }
-}
+router.use(cookieParser()); // function checkAdmin(req, res, next) {
+//   const token = req.cookies.userLoggedIn;
+//   if (token) {
+//     var decoded = jwt.decode(token, process.env.SECRET);
+//     if (decoded.role === "admin") {
+//       next();
+//     } else {
+//       res.send({ admin: false });
+//     }
+//   } else {
+//     res.send({ admin: false });
+//   }
+// }
 
 function getAllUsers() {
   return User.find().exec();

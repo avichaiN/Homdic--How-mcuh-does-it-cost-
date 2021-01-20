@@ -20,7 +20,7 @@ const checkUserToken = (req, res, next) => {
   if (token) {
     const decoded = jwt.decode(token, process.env.SECRET);
     req.userInfo = decoded;
-
+    
     next();
   } else {
     status = "unauthorized";

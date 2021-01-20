@@ -23,6 +23,7 @@
     display: flex;
     justify-content: space-around;
     z-index: 5;
+    box-sizing: border-box;
 
     input::-webkit-input-placeholder{
         font-size: 15px;
@@ -89,7 +90,7 @@
 
         .header__formSubmit {
             width: 10%;
-            height: 53%;
+            height: 50%;
             align-self: center;
             display: flex;
             justify-content: center;
@@ -100,7 +101,9 @@
             border: none;
             cursor: pointer;
 
+
             i{
+
                 align-self: center;
             }
         }

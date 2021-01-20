@@ -61,7 +61,8 @@ const deleteCategory = (e) => {
   e.stopPropagation();
   const chosenCategoryid = e.target.parentNode.dataset.id;
 
-  fetch("/category/", {
+  console.log('delete category')
+  fetch("/category", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -70,6 +71,7 @@ const deleteCategory = (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data)
       writeCategoiresToDom(data.categories);
     });
 };
@@ -113,7 +115,7 @@ const editCategory = (e) => {
     newCategoryImg = oldCategoryImg;
   }
 
-  fetch("/category/", {
+  fetch("/category", {
     method: "put",
     headers: {
       "Content-Type": "application/json",

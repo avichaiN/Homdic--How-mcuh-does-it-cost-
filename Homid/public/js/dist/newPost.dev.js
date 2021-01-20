@@ -28,7 +28,7 @@ document.onclick = function (e) {
 
 var getCategoiresCheckBox = function getCategoiresCheckBox() {
   var categoriesNames = "<option selected hidden>\u05D1\u05D7\u05E8 \u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05D4</option>";
-  fetch('/category').then(function (res) {
+  fetch('/category/get').then(function (res) {
     return res.json();
   }).then(function (data) {
     var categories = data.categories;
@@ -37,4 +37,14 @@ var getCategoiresCheckBox = function getCategoiresCheckBox() {
     });
     categoryCheckBox.innerHTML = categoriesNames;
   });
+};
+
+var handleNewPost = function handleNewPost(e) {
+  e.preventDefault();
+  console.log(e);
+  var category = e.target.children.category.value;
+  var title = e.target.children.title.value;
+  var desc = e.target.children.desc.value;
+  var img = e.target.children.img.value;
+  console.log(category, title, desc, img);
 };

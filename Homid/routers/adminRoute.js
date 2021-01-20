@@ -3,25 +3,27 @@ const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
+const checkAdmin = require("../routers/checkAdmin");
 require("dotenv").config();
 
 router.use(cookieParser());
 
-function checkAdmin(req, res, next) {
-  const token = req.cookies.userLoggedIn;
+// function checkAdmin(req, res, next) {
+//   const token = req.cookies.userLoggedIn;
 
-  if (token) {
-    var decoded = jwt.decode(token, process.env.SECRET);
+//   if (token) {
+//     var decoded = jwt.decode(token, process.env.SECRET);
 
-    if (decoded.role === "admin") {
-      next();
-    } else {
-      res.send({ admin: false });
-    }
-  } else {
-    res.redirect("/");
-  }
-}
+//     if (decoded.role === "admin") {
+
+//       next();
+//     } else {
+//       res.send({ admin: false });
+//     }
+//   } else {
+//     res.send({ admin: false });
+//   }
+// }
 
 function getAllUsers() {
   return User.find().exec();
@@ -43,7 +45,6 @@ router.delete("/", checkAdmin, async (req, res) => {
   const { userId } = req.body;
   let deleteUser = await deleteUserById(userId);
   let allUsers = await getAllUsers();
-
   res.send({ allUsers });
 });
 

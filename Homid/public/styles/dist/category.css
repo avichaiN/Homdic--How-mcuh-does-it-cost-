@@ -94,9 +94,9 @@ body {
   transform: rotate3d(1, 0.5, 0.5, 180deg) scale(0.1);
   transition: all ease-in 0.4s;
   display: block;
-  position: absolute;
+  position: fixed;
   top: 10%;
-  width: 45%;
+  width: 40%;
   height: 60%;
   left: 0;
   right: 0;
@@ -107,6 +107,16 @@ body {
   background-color: #f2f2f2;
   padding: 20px;
   box-shadow: 7px 7px 14px 2px rgba(153, 153, 153, 0.74);
+}
+.newPostBox .closeNewPost {
+  cursor: pointer;
+  display: inline;
+  width: 7%;
+  height: 6%;
+  float: left;
+}
+.newPostBox .closeNewPost img {
+  width: 100%;
 }
 .newPostBox h1 {
   text-align: center;
@@ -258,6 +268,9 @@ body {
     margin: auto;
     height: 90%;
   }
+  .newPostBox .closeNewPost {
+    width: 12%;
+  }
   .newPostBox form .img {
     width: 60%;
   }
@@ -296,5 +309,17 @@ body {
     bottom: 50px;
     margin: 1% 0 0 0;
     padding: 7px 14px;
+  }
+}
+@media only screen and (max-height: 550px) {
+  .newPostBox {
+    width: 85%;
+    margin: 0 auto;
+    height: 95%;
+    top: 7%;
+  }
+  .newPostBox .closeNewPost {
+    width: 8%;
+    height: 9%;
   }
 }

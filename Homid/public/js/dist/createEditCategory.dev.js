@@ -84,7 +84,8 @@ var hideEditOrDeleteCategory = function hideEditOrDeleteCategory() {
 var deleteCategory = function deleteCategory(e) {
   e.stopPropagation();
   var chosenCategoryid = e.target.parentNode.dataset.id;
-  fetch("/category/", {
+  console.log('delete category');
+  fetch("/category", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
@@ -95,6 +96,7 @@ var deleteCategory = function deleteCategory(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
+    console.log(data);
     writeCategoiresToDom(data.categories);
   });
 }; //edit category
@@ -131,7 +133,7 @@ var editCategory = function editCategory(e) {
     newCategoryImg = oldCategoryImg;
   }
 
-  fetch("/category/", {
+  fetch("/category", {
     method: "put",
     headers: {
       "Content-Type": "application/json"
