@@ -22,7 +22,7 @@ const getUserInfo = () => {
 };
 
 const handleLogout = () => {
-  fetch("/logout")
+  fetch("/logout/user")
     .then((res) => res.json())
     .then((data) => {
       if (data.loggedout) {

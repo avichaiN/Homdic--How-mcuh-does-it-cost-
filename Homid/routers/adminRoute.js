@@ -12,7 +12,7 @@ function checkAdmin(req, res, next) {
 
   if (token) {
     var decoded = jwt.decode(token, secret);
-    console.log(decoded.role);
+
     if (decoded.role === "admin") {
       next();
     } else {
@@ -74,5 +74,5 @@ router.put("/", checkAdmin, async (req, res) => {
   res.send({ allUsers, update });
 });
 
-module.exports = router;
-module.exports = checkAdmin;
+module.exports = [router, checkAdmin];
+// module.exports = checkAdmin;

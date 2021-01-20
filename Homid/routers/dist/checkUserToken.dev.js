@@ -23,7 +23,10 @@ var checkUserToken = function checkUserToken(req, res, next) {
     req.userInfo = decoded;
     next();
   } else {
-    res.redirect("/");
+    status = 'unauthorized';
+    res.send({
+      status: status
+    });
   }
 };
 

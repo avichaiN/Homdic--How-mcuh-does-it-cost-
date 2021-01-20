@@ -25,7 +25,8 @@ const checkUserToken = (req, res, next) => {
 
     next();
   } else {
-    res.redirect("/");
+    status = 'unauthorized'
+    res.send({status})
   }
 };
 

@@ -9,12 +9,15 @@ var startLoad = function startLoad() {
 
 
 var getDisplayCategories = function getDisplayCategories() {
-  fetch("/category").then(function (res) {
+  fetch("/category/get").then(function (res) {
     return res.json();
   }).then(function (data) {
+    console.log(data);
+
     if (data.status === "unauthorized") {
       window.location.replace("index.html");
     } else {
+      console.log(data);
       var categories = data.categories;
       writeCategoiresToDom(categories);
     }

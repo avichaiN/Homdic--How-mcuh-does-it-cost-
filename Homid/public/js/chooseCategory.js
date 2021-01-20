@@ -7,12 +7,14 @@ const startLoad = () => {
 
 // get all categories when loading page
 const getDisplayCategories = () => {
-  fetch("/category")
+  fetch("/category/get")
     .then((res) => res.json())
     .then((data) => {
+      console.log(data)
       if (data.status === "unauthorized") {
         window.location.replace("index.html");
       } else {
+        console.log(data)
         let categories = data.categories;
         writeCategoiresToDom(categories);
       }

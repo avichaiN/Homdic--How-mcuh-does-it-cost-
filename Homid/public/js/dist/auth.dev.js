@@ -39,7 +39,7 @@ var getUserInfo = function getUserInfo() {
 };
 
 var handleLogout = function handleLogout() {
-  fetch("/logout").then(function (res) {
+  fetch("/logout/user").then(function (res) {
     return res.json();
   }).then(function (data) {
     if (data.loggedout) {

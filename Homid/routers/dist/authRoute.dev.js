@@ -14,7 +14,9 @@ var jwt = require("jwt-simple");
 
 var cookieParser = require("cookie-parser");
 
-var checkAdmin = require("../routers/adminRoute"); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
+var checkAdmin = require("../routers/adminRoute");
+
+var path = require('path'); // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 
 
 var secret = "temporary";
@@ -140,7 +142,7 @@ router.post("/register", function (req, res) {
     }, null, null, [[0, 9]]);
   });
 });
-router.get("/userInfo", checkAdmin, function (req, res) {
+router.get("/userInfo", function (req, res) {
   var token = req.cookies.userLoggedIn;
 
   if (token) {
@@ -155,7 +157,15 @@ router.get("/userInfo", checkAdmin, function (req, res) {
     });
   }
 });
-router.get("/logout", checkAdmin, function (req, res) {
+router.get("/logout", function (req, res) {
+  res.cookie("userLoggedIn", "", {
+    expires: new Date(0)
+  }); // this delete cookie (sets it to a date that is gone)
+
+  res.sendFile(path.join(__dirname, '../public', 'index.html')); // res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
+  // res.send({ loggedout: true });
+});
+router.get("/logout/user", function (req, res) {
   res.cookie("userLoggedIn", "", {
     expires: new Date(0)
   }); // this delete cookie (sets it to a date that is gone)

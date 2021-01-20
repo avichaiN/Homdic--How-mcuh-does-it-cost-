@@ -13,28 +13,12 @@ var secret = "temporary";
 
 var checkUserToken = require("../routers/checkUserToken");
 
+var checkAdmin = require("../routers/adminRoute");
+
+var path = require('path');
+
 var router = express.Router();
 router.use(cookieParser());
-
-function checkAdmin(req, res, next) {
-  var token = req.cookies.userLoggedIn;
-
-  if (token) {
-    var decoded = jwt.decode(token, secret);
-
-    if (decoded.role === "admin") {
-      next();
-    } else {
-      res.send({
-        admin: false
-      });
-    }
-  } else {
-    res.send({
-      admin: false
-    });
-  }
-}
 
 function categoriesFind() {
   return regeneratorRuntime.async(function categoriesFind$(_context) {
@@ -58,7 +42,10 @@ function categoriesFind() {
 } // get all categories to display on category page.
 
 
-router.get("/", checkUserToken, function _callee(req, res) {
+router.get("/", checkUserToken, function (req, res) {
+  res.sendFile(path.join(__dirname, '../public', 'Categories.html'));
+});
+router.get("/get", checkUserToken, function _callee(req, res) {
   var categories;
   return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {

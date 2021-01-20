@@ -5,26 +5,14 @@ const cookieParser = require("cookie-parser");
 // לזכור להעלים מפה את הסיקרט ולשים בתוך קובץ .env
 const secret = "temporary";
 const checkUserToken = require("../routers/checkUserToken");
+const checkAdmin = require("../routers/adminRoute");
+const path = require('path')
 
 const router = express.Router();
 
 router.use(cookieParser());
 
-function checkAdmin(req, res, next) {
-  const token = req.cookies.userLoggedIn;
 
-  if (token) {
-    var decoded = jwt.decode(token, secret);
-
-    if (decoded.role === "admin") {
-      next();
-    } else {
-      res.send({ admin: false });
-    }
-  } else {
-    res.send({ admin: false });
-  }
-}
 async function categoriesFind() {
   try {
     return Category.find({}).exec();
@@ -34,7 +22,11 @@ async function categoriesFind() {
 }
 
 // get all categories to display on category page.
-router.get("/", checkUserToken, async (req, res) => {
+router.get("/", checkUserToken, (req, res) => {
+      res.sendFile(path.join(__dirname, '../public', 'Categories.html'))
+});
+
+router.get("/get",checkUserToken, async(req,res)=>{
   try {
     let categories = await categoriesFind();
     if (categories === false || categories === undefined) {
@@ -45,7 +37,7 @@ router.get("/", checkUserToken, async (req, res) => {
   } catch (e) {
     res.send({ ok: false });
   }
-});
+})
 
 //create new category for admin
 router.post("/", checkAdmin, async (req, res) => {
