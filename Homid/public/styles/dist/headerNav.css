@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-around;
   z-index: 5;
+  box-sizing: border-box;
 }
 .header input::-webkit-input-placeholder {
   font-size: 15px;
@@ -78,7 +79,7 @@
 }
 .header .header__form .header__formSubmit {
   width: 10%;
-  height: 53%;
+  height: 50%;
   align-self: center;
   display: flex;
   justify-content: center;

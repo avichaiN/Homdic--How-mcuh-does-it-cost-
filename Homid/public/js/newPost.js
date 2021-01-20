@@ -27,7 +27,7 @@ document.onclick = function (e) {
 }
 const getCategoiresCheckBox = () => {
     let categoriesNames = `<option selected hidden>בחר קטגוריוה</option>`
-    fetch('/category')
+    fetch('/category/get')
         .then(res => res.json())
         .then(data => {
             let categories = data.categories
@@ -36,4 +36,13 @@ const getCategoiresCheckBox = () => {
             })
             categoryCheckBox.innerHTML = categoriesNames
         })
+}
+const handleNewPost = (e) =>{
+    e.preventDefault()
+    console.log(e)
+    const category = e.target.children.category.value
+    const title =  e.target.children.title.value
+    const desc = e.target.children.desc.value
+    const img = e.target.children.img.value
+    console.log(category,title,desc,img)
 }

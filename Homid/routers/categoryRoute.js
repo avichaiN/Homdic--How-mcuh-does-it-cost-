@@ -2,8 +2,8 @@ const express = require("express");
 const Category = require("../models/category");
 const jwt = require("jwt-simple");
 const cookieParser = require("cookie-parser");
-const checkUserToken = require("../routers/checkUserToken");
-const checkAdmin = require("../routers/adminRoute");
+const checkUserToken = require("../routers/gFunctions/checkUserToken");
+const checkAdmin = require("../routers/gFunctions/checkAdmin");
 const path = require("path");
 
 const router = express.Router();
@@ -26,6 +26,7 @@ router.get("/", checkUserToken, (req, res) => {
 router.get("/get", checkUserToken, async (req, res) => {
   try {
     let categories = await categoriesFind();
+
     if (categories === false || categories === undefined) {
       res.send({ ok: false });
     } else {
@@ -83,6 +84,7 @@ router.delete("/", checkAdmin, async (req, res) => {
           res.send({ ok: false });
         } else {
           let categories = await categoriesFind();
+
           res.send({ ok: true, category, categories });
         }
       }

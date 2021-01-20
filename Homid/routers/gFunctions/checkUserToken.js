@@ -16,16 +16,26 @@ require("dotenv").config();
 
 const checkUserToken = (req, res, next) => {
   const token = req.cookies.userLoggedIn;
+  const time = new Date().getTime()
+  const oneday = 60 * 60 * 24 * 1000
+  const oneDayAgo = time - oneday
+  try {
+    if (token) {
+      const decoded = jwt.decode(token, process.env.SECRET);
+      const tokenMadeTime = decoded.time
 
-  if (token) {
-    const decoded = jwt.decode(token, process.env.SECRET);
-    req.userInfo = decoded;
+      if (tokenMadeTime > oneDayAgo) {
+        next();
+      }
 
-    next();
-  } else {
-    status = "unauthorized";
-    res.send({ status });
+    } else {
+      status = "unauthorized";
+      res.send({ status });
+    }
+  } catch (e) {
+    console.log(e.message)
   }
 };
 
-module.exports = checkUserToken;
+
+module.exports = [checkUserToken];
