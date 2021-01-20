@@ -21,7 +21,6 @@ function checkAdmin(req, res, next) {
       res.send({
         admin: false
       });
-      console.log('BAD');
     } else {
       if (decoded.role === "admin") {
         next();

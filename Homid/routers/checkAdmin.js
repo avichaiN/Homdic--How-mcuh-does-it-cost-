@@ -15,7 +15,7 @@ function checkAdmin(req, res, next) {
 
     if (tokenMadeTime < oneDayAgo) { // not a valid date ( made over 24 hours ago )
       res.send({ admin: false });
-      console.log('BAD')
+
     } else {
 
       if (decoded.role === "admin") {
