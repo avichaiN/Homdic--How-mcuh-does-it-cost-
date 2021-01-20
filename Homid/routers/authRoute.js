@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const saltRounds = process.env.SALT;
 const jwt = require("jwt-simple");
+const saltRounds = 12
 const cookieParser = require("cookie-parser");
 const path = require("path");
 require("dotenv").config();
+
 
 router.use(cookieParser());
 
@@ -61,10 +62,12 @@ router.post("/register", (req, res) => {
     password: password,
   });
 
-  bcrypt.hash(password, saltRounds, async function (err, hash) {
+  bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
     try {
+
       newUser.password = hash;
       await newUser.save();
+
       const token = jwt.encode(
         {
           role: newUser.role,
@@ -80,7 +83,7 @@ router.post("/register", (req, res) => {
       });
       res.send({ status: "authorized" });
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
       res.send({ status: "unauthorized" });
       res.end();
     }
