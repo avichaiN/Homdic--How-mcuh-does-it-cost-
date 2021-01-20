@@ -9,8 +9,6 @@ body {
   padding: 0 !important;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #ededef;
-  width: 99vw;
-  height: 99vh;
 }
 body .comments-post {
   border-radius: 0 0 10px 10px;
@@ -21,8 +19,8 @@ body .comments-post {
   width: 98%;
   z-index: 1;
   top: 6.5%;
-  max-height: 360px;
-  min-height: 300px;
+  height: 290px;
+  min-height: 290px;
 }
 body .comments-post #postheder {
   display: grid;
@@ -30,6 +28,7 @@ body .comments-post #postheder {
   background-color: #cfd8dd;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 2fr;
+  height: 210px;
 }
 body .comments-post #postheder .posttitle {
   width: 80%;
@@ -167,11 +166,13 @@ body #app {
     top: 45%;
   }
 }
+body #app .commenstsSection {
+  margin-top: 380px;
+}
 body #app .commenstsSection .comment {
   border: 1px solid black;
   margin-top: 1%;
   background-color: #f1f1f1;
-  height: 80px;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(8, 1fr);
@@ -216,4 +217,10 @@ body #app .commenstsSection .comment #AddToFavoritButton {
 }
 .active:active {
   color: #2097f5;
+}
+
+@media only screen and (max-width: 650px) {
+  body #app .commenstsSection {
+    margin-top: 350px;
+  }
 }
