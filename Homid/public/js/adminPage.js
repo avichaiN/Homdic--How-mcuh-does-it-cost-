@@ -57,23 +57,18 @@ const handleOpenEditUser = (e) => {
   const role = e.target.parentNode.dataset.role;
   const id = e.target.parentNode.dataset.id;
 
+
   document.querySelector(".editUserForm").style.display = "block";
   let html = document.querySelector(".editUserForm");
   html.innerHTML = `<form class="editUserFormm" onsubmit="handleEditUser(event, '${username}','${email}','${firstName}','${lastName}','${role}','${id}')">
 
         <label>משתמש שאתה עורך:</label>
-            <label>שם משתמש: ${username}</label>
-            <label>איימל: ${email}</label>
-            <label>שם פרטי: ${firstName}</label>
-            <label>שם משפחה: ${lastName}</label>
-            <label>תפקיד: ${role}</label>
-            <label>משתנה שישאר ריק ישמור את הערך הישן</label>
-        <input type="text" name="username" placeholder="שם משתמש">
-        <input type="email" name="email" placeholder="איימל">
-        <input type="text" name="firstName" placeholder="שם פרטי">
-        <input type="text" name="lastName" placeholder="שם משפחה">
+        <input type="text" name="username" placeholder="שם משתמש: ${username}">
+        <input type="email" name="email" placeholder="איימל: ${email}">
+        <input type="text" name="firstName" placeholder="שם פרטי: ${firstName}">
+        <input type="text" name="lastName" placeholder="שם משפחה: ${lastName}">
         <select id="role" name="role">
-        <option selected hidden>בחר תפקיד</option>
+        <option selected hidden>${role}</option>
         <option value="public">Public</option>
         <option value="admin">Admin</option>
       </select>
