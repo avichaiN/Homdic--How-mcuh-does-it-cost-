@@ -103,7 +103,7 @@ function handleResetPassword(e) {
           position: "top-center",
           icon: "success",
           title: "אימייל עם קישור לשחזור הסיסמה נשלח אלייך.",
-          showConfirmButton: true,
+          showConfirmButton: false,
           timer: 1500,
         });
         window.location.replace("/");
@@ -115,6 +115,9 @@ function handleResetPassword(e) {
           confirmButtonColor: "red",
           confirmButtonText: "אישור",
         });
+        const btn = document
+          .getElementById("hideBtn")
+          .setAttribute("style", "display:inherit");
       }
     });
 }
