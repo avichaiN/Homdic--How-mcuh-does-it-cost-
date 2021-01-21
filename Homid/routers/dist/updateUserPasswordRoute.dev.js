@@ -16,9 +16,6 @@ require("dotenv").config();
 
 var User = require("../models/user");
 
-router.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "../public", "updateUserPassword.html"));
-});
 router.get("/", function _callee(req, res) {
   var encodedId, decodedId, userFound;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -63,7 +60,7 @@ router.post("/", function (req, res) {
           case 0:
             _context2.prev = 0;
             newPassword = hash;
-            encodedId = req.headers.referer.replace("http://localhost:3000/", "");
+            encodedId = req.headers.referer.replace("http://localhost:3000/updateUserPassword.html", "");
             console.log(encodedId);
             decodedId = jwt.decode(encodedId, process.env.SECRET);
             _context2.next = 7;

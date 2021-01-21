@@ -7,10 +7,6 @@ const saltRounds = 12;
 require("dotenv").config();
 const User = require("../models/user");
 
-router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "updateUserPassword.html"));
-});
-
 router.get("/", async (req, res) => {
   const encodedId = req.baseUrl.replace("/", "");
   const decodedId = jwt.decode(encodedId, process.env.SECRET);
@@ -28,7 +24,7 @@ router.post("/", (req, res) => {
     try {
       newPassword = hash;
       const encodedId = req.headers.referer.replace(
-        "http://localhost:3000/",
+        "http://localhost:3000/updateUserPassword.html",
         ""
       );
       console.log(encodedId);

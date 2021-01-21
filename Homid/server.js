@@ -43,14 +43,13 @@ app.use("/index", (req, res) => {
 
 app.use("/category", categoryRouter);
 
-
 app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
 
 app.use("/posts", postRouter);
 
-// app.use(, updateUserPasswordRoute);
+app.use("/resetpassword", updateUserPasswordRoute);
 
 app.use(express.static(path.join(__dirname, "public")));
 

@@ -24,8 +24,6 @@ var authRouter = require("./routers/authRoute");
 
 var categoryRouter = require("./routers/categoryRoute");
 
-var searchRouter = require("./routers/searchRoute");
-
 var adminRouter = require("./routers/adminRoute");
 
 var updateUserDataRouter = require("./routers/updateUserDataRoute");
@@ -52,12 +50,11 @@ app.use("/index", function (req, res) {
   res.sendFile(path.join(__dirname, "./public", "index.html"));
 });
 app.use("/category", categoryRouter);
-app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
-app.use("/post", postRouter); // app.use(, updateUserPasswordRoute);
-
-app.use(express["static"]("public"));
+app.use("/posts", postRouter);
+app.use("/resetpassword", updateUserPasswordRoute);
+app.use(express["static"](path.join(__dirname, "public")));
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
 });
