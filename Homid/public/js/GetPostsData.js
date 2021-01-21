@@ -12,7 +12,19 @@ const getPostsByIdInParams = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.foundPostsBySearch)
-        
+        data.foundPostsBySearch.forEach((post=>{
+          console.log(post)
+          const html = buildOnePost(
+             "post" /*post or comment*/,
+             post[0].title,
+             post[0].desc,
+             post[0].Img,
+             "0",
+             post._id
+           )
+           document.getElementById('app').innerHTML += html;
+         console.log('test')
+         }))
       });
   } else {
 

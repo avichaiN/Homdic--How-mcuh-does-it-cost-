@@ -11,6 +11,14 @@ var getPostsByIdInParams = function getPostsByIdInParams() {
       return res.json();
     }).then(function (data) {
       console.log(data.foundPostsBySearch);
+      data.foundPostsBySearch.forEach(function (post) {
+        console.log(post);
+        var html = buildOnePost("post"
+        /*post or comment*/
+        , post[0].title, post[0].desc, post[0].Img, "0", post._id);
+        document.getElementById('app').innerHTML += html;
+        console.log('test');
+      });
     });
   } else {
     fetch("/category/byid", {
