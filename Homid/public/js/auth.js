@@ -16,7 +16,7 @@ const getUserInfo = () => {
   fetch("/userInfo")
     .then((res) => res.json())
     .then((data) => {
-      const name = data.name;
+      const name = data.decoded.name;
       sayHelloToUser(name);
     });
 };

@@ -5,7 +5,10 @@ const postSchema = new Schema({
         title: String,
         desc: String,
         img: String,
-        categoryId: String,
+        categoryId:{
+            type: String,
+            required: true
+        },
         publishedBy: String
 }, {
     timestamps: true

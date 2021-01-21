@@ -89,8 +89,8 @@ router.get("/userInfo", (req, res) => {
   const token = req.cookies.userLoggedIn;
   if (token) {
     const decoded = jwt.decode(token, process.env.SECRET);
-    const name = decoded.name;
-    res.send({ name });
+
+    res.send({ decoded });
   } else {
     res.send({ ok: false });
   }

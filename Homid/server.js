@@ -19,6 +19,7 @@ const categoryRouter = require("./routers/categoryRoute");
 const searchRouter = require("./routers/searchRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
+const postRouter = require("./routers/postRoute");
 
 //Global Functions
 const checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
@@ -47,6 +48,9 @@ app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
+
+app.use("/post", postRouter);
+
 
 app.use(express.static("public"));
 

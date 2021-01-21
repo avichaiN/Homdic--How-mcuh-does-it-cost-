@@ -130,6 +130,12 @@ body {
   display: flex;
   flex-direction: column;
 }
+.newPostBox form .mustChoose {
+  width: 50%;
+  margin: 0 auto 2px auto;
+  border: 1px solid red;
+  display: none;
+}
 .newPostBox form select {
   height: 7%;
   width: 50%;

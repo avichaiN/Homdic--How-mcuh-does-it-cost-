@@ -144,9 +144,8 @@ router.get("/userInfo", function (req, res) {
 
   if (token) {
     var decoded = jwt.decode(token, process.env.SECRET);
-    var name = decoded.name;
     res.send({
-      name: name
+      decoded: decoded
     });
   } else {
     res.send({

@@ -28,7 +28,9 @@ var searchRouter = require("./routers/searchRoute");
 
 var adminRouter = require("./routers/adminRoute");
 
-var updateUserDataRouter = require("./routers/updateUserDataRoute"); //Global Functions
+var updateUserDataRouter = require("./routers/updateUserDataRoute");
+
+var postRouter = require("./routers/postRoute"); //Global Functions
 
 
 var checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
@@ -51,6 +53,7 @@ app.use("/category", categoryRouter);
 app.use("/search", searchRouter);
 app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
+app.use("/post", postRouter);
 app.use(express["static"]("public"));
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
