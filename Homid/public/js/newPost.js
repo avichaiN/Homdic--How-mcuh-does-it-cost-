@@ -64,7 +64,7 @@ const handleNewPost = async (e) =>{
         console.log('must chose a cateogry')
     }else{
         document.querySelector('.mustChoose').style.display = 'none'
-    fetch("/post", {
+    fetch("/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
