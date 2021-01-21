@@ -31,23 +31,22 @@
                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
                 </ul>
-                <a id="forgotPassword" onclick="showPageReset(event)" href="#">שכחתם סיסמה?</a>
+                <a id="forgotPassword" onclick="showPageReset(event)" href="#">שכחת סיסמה?</a>
             </form>
             <form id="form2" method="POST" onsubmit="handleRegisterForm(event)" class="tab--form">
                 <input class="input" name="firstName" type="text" placeholder="שם פרטי" required>
                 <input class="input" name="lastName" type="text" placeholder="שם משפחה" required>
                 <input class="input" title="באנגלית בלבד" pattern="[A-Za-z0-9]+" name="username" type="text" placeholder="שם משתמש" required>
                 <input required class="input" name="email" type="email" placeholder="דואר אלקטרוני">
-                <input class="input"  type="password" placeholder="סיסמה" name="password" oninput="document.getElementById('confirm').pattern = this.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="הסיסמה אמורה להכיל 6 תווים ומהם לפחות אות אחת ומספר אחד">
-                <input class="input" title="שים לב, הסיסמה אינה תואמת" type="password" id="confirm" name="confirm"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="אימות סיסמה" required>
+                <input class="input"  type="password" placeholder="סיסמה" name="password" oninput="document.getElementById('confirm').pattern = this.value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="הסיסמה אמורה להכיל 6 תווים ומהם לפחות אות אחת ומספר אחד">
+                <input class="input" title="שים לב, הסיסמה אינה תואמת" type="password" id="confirm" name="confirm"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" placeholder="אימות סיסמה" required>
                 <button type="submit" class="button">הרשמה</button>
 
-               
             </form>
 
             <form onsubmit="handleResetPassword(event)" id="form3" class="tab--form">
-                <input class="input" type="email" placeholder="דואר אלקטרוני">
-                <button type="submit" class="button">אפסו את הסיסמה</button>
+                <input class="input" name="userEmail" type="email" placeholder="דואר אלקטרוני">
+                <button type="submit" class="button">אפסו את הסיסמה שלי</button>
             </form>
 
     </div>

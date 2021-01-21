@@ -6,6 +6,7 @@ const jwt = require("jwt-simple");
 const saltRounds = 12;
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 router.use(cookieParser());
 
@@ -105,4 +106,41 @@ router.get("/logout/user", (req, res) => {
 
   res.send({ loggedout: true });
 });
+
+router.post("/reset", async (req, res) => {
+  const userEmail = req.body.userEmail;
+  try {
+    const userFound = await User.findOne({ email: userEmail });
+    const userId = userFound._id;
+    const encodedId = jwt.encode(userId, process.env.SECRET);
+    console.log(encodedId);
+    const tranporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAILPASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: "Homedic Support",
+      to: `${userEmail}`,
+      subject: "Reset your password at Homedic",
+      html: `<p>Hey there!,
+      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/${encodedId} `,
+    };
+
+    tranporter.sendMail(mailOptions, function (e, info) {
+      if (e) {
+        console.log(e);
+        res.send({ email: "failed" });
+      } else {
+        res.send({ email: "success" });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = [router];

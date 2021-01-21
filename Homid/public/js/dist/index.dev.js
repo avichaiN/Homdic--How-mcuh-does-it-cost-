@@ -92,3 +92,58 @@ function handleRegisterForm(e) {
     }
   });
 }
+
+function handleResetPassword(e) {
+  e.preventDefault();
+  var userEmail = e.target.children.userEmail.value;
+  fetch("/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userEmail: userEmail
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function _callee(data) {
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(data.email == "success")) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 3;
+            return regeneratorRuntime.awrap(Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "אימייל עם קישור לשחזור הסיסמה נשלח אלייך.",
+              showConfirmButton: false,
+              timer: 1500
+            }));
+
+          case 3:
+            window.location.replace("/");
+            _context.next = 7;
+            break;
+
+          case 6:
+            Swal.fire({
+              icon: "error",
+              title: "אופס...",
+              text: "כנראה שקרתה שגיאה, לא הצלחנו לאתר את המייל שלך, נסה שוב..",
+              confirmButtonColor: "red",
+              confirmButtonText: "אישור"
+            });
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
+  });
+}

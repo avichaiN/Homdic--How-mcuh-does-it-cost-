@@ -16,6 +16,8 @@ var cookieParser = require("cookie-parser");
 
 var path = require("path");
 
+var nodemailer = require("nodemailer");
+
 router.use(cookieParser());
 router.post("/", function _callee(req, res) {
   var _req$body, username, password, userFound;
@@ -168,5 +170,63 @@ router.get("/logout/user", function (req, res) {
   res.send({
     loggedout: true
   });
+});
+router.post("/reset", function _callee3(req, res) {
+  var userEmail, userFound, userId, encodedId, tranporter, mailOptions;
+  return regeneratorRuntime.async(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          userEmail = req.body.userEmail;
+          _context3.prev = 1;
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(User.findOne({
+            email: userEmail
+          }));
+
+        case 4:
+          userFound = _context3.sent;
+          userId = userFound._id;
+          encodedId = jwt.encode(userId, process.env.SECRET);
+          console.log(encodedId);
+          tranporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.EMAILPASSWORD
+            }
+          });
+          mailOptions = {
+            from: "Homedic Support",
+            to: "".concat(userEmail),
+            subject: "Reset your password at Homedic",
+            html: "<p>Hey there!,\n      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/".concat(encodedId, " ")
+          };
+          tranporter.sendMail(mailOptions, function (e, info) {
+            if (e) {
+              console.log(e);
+              res.send({
+                email: "failed"
+              });
+            } else {
+              res.send({
+                email: "success"
+              });
+            }
+          });
+          _context3.next = 16;
+          break;
+
+        case 13:
+          _context3.prev = 13;
+          _context3.t0 = _context3["catch"](1);
+          console.log(_context3.t0);
+
+        case 16:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[1, 13]]);
 });
 module.exports = [router];
