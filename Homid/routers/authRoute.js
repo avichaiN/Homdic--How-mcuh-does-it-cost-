@@ -127,7 +127,7 @@ router.post("/reset", async (req, res) => {
       to: `${userEmail}`,
       subject: "Reset your password at Homedic",
       html: `<p>Hey there!,
-      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/resetpassword/${encodedId} `,
+      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/updateUserPassword.html${encodedId} `,
     };
 
     tranporter.sendMail(mailOptions, function (e, info) {
