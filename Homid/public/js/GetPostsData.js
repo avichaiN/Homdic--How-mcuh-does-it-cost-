@@ -15,6 +15,23 @@ const getPostsByIdInParams = () => {
         
       });
   } else {
+
+    fetch("/category/byid", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ categoryId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        renderPostsHeder(data.categoryInfo[0].Name,data.categoryInfo[0].Img);
+      });
+
+
+
+
     // this is when looking for category id
     fetch(`/posts/get/${categoryId}`)
       .then((res) => res.json())

@@ -41,5 +41,5 @@ function buildOneComment(comment, postedBy, atTdate) {
 }
 
 function renderPostsHeder(HederTitle, src) {
-  "<h1>\u05DE\u05DB\u05E9\u05D9\u05E8\u05D9 \u05D7\u05E9\u05DE\u05DC</h1>\n        <img id=\"hederImg\" src=\"/./styles/img/electircs.jfif\" alt=\"\" />";
+  document.querySelector("#categoryHeder").innerHTML += "<h1>".concat(HederTitle, "</h1>\n        <img id=\"hederImg\" src=\"/./").concat(src, "\" alt=\"\" />");
 }

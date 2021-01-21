@@ -105,7 +105,7 @@ function buildOneComment(comment,postedBy,atTdate) {
 
 
 function renderPostsHeder(HederTitle,src){
-  
-  `<h1>מכשירי חשמל</h1>
-        <img id="hederImg" src="/./styles/img/electircs.jfif" alt="" />`
+  document.querySelector(`#categoryHeder`).innerHTML +=
+  `<h1>${HederTitle}</h1>
+        <img id="hederImg" src="/./${src}" alt="" />`
 }

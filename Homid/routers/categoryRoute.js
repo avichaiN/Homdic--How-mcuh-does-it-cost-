@@ -95,9 +95,9 @@ router.delete("/", checkAdmin, async (req, res) => {
   }
 });
 const getCategoryInfo = (id) => {
-  return category.find({ _id: id }).exec()
+  return Category.find({ _id: id }).exec()
 }
-router.get('/byid', async (req,res)=>{
+router.post('/byid', async (req,res)=>{
   const {categoryId} = req.body
   let categoryInfo = await getCategoryInfo(categoryId)
   res.send({categoryInfo})
