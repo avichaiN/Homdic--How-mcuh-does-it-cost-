@@ -30,7 +30,7 @@ var updateUserDataRouter = require("./routers/updateUserDataRoute");
 
 var postRouter = require("./routers/postRoute");
 
-var updateUserPasswordRoute = require("./routers/updateUserPasswordRoute"); //Global Functions
+var updateUserPasswordRouter = require("./routers/updateUserPasswordRoute"); //Global Functions
 
 
 var checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
@@ -53,7 +53,7 @@ app.use("/category", categoryRouter);
 app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
 app.use("/posts", postRouter);
-app.use("/resetpassword", updateUserPasswordRoute);
+app.use("/resetpassword", updateUserPasswordRouter);
 app.use(express["static"](path.join(__dirname, "public")));
 app.listen(port, function () {
   return console.log("server now running on port: ".concat(port));
