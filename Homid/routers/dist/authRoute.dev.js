@@ -186,47 +186,55 @@ router.post("/reset", function _callee3(req, res) {
 
         case 4:
           userFound = _context3.sent;
-          userId = userFound._id;
-          encodedId = jwt.encode(userId, process.env.SECRET);
-          console.log(encodedId);
-          tranporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: process.env.EMAIL,
-              pass: process.env.EMAILPASSWORD
-            }
-          });
-          mailOptions = {
-            from: "Homedic Support",
-            to: "".concat(userEmail),
-            subject: "Reset your password at Homedic",
-            html: "<p>Hey there!,\n      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/updateUserPassword.html".concat(encodedId, " ")
-          };
-          tranporter.sendMail(mailOptions, function (e, info) {
-            if (e) {
-              console.log(e);
-              res.send({
-                email: "failed"
-              });
-            } else {
-              res.send({
-                email: "success"
-              });
-            }
-          });
-          _context3.next = 16;
+
+          if (userFound) {
+            userId = userFound._id;
+            encodedId = jwt.encode(userId, process.env.SECRET);
+            console.log(encodedId);
+            tranporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAILPASSWORD
+              }
+            });
+            mailOptions = {
+              from: "Homedic Support",
+              to: "".concat(userEmail),
+              subject: "Reset your password at Homedic",
+              html: "<p>Hey there!,\n        We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/updateUserPassword.html?".concat(encodedId, " ")
+            };
+            tranporter.sendMail(mailOptions, function (e, info) {
+              if (e) {
+                console.log(e);
+                res.send({
+                  email: "failed"
+                });
+              } else {
+                res.send({
+                  email: "success"
+                });
+              }
+            });
+          } else {
+            res.send({
+              email: "failed"
+            });
+          }
+
+          _context3.next = 11;
           break;
 
-        case 13:
-          _context3.prev = 13;
+        case 8:
+          _context3.prev = 8;
           _context3.t0 = _context3["catch"](1);
           console.log(_context3.t0);
 
-        case 16:
+        case 11:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[1, 13]]);
+  }, null, null, [[1, 8]]);
 });
 module.exports = [router];

@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const mongoose = require("mongoose");
 require("dotenv").config();
 const path = require("path");
@@ -19,7 +20,7 @@ const categoryRouter = require("./routers/categoryRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
 const postRouter = require("./routers/postRoute");
-const updateUserPasswordRoute = require("./routers/updateUserPasswordRoute");
+const updateUserPasswordRouter = require("./routers/updateUserPasswordRoute");
 
 //Global Functions
 const checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
@@ -49,7 +50,7 @@ app.use("/updateUserData", updateUserDataRouter);
 
 app.use("/posts", postRouter);
 
-app.use("/resetpassword", updateUserPasswordRoute);
+app.use("/resetpassword", updateUserPasswordRouter);
 
 app.use(express.static(path.join(__dirname, "public")));
 

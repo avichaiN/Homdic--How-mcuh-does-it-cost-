@@ -60,7 +60,7 @@ router.post("/", function (req, res) {
           case 0:
             _context2.prev = 0;
             newPassword = hash;
-            encodedId = req.headers.referer.replace("http://localhost:3000/updateUserPassword.html", "");
+            encodedId = req.headers.referer.replace("http://localhost:3000/updateUserPassword.html?", "");
             console.log(encodedId);
             decodedId = jwt.decode(encodedId, process.env.SECRET);
             _context2.next = 7;

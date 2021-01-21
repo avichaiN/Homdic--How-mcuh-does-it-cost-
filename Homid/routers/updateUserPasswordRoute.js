@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
     try {
       newPassword = hash;
       const encodedId = req.headers.referer.replace(
-        "http://localhost:3000/updateUserPassword.html",
+        "http://localhost:3000/updateUserPassword.html?",
         ""
       );
       console.log(encodedId);

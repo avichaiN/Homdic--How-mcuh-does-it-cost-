@@ -115,6 +115,15 @@ function handleResetPassword(e) {
           confirmButtonColor: "red",
           confirmButtonText: "אישור",
         });
+        const btn = document
+          .getElementById("hideBtn")
+          .setAttribute("style", "display:inherit");
       }
     });
+}
+
+function hideButton() {
+  const btn = document
+    .getElementById("hideBtn")
+    .setAttribute("style", "display:none");
 }

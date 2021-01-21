@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const path = require('path')
-
+let searchClean
 
 router.get('/:id', checkUserToken, async (req, res) => {
     res.sendFile(path.join(__dirname, "../public", "posts.html"));
@@ -40,7 +40,7 @@ router.get('/search/:id', checkUserToken, async (req, res) => {
 router.post('/search/getPostsId', checkUserToken, async (req, res) => {
     let postsId = []
     const { searched } = req.body
-    const searchClean = searched.trim()
+    searchClean = searched.trim()
     let getPosts = await searcRegExp(searchClean)
 
     getPosts.forEach(post => {
@@ -64,8 +64,7 @@ router.get('/search/get/:id', checkUserToken, async (req, res) => {
         let x = await searchId(foundPostsIdArray[i])
         foundPostsBySearch.push(x)
     }
-
-    res.send({foundPostsBySearch})
+    res.send({foundPostsBySearch, searchClean })
 })
 
 module.exports = [router];

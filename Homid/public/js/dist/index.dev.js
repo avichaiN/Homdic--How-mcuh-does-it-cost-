@@ -107,6 +107,7 @@ function handleResetPassword(e) {
   }).then(function (res) {
     return res.json();
   }).then(function _callee(data) {
+    var btn;
     return regeneratorRuntime.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -127,7 +128,7 @@ function handleResetPassword(e) {
 
           case 3:
             window.location.replace("/");
-            _context.next = 7;
+            _context.next = 8;
             break;
 
           case 6:
@@ -138,12 +139,17 @@ function handleResetPassword(e) {
               confirmButtonColor: "red",
               confirmButtonText: "אישור"
             });
+            btn = document.getElementById("hideBtn").setAttribute("style", "display:inherit");
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
       }
     });
   });
+}
+
+function hideButton() {
+  var btn = document.getElementById("hideBtn").setAttribute("style", "display:none");
 }
