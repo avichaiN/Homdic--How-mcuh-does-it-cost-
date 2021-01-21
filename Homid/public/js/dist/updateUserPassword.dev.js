@@ -1,11 +1,13 @@
 "use strict";
 
-fetch("/:id").then(function (r) {
-  return r.json();
-}).then(function (data) {
-  var firtName = document.getElementById("firstName").innerHTML = "<h2>\u05D1\u05E8\u05D5\u05DA \u05D4\u05D1\u05D0, ".concat(data.user, "</h2>");
-});
-
+// fetch("/")
+//   .then((r) => r.json())
+//   .then((data) => {
+//     console.log(data);
+//     // const firtName = (document.getElementById(
+//     //   "firstName"
+//     // ).innerHTML = `<h2>ברוך הבא, ${data.user}</h2>`);
+//   });
 function handleUpdatePassword(e) {
   e.preventDefault();
   var newPassword = e.target.children.password.value;
@@ -19,7 +21,44 @@ function handleUpdatePassword(e) {
     })
   }).then(function (res) {
     return res.json();
-  }).then(function (data) {
-    console.log(data);
+  }).then(function _callee(data) {
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(data.user == "updated")) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 3;
+            return regeneratorRuntime.awrap(Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "פרטייך עודכנו במערכת, הנך מועבר/ת לאתר..",
+              showConfirmButton: false,
+              timer: 1000
+            }));
+
+          case 3:
+            window.location.replace("/category");
+            _context.next = 7;
+            break;
+
+          case 6:
+            Swal.fire({
+              icon: "error",
+              title: "אופס...",
+              text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
+              confirmButtonColor: "red",
+              confirmButtonText: "אישור"
+            });
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
   });
 }

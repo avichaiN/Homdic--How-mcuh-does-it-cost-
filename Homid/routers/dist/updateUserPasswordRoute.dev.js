@@ -8,69 +8,77 @@ var router = express.Router();
 
 var path = require("path");
 
-var saltRounds = process.env.SALT;
+var bcrypt = require("bcrypt");
+
+var saltRounds = 12;
 
 require("dotenv").config();
 
 var User = require("../models/user");
 
+router.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public", "updateUserPassword.html"));
+});
 router.get("/", function _callee(req, res) {
+  var encodedId, decodedId, userFound;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          res.sendFile(path.join(__dirname, "../public", "updateUserPassword.html"));
+          encodedId = req.baseUrl.replace("/", "");
+          decodedId = jwt.decode(encodedId, process.env.SECRET);
+          _context.prev = 2;
+          _context.next = 5;
+          return regeneratorRuntime.awrap(User.findOne({
+            _id: decodedId
+          }));
 
-        case 1:
+        case 5:
+          userFound = _context.sent;
+          res.send({
+            user: userFound.firstName
+          });
+          _context.next = 12;
+          break;
+
+        case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](2);
+          console.log(_context.t0);
+
+        case 12:
         case "end":
           return _context.stop();
       }
     }
-  });
-});
-router.get("/:id", function _callee2(req, res) {
-  var userId, userFound;
-  return regeneratorRuntime.async(function _callee2$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          userId = req.params.id;
-          _context2.next = 3;
-          return regeneratorRuntime.awrap(User.findOne({
-            _id: userId
-          }));
-
-        case 3:
-          userFound = _context2.sent;
-          res.send({
-            user: userFound.firstName
-          });
-
-        case 5:
-        case "end":
-          return _context2.stop();
-      }
-    }
-  });
+  }, null, null, [[2, 9]]);
 });
 router.post("/", function (req, res) {
   var newPassword = req.body.newPassword;
-  bcrypt.hash(newPassword, saltRounds, function _callee3(err, hash) {
-    var token;
-    return regeneratorRuntime.async(function _callee3$(_context3) {
+  bcrypt.hash(newPassword, saltRounds, function _callee2(err, hash) {
+    var encodedId, decodedId, userFound, token;
+    return regeneratorRuntime.async(function _callee2$(_context2) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context3.prev = 0;
-            newUser.password = hash;
-            _context3.next = 4;
-            return regeneratorRuntime.awrap(newUser.save());
+            _context2.prev = 0;
+            newPassword = hash;
+            encodedId = req.headers.referer.replace("http://localhost:3000/", "");
+            console.log(encodedId);
+            decodedId = jwt.decode(encodedId, process.env.SECRET);
+            _context2.next = 7;
+            return regeneratorRuntime.awrap(User.findOneAndUpdate({
+              _id: decodedId
+            }, {
+              password: hash
+            }));
 
-          case 4:
+          case 7:
+            userFound = _context2.sent;
             token = jwt.encode({
-              role: newUser.role,
-              username: newUser.username,
-              name: newUser.firstName,
+              role: userFound.role,
+              username: userFound.username,
+              name: userFound.firstName,
               time: new Date().getTime()
             }, process.env.SECRET);
             res.cookie("userLoggedIn", token, {
@@ -78,26 +86,26 @@ router.post("/", function (req, res) {
               httpOnly: true
             });
             res.send({
-              status: "authorized"
+              user: "updated"
             });
-            _context3.next = 14;
+            _context2.next = 18;
             break;
 
-          case 9:
-            _context3.prev = 9;
-            _context3.t0 = _context3["catch"](0);
-            console.log(_context3.t0);
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](0);
+            console.log(_context2.t0);
             res.send({
-              status: "unauthorized"
+              user: "failed"
             });
             res.end();
 
-          case 14:
+          case 18:
           case "end":
-            return _context3.stop();
+            return _context2.stop();
         }
       }
-    }, null, null, [[0, 9]]);
+    }, null, null, [[0, 13]]);
   });
 });
 module.exports = router;
