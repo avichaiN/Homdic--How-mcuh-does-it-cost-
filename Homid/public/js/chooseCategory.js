@@ -18,6 +18,7 @@ const getDisplayCategories = () => {
       }
     });
 };
+
 const writeCategoiresToDom = (categories) => {
   const categoryDiv = document.querySelector(".cateogryPage__categorys");
   let categoriesHtml = "";
@@ -35,6 +36,7 @@ const writeCategoiresToDom = (categories) => {
   });
   categoryDiv.innerHTML = categoriesHtml;
 };
+
 // go to clicked category
 const goToClickedCategory = (e) => {
   let chosenCategoryId = e.target.dataset.id;

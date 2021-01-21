@@ -11,7 +11,7 @@ var atTdate = "01/01/1999";
 
 function buildOnePost(type
 /*post or comment*/
-, title, massage, NmTimesViewed, postID) {
+, title, massage, PostImgSrc, NmTimesViewed, postID) {
   /*  */
   var AddCommentButton = " <div id=\"AddCommentButton\" class=\"Notifications show\" onclick=\"ShowAddComment()\">\n    <span class=\"material-icons\">\n      add_circle_outline\n    </span>";
   /*  */
@@ -31,15 +31,21 @@ function buildOnePost(type
   /*  */
 
 
-  var html = "<div class=\"post\">\n    <div id=\"postheder\">\n      <h1 class=\"posttitle\">".concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"./styles/img/electircs.jfif\" alt=\"\" />\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment\" class=\"hide\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications\" onclick=\"PostNotificationsButtonClicked()\">\n        <span class=\"material-icons\"> notifications </span>\n        <p>\u05EA\u05D6\u05DB\u05D5\u05E8\u05EA</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications\" onclick=\"PostFavoriteButtonClicked()\">\n        <span class=\"material-icons\"> favorite </span>\n        <p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>\n      </div>\n      <div id=\"cancelButton\" class=\"Notifications hide\" onclick=\"HideAddComment()\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n    </div>\n  </div>");
+  var html = "<div class=\"post\">\n    <div id=\"postheder\">\n      <h1 class=\"posttitle\">".concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"").concat(PostImgSrc, "\" alt=\"\" />\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment\" class=\"hide\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications\" onclick=\"PostNotificationsButtonClicked()\">\n        <span class=\"material-icons\"> notifications </span>\n        <p>\u05EA\u05D6\u05DB\u05D5\u05E8\u05EA</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications\" onclick=\"PostFavoriteButtonClicked()\">\n        <span class=\"material-icons\"> favorite </span>\n        <p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>\n      </div>\n      <div id=\"cancelButton\" class=\"Notifications hide\" onclick=\"HideAddComment()\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n    </div>\n  </div>");
   return html;
 }
 
 function buildOneComment(comment, postedBy, atTdate) {
   var Html = "<article class=\"comment\">\n   <div ID=\"bodyComment\">\n     <p>\n      ".concat(massage, "\n     </p>\n   </div>\n   <div id=\"authRouter\">\n     <p>add by:").concat(postedBy, " at ").concat(atTdate, "</p>\n   </div>\n \n   <div id=\"AddToFavoritButton\">\n     <span class=\"material-icons active center\" title=\"\u05D4\u05D5\u05E1\u05E3 \u05E4\u05D5\u05E1\u05D8 \u05D6\u05D4 \u05DC\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD\">\n       favorite\n     </span>\n   </div>\n  </article>");
   return Html;
-}
+} //not finished////////////////////////////////////////////////////////////////////
 
-function renderpostsPage() {
-  document.getElementById('app').innerHTML = "";
-}
+
+function renderpostsPage(chosenCategoryId) {
+  //nead to get the posts by chosenCategoryId
+  //tak all the posts and render them to dom
+  posts.forEach(function (post) {
+    var html = buildOnePost("post", post.title, post.massage, post.PostImgSrc, post.NmTimesViewed, post.postID);
+    document.getElementById('app').innerHTML += html;
+  });
+} /////////////////////////////////////////////////////////////////////////////////

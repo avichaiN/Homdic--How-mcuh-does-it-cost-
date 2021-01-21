@@ -16,6 +16,7 @@ function buildOnePost(
   type /*post or comment*/,
   title,
   massage,
+  PostImgSrc,
   NmTimesViewed,
   postID
 ) {
@@ -45,7 +46,7 @@ function buildOnePost(
     <div id="postheder">
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
-      <img id="hederImg" src="./styles/img/electircs.jfif" alt="" />
+      <img id="hederImg" src="${PostImgSrc}" alt="" />
     </div>
     <!--  add comment form -->
     <div id="addComment" class="hide">
@@ -102,6 +103,23 @@ function buildOneComment(comment,postedBy,atTdate) {
 }
 
 
-function renderpostsPage() {
-  document.getElementById('app').innerHTML = ``;
+
+//not finished////////////////////////////////////////////////////////////////////
+function renderpostsPage(chosenCategoryId) {
+  //nead to get the posts by chosenCategoryId
+
+  //tak all the posts and render them to dom
+  posts.forEach(post => {
+    const html = buildOnePost(
+      "post",
+      post.title,
+      post.massage,
+      post.PostImgSrc,
+      post.NmTimesViewed,
+      post.postID
+    )
+    document.getElementById('app').innerHTML += html;
+  })
+ 
 }
+/////////////////////////////////////////////////////////////////////////////////
