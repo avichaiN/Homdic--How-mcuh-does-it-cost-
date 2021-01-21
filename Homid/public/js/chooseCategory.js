@@ -1,8 +1,6 @@
 const startLoad = () => {
   getDisplayCategories();
-  getUserInfo();
   displayAdminCategory();
-  displayGoToAdminPage();
 };
 
 // get all categories when loading page

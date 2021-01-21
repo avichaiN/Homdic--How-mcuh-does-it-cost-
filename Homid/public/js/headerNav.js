@@ -1,4 +1,41 @@
-const sayHelloToUser = (name) =>{
+const renderNavToDom = () => {
+    let html = ''
+    html = `<div class="header__helloUser"></div>
+    <a href="/adminPage.html" class="header__adminPage">דף אדמין</a>
+    <form class="header__form" onsubmit="handleSearch(event)">
+        <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
+        <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
+        <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <!-- user info / logout / edit user // show all posts -->
+
+    <div class="header__userInfo">
+        <img onclick="showUserDropDown(event)"
+            src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
+        <div class="header__userInfoDrop">
+            <a href="/Categories.html">קטגוריות</a>
+            <a href="#">פוסטים שלי</a>
+            <a href="#">מועדפים</a>
+            <a href="/updateUserData.html">עדכן פרטי חשבון</a>
+            <button onclick="handleLogout()">התנתק</button>
+        </div>
+    </div>`
+
+    let header = document.querySelector('.header')
+    header.innerHTML = html
+    getUserInfo(),
+    displayGoToAdminPage()
+}
+const getUserInfo = () => {
+    fetch("/userInfo")
+        .then((res) => res.json())
+        .then((data) => {
+            const name = data.decoded.name;
+            sayHelloToUser(name);
+        });
+};
+const sayHelloToUser = (name) => {
     const myDate = new Date();
     const hrs = myDate.getHours();
     let greet;
@@ -11,13 +48,13 @@ const sayHelloToUser = (name) =>{
     else if (hrs >= 17 && hrs <= 24)
         greet = 'ערב טוב';
 
-        sayHello.innerHTML = `${greet}, ${name}`
+    sayHello.innerHTML = `${greet}, ${name}`
 }
 
-const displayGoToAdminPage = async () =>{
+const displayGoToAdminPage = async () => {
     let checkAdmin = await handleCheckAdmin()
 
-    if(checkAdmin){
+    if (checkAdmin) {
         document.querySelector('.header__adminPage').style.display = 'block'
     }
 }
@@ -35,7 +72,7 @@ const hideUserDropDown = () => {
 const handleSearch = (e) => {
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
-    if(searched.length > 2){
+    if (searched.length > 2) {
         fetch('/posts/search/getPostsId', {
             method: 'POST',
             headers: {
@@ -51,7 +88,7 @@ const handleSearch = (e) => {
 
                 // window.location.replace(`/posts/search/${postsId}`)
             })
-    }else{
+    } else {
         document.querySelector('.header__formInput').value = ""
         document.querySelector('.header__formInput').placeholder = "חיפוש חייב להיות מעל 2 תווים"
     }
@@ -67,9 +104,9 @@ const getSearchedPosts = () => {
         fetch(`/search/${keywords}`)
             .then(res => res.json())
             .then(data => {
-                if(!data.ok){
+                if (!data.ok) {
                     console.log('no posts found')
-                }else{
+                } else {
                     console.log(data.posts)
                 }
             })

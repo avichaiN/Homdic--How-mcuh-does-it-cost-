@@ -12,14 +12,6 @@ const handleCheckAdmin = async () => {
   return admin;
 };
 
-const getUserInfo = () => {
-  fetch("/userInfo")
-    .then((res) => res.json())
-    .then((data) => {
-      const name = data.decoded.name;
-      sayHelloToUser(name);
-    });
-};
 
 const handleLogout = () => {
   fetch("/logout/user")
