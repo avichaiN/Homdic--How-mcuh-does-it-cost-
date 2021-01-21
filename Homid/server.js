@@ -16,7 +16,6 @@ mongoose.connect(`${process.env.DATABASE_URL}`, {
 // Routes
 const authRouter = require("./routers/authRoute");
 const categoryRouter = require("./routers/categoryRoute");
-const searchRouter = require("./routers/searchRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
 const postRouter = require("./routers/postRoute");
@@ -44,7 +43,6 @@ app.use("/index", (req, res) => {
 
 app.use("/category", categoryRouter);
 
-app.use("/search", searchRouter);
 
 app.use("/admin", adminRouter);
 

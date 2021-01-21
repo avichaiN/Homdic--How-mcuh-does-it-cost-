@@ -37,20 +37,35 @@ router.post("/", checkUserToken, async (req, res) => {
 router.get('/search/:id', checkUserToken, async (req, res) => {
     res.sendFile(path.join(__dirname, "../public", "posts.html"));
 })
-router.post('/search/getPostsId',checkUserToken,async(req,res)=>{
+router.post('/search/getPostsId', checkUserToken, async (req, res) => {
     let postsId = []
     const { searched } = req.body
     const searchClean = searched.trim()
     let getPosts = await searcRegExp(searchClean)
 
-    getPosts.forEach(post=>{
+    getPosts.forEach(post => {
         postsId.push(post._id)
     })
-    console.log(postsId)
-    res.send({postsId})
+
+    res.send({ postsId })
 })
 const searcRegExp = (searched) => {
     return Post.find({ $or: [{ title: { $regex: searched, $options: "" } }, { desc: { $regex: searched, $options: "" } }] }).exec()
 }
+const searchId = (id) => {
+    return Post.find({ _id: id }).exec()
+}
+router.get('/search/get/:id', checkUserToken, async (req, res) => {
+    const foundPostsId = req.params.id
+    const foundPostsIdArray = foundPostsId.split(',')
+    let foundPostsBySearch = []
+
+    for (i = 0; i < foundPostsIdArray.length; i++){
+        let x = await searchId(foundPostsIdArray[i])
+        foundPostsBySearch.push(x)
+    }
+
+    res.send({foundPostsBySearch})
+})
 
 module.exports = [router];

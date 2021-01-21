@@ -1,15 +1,11 @@
 "use strict";
 
-// get post data when for category
-var getDisplayCategories = function getDisplayCategories() {
-  fetch("/post/category/get").then(function (res) {
+var getPostsByIdInParams = function getPostsByIdInParams() {
+  var url = window.location.href;
+  var categoryId = url.split('/')[4];
+  fetch("/posts/get/".concat(categoryId)).then(function (res) {
     return res.json();
   }).then(function (data) {
-    if (data.status === "unauthorized") {
-      window.location.replace("index.html");
-    } else {
-      var categories = data.categories;
-      writeCategoiresToDom(categories);
-    }
+    console.log(data.foundPostsByCategoryId);
   });
 };
