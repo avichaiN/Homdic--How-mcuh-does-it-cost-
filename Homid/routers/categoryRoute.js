@@ -94,5 +94,13 @@ router.delete("/", checkAdmin, async (req, res) => {
     res.send({ ok: false });
   }
 });
+const getCategoryInfo = (id) => {
+  return category.find({ _id: id }).exec()
+}
+router.get('/byid', async (req,res)=>{
+  const {categoryId} = req.body
+  let categoryInfo = await getCategoryInfo(categoryId)
+  res.send({categoryInfo})
+})
 
 module.exports = router;
