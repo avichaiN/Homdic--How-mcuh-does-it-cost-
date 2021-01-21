@@ -200,7 +200,7 @@ router.post("/reset", function _callee3(req, res) {
             from: "Homedic Support",
             to: "".concat(userEmail),
             subject: "Reset your password at Homedic",
-            html: "<p>Hey there!,\n      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/updateUserPassword.html".concat(encodedId, " ")
+            html: "<p>Hey there!,\n      We heard that you forgot your password, Click on the link below to reset your password and enjoy Homedic!.</p><br>http://localhost:3000/updateUserPassword.html?".concat(encodedId, " ")
           };
           tranporter.sendMail(mailOptions, function (e, info) {
             if (e) {
