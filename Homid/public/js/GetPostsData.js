@@ -12,6 +12,7 @@ const getPostsByIdInParams = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.foundPostsBySearch)
+        
       });
   } else {
     // this is when looking for category id
@@ -19,6 +20,19 @@ const getPostsByIdInParams = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.foundPostsByCategoryId)
+        data.foundPostsByCategoryId.forEach((post=>{
+         const html = buildOnePost(
+            "post" /*post or comment*/,
+            post.title,
+            post.desc,
+            post.Img,
+            "0",
+            post._id
+          )
+          document.getElementById('app').innerHTML += html;
+        console.log('test')
+        }))
+       
       });
   }
 
