@@ -1,11 +1,26 @@
-// fetch("/")
-//   .then((r) => r.json())
-//   .then((data) => {
-//     console.log(data);
-//     // const firtName = (document.getElementById(
-//     //   "firstName"
-//     // ).innerHTML = `<h2>ברוך הבא, ${data.user}</h2>`);
-//   });
+function getUserName() {
+  const encodedId = window.location.href.replace(
+    "http://localhost:3000/updateUserPassword.html?",
+    ""
+  );
+  fetch("/resetpassword/getusername", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ encodedId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.user) {
+        const title = (document.getElementById(
+          "firstName"
+        ).innerHTML = `<h2>שלום לך  ${data.user}</h2>`);
+      } else {
+        console.log("can't get first name");
+      }
+    });
+}
 
 function handleUpdatePassword(e) {
   e.preventDefault();

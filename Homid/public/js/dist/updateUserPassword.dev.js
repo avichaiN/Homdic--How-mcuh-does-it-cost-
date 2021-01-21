@@ -1,13 +1,26 @@
 "use strict";
 
-// fetch("/")
-//   .then((r) => r.json())
-//   .then((data) => {
-//     console.log(data);
-//     // const firtName = (document.getElementById(
-//     //   "firstName"
-//     // ).innerHTML = `<h2>ברוך הבא, ${data.user}</h2>`);
-//   });
+function getUserName() {
+  var encodedId = window.location.href.replace("http://localhost:3000/updateUserPassword.html?", "");
+  fetch("/resetpassword/getusername", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      encodedId: encodedId
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    if (data.user) {
+      var title = document.getElementById("firstName").innerHTML = "<h2>\u05E9\u05DC\u05D5\u05DD \u05DC\u05DA  ".concat(data.user, "</h2>");
+    } else {
+      console.log("can't get first name");
+    }
+  });
+}
+
 function handleUpdatePassword(e) {
   e.preventDefault();
   var newPassword = e.target.children.password.value;
