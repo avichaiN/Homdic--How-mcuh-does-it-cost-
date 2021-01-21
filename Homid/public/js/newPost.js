@@ -12,7 +12,7 @@ const displayPostBox = (e) => {
 
     }, 100);
 }
-const hideNewPostBox = (e) =>{
+const hideNewPostBox = (e) => {
     postBox.style.opacity = '0'
     postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1)'
     setTimeout(function () {
@@ -40,58 +40,56 @@ const getCategoiresCheckBox = () => {
             categoryCheckBox.innerHTML = categoriesNames
         })
 }
-const getUserWhoPosted =async  () => {
+const getUserWhoPosted = async () => {
     let id = ''
     await fetch("/userInfo")
-      .then((res) => res.json())
-      .then((data) => {
-          id = data.decoded.id
-      });
-      return id
-  };
-const handleNewPost = async (e) =>{
+        .then((res) => res.json())
+        .then((data) => {
+            id = data.decoded.id
+        });
+    return id
+};
+const handleNewPost = async (e) => {
     e.preventDefault()
 
 
     const user = await getUserWhoPosted()
-    const categoryId = e.target.children.category.value
-    const title =  e.target.children.title.value
+    let categoryId = e.target.children.category.value
+    const title = e.target.children.title.value
     const desc = e.target.children.desc.value
     const img = e.target.children.img.value
 
-    if(categoryId === 'choseCategory'){
-        document.querySelector('.mustChoose').style.display = 'block'
-        console.log('must chose a cateogry')
-    }else{
-        document.querySelector('.mustChoose').style.display = 'none'
+    if (categoryId === 'choseCategory') {
+        categoryId = undefined
+    }
     fetch("/posts", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user,categoryId,title,desc,img }),
-      })
+        body: JSON.stringify({ user, categoryId, title, desc, img }),
+    })
         .then((res) => res.json())
         .then(async (data) => {
-            if(!data.posted){
+            if (!data.posted) {
                 await Swal.fire({
                     position: "top-center",
                     icon: "error",
-                    title: "תקלה בהוספת פוסט",
+                    title: "אנא לבדוק שכל השדות תקינות",
                     showConfirmButton: false,
-                    timer: 800,
-                  });
-            }else{
+                    timer: 1300,
+                });
+            } else {
                 await Swal.fire({
                     position: "center",
                     icon: "success",
                     title: "פוסט פורסם בהצלחה",
                     showConfirmButton: false,
-                    timer: 3000,
-                  });
-                  hideNewPostBox()
-                  // here re locate to posts with category id
+                    timer: 2000,
+                });
+                hideNewPostBox()
+
+                window.location.replace(`/posts/${categoryId}`)
             }
-        });   
-    }
+        });
 }
