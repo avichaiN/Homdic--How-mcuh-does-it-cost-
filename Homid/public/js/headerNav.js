@@ -84,7 +84,6 @@ const handleSearch = (e) => {
             .then(data => {
                 const postsId = data.postsId
                 const postsIdString = postsId.toString()
-
                 window.location.replace(`/posts/search/${postsId}`)
             })
     } else {
@@ -93,24 +92,6 @@ const handleSearch = (e) => {
     }
 }
 
-const getSearchedPosts = () => {
-    const keywords = sessionStorage.getItem("keywords");
-    document.querySelector('.header__formInput').value = keywords
-
-    if (keywords === '') {
-        console.log('no posts found')
-    } else {
-        fetch(`/search/${keywords}`)
-            .then(res => res.json())
-            .then(data => {
-                if (!data.ok) {
-                    console.log('no posts found')
-                } else {
-                    console.log(data.posts)
-                }
-            })
-    }
-}
 
 
 // hello user 
