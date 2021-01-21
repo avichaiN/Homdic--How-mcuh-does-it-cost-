@@ -25,7 +25,7 @@ const renderNavToDom = () => {
     let header = document.querySelector('.header')
     header.innerHTML = html
     getUserInfo(),
-    displayGoToAdminPage()
+        displayGoToAdminPage()
 }
 const getUserInfo = () => {
     fetch("/userInfo")
@@ -84,9 +84,8 @@ const handleSearch = (e) => {
             .then(data => {
                 const postsId = data.postsId
                 const postsIdString = postsId.toString()
-                console.log(postsIdString)
 
-                // window.location.replace(`/posts/search/${postsId}`)
+                window.location.replace(`/posts/search/${postsId}`)
             })
     } else {
         document.querySelector('.header__formInput').value = ""

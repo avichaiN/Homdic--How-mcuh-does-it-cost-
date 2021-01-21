@@ -52,5 +52,18 @@ router.post('/search/getPostsId',checkUserToken,async(req,res)=>{
 const searcRegExp = (searched) => {
     return Post.find({ $or: [{ title: { $regex: searched, $options: "" } }, { desc: { $regex: searched, $options: "" } }] }).exec()
 }
+const searchId = (id) => {
+    return Post.find({ _id:id }).exec()
+}
+router.get('/search/get/:id', checkUserToken, async (req, res) => {
+    const foundPostsId = req.params.id
+    const foundPostsIdArray = foundPostsId.split(',')
+    let foundPostsArray = []
+    await foundPostsIdArray.forEach(async id=>{
+        let foundPost = await searchId(id)
+        foundPostsArray.push(foundPost)
+    })
+    console.log(foundPostsArray)
+})
 
 module.exports = [router];
