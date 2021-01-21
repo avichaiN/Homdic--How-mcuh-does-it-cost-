@@ -49,9 +49,9 @@ app.use("/admin", adminRouter);
 
 app.use("/updateUserData", updateUserDataRouter);
 
-app.use("/post", postRouter);
+app.use("/posts", postRouter);
 
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

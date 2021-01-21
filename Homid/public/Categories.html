@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homdic? Categoires</title>
-    <link rel="stylesheet" href="styles/dist/category.css">
-    <link rel="stylesheet" href="styles/dist/headerNav.css">
+    <link rel="stylesheet" href="/styles/dist/category.css">
+    <link rel="stylesheet" href="/styles/dist/headerNav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
@@ -18,7 +18,7 @@
         <div class="header">
 
             <div class="header__helloUser"></div>
-            <a href="adminPage.html" class="header__adminPage">דף אדמין</a>
+            <a href="/adminPage.html" class="header__adminPage">דף אדמין</a>
             <form class="header__form" onsubmit="handleSearch(event)">
                 <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
                 <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
@@ -31,10 +31,10 @@
                 <img onclick="showUserDropDown(event)"
                     src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
                 <div class="header__userInfoDrop">
-                    <a href="Categories.html">קטגוריות</a>
+                    <a href="/Categories.html">קטגוריות</a>
                     <a href="#">פוסטים שלי</a>
                     <a href="#">מועדפים</a>
-                    <a href="updateUserData.html">עדכן פרטי חשבון</a>
+                    <a href="/updateUserData.html">עדכן פרטי חשבון</a>
                     <button onclick="handleLogout()">התנתק</button>
                 </div>
             </div>

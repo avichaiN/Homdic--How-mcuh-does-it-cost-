@@ -36,7 +36,7 @@ const handleSearch = (e) => {
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
     if(searched.length > 2){
-        fetch('/search', {
+        fetch('/posts/search/getPostsId', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,8 +45,11 @@ const handleSearch = (e) => {
         })
             .then(res => res.json())
             .then(data => {
-                sessionStorage.setItem("keywords", data.searchClean);
-                window.location.replace(`/search.html`)
+                const postsId = data.postsId
+                const postsIdString = postsId.toString()
+                console.log(postsIdString)
+
+                // window.location.replace(`/posts/search/${postsId}`)
             })
     }else{
         document.querySelector('.header__formInput').value = ""

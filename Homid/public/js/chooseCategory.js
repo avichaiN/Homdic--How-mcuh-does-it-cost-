@@ -43,4 +43,6 @@ const goToClickedCategory = (e) => {
   if (chosenCategoryId === undefined) {
     chosenCategoryId = e.target.parentNode.dataset.id;
   }
+  window.location.replace(`/posts/${chosenCategoryId}`)
+
 };
