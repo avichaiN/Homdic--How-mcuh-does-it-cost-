@@ -13,7 +13,21 @@ var getPostsByIdInParams = function getPostsByIdInParams() {
       console.log(data.foundPostsBySearch);
     });
   } else {
-    // this is when looking for category id
+    fetch("/category/byid", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        categoryId: categoryId
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      console.log(data);
+      renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].Img);
+    }); // this is when looking for category id
+
     fetch("/posts/get/".concat(categoryId)).then(function (res) {
       return res.json();
     }).then(function (data) {
