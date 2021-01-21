@@ -38,8 +38,10 @@
         value="-"
         onclick="hideAddpost()"
       />
-      <h1>מכשירי חשמל</h1>
-      <img id="hederImg" src="/./styles/img/electircs.jfif" alt="" />
+      <div id="PostsHeder">
+        
+      </div>
+      
     </heder>
     <div id="app">
       <!-- add post -->
@@ -74,17 +76,6 @@
     <script src="/js/GetPostsData.js"></script>
     <script src="/js/post-comment_render.js"></script>
     <script src="/js/post-comment_functunality.js"></script>
-    <script>
-      const html = buildOnePost(
-        type /*post or comment*/,
-        title,
-        massage,
-        NmTimesViewed,
-        postID
-      );
-      const app = document.getElementById('app');
-      app.innerHTML += html;
-      /* newApp = app.replace('<div class="commenstsSection">', Html);*/
-    </script>
+    
   </body>
 </html>

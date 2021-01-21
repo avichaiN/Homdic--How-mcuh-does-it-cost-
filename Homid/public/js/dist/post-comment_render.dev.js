@@ -38,14 +38,8 @@ function buildOnePost(type
 function buildOneComment(comment, postedBy, atTdate) {
   var Html = "<article class=\"comment\">\n   <div ID=\"bodyComment\">\n     <p>\n      ".concat(massage, "\n     </p>\n   </div>\n   <div id=\"authRouter\">\n     <p>add by:").concat(postedBy, " at ").concat(atTdate, "</p>\n   </div>\n \n   <div id=\"AddToFavoritButton\">\n     <span class=\"material-icons active center\" title=\"\u05D4\u05D5\u05E1\u05E3 \u05E4\u05D5\u05E1\u05D8 \u05D6\u05D4 \u05DC\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD\">\n       favorite\n     </span>\n   </div>\n  </article>");
   return Html;
-} //not finished////////////////////////////////////////////////////////////////////
+}
 
-
-function renderpostsPage(chosenCategoryId) {
-  //nead to get the posts by chosenCategoryId
-  //tak all the posts and render them to dom
-  posts.forEach(function (post) {
-    var html = buildOnePost("post", post.title, post.massage, post.PostImgSrc, post.NmTimesViewed, post.postID);
-    document.getElementById('app').innerHTML += html;
-  });
-} /////////////////////////////////////////////////////////////////////////////////
+function renderPostsHeder(HederTitle, src) {
+  "<h1>\u05DE\u05DB\u05E9\u05D9\u05E8\u05D9 \u05D7\u05E9\u05DE\u05DC</h1>\n        <img id=\"hederImg\" src=\"/./styles/img/electircs.jfif\" alt=\"\" />";
+}

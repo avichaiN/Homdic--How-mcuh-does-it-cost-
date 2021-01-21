@@ -104,22 +104,8 @@ function buildOneComment(comment,postedBy,atTdate) {
 
 
 
-//not finished////////////////////////////////////////////////////////////////////
-function renderpostsPage(chosenCategoryId) {
-  //nead to get the posts by chosenCategoryId
-
-  //tak all the posts and render them to dom
-  posts.forEach(post => {
-    const html = buildOnePost(
-      "post",
-      post.title,
-      post.massage,
-      post.PostImgSrc,
-      post.NmTimesViewed,
-      post.postID
-    )
-    document.getElementById('app').innerHTML += html;
-  })
- 
+function renderPostsHeder(HederTitle,src){
+  
+  `<h1>מכשירי חשמל</h1>
+        <img id="hederImg" src="/./styles/img/electircs.jfif" alt="" />`
 }
-/////////////////////////////////////////////////////////////////////////////////
