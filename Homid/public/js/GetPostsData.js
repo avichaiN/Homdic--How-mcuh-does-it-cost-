@@ -182,7 +182,9 @@ const getPostsUserIdForAdmin = (params) => {
             post.desc,
             post.img,
             "0",
-            post._id
+            post._id,
+            post.fName,
+            post.lName
           )
           document.getElementById('app').innerHTML += html;
         }))
