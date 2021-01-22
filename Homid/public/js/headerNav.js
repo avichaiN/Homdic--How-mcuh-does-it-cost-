@@ -41,13 +41,14 @@ const sayHelloToUser = (name) => {
     let greet;
     let sayHello = document.querySelector('.header__helloUser')
 
-    if (hrs < 12)
+    if (hrs < 12 && hrs>4)
         greet = 'בוקר טוב';
     else if (hrs >= 12 && hrs <= 16)
         greet = 'צהרים טובים';
     else if (hrs >= 16 && hrs <= 24)
         greet = 'ערב טוב';
-
+    else if (hrs <= 4)
+        greet = 'לילה טוב';
     sayHello.innerHTML = `${greet}, ${name}`
 }
 
@@ -73,19 +74,9 @@ const handleSearch = (e) => {
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
     if (searched.length > 2) {
-        fetch('/posts/search/getPostsId', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ searched })
-        })
-            .then(res => res.json())
-            .then(data => {
-                const postsId = data.postsId
-                const postsIdString = postsId.toString()
-                window.location.replace(`/posts/search/${postsId}`)
-            })
+        let searchedSep = searched.replace(/\s/g, '-')
+        window.location.href = `/posts.html?search?${searchedSep}`
+
     } else {
         document.querySelector('.header__formInput').value = ""
         document.querySelector('.header__formInput').placeholder = "חיפוש חייב להיות מעל 2 תווים"

@@ -1,81 +1,59 @@
 <!DOCTYPE html>
 <html lang="heb" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homedic - Posts</title>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="/styles/dist/posts.css" />
-    <link rel="stylesheet" href="/styles/dist/headerNav.css" />
-  </head>
 
-  <body onload="renderNavToDom(), getPostsByIdInParams() ,getUserInfo(),displayGoToAdminPage()">
-        <!-- header  -->
-        <div class="header">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homedic - Posts</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="styles/dist/posts.css" />
+  <link rel="stylesheet" href="styles/dist/headerNav.css" />
+</head>
 
-      </div>
+<body onload="renderNavToDom(), getPostsByIdInParams() ,getUserInfo(),displayGoToAdminPage(), displayPostsAdmin()">
+  <!-- header  -->
+  <div class="header">
 
-    
-    <heder id="categoryHeder">
-      <input
-        id="addPostbutton"
-        class="show"
-        type="button"
-        value="+"
-        onclick="showAddpost()"
-      />
-      <input
-        id="removePostbutton"
-        class="hide"
-        type="button"
-        value="-"
-        onclick="hideAddpost()"
-      />
-      <div id="PostsHeder">
-        
-      </div>
-      
-    </heder>
-    <div id="app">
-      <!-- add post -->
-      <div class="AddPost hide">
-        <div id="postAddHeder">
-          <h1 class="addPosTtitle">הוספת פוסט</h1>
-          <!--  <textarea name="message"></textarea> -->
-        </div>
-        <div id="AddPostBody">
-          <form action="">
-            <textarea name="message"></textarea>
-            <input
-              id="avatar"
-              type="file"
-              value="..."
-              name="avatar"
-              accept="image/png, image/jpeg, image/jpg"
-            />
-          </form>
-        </div>
-        <div id="AddPostfutter">
-          <div>
-            <span class="material-icons"> add_circle_outline </span>
-            <p>הוסף</p>
-          </div>
-        </div>
-      </div>
-      <!-- end post -->
+  </div>
+
+
+  <heder id="categoryHeder">
+    <input id="addPostbutton" class="show" type="button" value="+" onclick="showAddpost()" />
+    <input id="removePostbutton" class="hide" type="button" value="-" onclick="hideAddpost()" />
+    <div id="PostsHeder">
+
     </div>
-    <script src="/js/headerNav.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/GetPostsData.js"></script>
-    <script src="/js/post-comment_render.js"></script>
-    <script src="/js/post-comment_functunality.js"></script>
-    
-  </body>
+
+  </heder>
+  <div id="app">
+    <!-- add post -->
+    <div class="AddPost hide">
+      <div id="postAddHeder">
+        <h1 class="addPosTtitle">הוספת פוסט</h1>
+        <!--  <textarea name="message"></textarea> -->
+      </div>
+      <div id="AddPostBody">
+        <form action="">
+          <textarea name="message"></textarea>
+          <input id="avatar" type="file" value="..." name="avatar" accept="image/png, image/jpeg, image/jpg" />
+        </form>
+      </div>
+      <div id="AddPostfutter">
+        <div>
+          <span class="material-icons"> add_circle_outline </span>
+          <p>הוסף</p>
+        </div>
+      </div>
+    </div>
+    <!-- end post -->
+  </div>
+  <script src="js/headerNav.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/GetPostsData.js"></script>
+  <script src="js/post-comment_render.js"></script>
+  <script src="js/post-comment_functunality.js"></script>
+
+</body>
+
 </html>

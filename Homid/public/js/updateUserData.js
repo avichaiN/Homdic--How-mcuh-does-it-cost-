@@ -39,7 +39,7 @@ function handleUpdateForm(e) {
           showConfirmButton: false,
           timer: 1000,
         });
-        window.location.replace("/category");
+        window.location.href = "/category"
       } else {
         Swal.fire({
           icon: "error",

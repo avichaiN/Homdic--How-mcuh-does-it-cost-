@@ -18,7 +18,7 @@ const handleLogout = () => {
     .then((res) => res.json())
     .then((data) => {
       if (data.loggedout) {
-        window.location.replace("/index.html");
+        window.location.href = "/index.html"
       }
     });
 };

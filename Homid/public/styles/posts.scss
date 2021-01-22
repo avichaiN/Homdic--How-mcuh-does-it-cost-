@@ -45,18 +45,21 @@ body {
         position: fixed;
         background-color: $categoryHeder-bg-color;
         /*  margin: 3% 0% 1% 0%; */
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
         top: 6.5%;
+        text-align: center;
 
         h1 {
-            margin-right: 5%;
+            margin-right: 3%;
             font-size: xxx-large;
             text-shadow: 1px 3px 5px silver;
-            align-self: center;
+            display: inline-block;
+            text-align: center;
         }
 
         img {
+            float: left;
             max-width: 20%;
             max-height: max-content;
         }
@@ -123,16 +126,19 @@ body {
 
             #AddPostBody {
                 background-color: $postheder-bg-color;
-                
+
                 height: 100%;
+
                 form {
                     padding: 1% 4% 1% 4%;
+
                     textarea {
                         margin-right: 2%;
                         width: 100%;
                         height: 100px;
                     }
-                    input{
+
+                    input {
                         margin-right: 2%;
                     }
                 }
@@ -167,13 +173,32 @@ body {
             // border: 1px solid black;
             background-color: white;
             margin: 1%;
-           
+
             #postheder {
                 background-color: $postheder-bg-color;
                 cursor: pointer;
                 padding: 2% 5% 2% 5%;
                 display: grid;
                 column-gap: 2%;
+
+                .adminDeletePost {
+
+                    position: absolute;
+                    left: 10%;
+                    border: 1px solid black;
+                    width: 10%;
+                    padding: 5px;
+                    background-color: white;
+                    color: black;
+                    cursor: pointer;
+                    outline: 0;
+                    border: 1px solid red;
+                    transition: all 0.4s ease-in;
+                }
+                .adminDeletePost:hover{
+                    background-color:red;
+                    color: white;
+                }
                 .posttitle {
                     //  margin-right: 9%;
                     margin: 0;
@@ -182,17 +207,19 @@ body {
                 .postbudy {
                     margin-right: 1%;
                 }
-                img{
-                    
+
+                img {
+
                     align-self: center;
                     justify-self: center;
                     display: grid;
                     max-width: 90%;
+
                     @include mq(260px) {
                         grid-column: 1/2;
-                    grid-row: 3;
+                        grid-row: 3;
                     }
-                           
+
                     @include mq(1000px) {
                         grid-column: 2;
                         grid-row: 1/3;

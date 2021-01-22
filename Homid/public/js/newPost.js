@@ -89,7 +89,7 @@ const handleNewPost = async (e) => {
                 });
                 hideNewPostBox()
 
-                window.location.replace(`/posts/${categoryId}`)
+                window.location.href = `/posts.html?${categoryId}`
             }
         });
 }

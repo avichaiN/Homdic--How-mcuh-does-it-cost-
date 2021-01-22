@@ -9,7 +9,7 @@ const getDisplayCategories = () => {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "unauthorized") {
-        window.location.replace("index.html");
+        window.location.href = "index.html"
       } else {
         let categories = data.categories;
         writeCategoiresToDom(categories);
@@ -41,6 +41,6 @@ const goToClickedCategory = (e) => {
   if (chosenCategoryId === undefined) {
     chosenCategoryId = e.target.parentNode.dataset.id;
   }
-  window.location.replace(`/posts/${chosenCategoryId}`)
+  window.location.href = `/posts.html?${chosenCategoryId}`
 
 };

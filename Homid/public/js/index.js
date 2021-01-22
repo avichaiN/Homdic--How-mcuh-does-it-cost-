@@ -106,7 +106,7 @@ function handleResetPassword(e) {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.replace("/");
+        window.location.href = "/"
       } else {
         Swal.fire({
           icon: "error",

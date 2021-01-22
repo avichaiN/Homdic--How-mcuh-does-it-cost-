@@ -2,12 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
+const checkAdmin = require("./gFunctions/checkAdmin");
 const path = require('path')
-let searchClean
-
-router.get('/:id', checkUserToken, async (req, res) => {
-    res.sendFile(path.join(__dirname, "../public", "posts.html"));
-})
 
 
 router.get('/get/:id', checkUserToken, async (req, res) => {
@@ -34,37 +30,39 @@ router.post("/", checkUserToken, async (req, res) => {
     }
 });
 
-router.get('/search/:id', checkUserToken, async (req, res) => {
-    res.sendFile(path.join(__dirname, "../public", "posts.html"));
-})
-router.post('/search/getPostsId', checkUserToken, async (req, res) => {
-    let postsId = []
-    const { searched } = req.body
-    searchClean = searched.trim()
-    let getPosts = await searcRegExp(searchClean)
 
-    getPosts.forEach(post => {
-        postsId.push(post._id)
-    })
-
-    res.send({ postsId })
-})
-const searcRegExp = (searched) => {
+const searchRegExp = (searched) => {
     return Post.find({ $or: [{ title: { $regex: searched, $options: "" } }, { desc: { $regex: searched, $options: "" } }] }).exec()
 }
-const searchId = (id) => {
-    return Post.find({ _id: id }).exec()
-}
-router.get('/search/get/:id', checkUserToken, async (req, res) => {
-    const foundPostsId = req.params.id
-    const foundPostsIdArray = foundPostsId.split(',')
-    let foundPostsBySearch = []
 
-    for (i = 0; i < foundPostsIdArray.length; i++){
-        let x = await searchId(foundPostsIdArray[i])
-        foundPostsBySearch.push(x)
-    }
-    res.send({foundPostsBySearch, searchClean })
+router.get('/search/get/:id', checkUserToken, async (req, res) => {
+    const searchedKeywords = req.params.id
+    const searchedSplitted = searchedKeywords.replace(/[-]+/, ' ')
+
+    let foundPosts = await searchRegExp(searchedSplitted)
+
+    res.send({foundPosts,searchedSplitted })
 })
+
+//delete post by _id
+router.delete("/", checkAdmin, async (req, res) => {
+    const { postId } = req.body;
+  
+    try {
+      await Post.findOneAndRemove(
+        { _id: postId },
+        async function (err, post) {
+          if (err) {
+            res.send({ deleted:false });
+          } else {
+            res.send({ deleted:true });
+          }
+        }
+      );
+    } catch (e) {
+      console.log(e);
+      res.send({ deleted:false });
+    }
+  });
 
 module.exports = [router];

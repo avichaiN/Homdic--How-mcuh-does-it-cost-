@@ -3,7 +3,7 @@ const getAllUsers = () => {
     .then((res) => res.json())
     .then((data) => {
       if (!data.admin) {
-        window.location.replace("index.html");
+        window.location.href = "index.html"
       } else {
         writeUsersToDom(data.allUsers);
       }
