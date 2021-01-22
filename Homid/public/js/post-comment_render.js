@@ -18,7 +18,9 @@ function buildOnePost(
   massage,
   PostImgSrc,
   NmTimesViewed,
-  postID
+  postID,
+  fName,
+  lName
 ) {
   /*  */
   const AddCommentButton = ` <div id="AddCommentButton" class="Notifications show" onclick="ShowAddComment()">
@@ -43,8 +45,9 @@ function buildOnePost(
   /*  */
 
   const html = `<div class="post">
-    <div data-id='${postID}' id="postheder">
-    <button class='adminDeletePost' style="display:none;" onclick="handleDeletePost(event)">מחק פוסט</button>
+    <div data-id='${postID}' data-title='${title}' id="postheder">
+    <button class='adminDeletePost' style="display:none;" onclick="handleDeletePost(event)">מחק(אדמין)</button>
+    <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
       <img id="hederImg" src="${PostImgSrc}" alt="" />
@@ -74,6 +77,7 @@ function buildOnePost(
         <p>רשום תגובה</p>
       </div>
       </div>
+      <div data-id='${postID}' data-title='${title}' class='deletePost' id='${postID}'></div>
     </div>
   </div>`;
   return html;
@@ -118,11 +122,11 @@ const renderSearchedPostsTitle = (keywords) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h1>תוצאות חיפוש - ${keywords}</h1><br>`
 }
-const renderTitleFoundPostsUser = (name) =>{
+const renderTitleFoundPostsUser = (name) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h1>שלום ${name}, הפוסטים שפירסמת:</h1>`
 }
-const renderTitlePostForAdmin = (username) =>{
+const renderTitlePostForAdmin = (username) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h2>פוסטים של שם משתמש: ${username}</h2>`
 }

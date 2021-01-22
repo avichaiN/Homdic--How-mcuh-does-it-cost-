@@ -169,6 +169,11 @@ body #app .post #postheder .adminDeletePost:hover {
 body #app .post #postheder .posttitle {
   margin: 0;
 }
+body #app .post #postheder .userInfo {
+  font-weight: 550;
+  margin: 0;
+  padding: 0;
+}
 body #app .post #postheder .postbudy {
   margin-right: 1%;
 }
@@ -265,6 +270,23 @@ body #app .post .futter {
     max-width: 70%;
   }
 }
+body #app .post .futter .deletePost {
+  width: 5%;
+}
+body #app .post .futter .deletePost .deletePostButton {
+  padding: 5px;
+  background-color: #fa5f5f;
+  color: white;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid red;
+  border-radius: 5px;
+  font-weight: 550;
+  transition: all 0.4s ease-in;
+}
+body #app .post .futter .deletePost .deletePostButton:hover {
+  background-color: red;
+}
 body #app .post .futter .Notifications {
   cursor: pointer;
   align-items: center;
@@ -274,6 +296,7 @@ body #app .post .futter .Notifications {
   flex-wrap: wrap;
   margin-left: 6%;
   margin-right: 6%;
+  white-space: nowrap;
 }
 body #app .post .futter .Notifications:active {
   color: #2097f5;

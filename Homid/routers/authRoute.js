@@ -26,7 +26,8 @@ router.post("/", async (req, res) => {
             id: userFound._id,
             role: userFound.role,
             username: userFound.username,
-            name: userFound.firstName,
+            fName: userFound.firstName,
+            lName: userFound.lastName,
             time: new Date().getTime(),
           },
           process.env.SECRET
@@ -68,7 +69,8 @@ router.post("/register", (req, res) => {
         {
           role: newUser.role,
           username: newUser.username,
-          name: newUser.firstName,
+          fName: newUser.firstName,
+          lName: newUser.lastName,
           time: new Date().getTime(),
           id: newUser._id
         },

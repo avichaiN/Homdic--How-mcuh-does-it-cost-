@@ -32,7 +32,7 @@ const getUserInfo = async  () => {
     await fetch("/userInfo")
         .then((res) => res.json())
         .then((data) => {
-            const name = data.decoded.name;
+            const name = data.decoded.fName;
             sayHelloToUser(name);
             user=data.decoded
         });

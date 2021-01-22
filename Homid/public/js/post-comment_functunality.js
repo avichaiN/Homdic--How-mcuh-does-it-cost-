@@ -46,27 +46,48 @@ const displayPostsAdmin = async () => {
     }, 1500);
   }
 }
+
+// delete post user/admin
 const handleDeletePost = (e) => {
 
   const postId = e.target.parentNode.dataset.id
-  const areYouSure = confirm(
-    `האם למחוק פוסט ${postId}?`
-  );
-  if (areYouSure) {
-    fetch("/posts", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ postId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deleted) {
-          location.reload();
-        } else {
-          alert('תקלה במחיקת פוסט')
-        }
-      });
-  }
+  const postTitle = e.target.parentNode.dataset.title
+
+  Swal.fire({
+    title: 'האם את/ה בטוח/ה?',
+    html:`כותרת פוסט שנבחר: ${postTitle}<br>לא יהיה אפשר לשחזר מידע זה!`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: "לא, בטל!",
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'כן, מחק פוסט!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      fetch("/posts", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.deleted) {
+            await Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "פוסט נמחק בהצלחה",
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            location.reload();
+          } else {
+            alert('תקלה במחיקת פוסט')
+          }
+        });
+    }
+  })
+
 }

@@ -41,13 +41,13 @@ const getCategoiresCheckBox = () => {
         })
 }
 const getUserWhoPosted = async () => {
-    let id = ''
+    let user = ''
     await fetch("/userInfo")
         .then((res) => res.json())
         .then((data) => {
-            id = data.decoded.id
+            user = data.decoded
         });
-    return id
+    return user
 };
 const handleNewPost = async (e) => {
     e.preventDefault()
@@ -58,7 +58,10 @@ const handleNewPost = async (e) => {
     const title = e.target.children.title.value
     const desc = e.target.children.desc.value
     const img = e.target.children.img.value
-
+    const userId = user.id
+    const userFname = user.fName
+    const userLname = user.lName
+    
     if (categoryId === 'choseCategory') {
         categoryId = undefined
     }
@@ -67,13 +70,13 @@ const handleNewPost = async (e) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user, categoryId, title, desc, img }),
+        body: JSON.stringify({ userId, userFname, userLname, categoryId, title, desc, img }),
     })
         .then((res) => res.json())
         .then(async (data) => {
             if (!data.posted) {
                 await Swal.fire({
-                    position: "top-center",
+                    position: "center",
                     icon: "error",
                     title: "אנא לבדוק שכל השדות תקינות",
                     showConfirmButton: false,

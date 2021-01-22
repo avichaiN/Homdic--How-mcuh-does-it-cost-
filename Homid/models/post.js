@@ -9,6 +9,8 @@ const postSchema = new Schema({
             type: String,
             required: true
         },
+        fName: String,
+        lName: String,
         publishedBy: String
 }, {
     timestamps: true
