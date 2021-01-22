@@ -81,110 +81,13 @@ body {
 }
 .cateogryPage .newPostButton:hover {
   font-weight: 550;
+  right: 2.9%;
+  border: 3px solid #008CBA;
   background-color: white;
   color: black;
 }
 .cateogryPage .newPostButton:focus {
   outline: 0;
-}
-
-.newPostBox {
-  overflow: hidden;
-  opacity: 0;
-  transform: rotate3d(1, 0.5, 0.5, 180deg) scale(0.1);
-  transition: all ease-in 0.4s;
-  display: block;
-  position: fixed;
-  top: 10%;
-  width: 40%;
-  height: 60%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: white;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  box-shadow: 7px 7px 14px 2px rgba(153, 153, 153, 0.74);
-}
-.newPostBox .closeNewPost {
-  cursor: pointer;
-  display: inline;
-  width: 7%;
-  height: 6%;
-  float: left;
-}
-.newPostBox .closeNewPost img {
-  width: 100%;
-}
-.newPostBox h1 {
-  text-align: center;
-  margin-top: 5px;
-  padding: 3px;
-}
-.newPostBox form {
-  width: 85%;
-  height: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-.newPostBox form .mustChoose {
-  width: 50%;
-  margin: 0 auto 2px auto;
-  border: 1px solid red;
-  display: none;
-}
-.newPostBox form select {
-  height: 7%;
-  width: 50%;
-  margin: 0 auto;
-  font-size: 18px;
-}
-.newPostBox form input,
-.newPostBox form textarea {
-  font-size: 20px;
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: none;
-}
-.newPostBox form #desc {
-  height: 23%;
-}
-.newPostBox form .img {
-  align-self: center;
-  text-align: center;
-  width: 25%;
-  background-color: #7ec3da;
-  color: white;
-  padding: 10px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.newPostBox form .img:hover {
-  background-color: #298cad;
-}
-.newPostBox form input[type=submit] {
-  width: 100%;
-  color: white;
-  padding: 14px 20px;
-  margin: 3% 0 0 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #298cad;
-}
-.newPostBox form input[type=submit]:hover {
-  transition: 0.3s;
-  background-color: #0c6886;
 }
 
 .category__admin {

@@ -14,7 +14,7 @@ const displayPostBox = (e) => {
     }, 100);
 }
 const hideNewPostBox = (e) => {
-    console.log('hereeee')
+
     postBox.style.opacity = '0'
     postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1)'
     setTimeout(function () {
@@ -63,7 +63,7 @@ const handleNewPost = async (e) => {
     const userId = user.id
     const userFname = user.fName
     const userLname = user.lName
-    
+
     if (categoryId === 'choseCategory') {
         categoryId = undefined
     }

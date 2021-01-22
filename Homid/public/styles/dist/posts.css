@@ -316,3 +316,34 @@ body #app .post .futter .Toggled {
 body #app .post .futter .UnToggled {
   color: black;
 }
+
+.newPostButton {
+  top: 35%;
+  right: 15%;
+  position: absolute;
+  border: none;
+  color: white;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  border-radius: 20px;
+  transition: all 0.4s ease-in;
+  cursor: pointer;
+  background-color: #008CBA;
+  color: white;
+  border: 1px solid white;
+}
+
+.newPostButton:hover {
+  font-weight: 550;
+  right: 14.9%;
+  border: 3px solid #008CBA;
+  background-color: white;
+  color: black;
+}
+
+.newPostButton:focus {
+  outline: 0;
+}
