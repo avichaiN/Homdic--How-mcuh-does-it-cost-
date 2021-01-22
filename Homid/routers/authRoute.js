@@ -70,6 +70,7 @@ router.post("/register", (req, res) => {
           username: newUser.username,
           name: newUser.firstName,
           time: new Date().getTime(),
+          id: newUser._id
         },
         process.env.SECRET
       );
@@ -90,7 +91,6 @@ router.get("/userInfo", (req, res) => {
   const token = req.cookies.userLoggedIn;
   if (token) {
     const decoded = jwt.decode(token, process.env.SECRET);
-
     res.send({ decoded });
   } else {
     res.send({ ok: false });

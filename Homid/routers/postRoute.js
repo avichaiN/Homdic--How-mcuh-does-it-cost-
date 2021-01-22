@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/post");
+const User = require("../models/user");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
 const path = require('path')
@@ -65,4 +66,36 @@ router.delete("/", checkAdmin, async (req, res) => {
     }
   });
 
+//get posts by user id
+
+const findPostsByUser = (userId) => {
+  return Post.find({ publishedBy:userId }).exec()
+}
+router.post("/user/get", checkUserToken, async (req, res) => {
+  try {
+    const {userId} = req.body
+    let foundPosts = await findPostsByUser(userId)
+    res.send({foundPosts, ok:true})
+  } catch (e) {
+      console.log(e.message)
+      res.send({ ok:false })
+  }
+});
+
+//find user posts FOR ADMIN ONLy
+
+const findUserById = (userId) => {
+  return User.findOne({ _id:userId }).exec()
+}
+router.post("/admin/user/get", checkAdmin, async (req, res) => {
+  try {
+    const {userId} = req.body
+    let userInfo = await findUserById(userId)
+    let foundPosts = await findPostsByUser(userId)
+    res.send({foundPosts, ok:true,userInfo})
+  } catch (e) {
+      console.log(e.message)
+      res.send({ ok:false })
+  }
+});
 module.exports = [router];

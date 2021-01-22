@@ -33,3 +33,40 @@ function PostNotificationsButtonClicked() {
 function PostFavoriteButtonClicked() {
   document.querySelector('#FavoriteButton').classList.toggle('Toggled');
 }
+
+const displayPostsAdmin = async () => {
+  let checkAdmin = await handleCheckAdmin();
+
+  if (checkAdmin) {
+    setTimeout(() => {
+      let deleteButton = document.querySelectorAll(".adminDeletePost"), i;
+      for (i = 0; i < deleteButton.length; ++i) {
+        deleteButton[i].style.display = "block";
+      }
+    }, 1500);
+  }
+}
+const handleDeletePost = (e) => {
+
+  const postId = e.target.parentNode.dataset.id
+  const areYouSure = confirm(
+    `האם למחוק פוסט ${postId}?`
+  );
+  if (areYouSure) {
+    fetch("/posts", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deleted) {
+          location.reload();
+        } else {
+          alert('תקלה במחיקת פוסט')
+        }
+      });
+  }
+}

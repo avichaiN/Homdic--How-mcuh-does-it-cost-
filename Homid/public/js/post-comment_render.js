@@ -110,48 +110,19 @@ function renderPostsHeder(HederTitle, src) {
     `<h1>${HederTitle}</h1>
         <img id="hederImg" src="/./${src}" alt="" />`
 }
-const noPostsFound = (keywords) => {
+const renderNoPostsFound = (keywords) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h1>לא נמצאו פוסטים הכוללים: ${keywords}</h1>`
 }
-const postsFoundTitle = (keywords) => {
+const renderSearchedPostsTitle = (keywords) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h1>תוצאות חיפוש - ${keywords}</h1><br>`
 }
-const displayPostsAdmin = async () => {
-  let checkAdmin = await handleCheckAdmin();
-
-  if (checkAdmin) {
-    console.log('u be admin')
-    setTimeout(() => {
-      let deleteButton = document.querySelectorAll(".adminDeletePost"), i;
-      for (i = 0; i < deleteButton.length; ++i) {
-        deleteButton[i].style.display = "block";
-      }
-    }, 1500);
-  }
+const renderTitleFoundPostsUser = (name) =>{
+  document.querySelector(`#categoryHeder`).innerHTML +=
+    `<h1>שלום ${name}, הפוסטים שפירסמת:</h1>`
 }
-const handleDeletePost = (e) => {
-
-  const postId = e.target.parentNode.dataset.id
-  const areYouSure = confirm(
-    `האם למחוק פוסט ${postId}?`
-  );
-  if (areYouSure) {
-    fetch("/posts", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ postId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deleted) {
-          location.reload();
-        }else{
-          alert('תקלה במחיקת פוסט')
-        }
-      });
-  }
+const renderTitlePostForAdmin = (username) =>{
+  document.querySelector(`#categoryHeder`).innerHTML +=
+    `<h2>פוסטים של שם משתמש: ${username}</h2>`
 }

@@ -15,7 +15,7 @@ const renderNavToDom = () => {
             src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
         <div class="header__userInfoDrop">
             <a href="/Categories.html">קטגוריות</a>
-            <a href="#">פוסטים שלי</a>
+            <a href="/posts.html?myposts">פוסטים שלי</a>
             <a href="#">מועדפים</a>
             <a href="/updateUserData.html">עדכן פרטי חשבון</a>
             <button onclick="handleLogout()">התנתק</button>
@@ -27,13 +27,16 @@ const renderNavToDom = () => {
     getUserInfo(),
         displayGoToAdminPage()
 }
-const getUserInfo = () => {
-    fetch("/userInfo")
+const getUserInfo = async  () => {
+    let user
+    await fetch("/userInfo")
         .then((res) => res.json())
         .then((data) => {
             const name = data.decoded.name;
             sayHelloToUser(name);
+            user=data.decoded
         });
+        return user;
 };
 const sayHelloToUser = (name) => {
     const myDate = new Date();

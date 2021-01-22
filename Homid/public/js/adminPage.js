@@ -15,6 +15,7 @@ const writeUsersToDom = (users) => {
   let html = "";
   users.forEach((user) => {
     html += `<div data-id='${user._id}' data-email='${user.email}' data-username='${user.username}' data-fn='${user.firstName}' data-ln='${user.lastName}', data-role='${user.role}' class="user">
+    <a href='posts.html?admin=${user._id}'>צפה בפוסטים של משתמש זה</a>
         <label>שם משתמש: ${user.username}</label>
         <label>איימל: ${user.email}</label>
         <label>שם פרטי: ${user.firstName}</label>
