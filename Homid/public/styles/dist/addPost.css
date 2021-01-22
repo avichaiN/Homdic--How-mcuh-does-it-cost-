@@ -4,7 +4,7 @@
   transform: rotate3d(1, 0.5, 0.5, 180deg) scale(0.1);
   z-index: 5;
   transition: all ease-in 0.4s;
-  display: block;
+  display: none;
   position: fixed;
   top: 10%;
   width: 40%;

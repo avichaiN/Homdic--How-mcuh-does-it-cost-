@@ -1,9 +1,5 @@
-let postBox = document.querySelector('.newPostBox')
-let categoryCheckBox = document.getElementById('category')
-
-
 const displayPostBox = (e) => {
-
+    let postBox = document.querySelector('.newPostBox')
     e.stopPropagation();
     postBox.style.display = 'block'
     setTimeout(function () {
@@ -13,8 +9,8 @@ const displayPostBox = (e) => {
 
     }, 100);
 }
-const hideNewPostBox = (e) => {
-
+const hideNewPostBox = () => {
+    let postBox = document.querySelector('.newPostBox')
     postBox.style.opacity = '0'
     postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1)'
     setTimeout(function () {
@@ -26,11 +22,13 @@ document.onclick = function (e) {
 
     className = e.target.className
     const classNameInclude = className.includes('box')
+
     if (!classNameInclude) {
         hideNewPostBox()
     }
 }
 const getCategoiresCheckBox = () => {
+    let categoryCheckBox = document.getElementById('category')
     let categoriesNames = `<option selected value='choseCategory' hidden>בחר קטגוריוה</option>`
     fetch('/category/get')
         .then(res => res.json())
