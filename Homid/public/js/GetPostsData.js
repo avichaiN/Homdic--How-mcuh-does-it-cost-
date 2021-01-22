@@ -76,4 +76,4 @@ const getPostsByIdInParams = () => {
       });
   }
 
-}
+};
