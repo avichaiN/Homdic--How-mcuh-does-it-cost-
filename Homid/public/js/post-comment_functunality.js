@@ -1,14 +1,15 @@
-function showAddpost() {
-  document.querySelector('.AddPost').classList.replace('hide', 'show');
-  document.querySelector('#addPostbutton').classList.replace('show', 'hide');
-  document.querySelector('#removePostbutton').classList.replace('hide', 'show');
-}
-function hideAddpost() {
-  console.log('hide');
-  document.querySelector('.AddPost').classList.replace('show', 'hide');
-  document.querySelector('#addPostbutton').classList.replace('hide', 'show');
-  document.querySelector('#removePostbutton').classList.replace('show', 'hide');
-}
+// function showAddpost() {
+//   document.querySelector('.newPostBox').classList.replace('hide', 'show');
+//   document.querySelector('#addPostbutton').classList.replace('show', 'hide');
+//   document.querySelector('#removePostbutton').classList.replace('hide', 'show');
+
+// }
+// function hideAddpost() {
+//   console.log('hide');
+//   document.querySelector('.newPostBox').classList.replace('show', 'hide');
+//   document.querySelector('#addPostbutton').classList.replace('hide', 'show');
+//   document.querySelector('#removePostbutton').classList.replace('show', 'hide');
+// }
 function HideAddComment() {
   document.querySelector('#AddCommentButton').classList.replace('hide', 'show');
   document.querySelector('#cancelButton').classList.replace('show', 'hide');
@@ -55,7 +56,7 @@ const handleDeletePost = (e) => {
 
   Swal.fire({
     title: 'האם את/ה בטוח/ה?',
-    html:`כותרת פוסט שנבחר: ${postTitle}<br>לא יהיה אפשר לשחזר מידע זה!`,
+    html: `כותרת פוסט שנבחר: ${postTitle}<br>לא יהיה אפשר לשחזר מידע זה!`,
     icon: 'warning',
     showCancelButton: true,
     cancelButtonText: "לא, בטל!",

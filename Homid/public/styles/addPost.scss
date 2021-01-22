@@ -1,0 +1,256 @@
+.newPostButton {
+    top: 35%;
+    right: 15%;
+    position: absolute;
+    border: none;
+    color: white;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    border-radius: 20px;
+
+    transition: all 0.4s ease-in;
+    cursor: pointer;
+    background-color: #008CBA;
+    color: white;
+    border: 1px solid white;
+}
+
+.newPostButton:hover {
+    font-weight: 550;
+    right: 14.9%;
+    border: 3px solid #008CBA;
+    background-color: white;
+    color: black;
+}
+
+.newPostButton:focus {
+    outline: 0;
+}
+
+
+.newPostBox {
+    overflow: hidden;
+    opacity: 0;
+    transform: rotate3d(1, .5, .5, 180deg) scale(0.1);
+    // opacity: 1;
+    // transform: none;
+    z-index: 5;
+    transition: all ease-in .4s;
+    display: block;
+    position: fixed;
+    top: 10%;
+    width: 40%;
+    height: 60%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    box-shadow: 7px 7px 14px 2px rgba(153, 153, 153, 0.74);
+
+    .closeNewPost {
+        cursor: pointer;
+        display: inline;
+        width: 7%;
+        height: 6%;
+        float: left;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 5px;
+        padding: 3px;
+    }
+
+    form {
+        width: 85%;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+
+        .mustChoose {
+            width: 50%;
+            margin: 0 auto 2px auto;
+            border: 1px solid red;
+            display: none;
+        }
+
+        select {
+            height: 7%;
+            width: 50%;
+            margin: 0 auto;
+            font-size: 18px;
+
+        }
+
+        input,
+        textarea {
+            font-size: 20px;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        #desc {
+            height: 23%;
+        }
+
+        .img {
+            align-self: center;
+            text-align: center;
+            width: 25%;
+            background-color: #7ec3da;
+            color: white;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .img:hover {
+            background-color: #298cad;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            color: white;
+            padding: 14px 20px;
+            margin: 3% 0 0 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #298cad;
+        }
+
+        input[type=submit]:hover {
+            transition: 0.3s;
+            background-color: #0c6886;
+        }
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+
+
+        .newPostButton {
+            right: -0.1%;
+            padding: 8px 16px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+}
+
+@media only screen and (max-width: 920px) {
+
+
+    .newPostBox {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .newPostBox {
+        width: 90%;
+        margin: auto;
+        height: 90%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+
+    .newPostBox {
+        width: 95%;
+        margin: auto;
+        height: 90%;
+
+        .closeNewPost {
+            width: 12%;
+        }
+
+        form {
+            .img {
+                width: 60%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 850px) {
+    .newPostBox {
+        width: 95%;
+        margin: auto;
+        height: 70%;
+
+
+    }
+}
+
+@media only screen and (max-height: 715px) {
+    .newPostBox {
+        font-size: 15px;
+        width: 95%;
+        margin: auto;
+        height: 70%;
+
+        h1 {
+            margin-top: 2px;
+            padding: 2px;
+        }
+
+        form {
+            select {
+                margin: 0 auto;
+            }
+
+            input,
+            textarea {
+                margin: 3px 0;
+                padding: 6px 12px;
+            }
+
+
+            .img {
+                margin: 4px 0;
+                padding: 5px;
+            }
+
+            input[type=submit] {
+                bottom: 50px;
+                margin: 1% 0 0 0;
+                padding: 7px 14px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 550px) {
+    .newPostBox {
+        width: 85%;
+        margin: 0 auto;
+        height: 95%;
+        top: 7%;
+
+        .closeNewPost {
+            width: 8%;
+            height: 9%;
+        }
+    }
+}

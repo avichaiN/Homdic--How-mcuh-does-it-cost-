@@ -3,6 +3,7 @@ let categoryCheckBox = document.getElementById('category')
 
 
 const displayPostBox = (e) => {
+
     e.stopPropagation();
     postBox.style.display = 'block'
     setTimeout(function () {
@@ -13,6 +14,7 @@ const displayPostBox = (e) => {
     }, 100);
 }
 const hideNewPostBox = (e) => {
+    console.log('hereeee')
     postBox.style.opacity = '0'
     postBox.style.transform = 'rotate3d(1, .5, .5, 180deg) scale(0.1)'
     setTimeout(function () {
