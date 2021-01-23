@@ -12,7 +12,7 @@ router.get('/:id', checkUserToken, async (req, res) => {
 router.get('/get/:id', checkUserToken, async (req, res) => {
     chosenPostId = req.params.id
   
-    let foundCommentsByPostId = await Post.aggregate([
+    let foundCommentsByPostId = await comments.aggregate([
       { $match: { postId: chosenPostId } }
     ])
   
@@ -25,7 +25,7 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
   
     const post = new Post({ desc: desc, price: price, postId: postId, fName: userFname, lName:userLname, publishedBy: userId });
     try {
-      await post.save();
+      await comments.save();
       res.send({ posted: true, post });
     } catch (e) {
       console.log(e.message)

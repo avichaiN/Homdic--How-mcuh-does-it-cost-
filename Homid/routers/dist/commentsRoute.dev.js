@@ -32,7 +32,7 @@ router.get('/get/:id', checkUserToken, function _callee2(req, res) {
         case 0:
           chosenPostId = req.params.id;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(Post.aggregate([{
+          return regeneratorRuntime.awrap(comments.aggregate([{
             $match: {
               postId: chosenPostId
             }
@@ -69,7 +69,7 @@ router.post("/", checkUserToken, function _callee3(req, res) {
           });
           _context3.prev = 2;
           _context3.next = 5;
-          return regeneratorRuntime.awrap(post.save());
+          return regeneratorRuntime.awrap(comments.save());
 
         case 5:
           res.send({
