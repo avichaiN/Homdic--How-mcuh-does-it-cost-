@@ -27,6 +27,13 @@ document.onclick = function (e) {
         hideNewPostBox()
     }
 }
+
+const handleImgSelect = () =>{
+    const imgUpload = document.querySelector('.imgUpload');
+    const fileChosen = document.querySelector('#file-chosen');
+    fileChosen.textContent = imgUpload.files[0].name
+}
+
 const getCategoiresCheckBox = () => {
     let categoryCheckBox = document.getElementById('category')
     let categoriesNames = `<option selected value='choseCategory' hidden>בחר קטגוריוה</option>`

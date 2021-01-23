@@ -42,7 +42,8 @@
                 <label class='box' for="desc">שאלה</label>
                 <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
                 <label class='img box' name='img' for="img">העלה תמונה</label>
-                <input class='box' type="file" style="visibility:hidden;display: none;" id="img" name="img" accept="image/*">
+                <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
+                <span class='box' id="file-chosen"></span>
                 <input class='box' type="submit" value="פרסם">
             </form>
         </div>

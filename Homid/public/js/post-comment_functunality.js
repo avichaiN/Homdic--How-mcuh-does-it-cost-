@@ -35,18 +35,6 @@ function PostFavoriteButtonClicked() {
   document.querySelector('#FavoriteButton').classList.toggle('Toggled');
 }
 
-const displayPostsAdmin = async () => {
-  let checkAdmin = await handleCheckAdmin();
-
-  if (checkAdmin) {
-    setTimeout(() => {
-      let deleteButton = document.querySelectorAll(".adminDeletePost"), i;
-      for (i = 0; i < deleteButton.length; ++i) {
-        deleteButton[i].style.display = "block";
-      }
-    }, 1500);
-  }
-}
 
 // delete post user/admin
 const handleDeletePost = (e) => {

@@ -19,7 +19,7 @@ const getPosts = () => {
 const getPostsBySearch = (searchedPosts) => {
   fetch(`/posts/search/get/${searchedPosts}`)
     .then((res) => res.json())
-    .then(async(data) => {
+    .then(async (data) => {
       let keywords = data.searchedSplitted
       let foundPosts = data.foundPosts
       if (data.status === "unauthorized") {
@@ -30,23 +30,8 @@ const getPostsBySearch = (searchedPosts) => {
           renderNoPostsFound(keywords)
         } else {
           renderSearchedPostsTitle(keywords)
-          let userInfo = await getUserInfo()
-          let userId = userInfo.id
-          foundPosts.forEach((post => {
-
-            let isUsersPost = false
-            if (post.publishedBy === userId) {
-              isUsersPost = true
-            }
-            const html = buildOnePost("post", post.title, post.desc, post.img, "0", post._id, post.fName, post.lName)
-            document.getElementById('app').innerHTML += html;
-
-            if (isUsersPost) {
-              document.getElementById(`${post._id}`).innerHTML =
-                `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
-            }
-          }))
         }
+        renderPosts(foundPosts)
       }
     });
 }
@@ -73,38 +58,15 @@ const getPostsByCategory = (categoryId) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-        let userInfo = await getUserInfo()
-
-        const userId = userInfo.id
-
-        data.foundPostsByCategoryId.forEach((post => {
-          let isUsersPost = false
-          if (post.publishedBy === userId) {
-            isUsersPost = true
-          }
-          const html = buildOnePost(
-            "post" /*post or comment*/,
-            post.title,
-            post.desc,
-            post.img,
-            "0",
-            post._id,
-            post.fName,
-            post.lName
-          )
-          document.getElementById('app').innerHTML += html;
-
-          if (isUsersPost) {
-            document.getElementById(`${post._id}`).innerHTML =
-              `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
-          }
-        }))
+        let foundPosts = data.foundPostsByCategoryId
+        renderPosts(foundPosts)
       }
     });
 }
+
 const getPostsByUser = async () => {
   const userInfo = await getUserInfo()
-  const userFirstName = userInfo.name
+  const userFirstName = userInfo.fName
   const userId = userInfo.id
 
   fetch("/posts/user/get", {
@@ -115,35 +77,13 @@ const getPostsByUser = async () => {
     body: JSON.stringify({ userId }),
   })
     .then((res) => res.json())
-    .then(async(data) => {
+    .then(async (data) => {
       if (!data.ok) {
         console.log('err finding posts')
       } else {
-        let userInfo = await getUserInfo()
-        let userId = userInfo.id
         renderTitleFoundPostsUser(userFirstName)
-        data.foundPosts.forEach((post => {
-          let isUsersPost = false
-          if (post.publishedBy === userId) {
-            isUsersPost = true
-          }
-          const html = buildOnePost(
-            "post" /*post or comment*/,
-            post.title,
-            post.desc,
-            post.img,
-            "0",
-            post._id,
-            post.fName,
-            post.lName
-          )
-          document.getElementById('app').innerHTML += html;
-
-          if (isUsersPost) {
-            document.getElementById(`${post._id}`).innerHTML =
-              `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
-          }
-        }))
+        let foundPosts = data.foundPosts
+        renderPosts(foundPosts)
       }
     });
 }
@@ -166,19 +106,37 @@ const getPostsUserIdForAdmin = (params) => {
       } else {
         const username = data.userInfo.username
         renderTitlePostForAdmin(username)
-        data.foundPosts.forEach((post => {
-          const html = buildOnePost(
-            "post" /*post or comment*/,
-            post.title,
-            post.desc,
-            post.img,
-            "0",
-            post._id,
-            post.fName,
-            post.lName
-          )
-          document.getElementById('app').innerHTML += html;
-        }))
+        let foundPosts = data.foundPosts
+        renderPosts(foundPosts)
       }
     });
+}
+const renderPosts = async (postsArray) => {
+  let userInfo = await getUserInfo()
+  const userId = userInfo.id
+  let isAdmin = false
+  isAdmin = await handleCheckAdmin();
+
+  postsArray.forEach((post => {
+    let isUsersPost = false
+    if (post.publishedBy === userId) {
+      isUsersPost = true
+    }
+    const html = buildOnePost(
+      "post" /*post or comment*/,
+      post.title,
+      post.desc,
+      post.img,
+      "0",
+      post._id,
+      post.fName,
+      post.lName
+    )
+    document.getElementById('app').innerHTML += html;
+
+    if (isUsersPost || isAdmin) {
+      document.getElementById(`${post._id}`).innerHTML =
+        `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
+    }
+  }))
 }
