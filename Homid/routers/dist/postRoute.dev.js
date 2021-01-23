@@ -52,8 +52,12 @@ router.post("/", checkUserToken, function _callee2(req, res) {
         case 0:
           form = new formidable.IncomingForm();
           form.parse(req);
+          console.log(__dirname + '/public/style/img/');
           form.on('fileBegin', function (name, file) {
-            file.path = __dirname + '/public/style/img/' + file.name;
+            file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name;
+          });
+          form.on('file', function (name, file) {
+            console.log("Uploaded file", file.name);
           });
           _req$body = req.body, userId = _req$body.userId, userFname = _req$body.userFname, userLname = _req$body.userLname, categoryId = _req$body.categoryId, title = _req$body.title, desc = _req$body.desc, img = _req$body.img;
           post = new Post({
@@ -65,32 +69,32 @@ router.post("/", checkUserToken, function _callee2(req, res) {
             lName: userLname,
             publishedBy: userId
           });
-          _context2.prev = 5;
-          _context2.next = 8;
+          _context2.prev = 7;
+          _context2.next = 10;
           return regeneratorRuntime.awrap(post.save());
 
-        case 8:
+        case 10:
           res.send({
             posted: true,
             post: post
           });
-          _context2.next = 15;
+          _context2.next = 17;
           break;
 
-        case 11:
-          _context2.prev = 11;
-          _context2.t0 = _context2["catch"](5);
+        case 13:
+          _context2.prev = 13;
+          _context2.t0 = _context2["catch"](7);
           console.log(_context2.t0.message);
           res.send({
             posted: false
           });
 
-        case 15:
+        case 17:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[5, 11]]);
+  }, null, null, [[7, 13]]);
 });
 
 var searchRegExp = function searchRegExp(searched) {

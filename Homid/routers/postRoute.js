@@ -18,12 +18,17 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
   res.send({ foundPostsByCategoryId })
 })
 
+
+
 router.post("/", checkUserToken, async (req, res) => {
 
-  var form = new formidable.IncomingForm();
+  let form = new formidable.IncomingForm();
   form.parse(req);
-  form.on('fileBegin', function (name, file) {file.path = __dirname + '/public/style/img/' + file.name;})
-
+  console.log(__dirname + '/public/style/img/')
+  form.on('fileBegin', function (name, file) {file.path = path.dirname(__dirname) +'/public/styles/img/'+ file.name;})
+  form.on('file', function (name, file) {
+    console.log("Uploaded file", file.name);
+  });
 
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
 

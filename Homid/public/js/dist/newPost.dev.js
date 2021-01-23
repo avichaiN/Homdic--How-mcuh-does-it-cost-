@@ -87,12 +87,12 @@ var handleNewPost = function handleNewPost(e) {
           userLname = user.lName;
 
           if (categoryId === 'choseCategory') {
-            categoryId = "רכבים";
-            /* undefined */
+            categoryId = undefined;
           }
 
           fetch("/posts", {
             method: "POST",
+            enctype: "multipart/form-data",
             headers: {
               "Content-Type": "application/json"
             },

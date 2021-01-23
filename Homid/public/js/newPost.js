@@ -63,13 +63,16 @@ const handleNewPost = async (e) => {
     const userLname = user.lName
 
     if (categoryId === 'choseCategory') {
-        categoryId = "רכבים";/* undefined */
+        categoryId =  undefined 
     }
+
+
     fetch("/posts", {
         method: "POST",
-        headers: {
+        enctype:"multipart/form-data",
+            headers: {
             "Content-Type": "application/json",
-        },
+                 },
         body: JSON.stringify({ userId, userFname, userLname, categoryId, title, desc, img }),
     })
         .then((res) => res.json())
