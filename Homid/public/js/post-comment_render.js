@@ -46,11 +46,12 @@ function buildOnePost(
 
   const html = `<div class="post">
     <div data-id='${postID}' data-title='${title}' id="postheder">
-    <button class='adminDeletePost' style="display:none;" onclick="handleDeletePost(event)">מחק(אדמין)</button>
+    <!--  <button class='adminDeletePost' style="display:none;" onclick="handleDeletePost(event)">מחק(אדמין)</button> -->
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
       <img id="hederImg" src="${PostImgSrc}" alt="" />
+
     </div>
     <!--  add comment form -->
     <div id="addComment" class="hide">

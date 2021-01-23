@@ -11,7 +11,7 @@ var atTdate = "01/01/1999";
 
 function buildOnePost(type
 /*post or comment*/
-, title, massage, PostImgSrc, NmTimesViewed, postID) {
+, title, massage, PostImgSrc, NmTimesViewed, postID, fName, lName) {
   /*  */
   var AddCommentButton = " <div id=\"AddCommentButton\" class=\"Notifications show\" onclick=\"ShowAddComment()\">\n    <span class=\"material-icons\">\n      add_circle_outline\n    </span>";
   /*  */
@@ -25,13 +25,13 @@ function buildOnePost(type
     if (type == 'comment') {
       leftButton = TimesViewed;
     } else {
-      leftButton = 'error rong input type';
+      leftButton = 'error wrong input type';
     }
   }
   /*  */
 
 
-  var html = "<div class=\"post\">\n    <div id=\"postheder\">\n      <h1 class=\"posttitle\">".concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"").concat(PostImgSrc, "\" alt=\"\" />\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment\" class=\"hide\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications\" onclick=\"PostNotificationsButtonClicked()\">\n        <span class=\"material-icons\"> notifications </span>\n        <p>\u05EA\u05D6\u05DB\u05D5\u05E8\u05EA</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications\" onclick=\"PostFavoriteButtonClicked()\">\n        <span class=\"material-icons\"> favorite </span>\n        <p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>\n      </div>\n      <div id=\"cancelButton\" class=\"Notifications hide\" onclick=\"HideAddComment()\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n    </div>\n  </div>");
+  var html = "<div class=\"post\">\n    <div data-id='".concat(postID, "' data-title='").concat(title, "' id=\"postheder\">\n    <!--  <button class='adminDeletePost' style=\"display:none;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7(\u05D0\u05D3\u05DE\u05D9\u05DF)</button> -->\n    <p class=\"userInfo\">").concat(fName + ' ' + lName, "</p>\n      <h1 class=\"posttitle\">").concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"").concat(PostImgSrc, "\" alt=\"\" />\n\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment\" class=\"hide\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications\" onclick=\"PostNotificationsButtonClicked()\">\n        <span class=\"material-icons\"> notifications </span>\n        <p>\u05EA\u05D6\u05DB\u05D5\u05E8\u05EA</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications\" onclick=\"PostFavoriteButtonClicked()\">\n        <span class=\"material-icons\"> favorite </span>\n        <p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>\n      </div>\n      <div id=\"cancelButton\" class=\"Notifications hide\" onclick=\"HideAddComment()\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n      <div data-id='").concat(postID, "' data-title='").concat(title, "' class='deletePost' id='").concat(postID, "'></div>\n    </div>\n  </div>");
   return html;
 }
 
@@ -43,3 +43,19 @@ function buildOneComment(comment, postedBy, atTdate) {
 function renderPostsHeder(HederTitle, src) {
   document.querySelector("#categoryHeder").innerHTML += "<h1>".concat(HederTitle, "</h1>\n        <img id=\"hederImg\" src=\"/./").concat(src, "\" alt=\"\" />");
 }
+
+var renderNoPostsFound = function renderNoPostsFound(keywords) {
+  document.querySelector("#categoryHeder").innerHTML += "<h1>\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0\u05D5 \u05E4\u05D5\u05E1\u05D8\u05D9\u05DD \u05D4\u05DB\u05D5\u05DC\u05DC\u05D9\u05DD: ".concat(keywords, "</h1>");
+};
+
+var renderSearchedPostsTitle = function renderSearchedPostsTitle(keywords) {
+  document.querySelector("#categoryHeder").innerHTML += "<h1>\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9 - ".concat(keywords, "</h1><br>");
+};
+
+var renderTitleFoundPostsUser = function renderTitleFoundPostsUser(name) {
+  document.querySelector("#categoryHeder").innerHTML += "<h1>\u05E9\u05DC\u05D5\u05DD ".concat(name, ", \u05D4\u05E4\u05D5\u05E1\u05D8\u05D9\u05DD \u05E9\u05E4\u05D9\u05E8\u05E1\u05DE\u05EA:</h1>");
+};
+
+var renderTitlePostForAdmin = function renderTitlePostForAdmin(username) {
+  document.querySelector("#categoryHeder").innerHTML += "<h2>\u05E4\u05D5\u05E1\u05D8\u05D9\u05DD \u05E9\u05DC \u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9: ".concat(username, "</h2>");
+};
