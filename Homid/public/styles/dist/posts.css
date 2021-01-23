@@ -25,7 +25,8 @@ body {
   height: 99vh;
 }
 body #categoryHeder {
-  height: 20%;
+  overflow: hidden;
+  height: 15%;
   width: 100%;
   z-index: 1;
   position: fixed;
@@ -150,24 +151,6 @@ body #app .post #postheder {
   column-gap: 2%;
   grid-template-columns: 2fr 1fr;
 }
-body #app .post #postheder .adminDeletePost {
-  position: absolute;
-  left: 1%;
-  top: 10%;
-  border: 1px solid black;
-  width: 10%;
-  padding: 5px;
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  outline: 0;
-  border: 1px solid red;
-  transition: all 0.4s ease-in;
-}
-body #app .post #postheder .adminDeletePost:hover {
-  background-color: red;
-  color: white;
-}
 body #app .post #postheder .posttitle {
   margin: 0;
 }
@@ -177,6 +160,8 @@ body #app .post #postheder .userInfo {
   padding: 0;
 }
 body #app .post #postheder .postbudy {
+  width: 50%;
+  word-wrap: break-word;
   margin-right: 1%;
 }
 body #app .post #postheder img {
