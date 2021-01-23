@@ -1,4 +1,5 @@
 const express = require("express");
+const formidable = require('formidable');
 const router = express.Router();
 const Post = require("../models/post");
 const User = require("../models/user");
@@ -18,6 +19,11 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
 })
 
 router.post("/", checkUserToken, async (req, res) => {
+
+  var form = new formidable.IncomingForm();
+  form.parse(req);
+  form.on('fileBegin', function (name, file) {file.path = __dirname + '/public/style/img/' + file.name;})
+
 
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
 

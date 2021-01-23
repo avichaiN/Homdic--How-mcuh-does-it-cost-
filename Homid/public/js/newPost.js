@@ -27,13 +27,6 @@ document.onclick = function (e) {
         hideNewPostBox()
     }
 }
-
-const handleImgSelect = () =>{
-    const imgUpload = document.querySelector('.imgUpload');
-    const fileChosen = document.querySelector('#file-chosen');
-    fileChosen.textContent = imgUpload.files[0].name
-}
-
 const getCategoiresCheckBox = () => {
     let categoryCheckBox = document.getElementById('category')
     let categoriesNames = `<option selected value='choseCategory' hidden>בחר קטגוריוה</option>`
@@ -70,7 +63,7 @@ const handleNewPost = async (e) => {
     const userLname = user.lName
 
     if (categoryId === 'choseCategory') {
-        categoryId = undefined
+        categoryId = "רכבים";/* undefined */
     }
     fetch("/posts", {
         method: "POST",
