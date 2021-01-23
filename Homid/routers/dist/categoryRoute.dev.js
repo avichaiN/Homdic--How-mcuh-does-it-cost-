@@ -17,7 +17,7 @@ var path = require("path");
 var router = express.Router();
 router.use(cookieParser());
 
-function categoriesFind() {
+var categoriesFind = function categoriesFind() {
   return regeneratorRuntime.async(function categoriesFind$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -36,7 +36,7 @@ function categoriesFind() {
       }
     }
   }, null, null, [[0, 4]]);
-} // get all categories to display on category page.
+}; // get all categories to display on category page.
 
 
 router.get("/", checkUserToken, function (req, res) {

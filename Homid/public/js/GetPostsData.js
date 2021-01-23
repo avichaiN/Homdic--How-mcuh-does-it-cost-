@@ -38,16 +38,7 @@ const getPostsBySearch = (searchedPosts) => {
             if (post.publishedBy === userId) {
               isUsersPost = true
             }
-            const html = buildOnePost(
-              "post" /*post or comment*/,
-              post.title,
-              post.desc,
-              post.img,
-              "0",
-              post._id,
-              post.fName,
-              post.lName
-            )
+            const html = buildOnePost("post", post.title, post.desc, post.img, "0", post._id, post.fName, post.lName)
             document.getElementById('app').innerHTML += html;
 
             if (isUsersPost) {

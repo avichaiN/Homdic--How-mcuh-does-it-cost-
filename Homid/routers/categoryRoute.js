@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use(cookieParser());
 
-async function categoriesFind() {
+const  categoriesFind = async ()=> {
   try {
     return Category.find({}).exec();
   } catch (e) {

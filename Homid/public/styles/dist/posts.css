@@ -148,10 +148,12 @@ body #app .post #postheder {
   padding: 2% 5% 2% 5%;
   display: grid;
   column-gap: 2%;
+  grid-template-columns: 2fr 1fr;
 }
 body #app .post #postheder .adminDeletePost {
   position: absolute;
-  left: 10%;
+  left: 1%;
+  top: 10%;
   border: 1px solid black;
   width: 10%;
   padding: 5px;
