@@ -18,15 +18,15 @@ const hideNewPostBox = () => {
     }, 100);
 }
 
-document.onclick = function (e) {
+// document.onclick = function (e) {
 
-    className = e.target.className
-    const classNameInclude = className.includes('box')
+//     className = e.target.className
+//     const classNameInclude = className.includes('box')
 
-    if (!classNameInclude) {
-        hideNewPostBox()
-    }
-}
+//     if (!classNameInclude) {
+//         hideNewPostBox()
+//     }
+// }
 const getCategoiresCheckBox = () => {
     let categoryCheckBox = document.getElementById('category')
     let categoriesNames = `<option selected value='choseCategory' hidden>בחר קטגוריוה</option>`

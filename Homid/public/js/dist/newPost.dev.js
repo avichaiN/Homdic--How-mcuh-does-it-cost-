@@ -18,16 +18,14 @@ var hideNewPostBox = function hideNewPostBox() {
   setTimeout(function () {
     postBox.style.display = 'none';
   }, 100);
-};
+}; // document.onclick = function (e) {
+//     className = e.target.className
+//     const classNameInclude = className.includes('box')
+//     if (!classNameInclude) {
+//         hideNewPostBox()
+//     }
+// }
 
-document.onclick = function (e) {
-  className = e.target.className;
-  var classNameInclude = className.includes('box');
-
-  if (!classNameInclude) {
-    hideNewPostBox();
-  }
-};
 
 var getCategoiresCheckBox = function getCategoiresCheckBox() {
   var categoryCheckBox = document.getElementById('category');

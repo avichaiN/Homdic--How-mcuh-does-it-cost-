@@ -30,7 +30,7 @@
 
         <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
         <div class="newPostBox box">
-            <img class='closeNewPost' src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
+            <img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
             <h1 class='box'>פוסט חדש</h1>
             <form class='box' onsubmit="handleNewPost(event)">
                 <label class="box mustChoose">חייב לבחור קטגוריה</label>
