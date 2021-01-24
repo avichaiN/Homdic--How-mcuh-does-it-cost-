@@ -72,8 +72,10 @@ const handleNewPost = async (e) => {
                headers: {
                /*  "Content-Type": "application/json", */
                "Content-Type": "multipart/form-data",
+              
                  },
         body: JSON.stringify({ userId, userFname, userLname, categoryId, title, desc, img }),
+       
     })
         .then((res) => res.json())
         .then(async (data) => {

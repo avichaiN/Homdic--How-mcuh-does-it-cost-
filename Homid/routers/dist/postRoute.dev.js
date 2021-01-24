@@ -44,21 +44,12 @@ router.get('/get/:id', checkUserToken, function _callee(req, res) {
   });
 });
 router.post("/", checkUserToken, function _callee2(req, res) {
-  var form, _req$body, userId, userFname, userLname, categoryId, title, desc, img, post;
+  var _req$body, userId, userFname, userLname, categoryId, title, desc, img, post, form;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          form = new formidable.IncomingForm();
-          form.parse(req);
-          console.log(__dirname + '/public/style/img/');
-          form.on('fileBegin', function (name, file) {
-            file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name;
-          });
-          form.on('file', function (name, file) {
-            console.log("Uploaded file", file.name);
-          });
           _req$body = req.body, userId = _req$body.userId, userFname = _req$body.userFname, userLname = _req$body.userLname, categoryId = _req$body.categoryId, title = _req$body.title, desc = _req$body.desc, img = _req$body.img;
           post = new Post({
             title: title,
@@ -69,9 +60,20 @@ router.post("/", checkUserToken, function _callee2(req, res) {
             lName: userLname,
             publishedBy: userId
           });
-          _context2.prev = 7;
+          _context2.prev = 2;
+          //////////////upload the file section/////////////////
+          form = new formidable.IncomingForm();
+          form.parse(req);
+          console.log(__dirname + '/public/style/img/');
+          form.on('fileBegin', function (name, file) {
+            file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name;
+          });
+          form.on('file', function (name, file) {
+            console.log("Uploaded file", file.name);
+          }); ////////////////////////////////////////////////////////////////
+
           _context2.next = 10;
-          return regeneratorRuntime.awrap(post.save());
+          return regeneratorRuntime.awrap(post.save(req));
 
         case 10:
           res.send({
@@ -83,7 +85,7 @@ router.post("/", checkUserToken, function _callee2(req, res) {
 
         case 13:
           _context2.prev = 13;
-          _context2.t0 = _context2["catch"](7);
+          _context2.t0 = _context2["catch"](2);
           console.log(_context2.t0.message);
           res.send({
             posted: false
@@ -94,8 +96,20 @@ router.post("/", checkUserToken, function _callee2(req, res) {
           return _context2.stop();
       }
     }
-  }, null, null, [[7, 13]]);
-});
+  }, null, null, [[2, 13]]);
+}); //i try to mack a function to upload the file but its not working
+
+var fileUpload = function fileUpload(req) {
+  var form = new formidable.IncomingForm();
+  form.parse(req);
+  console.log(__dirname + '/public/style/img/');
+  form.on('fileBegin', function (name, file) {
+    file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name;
+  });
+  form.on('file', function (name, file) {
+    console.log("Uploaded file", file.name);
+  });
+};
 
 var searchRegExp = function searchRegExp(searched) {
   return Post.find({

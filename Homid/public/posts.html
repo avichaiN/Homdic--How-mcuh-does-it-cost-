@@ -33,10 +33,10 @@
     <div class="newPostBox box">
       <img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
       <h1 class='box'>פוסט חדש</h1>
-      <form class='box' onsubmit="handleNewPost(event)">
+      <!-- <form class='box' onsubmit="handleNewPost(event)">
           <label class="box mustChoose">חייב לבחור קטגוריה</label>
           <select required name='category' class='box' id="category" name="category">
-           <!-- categoires get pushed here -->
+          
           </select>
           <label class='box' required for="title">כותרת</label>
           <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
@@ -47,11 +47,11 @@
           <span class='box' id="file-chosen"></span>
           <input class='box' type="submit" value="פרסם">
       </form>
-
-     <!--  <form action="/posts" method="POST" enctype="multipart/form-data">
+ -->
+      <form action="/posts" method="POST" enctype="multipart/form-data">
         <input class='box imgUpload'  id='img' type="file"  name="img" accept="image/*">
         <input type="submit" value="UPload" />
-      </form> -->
+      </form>
   </div>
     <!-- end post -->
   </div>
