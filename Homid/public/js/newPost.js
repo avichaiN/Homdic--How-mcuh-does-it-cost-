@@ -69,9 +69,9 @@ const handleNewPost = async (e) => {
 
     fetch("/posts", {
         method: "POST",
-        enctype:"multipart/form-data",
-            headers: {
-            "Content-Type": "application/json",
+               headers: {
+               /*  "Content-Type": "application/json", */
+               "Content-Type": "multipart/form-data",
                  },
         body: JSON.stringify({ userId, userFname, userLname, categoryId, title, desc, img }),
     })

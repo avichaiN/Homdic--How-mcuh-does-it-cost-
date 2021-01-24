@@ -21,7 +21,7 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
 
 
 router.post("/", checkUserToken, async (req, res) => {
-
+  
   let form = new formidable.IncomingForm();
   form.parse(req);
   console.log(__dirname + '/public/style/img/')

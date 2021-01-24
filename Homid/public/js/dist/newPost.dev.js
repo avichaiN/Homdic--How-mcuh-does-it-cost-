@@ -92,9 +92,9 @@ var handleNewPost = function handleNewPost(e) {
 
           fetch("/posts", {
             method: "POST",
-            enctype: "multipart/form-data",
             headers: {
-              "Content-Type": "application/json"
+              /*  "Content-Type": "application/json", */
+              "Content-Type": "multipart/form-data"
             },
             body: JSON.stringify({
               userId: userId,
