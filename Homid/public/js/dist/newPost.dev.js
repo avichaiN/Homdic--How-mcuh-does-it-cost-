@@ -27,6 +27,12 @@ var hideNewPostBox = function hideNewPostBox() {
 // }
 
 
+var handleImgSelect = function handleImgSelect() {
+  var imgUpload = document.querySelector('.imgUpload');
+  var fileChosen = document.querySelector('#file-chosen');
+  fileChosen.textContent = imgUpload.files[0].name;
+};
+
 var getCategoiresCheckBox = function getCategoiresCheckBox() {
   var categoryCheckBox = document.getElementById('category');
   var categoriesNames = "<option selected value='choseCategory' hidden>\u05D1\u05D7\u05E8 \u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05D4</option>";
@@ -93,8 +99,7 @@ var handleNewPost = function handleNewPost(e) {
           fetch("/posts", {
             method: "POST",
             headers: {
-              /*  "Content-Type": "application/json", */
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "application/json"
             },
             body: JSON.stringify({
               userId: userId,
@@ -121,7 +126,7 @@ var handleNewPost = function handleNewPost(e) {
                     return regeneratorRuntime.awrap(Swal.fire({
                       position: "center",
                       icon: "error",
-                      title: "אנא לבדוק שכל השדות תקינות",
+                      title: "אנא בדוק שכל השדות תקינים",
                       showConfirmButton: false,
                       timer: 1300
                     }));

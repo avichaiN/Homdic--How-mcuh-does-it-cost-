@@ -27,6 +27,12 @@ const hideNewPostBox = () => {
 //         hideNewPostBox()
 //     }
 // }
+const handleImgSelect = () =>{ 
+    const imgUpload = document.querySelector('.imgUpload'); 
+    const fileChosen = document.querySelector('#file-chosen'); 
+    fileChosen.textContent = imgUpload.files[0].name 
+} 
+
 const getCategoiresCheckBox = () => {
     let categoryCheckBox = document.getElementById('category')
     let categoriesNames = `<option selected value='choseCategory' hidden>בחר קטגוריוה</option>`
@@ -49,10 +55,10 @@ const getUserWhoPosted = async () => {
         });
     return user
 };
+
+
 const handleNewPost = async (e) => {
     e.preventDefault()
-
-
     const user = await getUserWhoPosted()
     let categoryId = e.target.children.category.value
     const title = e.target.children.title.value
@@ -70,12 +76,9 @@ const handleNewPost = async (e) => {
     fetch("/posts", {
         method: "POST",
                headers: {
-               /*  "Content-Type": "application/json", */
-               "Content-Type": "multipart/form-data",
-              
+                "Content-Type": "application/json",             
                  },
         body: JSON.stringify({ userId, userFname, userLname, categoryId, title, desc, img }),
-       
     })
         .then((res) => res.json())
         .then(async (data) => {
@@ -83,7 +86,7 @@ const handleNewPost = async (e) => {
                 await Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "אנא לבדוק שכל השדות תקינות",
+                    title: "אנא בדוק שכל השדות תקינים",
                     showConfirmButton: false,
                     timer: 1300,
                 });
@@ -97,7 +100,7 @@ const handleNewPost = async (e) => {
                 });
                 hideNewPostBox()
 
-                window.location.href = `/posts.html?${categoryId}`
+               window.location.href = `/posts.html?${categoryId}`
             }
         });
 }

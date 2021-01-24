@@ -21,11 +21,14 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
 
 
 router.post("/", checkUserToken, async (req, res) => {
-  
-  
+
+  var file = req.body.img;
+ 
+  var filename = `/.//styles/img/${path.parse(file).base}`;
+
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
 
-  const post = new Post({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName:userLname, publishedBy: userId });
+  const post = new Post({ title: title, desc: desc, img: filename, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
   try {
 
 
@@ -33,10 +36,10 @@ router.post("/", checkUserToken, async (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req);
     console.log(__dirname + '/public/style/img/')
-    form.on('fileBegin', function (name, file) {file.path = path.dirname(__dirname) +'/public/styles/img/'+ file.name;})
+    form.on('fileBegin', function (name, file) { file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name; })
     form.on('file', function (name, file) {
       console.log("Uploaded file", file.name);
-    }); 
+    });
     ////////////////////////////////////////////////////////////////
 
     await post.save(req);
@@ -49,14 +52,14 @@ router.post("/", checkUserToken, async (req, res) => {
 
 
 //i try to mack a function to upload the file but its not working
-const fileUpload =(req)=>{
+const fileUpload = (req) => {
   let form = new formidable.IncomingForm();
   form.parse(req);
   console.log(__dirname + '/public/style/img/')
-  form.on('fileBegin', function (name, file) {file.path = path.dirname(__dirname) +'/public/styles/img/'+ file.name;})
+  form.on('fileBegin', function (name, file) { file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name; })
   form.on('file', function (name, file) {
     console.log("Uploaded file", file.name);
-  }); 
+  });
 }
 
 

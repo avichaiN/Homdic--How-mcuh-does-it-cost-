@@ -44,23 +44,25 @@ router.get('/get/:id', checkUserToken, function _callee(req, res) {
   });
 });
 router.post("/", checkUserToken, function _callee2(req, res) {
-  var _req$body, userId, userFname, userLname, categoryId, title, desc, img, post, form;
+  var file, filename, _req$body, userId, userFname, userLname, categoryId, title, desc, img, post, form;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
+          file = req.body.img;
+          filename = "/.//styles/img/".concat(path.parse(file).base);
           _req$body = req.body, userId = _req$body.userId, userFname = _req$body.userFname, userLname = _req$body.userLname, categoryId = _req$body.categoryId, title = _req$body.title, desc = _req$body.desc, img = _req$body.img;
           post = new Post({
             title: title,
             desc: desc,
-            img: img,
+            img: filename,
             categoryId: categoryId,
             fName: userFname,
             lName: userLname,
             publishedBy: userId
           });
-          _context2.prev = 2;
+          _context2.prev = 4;
           //////////////upload the file section/////////////////
           form = new formidable.IncomingForm();
           form.parse(req);
@@ -72,31 +74,31 @@ router.post("/", checkUserToken, function _callee2(req, res) {
             console.log("Uploaded file", file.name);
           }); ////////////////////////////////////////////////////////////////
 
-          _context2.next = 10;
+          _context2.next = 12;
           return regeneratorRuntime.awrap(post.save(req));
 
-        case 10:
+        case 12:
           res.send({
             posted: true,
             post: post
           });
-          _context2.next = 17;
+          _context2.next = 19;
           break;
 
-        case 13:
-          _context2.prev = 13;
-          _context2.t0 = _context2["catch"](2);
+        case 15:
+          _context2.prev = 15;
+          _context2.t0 = _context2["catch"](4);
           console.log(_context2.t0.message);
           res.send({
             posted: false
           });
 
-        case 17:
+        case 19:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[2, 13]]);
+  }, null, null, [[4, 15]]);
 }); //i try to mack a function to upload the file but its not working
 
 var fileUpload = function fileUpload(req) {
