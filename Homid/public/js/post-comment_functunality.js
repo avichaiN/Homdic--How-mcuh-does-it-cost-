@@ -10,24 +10,27 @@
 //   document.querySelector('#addPostbutton').classList.replace('hide', 'show');
 //   document.querySelector('#removePostbutton').classList.replace('show', 'hide');
 // }
-function HideAddComment() {
-  document.querySelector('#AddCommentButton').classList.replace('hide', 'show');
-  document.querySelector('#cancelButton').classList.replace('show', 'hide');
-  document.querySelector('#addComment').classList.replace('show', 'hide');
+function HideAddComment(postID) {
+  console.log(postID);
+
+  document.querySelector(`#AddCommentButton-${postID}`).classList.replace('hide', 'show');
+  document.querySelector(`#cancelButton-${postID}`).classList.replace('show', 'hide');
+  document.querySelector(`#addComment-${postID}`).classList.replace('show', 'hide');
 }
 
-function ShowAddComment() {
+function ShowAddComment(postID) {
 
-  document.querySelector('#addComment').innerHTML = `<div>
+  document.querySelector(`#addComment-${postID}`).innerHTML = `<div>
     <p>הוסף תגובה</p>
-    <form action="">
+    <form onsubmit='handleNewComment(event)'>
       <textarea style='resize: none;' name="message"></textarea>
+      <input type='text' placeholder='מחיר'>
       <input type="button" value="שלח">
     </form>
   </div>`;
-  document.querySelector('#AddCommentButton').classList.replace('show', 'hide');
-  document.querySelector('#cancelButton').classList.replace('hide', 'show');
-  document.querySelector('#addComment').classList.replace('hide', 'show');
+  document.querySelector(`#AddCommentButton-${postID}`).classList.replace('show', 'hide');
+  document.querySelector(`#cancelButton-${postID}`).classList.replace('hide', 'show');
+  document.querySelector(`#addComment-${postID}`).classList.replace('hide', 'show');
 }
 function PostNotificationsButtonClicked() {
   document.querySelector('#NotificationsButton').classList.toggle('Toggled');
@@ -104,4 +107,8 @@ const getRenderPostComments = () => {
         console.log(comments)
       }
     })
+}
+const handleNewComment = (e) =>{
+  e.preventDefault()
+  console.log(e)
 }

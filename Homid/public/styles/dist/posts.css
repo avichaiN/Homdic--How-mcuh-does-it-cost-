@@ -210,29 +210,29 @@ body #app .post #postheder img {
     padding: 2% 3% 1% 3%;
   }
 }
-body #app .post #addComment div {
+body #app .post .addComment div {
   background-color: #e2e7ec;
   padding: 1%;
   row-gap: 100px;
   align-self: center;
   margin-bottom: 1%;
 }
-body #app .post #addComment div p {
+body #app .post .addComment div p {
   margin: 0;
 }
-body #app .post #addComment div form {
+body #app .post .addComment div form {
   display: grid;
   align-items: center;
   align-self: center;
   grid-template-columns: 5fr 1fr;
 }
-body #app .post #addComment div form textarea {
+body #app .post .addComment div form textarea {
   width: 99%;
   height: 80px;
   font-size: 20px;
   grid-row: 1;
 }
-body #app .post #addComment div form input {
+body #app .post .addComment div form input {
   width: 60px;
   height: 80px;
   grid-row: 1;

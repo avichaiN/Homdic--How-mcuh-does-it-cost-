@@ -23,7 +23,7 @@ function buildOnePost(
   lName
 ) {
   /*  */
-  const AddCommentButton = ` <div id="AddCommentButton" class="Notifications show" onclick="ShowAddComment()">
+  const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
     <span class="material-icons">
       add_circle_outline
     </span>`;
@@ -53,7 +53,7 @@ function buildOnePost(
 
     </div>
     <!--  add comment form -->
-    <div id="addComment" class="hide">
+    <div id="addComment-${postID}" class="hide addComment">
       <!--hide -->     
     </div>
     <!--  end add comment form -->
@@ -66,7 +66,7 @@ function buildOnePost(
         <span class="material-icons"> favorite </span>
         <p>מועדפים</p>
       </div>
-      <div id="cancelButton" class="Notifications hide" onclick="HideAddComment()">
+      <div id="cancelButton-${postID}" class="Notifications hide" onclick="HideAddComment('${postID}')">
         <span class="material-icons">
           add_circle_outline
         </span>
