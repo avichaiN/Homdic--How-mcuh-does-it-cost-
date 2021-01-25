@@ -79,12 +79,28 @@ const handleDeletePost = (e) => {
     }
   })
 }
-const handleClickPost = (postId) =>{
+const handleClickPost = (postId) => {
   console.log(postId)
   window.location.href = `/comments.html?${postId}`
 }
-const renderPostComments = () =>{
+
+// get post by id and comments by postid
+const getRenderPostComments = () => {
   const url = window.location.href
-  const params = url.split('?')[1];
-  console.log(params)
+  const postId = url.split('?')[1];
+
+  fetch(`/comments/${postId}`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html"
+      } else {
+        const post = data.post
+        const comments = data.comments
+        console.log('Post info:')
+        console.log(post)
+        console.log('Post Comments:')
+        console.log(comments)
+      }
+    })
 }

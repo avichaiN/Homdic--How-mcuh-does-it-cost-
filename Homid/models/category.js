@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const moment = require('moment');
 
 const CategorySchema = new Schema({
     Name: {
@@ -11,9 +12,11 @@ const CategorySchema = new Schema({
     Img:{
         type:String,
         required: true
+    },
+    createdAt: { 
+        type: String,
+        default: moment().format()
     }
-}, {
-    timestamps: true
 })
 
 module.exports = mongoose.model('Categories', CategorySchema);

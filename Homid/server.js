@@ -20,6 +20,7 @@ const categoryRouter = require("./routers/categoryRoute");
 const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
 const postRouter = require("./routers/postRoute");
+const commentsRouter = require("./routers/commentsRoute");
 const updateUserPasswordRouter = require("./routers/updateUserPasswordRoute");
 
 //Global Functions
@@ -49,6 +50,8 @@ app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
 
 app.use("/posts", postRouter);
+
+app.use("/comments", commentsRouter);
 
 app.use("/resetpassword", updateUserPasswordRouter);
 
