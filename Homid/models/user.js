@@ -30,6 +30,7 @@ const UserSchema = new Schema(
       type: String,
       default: "public",
     },
+    favPosts: []
   },
   {
     timestamps: true,

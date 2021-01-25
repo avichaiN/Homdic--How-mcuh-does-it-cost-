@@ -9,10 +9,10 @@ function HideAddComment(postID) {
 function ShowAddComment(postID) {
   document.querySelector(`#addComment-${postID}`).innerHTML = `<div>
     <p>הוסף תגובה</p>
-    <form onsubmit='handleNewComment(event)'>
+    <form onsubmit='handleNewComment(event, "${postID}")'>
       <textarea style='resize: none;' name="message"></textarea>
-      <input type='text' placeholder='מחיר'>
-      <input type="button" value="שלח">
+      <input type='text' name="price" placeholder='מחיר'>
+      <input type="submit" value="שלח">
     </form>
   </div>`;
   document.querySelector(`#AddCommentButton-${postID}`).classList.replace('show', 'hide');
@@ -87,19 +87,19 @@ const getRenderPostComments = () => {
         const post = data.post
         const comments = data.comments
 
-       /*  buildOnePost(
-          "comment",
-          title,
-          massage,
-          PostImgSrc,
-          NmTimesViewed,
-          numberOfComments,
-          postID,
-          fName,
-          lName
-        ) */
+        /*  buildOnePost(
+           "comment",
+           title,
+           massage,
+           PostImgSrc,
+           NmTimesViewed,
+           numberOfComments,
+           postID,
+           fName,
+           lName
+         ) */
 
-      /*   buildOneComment(comment, postedBy, atTdate) */
+        /*   buildOneComment(comment, postedBy, atTdate) */
         /* buildOneComment */
         console.log('Post info:')
         console.log(post)
@@ -108,7 +108,27 @@ const getRenderPostComments = () => {
       }
     })
 }
-const handleNewComment = (e) =>{
+const handleNewComment = async (e, postID) => {
   e.preventDefault()
-  console.log(e)
+  let user = await getUserWhoPosted()
+
+  const userId = user.id
+  const fName = user.fName
+  const lName = user.lName
+  console.log(user)
+  const commentMessage = e.target.children.message.value
+  const commentPrice = e.target.children.price.value
+
+
+  fetch("/comments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ postID, userId, fName, lName, commentMessage, commentPrice }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+    });
 }

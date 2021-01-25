@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Comments = require("../models/comment");
+const Comment = require("../models/comment");
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const path = require('path')
@@ -18,18 +18,19 @@ const findPostById = async (postId) => {
   return Post.findById({ _id: postId }).exec()
 }
 const findCommentsByPostId = async (postId) => {
-  return await Comments.aggregate([{ $match: { postId: postId } }])
+  return await Comment.aggregate([{ $match: { postId: postId } }])
 }
 
 
 router.post("/", checkUserToken, async (req, res) => {
 
-  const { userId, userFname, userLname, postId, desc, price, publishedBy } = req.body
+  const { postID, userId, fName, lName, commentMessage, commentPrice } = req.body
+  console.log(postID, userId, fName, lName, commentMessage, commentPrice)
 
-  const post = new Post({ desc: desc, price: price, postId: postId, fName: userFname, lName: userLname, publishedBy: userId });
+  const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, fName: fName, lName: lName, publishedBy: userId });
   try {
-    await Comments.save();
-    res.send({ posted: true, post });
+    await comment.save();
+    res.send({ posted: true, comment });
   } catch (e) {
     console.log(e.message)
     res.send({ posted: false })
