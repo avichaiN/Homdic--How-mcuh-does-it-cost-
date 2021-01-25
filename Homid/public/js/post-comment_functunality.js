@@ -17,10 +17,11 @@ function HideAddComment() {
 }
 
 function ShowAddComment() {
+
   document.querySelector('#addComment').innerHTML = `<div>
     <p>הוסף תגובה</p>
     <form action="">
-      <textarea name="message"></textarea>
+      <textarea style='resize: none;' name="message"></textarea>
       <input type="button" value="שלח">
     </form>
   </div>`;

@@ -33,8 +33,10 @@
 
     .header__helloUser {
         align-self: center;
+        text-align: right;
         width: 33%;
         margin-right: 5%;
+        // margin-right: 5%;
         color: white;
 
         @include mq(260px) {
