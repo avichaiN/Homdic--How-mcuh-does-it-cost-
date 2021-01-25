@@ -78,5 +78,13 @@ const handleDeletePost = (e) => {
         });
     }
   })
-
+}
+const handleClickPost = (postId) =>{
+  console.log(postId)
+  window.location.href = `/comments.html?${postId}`
+}
+const renderPostComments = () =>{
+  const url = window.location.href
+  const params = url.split('?')[1];
+  console.log(params)
 }

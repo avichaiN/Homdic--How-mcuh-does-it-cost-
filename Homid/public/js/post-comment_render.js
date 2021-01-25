@@ -45,8 +45,7 @@ function buildOnePost(
   /*  */
 
   const html = `<div class="post">
-    <div data-id='${postID}' data-title='${title}' id="postheder">
-    <!--  <button class='adminDeletePost' style="display:none;" onclick="handleDeletePost(event)">מחק(אדמין)</button> -->
+    <div onclick='handleClickPost("${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>

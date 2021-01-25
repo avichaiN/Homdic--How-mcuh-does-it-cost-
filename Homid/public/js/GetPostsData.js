@@ -58,7 +58,11 @@ const getPostsByCategory = (categoryId) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
+
         let foundPosts = data.foundPostsByCategoryId
+        // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
+        // console.log(sorted)
+        // console.log(foundPosts)
         renderPosts(foundPosts)
       }
     });

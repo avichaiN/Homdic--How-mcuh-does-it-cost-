@@ -6,14 +6,20 @@ const User = require("../models/user");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
 const path = require('path')
+var moment = require('moment');
+
 
 
 router.get('/get/:id', checkUserToken, async (req, res) => {
   chosenCategoryId = req.params.id
 
-  let foundPostsByCategoryId = await Post.aggregate([
+  let posts = await Post.aggregate([
     { $match: { categoryId: chosenCategoryId } }
   ])
+
+  const foundPostsByCategoryId = posts.sort((a, b) => {
+    return moment(b.createdAt).diff(a.createdAt);
+  });
 
   res.send({ foundPostsByCategoryId })
 })
@@ -23,7 +29,7 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
 router.post("/", checkUserToken, async (req, res) => {
 
   var file = req.body.img;
- 
+
   var filename = `/.//styles/img/${path.parse(file).base}`;
 
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
@@ -71,7 +77,11 @@ router.get('/search/get/:id', checkUserToken, async (req, res) => {
   const searchedKeywords = req.params.id
   const searchedSplitted = searchedKeywords.replace(/[-]+/, ' ')
 
-  let foundPosts = await searchRegExp(searchedSplitted)
+  let posts = await searchRegExp(searchedSplitted)
+
+  const foundPosts = posts.sort((a, b) => {
+    return moment(b.createdAt).diff(a.createdAt);
+  });
 
   res.send({ foundPosts, searchedSplitted })
 })
@@ -105,7 +115,11 @@ const findPostsByUser = (userId) => {
 router.post("/user/get", checkUserToken, async (req, res) => {
   try {
     const { userId } = req.body
-    let foundPosts = await findPostsByUser(userId)
+    let posts = await findPostsByUser(userId)
+
+    const foundPosts = posts.sort((a, b) => {
+      return moment(b.createdAt).diff(a.createdAt);
+    });
     res.send({ foundPosts, ok: true })
   } catch (e) {
     console.log(e.message)
