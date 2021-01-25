@@ -20,7 +20,7 @@ var getPostsBySearch = function getPostsBySearch(searchedPosts) {
   fetch("/posts/search/get/".concat(searchedPosts)).then(function (res) {
     return res.json();
   }).then(function _callee(data) {
-    var keywords, foundPosts, userInfo, userId;
+    var keywords, foundPosts;
     return regeneratorRuntime.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -28,49 +28,19 @@ var getPostsBySearch = function getPostsBySearch(searchedPosts) {
             keywords = data.searchedSplitted;
             foundPosts = data.foundPosts;
 
-            if (!(data.status === "unauthorized")) {
-              _context.next = 6;
-              break;
-            }
-
-            window.location.href = "index.html";
-            _context.next = 16;
-            break;
-
-          case 6:
-            if (!(foundPosts.length == 0)) {
-              _context.next = 10;
-              break;
-            }
-
-            renderNoPostsFound(keywords);
-            _context.next = 16;
-            break;
-
-          case 10:
-            renderSearchedPostsTitle(keywords);
-            _context.next = 13;
-            return regeneratorRuntime.awrap(getUserInfo());
-
-          case 13:
-            userInfo = _context.sent;
-            userId = userInfo.id;
-            foundPosts.forEach(function (post) {
-              var isUsersPost = false;
-
-              if (post.publishedBy === userId) {
-                isUsersPost = true;
+            if (data.status === "unauthorized") {
+              window.location.href = "index.html";
+            } else {
+              if (foundPosts.length == 0) {
+                renderNoPostsFound(keywords);
+              } else {
+                renderSearchedPostsTitle(keywords);
               }
 
-              var html = buildOnePost("post", post.title, post.desc, post.img, "0", post._id, post.fName, post.lName);
-              document.getElementById('app').innerHTML += html;
+              renderPosts(foundPosts);
+            }
 
-              if (isUsersPost) {
-                document.getElementById("".concat(post._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
-              }
-            });
-
-          case 16:
+          case 3:
           case "end":
             return _context.stop();
         }
@@ -98,45 +68,22 @@ var getPostsByCategory = function getPostsByCategory(categoryId) {
   fetch("/posts/get/".concat(categoryId)).then(function (res) {
     return res.json();
   }).then(function _callee2(data) {
-    var userInfo, userId;
+    var foundPosts;
     return regeneratorRuntime.async(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            if (!(data.status === "unauthorized")) {
-              _context2.next = 4;
-              break;
+            if (data.status === "unauthorized") {
+              window.location.href = "index.html";
+            } else {
+              foundPosts = data.foundPostsByCategoryId; // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
+              // console.log(sorted)
+              // console.log(foundPosts)
+
+              renderPosts(foundPosts);
             }
 
-            window.location.href = "index.html";
-            _context2.next = 9;
-            break;
-
-          case 4:
-            _context2.next = 6;
-            return regeneratorRuntime.awrap(getUserInfo());
-
-          case 6:
-            userInfo = _context2.sent;
-            userId = userInfo.id;
-            data.foundPostsByCategoryId.forEach(function (post) {
-              var isUsersPost = false;
-
-              if (post.publishedBy === userId) {
-                isUsersPost = true;
-              }
-
-              var html = buildOnePost("post"
-              /*post or comment*/
-              , post.title, post.desc, post.img, "0", post._id, post.fName, post.lName);
-              document.getElementById('app').innerHTML += html;
-
-              if (isUsersPost) {
-                document.getElementById("".concat(post._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
-              }
-            });
-
-          case 9:
+          case 1:
           case "end":
             return _context2.stop();
         }
@@ -156,7 +103,7 @@ var getPostsByUser = function getPostsByUser() {
 
         case 2:
           userInfo = _context4.sent;
-          userFirstName = userInfo.name;
+          userFirstName = userInfo.fName;
           userId = userInfo.id;
           fetch("/posts/user/get", {
             method: "POST",
@@ -169,47 +116,20 @@ var getPostsByUser = function getPostsByUser() {
           }).then(function (res) {
             return res.json();
           }).then(function _callee3(data) {
-            var _userInfo, _userId;
-
+            var foundPosts;
             return regeneratorRuntime.async(function _callee3$(_context3) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    if (data.ok) {
-                      _context3.next = 4;
-                      break;
+                    if (!data.ok) {
+                      console.log('err finding posts');
+                    } else {
+                      renderTitleFoundPostsUser(userFirstName);
+                      foundPosts = data.foundPosts;
+                      renderPosts(foundPosts);
                     }
 
-                    console.log('err finding posts');
-                    _context3.next = 10;
-                    break;
-
-                  case 4:
-                    _context3.next = 6;
-                    return regeneratorRuntime.awrap(getUserInfo());
-
-                  case 6:
-                    _userInfo = _context3.sent;
-                    _userId = _userInfo.id;
-                    renderTitleFoundPostsUser(userFirstName);
-                    data.foundPosts.forEach(function (post) {
-                      var isUsersPost = false;
-
-                      if (post.publishedBy === _userId) {
-                        isUsersPost = true;
-                      }
-
-                      var html = buildOnePost("post"
-                      /*post or comment*/
-                      , post.title, post.desc, post.img, "0", post._id, post.fName, post.lName);
-                      document.getElementById('app').innerHTML += html;
-
-                      if (isUsersPost) {
-                        document.getElementById("".concat(post._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
-                      }
-                    });
-
-                  case 10:
+                  case 1:
                   case "end":
                     return _context3.stop();
                 }
@@ -244,12 +164,51 @@ var getPostsUserIdForAdmin = function getPostsUserIdForAdmin(params) {
     } else {
       var username = data.userInfo.username;
       renderTitlePostForAdmin(username);
-      data.foundPosts.forEach(function (post) {
-        var html = buildOnePost("post"
-        /*post or comment*/
-        , post.title, post.desc, post.img, "0", post._id, post.fName, post.lName);
-        document.getElementById('app').innerHTML += html;
-      });
+      var foundPosts = data.foundPosts;
+      renderPosts(foundPosts);
+    }
+  });
+};
+
+var renderPosts = function renderPosts(postsArray) {
+  var userInfo, userId, isAdmin;
+  return regeneratorRuntime.async(function renderPosts$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return regeneratorRuntime.awrap(getUserInfo());
+
+        case 2:
+          userInfo = _context5.sent;
+          userId = userInfo.id;
+          isAdmin = false;
+          _context5.next = 7;
+          return regeneratorRuntime.awrap(handleCheckAdmin());
+
+        case 7:
+          isAdmin = _context5.sent;
+          postsArray.forEach(function (post) {
+            var isUsersPost = false;
+
+            if (post.publishedBy === userId) {
+              isUsersPost = true;
+            }
+
+            var html = buildOnePost("post"
+            /*post or comment*/
+            , post.title, post.desc, post.img, "0", "20", post._id, post.fName, post.lName);
+            document.getElementById('app').innerHTML += html;
+
+            if (isUsersPost || isAdmin) {
+              document.getElementById("".concat(post._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
+            }
+          });
+
+        case 9:
+        case "end":
+          return _context5.stop();
+      }
     }
   });
 };

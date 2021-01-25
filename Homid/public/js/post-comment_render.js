@@ -18,6 +18,7 @@ function buildOnePost(
   massage,
   PostImgSrc,
   NmTimesViewed,
+  numberOfComments,
   postID,
   fName,
   lName
@@ -60,7 +61,7 @@ function buildOnePost(
     <div class="futter">
       <div id="NotificationsButton" class="Notifications" onclick="PostNotificationsButtonClicked()">
         <span class="material-icons"> notifications </span>
-        <p>תזכורת</p>
+        <p>${numberOfComments} :מס תגובות</p>
       </div>
       <div id="FavoriteButton" class="Notifications" onclick="PostFavoriteButtonClicked()">
         <span class="material-icons"> favorite </span>

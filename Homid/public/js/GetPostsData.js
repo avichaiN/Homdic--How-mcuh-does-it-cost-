@@ -132,6 +132,7 @@ const renderPosts = async (postsArray) => {
       post.desc,
       post.img,
       "0",
+      "20",
       post._id,
       post.fName,
       post.lName

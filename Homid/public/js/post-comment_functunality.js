@@ -1,15 +1,3 @@
-// function showAddpost() {
-//   document.querySelector('.newPostBox').classList.replace('hide', 'show');
-//   document.querySelector('#addPostbutton').classList.replace('show', 'hide');
-//   document.querySelector('#removePostbutton').classList.replace('hide', 'show');
-
-// }
-// function hideAddpost() {
-//   console.log('hide');
-//   document.querySelector('.newPostBox').classList.replace('show', 'hide');
-//   document.querySelector('#addPostbutton').classList.replace('hide', 'show');
-//   document.querySelector('#removePostbutton').classList.replace('show', 'hide');
-// }
 function HideAddComment(postID) {
   console.log(postID);
 
@@ -19,7 +7,6 @@ function HideAddComment(postID) {
 }
 
 function ShowAddComment(postID) {
-
   document.querySelector(`#addComment-${postID}`).innerHTML = `<div>
     <p>הוסף תגובה</p>
     <form onsubmit='handleNewComment(event)'>
@@ -32,9 +19,7 @@ function ShowAddComment(postID) {
   document.querySelector(`#cancelButton-${postID}`).classList.replace('hide', 'show');
   document.querySelector(`#addComment-${postID}`).classList.replace('hide', 'show');
 }
-function PostNotificationsButtonClicked() {
-  document.querySelector('#NotificationsButton').classList.toggle('Toggled');
-}
+
 function PostFavoriteButtonClicked() {
   document.querySelector('#FavoriteButton').classList.toggle('Toggled');
 }
@@ -101,6 +86,21 @@ const getRenderPostComments = () => {
       } else {
         const post = data.post
         const comments = data.comments
+
+       /*  buildOnePost(
+          "comment",
+          title,
+          massage,
+          PostImgSrc,
+          NmTimesViewed,
+          numberOfComments,
+          postID,
+          fName,
+          lName
+        ) */
+
+      /*   buildOneComment(comment, postedBy, atTdate) */
+        /* buildOneComment */
         console.log('Post info:')
         console.log(post)
         console.log('Post Comments:')

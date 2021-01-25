@@ -15,18 +15,10 @@
 
 <body onload="renderNavToDom(), getPosts() ,getUserInfo(),displayGoToAdminPage()" onclick="hideUserDropDown()">
   <!-- header  -->
-  <div class="header">
-
-  </div>
-
+  <div class="header"></div>
   <heder id="categoryHeder">
     <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
-    <!-- <input id="addPostbutton" class="show" type="button" value="+" onclick="showAddpost()" />
-    <input id="removePostbutton" class="hide" type="button" value="-" onclick="hideAddpost()" /> -->
-    <div id="PostsHeder">
-
-    </div>
-
+     <div id="PostsHeder"></div>
   </heder>
   <div id="app">
     <!-- add post -->
@@ -35,9 +27,7 @@
       <h1 class='box'>פוסט חדש</h1>
       <form class='box' onsubmit="handleNewPost(event)">
           <label class="box mustChoose">חייב לבחור קטגוריה</label>
-          <select required name='category' class='box' id="category" name="category">
-          
-          </select>
+          <select required name='category' class='box' id="category" name="category"></select>
           <label class='box' required for="title">כותרת</label>
           <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
           <label class='box' for="desc">שאלה</label>
@@ -46,12 +36,7 @@
           <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
           <span class='box' id="file-chosen"></span>
           <input class='box' type="submit" value="פרסם">
-      </form>
-
-      <!-- <form action="/posts" method="POST" enctype="multipart/form-data">
-        <input class='box imgUpload'  id='img' type="file"  name="img" accept="image/*">
-        <input type="submit" value="UPload" />
-      </form> -->
+      </form> 
   </div>
     <!-- end post -->
   </div>
