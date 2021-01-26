@@ -128,12 +128,12 @@ const getRenderPostComments = () => {
           const date = comment.createdAt
           const x = date.split('T')[1];
           const when = x.split('+')[0];
+          
           const liked = await checkIfUserLikedComment(comment._id, userId)
           const likesAmount = await checkHowMuchLikes(comment._id)
           const app = document.querySelector('.commenstsSection');
-          const fullComment = buildOneComment(comment.desc, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersPost);
+          const fullComment = buildOneComment(comment.desc,comment.price, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersComment);
           app.innerHTML += fullComment;
-
         })
       }
     })
@@ -151,6 +151,7 @@ const checkIfUserLikedComment = async (commentId, userId) => {
     .then((data) => {
       checkLike = data.checkLike
     });
+
   return checkLike
 }
 const checkHowMuchLikes = async (commentId) => {
@@ -188,7 +189,7 @@ const handleNewComment = async (e, postID) => {
     body: JSON.stringify({ postID, userId, fName, lName, commentMessage, commentPrice }),
   })
     .then((res) => res.json())
-    .then(async(data) => {
+    .then(async (data) => {
       const url = window.location.href
       if (url.includes("posts")) {
         await Swal.fire({
@@ -225,7 +226,7 @@ const handleLikeComment = async (commentId) => {
     .then((res) => res.json())
     .then(async (data) => {
       const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector('#likeComment').innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
       </span><span class='likesAmount' >${likesAmount}</span>`
     });
 }
@@ -243,7 +244,7 @@ const handleUnLikeComment = async (commentId) => {
     .then((res) => res.json())
     .then(async (data) => {
       const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector('#likeComment').innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
       </span><span class='likesAmount'>${likesAmount}</span>`
     });
 }

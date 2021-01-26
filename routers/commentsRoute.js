@@ -3,6 +3,7 @@ const router = express.Router();
 const Comment = require("../models/comment");
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
+const moment = require('moment');
 
 
 // this finds post by id, finds comments by post id, and send back to client.
@@ -11,8 +12,11 @@ router.get('/:id', checkUserToken, async (req, res) => {
 
     const postId = req.params.id
     const post = await findPostById(postId)
-    const comments = await findCommentsByPostId(postId)
-
+    const commentsR = await findCommentsByPostId(postId)
+    const comments = commentsR.sort((a, b) => {
+      return moment(a.createdAt).diff(b.createdAt);
+    });
+  
     res.send({ post, comments })
   } catch (e) {
     console.log(e.message)
@@ -71,6 +75,7 @@ const checkIfUserLikedComment = async (commentId, userId) => {
   const comment = await Comment.find({ _id: commentId })
   const commentsLikes = comment[0].likes
   checkIfUserLiked = commentsLikes.includes(userId)
+
   if (checkIfUserLiked) {
     return true
   } else {

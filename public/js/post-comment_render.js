@@ -86,7 +86,7 @@ function buildOnePost(
 
 
 
-function buildOneComment(comment, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
+function buildOneComment(comment,price, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
   let deleteComment = ''
   if(isUsersComment){
     deleteComment = `<button class='deletePostButton' onclick="handleDeleteComment('${commentId}')">מחק תגובה</button>`
@@ -105,13 +105,14 @@ function buildOneComment(comment, fName, lName, atTdate, commentId, liked, likes
      <p>
       ${comment}
      </p>
+     מחיר: ${price}
    </div>
    <div id="authRouter">
 
      <p>${atTdate} ${fName} ${lName}</p>
    </div>
    <div data-id='${commentId}' class="deleteComment">${deleteComment}</div>
-   <div id="likeComment">
+   <div id="likeComment" class="likeComment-${commentId}">
    ${likedButton}
    <span class='likesAmount'>${likesNum}</span>
    </div>
