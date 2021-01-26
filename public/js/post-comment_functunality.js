@@ -331,6 +331,9 @@ const handleDeleteFavoritePost = async (postID) => {
   })
     .then((res) => res.json())
     .then(async () => {
+      const url = window.location.href
+      const params = url.split('?')[1];
+
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
       await Swal.fire({
         position: "center",
@@ -339,6 +342,9 @@ const handleDeleteFavoritePost = async (postID) => {
         showConfirmButton: false,
         timer: 1000,
       });
+      if (params.includes('myfavorites')) {
+        location.reload();
+      }
     });
 }
 const checkIfPostFavorite = async (postID, userId) => {
