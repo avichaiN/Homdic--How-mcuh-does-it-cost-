@@ -100,7 +100,7 @@ const getRenderPostComments = () => {
         }
 
         const html = buildOnePost(
-          "post" /*post or comment*/,
+          "post",
           post.title,
           post.desc,
           post.img,
@@ -213,14 +213,14 @@ const handleNewComment = async (e, postID) => {
           });
           location.reload();
         }
-      }else{
+      } else {
         await Swal.fire({
           position: "center",
           icon: "error",
           title: "אנא בדוק שכל השדות תקינים",
           showConfirmButton: false,
-          timer: 1300, 
-      });
+          timer: 1300,
+        });
       }
     });
 }
@@ -271,7 +271,7 @@ const handleLikeComment = async (commentId) => {
     body: JSON.stringify({ commentId, userId }),
   })
     .then((res) => res.json())
-    .then(async (data) => {
+    .then(async () => {
       const likesAmount = await checkHowMuchLikes(commentId)
       document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
       </span><span class='likesAmount' >${likesAmount}</span>`
@@ -289,7 +289,7 @@ const handleUnLikeComment = async (commentId) => {
     body: JSON.stringify({ commentId, userId }),
   })
     .then((res) => res.json())
-    .then(async (data) => {
+    .then(async () => {
       const likesAmount = await checkHowMuchLikes(commentId)
       document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
       </span><span class='likesAmount'>${likesAmount}</span>`
@@ -307,7 +307,7 @@ const handleFavoritePost = async (postID) => {
     body: JSON.stringify({ postID, userId }),
   })
     .then((res) => res.json())
-    .then(async (data) => {
+    .then(async () => {
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
       await Swal.fire({
         position: "center",
@@ -330,7 +330,7 @@ const handleDeleteFavoritePost = async (postID) => {
     body: JSON.stringify({ postID, userId }),
   })
     .then((res) => res.json())
-    .then(async (data) => {
+    .then(async () => {
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
       await Swal.fire({
         position: "center",
