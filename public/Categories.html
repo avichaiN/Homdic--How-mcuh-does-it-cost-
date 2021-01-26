@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homdic? Categoires</title>
+<<<<<<< HEAD:Homid/public/Categories.html
+    <link rel="stylesheet" href="/styles/dist/category.css" />
+    <link rel="stylesheet" href="/styles/dist/headerNav.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+=======
+    <link rel="stylesheet" href="/styles/dist/category.css">
+    <link rel="stylesheet" href="/styles/dist/headerNav.css">
+    <link rel="stylesheet" href="/styles/dist/addPost.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+>>>>>>> master:public/Categories.html
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  </head>
+
+  <body onload="renderNavToDom(),startLoad()">
+    <div
+      class="cateogryPage"
+      onclick="hideUserDropDown(),hideEditOrDeleteCategory()"
+    >
+      <!-- header  -->
+      <div class="header"></div>
+      <!-- categorys -->
+      <div class="titles">
+        <h1>כמה יעלה לי?</h1>
+        <h2>קטגוריות.</h2>
+      </div>
+      <div class="cateogryPage__categorys">
+        <!-- categories render here -->
+      </div>
+
+<<<<<<< HEAD:Homid/public/Categories.html
+      <button onclick="displayPostBox(event)" class="newPostButton">
+        פוסט חדש
+      </button>
+      <div class="newPostBox box">
+        <img
+          class="closeNewPost"
+          src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png"
+        />
+        <h1 class="box">פוסט חדש</h1>
+        <form class="box" onsubmit="handleNewPost(event)">
+          <label class="box mustChoose">חייב לבחור קטגוריה</label>
+          <select
+            required
+            name="category"
+            class="box"
+            id="category"
+            name="category"
+          >
+            <!-- categoires get pushed here -->
+          </select>
+          <label class="box" required for="title">כותרת</label>
+          <input
+            class="box"
+            name="title"
+            required
+            placeholder="כותרת"
+            type="text"
+            maxlength="45"
+            id="title"
+          />
+          <label class="box" for="desc">שאלה</label>
+          <textarea
+            class="box"
+            name="desc"
+            required
+            placeholder="תיאור השאלה"
+            maxlength="250"
+            id="desc"
+            type="text"
+          ></textarea>
+          <label class="img box" name="img" for="img">העלה תמונה</label>
+          <input
+            class="box"
+            type="file"
+            style="visibility: hidden; display: none"
+            id="img"
+            name="img"
+            accept="image/*"
+          />
+          <input class="box" type="submit" value="פרסם" />
+        </form>
+      </div>
+      <!-- Admin add category DIV - defualt: display:none -->
+      <div class="category__admin">
+        <label style="font-size: 10px">רק למראה אדמין</label>
+        <button
+          class="deleteCategoryAdmin"
+          onclick="showEditOrDeleteCategory(event)"
+          style="display: inline"
+        >
+          מחק או ערוך קטגוריה
+        </button>
+        <button
+          class="category__adminAddCategory"
+          onclick="handleDisplayAddCategory()"
+        >
+          הוסף קטגוריה
+        </button>
+        <form
+          class="category__adminAddCategoryForm"
+          onsubmit="handleNewCategory(event)"
+        >
+          <input type="text" id="categoryInput" placeholder="קטגוריה להוספה" />
+          <input
+            type="text"
+            id="categoryImgInput"
+            placeholder="תמונה של קטגוריה"
+          />
+          <input value="הוסף" type="submit" />
+          <button onclick="hideAddCategoryAndEditForm()">בטל</button>
+        </form>
+      </div>
+=======
+        <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
+        <div class="newPostBox box">
+            <img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
+            <h1 class='box'>פוסט חדש</h1>
+            <form class='box' onsubmit="handleNewPost(event)">
+                <label class="box mustChoose">חייב לבחור קטגוריה</label>
+                <select required name='category' class='box' id="category" name="category">
+                 <!-- categoires get pushed here -->
+                </select>
+                <label class='box' required for="title">כותרת</label>
+                <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
+                <label class='box' for="desc">שאלה</label>
+                <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
+                <label class='img box' name='img' for="img">העלה תמונה</label>
+                <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
+                <span class='box' id="file-chosen"></span>
+                <input class='box' type="submit" value="פרסם">
+            </form>
+        </div>
+        <!-- Admin add category DIV - defualt: display:none -->
+        <div class="category__admin">
+            <label style="font-size: 10px;">רק למראה אדמין</label>
+            <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק
+                או ערוך קטגוריה</button>
+            <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
+            <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
+                <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
+                <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
+                <input value="הוסף" type="submit">
+                <button type="button" onclick="hideAddCategoryAndEditForm()">בטל</button>
+            </form>
+        </div>
+>>>>>>> master:public/Categories.html
+
+      <div class="category__edit"></div>
+    </div>
+
+    <script src="js/chooseCategory.js"></script>
+    <script src="js/headerNav.js"></script>
+    <script src="js/createEditcategory.js"></script>
+    <script src="js/newPost.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

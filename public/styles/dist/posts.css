@@ -1,0 +1,350 @@
+* {
+  box-sizing: border-box;
+}
+
+.material-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+body {
+  direction: rtl;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ededef;
+  width: 99vw;
+  height: 99vh;
+}
+body #categoryHeder {
+  overflow: hidden;
+  height: 15%;
+  width: 100%;
+  z-index: 1;
+  position: fixed;
+  background-color: white;
+  /*  margin: 3% 0% 1% 0%; */
+  top: 6.5%;
+  text-align: center;
+}
+body #categoryHeder h1 {
+  margin-right: 3%;
+  font-size: xxx-large;
+  text-shadow: 1px 3px 5px silver;
+  display: inline-block;
+  text-align: center;
+}
+body #categoryHeder img {
+  float: left;
+  max-width: 20%;
+  max-height: max-content;
+}
+body #categoryHeder input {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  right: 3%;
+  top: 85%;
+  background-color: #2097f5;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  border-radius: 50px;
+  /*  display: grid;
+  place-items: center; */
+  text-align: center;
+}
+body #app {
+  margin: auto;
+  height: 100%;
+  background-color: #ededef;
+  position: relative;
+  top: 25%;
+}
+@media only screen and (min-width: 260px) {
+  body #app {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app {
+    width: 70%;
+  }
+}
+body #app .AddPost {
+  border-radius: 0 0 10px 10px;
+  box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
+  background-color: #bd2222;
+  margin: 1%;
+}
+body #app .AddPost #postAddHeder {
+  background-color: #cfd8dd;
+  cursor: pointer;
+  padding: 1% 4% 1% 4%;
+  height: 100%;
+}
+body #app .AddPost #postAddHeder .addPosTtitle {
+  margin-bottom: 0%;
+}
+body #app .AddPost #AddPostBody {
+  background-color: #cfd8dd;
+  height: 100%;
+}
+body #app .AddPost #AddPostBody form {
+  padding: 1% 4% 1% 4%;
+}
+body #app .AddPost #AddPostBody form textarea {
+  margin-right: 2%;
+  width: 100%;
+  height: 100px;
+}
+body #app .AddPost #AddPostBody form input {
+  margin-right: 2%;
+}
+body #app .AddPost #AddPostfutter {
+  display: flex;
+  margin: 0 auto 1% auto;
+  margin-top: 0.5%;
+  background-color: #bd2222;
+  max-width: 50%;
+  justify-content: space-evenly;
+}
+body #app .AddPost #AddPostfutter div {
+  cursor: pointer;
+}
+body #app .AddPost #AddPostfutter div:active {
+  color: #2097f5;
+}
+body #app .AddPost #AddPostfutter div p {
+  margin-top: 2%;
+  margin-bottom: 20%;
+}
+body #app .post {
+  border-radius: 0 0 10px 10px;
+  box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
+  background-color: white;
+}
+body #app .post #postheder {
+  background-color: #cfd8dd;
+  cursor: pointer;
+  display: grid;
+  column-gap: 2%;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(3, auto);
+}
+body #app .post #postheder .userInfo {
+  font-size: 12px;
+  margin: 2%;
+  padding: 0;
+  grid-row: 3;
+  grid-column: 2;
+  align-self: end;
+  justify-self: end;
+}
+body #app .post #postheder .posttitle {
+  margin-bottom: 0;
+  grid-row: 1;
+  grid-column: 1;
+}
+body #app .post #postheder .postbudy {
+  word-wrap: break-word;
+  margin-right: 1%;
+  grid-row: 2/4;
+  grid-column: 1;
+}
+body #app .post #postheder img {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  max-width: 90%;
+  grid-row: 1/3;
+  grid-column: 2;
+}
+@media only screen and (min-width: 260px) {
+  body #app .post #postheder img {
+    grid-column: 1/2;
+    grid-row: 3;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .post #postheder img {
+    grid-column: 2;
+    grid-row: 1/3;
+  }
+}
+@media only screen and (min-width: 260px) {
+  body #app .post #postheder {
+    padding: 0 5% 0.5% 5%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .post #postheder {
+    padding: 3% 3% 1% 3%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .post #postheder {
+    padding: 2% 3% 1% 3%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .post #postheder {
+    padding: 2% 3% 1% 3%;
+  }
+}
+body #app .post .addComment div {
+  background-color: #e2e7ec;
+  padding: 1%;
+  row-gap: 100px;
+  align-self: center;
+  margin-bottom: 1%;
+}
+body #app .post .addComment div p {
+  margin: 0;
+}
+body #app .post .addComment div form {
+  display: grid;
+  align-items: center;
+  align-self: center;
+  grid-template-columns: 5fr 1fr;
+}
+body #app .post .addComment div form textarea {
+  width: 99%;
+  height: 80px;
+  font-size: 20px;
+  grid-row: 1;
+}
+body #app .post .addComment div form input {
+  width: 60px;
+  height: 80px;
+  grid-row: 1;
+}
+body #app .post .futter {
+  display: flex;
+  margin: 0 auto 1% auto;
+  margin-top: 1%;
+  background-color: white;
+  max-width: 50%;
+  justify-content: space-evenly;
+}
+@media only screen and (min-width: 260px) {
+  body #app .post .futter {
+    max-width: 90%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  body #app .post .futter {
+    max-width: 90%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body #app .post .futter {
+    max-width: 80%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  body #app .post .futter {
+    max-width: 70%;
+  }
+}
+body #app .post .futter .deletePost {
+  width: 5%;
+}
+body #app .post .futter .deletePost .deletePostButton {
+  padding: 5px;
+  background-color: #fa5f5f;
+  color: white;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid red;
+  border-radius: 5px;
+  font-weight: 550;
+  transition: all 0.4s ease-in;
+}
+body #app .post .futter .deletePost .deletePostButton:hover {
+  background-color: red;
+}
+body #app .post .futter .Notifications {
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 6%;
+  margin-right: 6%;
+  white-space: nowrap;
+}
+body #app .post .futter .Notifications .fav {
+  color: #2097f5;
+}
+body #app .post .futter .Notifications .notFav {
+  color: black;
+}
+body #app .post .futter .Notifications:active {
+  color: #2097f5;
+}
+body #app .post .futter .Notifications p {
+  margin-top: 2%;
+}
+body #app .post .futter .hide {
+  display: none;
+}
+body #app .post .futter .show {
+  display: block;
+}
+body #app .post .futter .Toggled {
+  color: #2097f5;
+}
+body #app .post .futter .UnToggled {
+  color: black;
+}
+
+.newPostButton {
+  top: 35%;
+  right: 15%;
+  position: absolute;
+  border: none;
+  color: white;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  border-radius: 20px;
+  transition: all 0.4s ease-in;
+  cursor: pointer;
+  background-color: #008CBA;
+  color: white;
+  border: 1px solid white;
+}
+
+.newPostButton:hover {
+  font-weight: 550;
+  right: 14.9%;
+  border: 3px solid #008CBA;
+  background-color: white;
+  color: black;
+}
+
+.newPostButton:focus {
+  outline: 0;
+}

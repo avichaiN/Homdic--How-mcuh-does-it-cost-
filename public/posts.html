@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="heb" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homedic - Posts</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="styles/dist/posts.css" />
+  <link rel="stylesheet" href="styles/dist/headerNav.css" />
+  <link rel="stylesheet" href="styles/dist/addPost.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+
+<body onload="renderNavToDom(), getPosts() ,getUserInfo(),displayGoToAdminPage()" onclick="hideUserDropDown()">
+  <!-- header  -->
+  <div class="header"></div>
+  <heder id="categoryHeder">
+    <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
+     <div id="PostsHeder"></div>
+  </heder>
+  <div id="app">
+    <!-- add post -->
+    <div class="newPostBox box">
+      <img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
+      <h1 class='box'>פוסט חדש</h1>
+      <form class='box' onsubmit="handleNewPost(event)">
+          <label class="box mustChoose">חייב לבחור קטגוריה</label>
+          <select required name='category' class='box' id="category" name="category"></select>
+          <label class='box' required for="title">כותרת</label>
+          <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
+          <label class='box' for="desc">שאלה</label>
+          <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
+          <label class='img box' name='imgLable' for="img">העלה תמונה</label>
+          <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
+          <span class='box' id="file-chosen"></span>
+          <input class='box' type="submit" value="פרסם">
+      </form> 
+  </div>
+    <!-- end post -->
+  </div>
+  <script src="js/headerNav.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/GetPostsData.js"></script>
+  <script src="js/newPost.js"></script>
+  <script src="js/post-comment_render.js"></script>
+  <script src="js/post-comment_functunality.js"></script>
+
+</body>
+
+</html>
