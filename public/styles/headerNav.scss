@@ -11,6 +11,7 @@
 // width: 100%;
 // height: 100vh;
 // overflow: hidden;
+
 .header {
     
     position: fixed;
@@ -19,11 +20,12 @@
     // overflow: hidden;
     width: 100%;
     height: 6.5%;
-    background-color: rgb(34, 86, 134);
+    background-color: #298cad;
     display: flex;
     justify-content: space-around;
     z-index: 5;
     box-sizing: border-box;
+
 
     input::-webkit-input-placeholder{
         font-size: 15px;
@@ -35,12 +37,11 @@
         align-self: center;
         text-align: right;
         width: 33%;
-        margin-right: 5%;
-        // margin-right: 5%;
+        margin-right: 2%;
         color: white;
 
         @include mq(260px) {
-            font-size: xx-small;
+            font-size: x-small;
         }
 
         @include mq(479px) {
@@ -48,25 +49,26 @@
         }
 
         @include mq(768px) {
-            font-size: large;
+            font-size: medium;
         }
 
         @include mq(1200px) {
-            font-size: large;
+            font-size: medium;
         }
     }
     .header__adminPage{
         display: none;
         position: absolute;
-        right: 24%;
-        width: 8%;
-        padding: 5px 10px;
+        right: 18%;
+        width: 70px;
+        height: 20px;
         text-decoration: none;
         text-align: center;
         color: black;
         align-self: center;
         background-color: white;
         border-radius: 5px;
+        font-size: 13px;
     }
     .header__adminPage:hover{
         color: white;
@@ -74,7 +76,7 @@
     }
 
     .header__form {
-        width: 33%;
+        width: 35%;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -83,25 +85,30 @@
 
         .header__formInput {
             width: 90%;
-            height: 50%;
+            height: 30px;
             align-self: center;
+            text-align: center;
             outline: none;
             border: 0;
-            font-size: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            color: #1e8da6;
         }
 
         .header__formSubmit {
             width: 10%;
-            height: 50%;
+            height: 30px;
             align-self: center;
             display: flex;
             justify-content: center;
             border: 0;
+            margin-right: 5px;
             padding: 6px 10px;
-            background: #ddd;
-            font-size: 17px;
+            background: #298cad;
+            font-size: 22px;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
 
 
             i{
@@ -111,7 +118,7 @@
         }
 
         .header__formSubmit:hover {
-            background: #ccc;
+            background: white;
         }
 
         .header__formSubmit:focus {
@@ -121,17 +128,54 @@
 
     .header__userInfo {
         align-self: center;
-        width: 33%;
-        height: 45%;
+        width: 25%;
+        height: 83%;
         margin-left: 5%;
 
 
         img {
             float: left;
             margin-left: 15%;
-            width: 6%;
-            height: 100%;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
         }
+
+        img:hover{
+            animation: jello-horizontal 0.9s both;
+        }
+
+        @keyframes jello-horizontal {
+            0% {
+              -webkit-transform: scale3d(1, 1, 1);
+                      transform: scale3d(1, 1, 1);
+            }
+            30% {
+              -webkit-transform: scale3d(1.25, 0.75, 1);
+                      transform: scale3d(1.25, 0.75, 1);
+            }
+            40% {
+              -webkit-transform: scale3d(0.75, 1.25, 1);
+                      transform: scale3d(0.75, 1.25, 1);
+            }
+            50% {
+              -webkit-transform: scale3d(1.15, 0.85, 1);
+                      transform: scale3d(1.15, 0.85, 1);
+            }
+            65% {
+              -webkit-transform: scale3d(0.95, 1.05, 1);
+                      transform: scale3d(0.95, 1.05, 1);
+            }
+            75% {
+              -webkit-transform: scale3d(1.05, 0.95, 1);
+                      transform: scale3d(1.05, 0.95, 1);
+            }
+            100% {
+              -webkit-transform: scale3d(1, 1, 1);
+                      transform: scale3d(1, 1, 1);
+            }
+          }
+          
 
         .header__userInfoDrop {
             display: none;
@@ -140,14 +184,14 @@
             padding: 15px;
             min-width: 50%;
             float: left;
-            background-color: rgb(34, 86, 134);
+            background-color: #298cad;
             border-radius: 5px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             font-size: 35px;
             box-shadow: 0px 8px 16px 0px -2px rgba(0, 0, 0, 0.2);
-            margin-top: 7%;
-            margin-left: -8%;
+            margin-top: 10.2%;
+            margin-left: -30%;
 
             a, button {
                 text-align: center;
@@ -158,14 +202,14 @@
                 font-weight: 550;
                 outline: 0;
                 padding: 6px 12px;
-                border: 2px solid rgb(96, 96, 247);
+                border: 2px solid white;
                 background-color: white;
                 border-radius: 5px;
                 margin: 2px;
                 cursor: pointer;
             }
             a:hover, a:active, button:hover, button:active{
-                background-color: rgb(34, 86, 134);
+                background-color: #298cad;
                 color: white;
             }
 
@@ -173,11 +217,12 @@
     }
 }
 
+
 @media only screen and (max-width: 1000px) {
     .header {
         .header__userInfo {
             img {
-                width: 10%;
+                // width: 10%;
             }
 
             .header__userInfoDrop {
@@ -192,7 +237,7 @@
     .header {
         .header__userInfo {
             img {
-                width: 15%;
+                // width: 15%;
             }
 
             .header__userInfoDrop {
@@ -218,7 +263,7 @@
     .header {
         .header__userInfo {
             img {
-                width: 20%;
+                // width: 20%;
             }
         }
     }
@@ -228,8 +273,9 @@
     .header {
         .header__userInfo {
             img {
-                width: 25%;
+                // width: 25%;
             }
         }
     }
 }
+
