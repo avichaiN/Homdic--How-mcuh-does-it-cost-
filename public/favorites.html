@@ -4,29 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homdic? AdminPage</title>
+    <title>Homdic? Favorites</title>
+    <link rel="stylesheet" href="styles/dist/favorites.css">
     <link rel="stylesheet" href="styles/dist/headerNav.css">
-    <link rel="stylesheet" href="styles/dist/adminPage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
-<body onload="renderNavToDom(),getAllUsers(), getUserInfo()">
-    <div class="adminPage" onclick="hideUserDropDown()">
+<body onload="renderNavToDom(), getUserFavorites()">
+    <div class='favoritesPage' onclick="hideUserDropDown()">
+
         <!-- header  -->
         <div class="header">
 
         </div>
 
-        <div class="allUsers">
 
-        </div>
-        <div class="editUserForm">
 
-        </div>
+
+
     </div>
-    <script src="js/adminPage.js"></script>
-    <script src="js/auth.js"></script>
+
     <script src="js/headerNav.js"></script>
+    <script src="js/getFavorites.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 
 </html>

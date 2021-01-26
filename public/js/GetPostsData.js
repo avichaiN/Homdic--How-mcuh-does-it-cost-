@@ -121,7 +121,8 @@ const renderPosts = async (postsArray) => {
   let isAdmin = false
   isAdmin = await handleCheckAdmin();
 
-  postsArray.forEach((post => {
+  postsArray.forEach((async post => {
+    const isFavorite = await checkIfPostFavorite(post._id, userId)
     let isUsersPost = false
     if (post.publishedBy === userId) {
       isUsersPost = true
@@ -135,7 +136,8 @@ const renderPosts = async (postsArray) => {
       "20",
       post._id,
       post.fName,
-      post.lName
+      post.lName,
+      isFavorite
     )
     document.getElementById('app').innerHTML += html;
 

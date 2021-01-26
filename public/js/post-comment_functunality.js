@@ -94,6 +94,7 @@ const getRenderPostComments = () => {
         let isAdmin = false
         isAdmin = await handleCheckAdmin();
         let isUsersPost = false
+        const isFavorite = await checkIfPostFavorite(post._id, userId)
         if (post.publishedBy === userId) {
           isUsersPost = true
         }
@@ -107,7 +108,8 @@ const getRenderPostComments = () => {
           comments.length,
           post._id,
           post.fName,
-          post.lName
+          post.lName,
+          isFavorite
         )
         app.style.top = "8%";
         let newAppSection = app.innerHTML.replace('<div class="commenstsSection">', html + '<div class="commenstsSection">');
@@ -128,11 +130,11 @@ const getRenderPostComments = () => {
           const date = comment.createdAt
           const x = date.split('T')[1];
           const when = x.split('+')[0];
-          
+
           const liked = await checkIfUserLikedComment(comment._id, userId)
           const likesAmount = await checkHowMuchLikes(comment._id)
           const app = document.querySelector('.commenstsSection');
-          const fullComment = buildOneComment(comment.desc,comment.price, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersComment);
+          const fullComment = buildOneComment(comment.desc, comment.price, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersComment);
           app.innerHTML += fullComment;
         })
       }
@@ -282,6 +284,52 @@ const handleDeleteComment = (commentId) => {
         });
     }
   })
-  console.log(commentId)
+}
+const handleFavoritePost = async (postID) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
 
+  fetch("/posts/favorite/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ postID, userId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+    });
+
+}
+const handleDeleteFavoritePost = async (postID) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+  fetch("/posts/favorite/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ postID, userId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+    });
+}
+const checkIfPostFavorite = async (postID, userId) => {
+  let checkFav = false
+  await fetch("/posts/favorite/check", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ postID, userId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      checkFav = data.checkFav
+    });
+
+  return checkFav
 }

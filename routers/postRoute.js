@@ -109,7 +109,7 @@ router.delete("/", checkUserToken, async (req, res) => {
   }
 });
 const deletePostComments = async (postId) => {
-  return Comment.deleteMany({postId: postId}).exec()
+  return Comment.deleteMany({ postId: postId }).exec()
 }
 
 //get posts by user id
@@ -148,4 +148,73 @@ router.post("/admin/user/get", checkAdmin, async (req, res) => {
     res.send({ ok: false })
   }
 });
+
+// add post to fav posts
+const addPostToFavorite = async (postID, userId) => {
+  return User.findOneAndUpdate({ _id: userId }, { $push: { favPosts: postID } }).exec()
+}
+const deletePostFromFavorite = async (postID, userId) => {
+  return User.findOneAndUpdate({ _id: userId }, { $pull: { favPosts: postID } }).exec()
+}
+const checkIfPostInFavorite = async (postID, userId) => {
+  let checkIfFavorite = false;
+  const user = await User.find({ _id: userId })
+  const favoriteArray = user[0].favPosts
+  checkIfFavorite = favoriteArray.includes(postID)
+
+  if (checkIfFavorite) {
+    return true
+  } else {
+    return false
+  }
+}
+router.post("/favorite/add", checkUserToken, async (req, res) => {
+  const { postID, userId } = req.body
+  let checkIfAlreadyFav = await checkIfPostInFavorite(postID, userId)
+  if (checkIfAlreadyFav) {
+    res.send({ fav: false })
+  } else {
+    const addToFavPost = await addPostToFavorite(postID, userId)
+    res.send({ fav: true })
+  }
+});
+router.delete("/favorite/delete", checkUserToken, async (req, res) => {
+  const { postID, userId } = req.body
+  const deleteFromFavoritePosts = await deletePostFromFavorite(postID, userId)
+  res.send({ deleted: true })
+});
+router.post("/favorite/check", checkUserToken, async (req, res) => {
+  const { postID, userId } = req.body
+  let checkIfAlreadyFav = await checkIfPostInFavorite(postID, userId)
+  if (checkIfAlreadyFav) {
+    res.send({ checkFav: true })
+  } else {
+    res.send({ checkFav: false })
+  }
+});
+const getUserFavoritePostsId = (userId) => {
+  return User.findOne({ _id: userId }).exec()
+}
+const findPostById = async (postId) => {
+  return Post.findById({ _id: postId }).exec()
+}
+router.post("/favorites/getall", checkUserToken, async (req, res) => {
+  try {
+    const { userId } = req.body
+    const userInfo = await getUserFavoritePostsId(userId)
+    const favPostsIds = userInfo.favPosts
+    let favPosts = []
+    // console.log(favPosts)
+    for (i = 0; i < favPostsIds.length; i++) {
+      let post = await findPostById(favPostsIds[i])
+      favPosts.push(post)
+    }
+    res.send({ favPosts })
+  } catch (e) {
+    console.log(e.message)
+    res.send({ error: true })
+  }
+});
+
+
 module.exports = [router];

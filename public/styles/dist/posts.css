@@ -293,6 +293,12 @@ body #app .post .futter .Notifications {
   margin-right: 6%;
   white-space: nowrap;
 }
+body #app .post .futter .Notifications .fav {
+  color: #2097f5;
+}
+body #app .post .futter .Notifications .notFav {
+  color: black;
+}
 body #app .post .futter .Notifications:active {
   color: #2097f5;
 }

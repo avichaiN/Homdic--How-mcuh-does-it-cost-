@@ -21,8 +21,10 @@ function buildOnePost(
   numberOfComments,
   postID,
   fName,
-  lName
+  lName,
+  isFavorite
 ) {
+  let favoriteButton = ''
   /*  */
   const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
     <span class="material-icons">
@@ -42,6 +44,11 @@ function buildOnePost(
     } else {
       leftButton = 'error wrong input type';
     }
+  }
+  if (isFavorite) {
+    favoriteButton = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+  } else {
+    favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
   }
   /*  */
 
@@ -63,9 +70,8 @@ function buildOnePost(
         <span class="material-icons"> notifications </span>
         <p>${numberOfComments} :מס תגובות</p>
       </div>
-      <div id="FavoriteButton" class="Notifications" onclick="PostFavoriteButtonClicked()">
-        <span class="material-icons"> favorite </span>
-        <p>מועדפים</p>
+      <div id="FavoriteButton" class="Notifications fav-${postID}">
+      ${favoriteButton}
       </div>
       <div id="cancelButton-${postID}" class="Notifications hide" onclick="HideAddComment('${postID}')">
         <span class="material-icons">
@@ -86,9 +92,9 @@ function buildOnePost(
 
 
 
-function buildOneComment(comment,price, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
+function buildOneComment(comment, price, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
   let deleteComment = ''
-  if(isUsersComment){
+  if (isUsersComment) {
     deleteComment = `<button class='deletePostButton' onclick="handleDeleteComment('${commentId}')">מחק תגובה</button>`
   }
   let likedButton = ''
