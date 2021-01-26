@@ -297,8 +297,15 @@ const handleFavoritePost = async (postID) => {
     body: JSON.stringify({ postID, userId }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+      await Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "פוסט נוסף למועדפים",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     });
 
 }
@@ -313,8 +320,15 @@ const handleDeleteFavoritePost = async (postID) => {
     body: JSON.stringify({ postID, userId }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(async(data) => {
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+      await Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "פוסט נמחק מהמועדפים",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     });
 }
 const checkIfPostFavorite = async (postID, userId) => {

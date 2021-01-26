@@ -12,6 +12,10 @@ const getUserFavorites = async () => {
     })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.favPosts);
+            if (data.status === "unauthorized") {
+                window.location.href = "index.html"
+            } else {
+                console.log(data.favPosts);
+            }
         });
 }
