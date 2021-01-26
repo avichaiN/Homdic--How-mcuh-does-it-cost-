@@ -37,9 +37,9 @@ function handleUpdateForm(e) {
           icon: "success",
           title: "פרטייך עודכנו במערכת",
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1500,
         });
-        window.location.href = "/category"
+        window.location.href = "/category";
       } else {
         Swal.fire({
           icon: "error",

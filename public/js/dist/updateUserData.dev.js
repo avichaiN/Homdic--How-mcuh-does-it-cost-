@@ -44,11 +44,11 @@ function handleUpdateForm(e) {
               icon: "success",
               title: "פרטייך עודכנו במערכת",
               showConfirmButton: false,
-              timer: 1000
+              timer: 1500
             }));
 
           case 3:
-            window.location.replace("/category");
+            window.location.href = "/category";
             _context.next = 7;
             break;
 

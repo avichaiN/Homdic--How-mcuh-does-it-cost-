@@ -50,11 +50,11 @@ function handleUpdatePassword(e) {
               icon: "success",
               title: "פרטייך עודכנו במערכת, הנך מועבר/ת לאתר..",
               showConfirmButton: false,
-              timer: 1000
+              timer: 1500
             }));
 
           case 3:
-            window.location.replace("/category");
+            window.location.href = "/category";
             _context.next = 7;
             break;
 

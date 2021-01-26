@@ -52,7 +52,7 @@ function handleLoginForm(e) {
         confirmButtonText: "אישור"
       });
     } else {
-      window.location.href = "/categories.html";
+      window.location.href = "/Categories.html";
     }
   });
 }
@@ -78,18 +78,45 @@ function handleRegisterForm(e) {
     })
   }).then(function (res) {
     return res.json();
-  }).then(function (data) {
-    if (data.status == "unauthorized") {
-      Swal.fire({
-        icon: "error",
-        title: "אופס...",
-        text: "כנראה שהפרטים שהזנת לא נכונים או קיימים במערכת, נסה שנית",
-        confirmButtonColor: "red",
-        confirmButtonText: "אישור"
-      });
-    } else {
-      window.location.href = "/";
-    }
+  }).then(function _callee(data) {
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(data.status == "unauthorized")) {
+              _context.next = 4;
+              break;
+            }
+
+            Swal.fire({
+              icon: "error",
+              title: "אופס...",
+              text: "כנראה שהפרטים שהזנת לא נכונים או קיימים במערכת, נסה שנית",
+              confirmButtonColor: "red",
+              confirmButtonText: "אישור"
+            });
+            _context.next = 7;
+            break;
+
+          case 4:
+            _context.next = 6;
+            return regeneratorRuntime.awrap(Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "פרטייך עודכנו במערכת",
+              showConfirmButton: false,
+              timer: 1500
+            }));
+
+          case 6:
+            window.location.href = "/category";
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
   });
 }
 
@@ -106,18 +133,18 @@ function handleResetPassword(e) {
     })
   }).then(function (res) {
     return res.json();
-  }).then(function _callee(data) {
+  }).then(function _callee2(data) {
     var btn;
-    return regeneratorRuntime.async(function _callee$(_context) {
+    return regeneratorRuntime.async(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             if (!(data.email == "success")) {
-              _context.next = 6;
+              _context2.next = 6;
               break;
             }
 
-            _context.next = 3;
+            _context2.next = 3;
             return regeneratorRuntime.awrap(Swal.fire({
               position: "top-center",
               icon: "success",
@@ -127,8 +154,8 @@ function handleResetPassword(e) {
             }));
 
           case 3:
-            window.location.replace("/");
-            _context.next = 8;
+            window.location.href = "/";
+            _context2.next = 8;
             break;
 
           case 6:
@@ -143,7 +170,7 @@ function handleResetPassword(e) {
 
           case 8:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
     });

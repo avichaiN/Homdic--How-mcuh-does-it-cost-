@@ -41,9 +41,9 @@ function handleUpdatePassword(e) {
           icon: "success",
           title: "פרטייך עודכנו במערכת, הנך מועבר/ת לאתר..",
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1500,
         });
-        window.location.href= "/category"
+        window.location.href = "/category";
       } else {
         Swal.fire({
           icon: "error",

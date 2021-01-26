@@ -1,7 +1,13 @@
 function HideAddComment(postID) {
-  document.querySelector(`#AddCommentButton-${postID}`).classList.replace('hide', 'show');
-  document.querySelector(`#cancelButton-${postID}`).classList.replace('show', 'hide');
-  document.querySelector(`#addComment-${postID}`).classList.replace('show', 'hide');
+  document
+    .querySelector(`#AddCommentButton-${postID}`)
+    .classList.replace("hide", "show");
+  document
+    .querySelector(`#cancelButton-${postID}`)
+    .classList.replace("show", "hide");
+  document
+    .querySelector(`#addComment-${postID}`)
+    .classList.replace("show", "hide");
 }
 
 function ShowAddComment(postID) {
@@ -13,34 +19,37 @@ function ShowAddComment(postID) {
       <input type="submit" value="שלח">
     </form>
   </div>`;
-  document.querySelector(`#AddCommentButton-${postID}`).classList.replace('show', 'hide');
-  document.querySelector(`#cancelButton-${postID}`).classList.replace('hide', 'show');
-  document.querySelector(`#addComment-${postID}`).classList.replace('hide', 'show');
+  document
+    .querySelector(`#AddCommentButton-${postID}`)
+    .classList.replace("show", "hide");
+  document
+    .querySelector(`#cancelButton-${postID}`)
+    .classList.replace("hide", "show");
+  document
+    .querySelector(`#addComment-${postID}`)
+    .classList.replace("hide", "show");
 }
 
 function PostFavoriteButtonClicked() {
-  document.querySelector('#FavoriteButton').classList.toggle('Toggled');
+  document.querySelector("#FavoriteButton").classList.toggle("Toggled");
 }
-
 
 // delete post user/admin
 const handleDeletePost = (e) => {
-
-  const postId = e.target.parentNode.dataset.id
-  const postTitle = e.target.parentNode.dataset.title
+  const postId = e.target.parentNode.dataset.id;
+  const postTitle = e.target.parentNode.dataset.title;
 
   Swal.fire({
-    title: 'האם את/ה בטוח/ה?',
+    title: "האם את/ה בטוח/ה?",
     html: `כותרת פוסט שנבחר: ${postTitle}<br>לא יהיה אפשר לשחזר מידע זה!`,
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
     cancelButtonText: "לא, בטל!",
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'כן, מחק פוסט!'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "כן, מחק פוסט!",
   }).then((result) => {
     if (result.isConfirmed) {
-
       fetch("/posts", {
         method: "DELETE",
         headers: {
@@ -56,47 +65,47 @@ const handleDeletePost = (e) => {
               icon: "success",
               title: "פוסט נמחק בהצלחה",
               showConfirmButton: false,
-              timer: 1000,
+              timer: 1500,
             });
-            const url = window.location.href
+            const url = window.location.href;
             if (url.includes("posts")) {
               location.reload();
             } else {
-              window.location.href = '/categories.html';
+              window.location.href = "/categories.html";
             }
           } else {
-            alert('תקלה במחיקת פוסט')
+            alert("תקלה במחיקת פוסט");
           }
         });
     }
-  })
-}
+  });
+};
 const handleClickPost = (postId) => {
-  console.log(postId)
-  window.location.href = `/comments.html?${postId}`
-}
+  console.log(postId);
+  window.location.href = `/comments.html?${postId}`;
+};
 
 // get post by id and comments by postid
 const getRenderPostComments = () => {
-  const url = window.location.href
-  const postId = url.split('?')[1];
+  const url = window.location.href;
+  const postId = url.split("?")[1];
 
   fetch(`/comments/${postId}`)
     .then((res) => res.json())
     .then(async (data) => {
       if (data.status === "unauthorized") {
-        window.location.href = "index.html"
+        window.location.href = "index.html";
       } else {
-        const post = data.post
-        const comments = data.comments
-        let userInfo = await getUserInfo()
-        let userId = userInfo.id
-        let isAdmin = false
+        const post = data.post;
+        const comments = data.comments;
+        let userInfo = await getUserInfo();
+        let userId = userInfo.id;
+        let isAdmin = false;
         isAdmin = await handleCheckAdmin();
-        let isUsersPost = false
-        const isFavorite = await checkIfPostFavorite(post._id, userId)
+        let isUsersPost = false;
+        const isFavorite = await checkIfPostFavorite(post._id, userId);
         if (post.publishedBy === userId) {
-          isUsersPost = true
+          isUsersPost = true;
         }
 
         const html = buildOnePost(
@@ -110,38 +119,52 @@ const getRenderPostComments = () => {
           post.fName,
           post.lName,
           isFavorite
-        )
+        );
         app.style.top = "8%";
-        let newAppSection = app.innerHTML.replace('<div class="commenstsSection">', html + '<div class="commenstsSection">');
+        let newAppSection = app.innerHTML.replace(
+          '<div class="commenstsSection">',
+          html + '<div class="commenstsSection">'
+        );
         app.innerHTML = newAppSection;
 
         if (isUsersPost || isAdmin) {
-          document.getElementById(`${post._id}`).innerHTML =
-            `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
+          document.getElementById(
+            `${post._id}`
+          ).innerHTML = `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`;
         }
 
-        comments.forEach(async comment => {
-          userInfo = await getUserInfo()
-          userId = userInfo.id
-          let isUsersComment = false
+        comments.forEach(async (comment) => {
+          userInfo = await getUserInfo();
+          userId = userInfo.id;
+          let isUsersComment = false;
           if (comment.publishedBy === userId) {
-            isUsersComment = true
+            isUsersComment = true;
           }
-          const date = comment.createdAt
-          const x = date.split('T')[1];
-          const when = x.split('+')[0];
+          const date = comment.createdAt;
+          const x = date.split("T")[1];
+          const when = x.split("+")[0];
 
-          const liked = await checkIfUserLikedComment(comment._id, userId)
-          const likesAmount = await checkHowMuchLikes(comment._id)
-          const app = document.querySelector('.commenstsSection');
-          const fullComment = buildOneComment(comment.desc, comment.price, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersComment);
+          const liked = await checkIfUserLikedComment(comment._id, userId);
+          const likesAmount = await checkHowMuchLikes(comment._id);
+          const app = document.querySelector(".commenstsSection");
+          const fullComment = buildOneComment(
+            comment.desc,
+            comment.price,
+            comment.fName,
+            comment.lName,
+            when,
+            comment._id,
+            liked,
+            likesAmount,
+            isUsersComment
+          );
           app.innerHTML += fullComment;
-        })
+        });
       }
-    })
-}
+    });
+};
 const checkIfUserLikedComment = async (commentId, userId) => {
-  let checkLike = false
+  let checkLike = false;
   await fetch("/comments/user/like/check", {
     method: "POST",
     headers: {
@@ -151,13 +174,13 @@ const checkIfUserLikedComment = async (commentId, userId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      checkLike = data.checkLike
+      checkLike = data.checkLike;
     });
 
-  return checkLike
-}
+  return checkLike;
+};
 const checkHowMuchLikes = async (commentId) => {
-  let likedAmount
+  let likedAmount;
   await fetch("/comments/likedAmount", {
     method: "POST",
     headers: {
@@ -167,49 +190,55 @@ const checkHowMuchLikes = async (commentId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      likedAmount = data.likeAmount
+      likedAmount = data.likeAmount;
     });
-  return likedAmount
-}
+  return likedAmount;
+};
 const handleNewComment = async (e, postID) => {
-  e.preventDefault()
-  let user = await getUserWhoPosted()
+  e.preventDefault();
+  let user = await getUserWhoPosted();
 
-  const userId = user.id
-  const fName = user.fName
-  const lName = user.lName
+  const userId = user.id;
+  const fName = user.fName;
+  const lName = user.lName;
 
-  const commentMessage = e.target.children.message.value
-  const commentPrice = e.target.children.price.value
+  const commentMessage = e.target.children.message.value;
+  const commentPrice = e.target.children.price.value;
 
   fetch("/comments", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ postID, userId, fName, lName, commentMessage, commentPrice }),
+    body: JSON.stringify({
+      postID,
+      userId,
+      fName,
+      lName,
+      commentMessage,
+      commentPrice,
+    }),
   })
     .then((res) => res.json())
     .then(async (data) => {
-
       if (data.posted) {
-        const url = window.location.href
+        const url = window.location.href;
         if (url.includes("posts")) {
           await Swal.fire({
             position: "center",
             icon: "success",
             title: "תגובה פורסמה בהצלחה",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 1500,
           });
-          handleClickPost(postID)
+          handleClickPost(postID);
         } else {
           await Swal.fire({
             position: "center",
             icon: "success",
             title: "תגובה פורסמה בהצלחה",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 1500,
           });
           location.reload();
         }
@@ -219,21 +248,21 @@ const handleNewComment = async (e, postID) => {
           icon: "error",
           title: "אנא בדוק שכל השדות תקינים",
           showConfirmButton: false,
-          timer: 1300,
+          timer: 1500,
         });
       }
     });
-}
+};
 const handleDeleteComment = (commentId) => {
   Swal.fire({
-    title: 'האם את/ה בטוח/ה?',
+    title: "האם את/ה בטוח/ה?",
     html: `לא יהיה אפשר לשחזר מידע זה!`,
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
     cancelButtonText: "לא, בטל!",
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'כן, מחק תגובה!'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "כן, מחק תגובה!",
   }).then((result) => {
     if (result.isConfirmed) {
       fetch("/comments", {
@@ -251,17 +280,17 @@ const handleDeleteComment = (commentId) => {
               icon: "success",
               title: "תגובה נמחקה בהצלחה",
               showConfirmButton: false,
-              timer: 1000,
+              timer: 1500,
             });
             location.reload();
           }
         });
     }
-  })
-}
+  });
+};
 const handleLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
+  let user = await getUserWhoPosted();
+  const userId = user.id;
 
   fetch("/comments/like", {
     method: "POST",
@@ -272,14 +301,16 @@ const handleLikeComment = async (commentId) => {
   })
     .then((res) => res.json())
     .then(async () => {
-      const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
-      </span><span class='likesAmount' >${likesAmount}</span>`
+      const likesAmount = await checkHowMuchLikes(commentId);
+      document.querySelector(
+        `.likeComment-${commentId}`
+      ).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+      </span><span class='likesAmount' >${likesAmount}</span>`;
     });
-}
+};
 const handleUnLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
+  let user = await getUserWhoPosted();
+  const userId = user.id;
 
   fetch("/comments/like", {
     method: "DELETE",
@@ -290,14 +321,16 @@ const handleUnLikeComment = async (commentId) => {
   })
     .then((res) => res.json())
     .then(async () => {
-      const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
-      </span><span class='likesAmount'>${likesAmount}</span>`
+      const likesAmount = await checkHowMuchLikes(commentId);
+      document.querySelector(
+        `.likeComment-${commentId}`
+      ).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+      </span><span class='likesAmount'>${likesAmount}</span>`;
     });
-}
+};
 const handleFavoritePost = async (postID) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
+  let user = await getUserWhoPosted();
+  const userId = user.id;
 
   fetch("/posts/favorite/add", {
     method: "POST",
@@ -308,20 +341,21 @@ const handleFavoritePost = async (postID) => {
   })
     .then((res) => res.json())
     .then(async () => {
-      document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+      document.querySelector(
+        `.fav-${postID}`
+      ).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`;
       await Swal.fire({
         position: "center",
         icon: "success",
         title: "פוסט נוסף למועדפים",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1500,
       });
     });
-
-}
+};
 const handleDeleteFavoritePost = async (postID) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
+  let user = await getUserWhoPosted();
+  const userId = user.id;
   fetch("/posts/favorite/delete", {
     method: "DELETE",
     headers: {
@@ -331,24 +365,26 @@ const handleDeleteFavoritePost = async (postID) => {
   })
     .then((res) => res.json())
     .then(async () => {
-      const url = window.location.href
-      const params = url.split('?')[1];
+      const url = window.location.href;
+      const params = url.split("?")[1];
 
-      document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+      document.querySelector(
+        `.fav-${postID}`
+      ).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`;
       await Swal.fire({
         position: "center",
         icon: "success",
         title: "פוסט נמחק מהמועדפים",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1500,
       });
-      if (params.includes('myfavorites')) {
+      if (params.includes("myfavorites")) {
         location.reload();
       }
     });
-}
+};
 const checkIfPostFavorite = async (postID, userId) => {
-  let checkFav = false
+  let checkFav = false;
   await fetch("/posts/favorite/check", {
     method: "POST",
     headers: {
@@ -358,8 +394,8 @@ const checkIfPostFavorite = async (postID, userId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      checkFav = data.checkFav
+      checkFav = data.checkFav;
     });
 
-  return checkFav
-}
+  return checkFav;
+};

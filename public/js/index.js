@@ -69,7 +69,7 @@ function handleRegisterForm(e) {
     body: JSON.stringify({ firstName, lastName, username, email, password }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       if (data.status == "unauthorized") {
         Swal.fire({
           icon: "error",
@@ -79,7 +79,14 @@ function handleRegisterForm(e) {
           confirmButtonText: "אישור",
         });
       } else {
-        window.location.href = "/";
+        await Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "פרטייך עודכנו במערכת",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.location.href = "/category";
       }
     });
 }
@@ -106,7 +113,7 @@ function handleResetPassword(e) {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href = "/"
+        window.location.href = "/";
       } else {
         Swal.fire({
           icon: "error",
