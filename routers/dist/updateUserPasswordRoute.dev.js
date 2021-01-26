@@ -14,7 +14,17 @@ var saltRounds = 12;
 
 require("dotenv").config();
 
-var User = require("../models/user");
+var User = require("../models/user"); // router.get("/", async (req, res) => {
+//   const encodedId = req.baseUrl.replace("/", "");
+//   const decodedId = jwt.decode(encodedId, process.env.SECRET);
+//   try {
+//     const userFound = await User.findOne({ _id: decodedId });
+//     res.send({ user: userFound.firstName });
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
 
 router.post("/", function (req, res) {
   var newPassword = req.body.newPassword;

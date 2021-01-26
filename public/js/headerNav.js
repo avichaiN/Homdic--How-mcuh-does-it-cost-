@@ -1,18 +1,18 @@
 const renderNavToDom = () => {
-  let html = "";
-  html = `<div class="header__helloUser"></div>
+    let html = ''
+    html = `<div class="header__helloUser"></div>
+    <a href="/adminPage.html" class="header__adminPage">דף אדמין</a>
     <form class="header__form" onsubmit="handleSearch(event)">
         <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
         <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
         <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <a href="/adminPage.html" class="header__adminPage">אדמין</a>
 
     <!-- user info / logout / edit user // show all posts -->
 
     <div class="header__userInfo">
         <img onclick="showUserDropDown(event)"
-            src="/styles/img/menu.png">
+            src="https://icon-library.com/images/menu-icon-png-3-lines/menu-icon-png-3-lines-5.jpg">
         <div class="header__userInfoDrop">
             <a href="/Categories.html">קטגוריות</a>
             <a href="/posts.html?myposts">פוסטים שלי</a>
@@ -20,21 +20,8 @@ const renderNavToDom = () => {
             <a href="/updateUserData.html">עדכן פרטי חשבון</a>
             <button onclick="handleLogout()">התנתק</button>
         </div>
-    </div>`;
+    </div>`
 
-<<<<<<< HEAD:Homid/public/js/headerNav.js
-  let header = document.querySelector(".header");
-  header.innerHTML = html;
-  getUserInfo(), displayGoToAdminPage();
-};
-const getUserInfo = () => {
-  fetch("/userInfo")
-    .then((res) => res.json())
-    .then((data) => {
-      const name = data.decoded.name;
-      sayHelloToUser(name);
-    });
-=======
     let header = document.querySelector('.header')
     header.innerHTML = html
     getUserInfo(),
@@ -50,22 +37,13 @@ const getUserInfo = async  () => {
             user=data.decoded
         });
         return user;
->>>>>>> master:public/js/headerNav.js
 };
 const sayHelloToUser = (name) => {
-  const myDate = new Date();
-  const hrs = myDate.getHours();
-  let greet;
-  let sayHello = document.querySelector(".header__helloUser");
+    const myDate = new Date();
+    const hrs = myDate.getHours();
+    let greet;
+    let sayHello = document.querySelector('.header__helloUser')
 
-<<<<<<< HEAD:Homid/public/js/headerNav.js
-  if (hrs < 12) greet = "בוקר טוב";
-  else if (hrs >= 12 && hrs <= 16) greet = "צהרים טובים";
-  else if (hrs >= 16 && hrs <= 24) greet = "ערב טוב";
-
-  sayHello.innerHTML = `${greet}, ${name}`;
-};
-=======
     if (hrs < 12 && hrs>4)
         greet = 'בוקר טוב';
     else if (hrs >= 12 && hrs <= 16)
@@ -76,49 +54,26 @@ const sayHelloToUser = (name) => {
         greet = 'לילה טוב';
     sayHello.innerHTML = `${greet}, ${name}`
 }
->>>>>>> master:public/js/headerNav.js
 
 const displayGoToAdminPage = async () => {
-  let checkAdmin = await handleCheckAdmin();
+    let checkAdmin = await handleCheckAdmin()
 
-  if (checkAdmin) {
-    document.querySelector(".header__adminPage").style.display = "block";
-  }
-};
+    if (checkAdmin) {
+        document.querySelector('.header__adminPage').style.display = 'block'
+    }
+}
 const showUserDropDown = (e) => {
-  document.querySelector(".header__userInfoDrop").style.display = "flex";
-  e.stopPropagation();
-};
+    document.querySelector('.header__userInfoDrop').style.display = 'flex'
+    e.stopPropagation();
+}
 const hideUserDropDown = () => {
-  document.querySelector(".header__userInfoDrop").style.display = "none";
-};
+    document.querySelector('.header__userInfoDrop').style.display = 'none'
+}
+
+
 
 //search bar
 const handleSearch = (e) => {
-<<<<<<< HEAD:Homid/public/js/headerNav.js
-  e.preventDefault();
-  const searched = document.querySelector(".header__formInput").value;
-  if (searched.length > 2) {
-    fetch("/posts/search/getPostsId", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ searched }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const postsId = data.postsId;
-        const postsIdString = postsId.toString();
-        window.location.replace(`/posts/search/${postsId}`);
-      });
-  } else {
-    document.querySelector(".header__formInput").value = "";
-    document.querySelector(".header__formInput").placeholder =
-      "חיפוש חייב להיות מעל 2 תווים";
-  }
-};
-=======
     e.preventDefault()
     const searched = document.querySelector('.header__formInput').value
     if (searched.length > 2) {
@@ -132,6 +87,5 @@ const handleSearch = (e) => {
 }
 
 
->>>>>>> master:public/js/headerNav.js
 
-// hello user
+// hello user 
