@@ -9,6 +9,8 @@ const getPosts = () => {
     getPostsBySearch(searchedPosts)
   } else if (params === 'myposts') {
     getPostsByUser()
+  }else if(params === 'myfavorites'){
+    getUserFavorites()
   } else if (params.includes('admin')) {
     getPostsUserIdForAdmin(params)
   } else {
@@ -114,6 +116,28 @@ const getPostsUserIdForAdmin = (params) => {
         renderPosts(foundPosts)
       }
     });
+}
+const getUserFavorites = async () => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+  
+  fetch("/posts/favorites/getall", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
+  })
+      .then((res) => res.json())
+      .then((data) => {
+          if (data.status === "unauthorized") {
+              window.location.href = "index.html"
+          } else {
+            renderTitlePostFavorits()
+            let foundPosts = data.favPosts
+            renderPosts(foundPosts)
+          }
+      });
 }
 const renderPosts = async (postsArray) => {
   let userInfo = await getUserInfo()

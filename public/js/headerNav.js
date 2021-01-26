@@ -16,7 +16,7 @@ const renderNavToDom = () => {
         <div class="header__userInfoDrop">
             <a href="/Categories.html">קטגוריות</a>
             <a href="/posts.html?myposts">פוסטים שלי</a>
-            <a href="/favorites.html">מועדפים</a>
+            <a href="/posts.html?myfavorites">מועדפים</a>
             <a href="/updateUserData.html">עדכן פרטי חשבון</a>
             <button onclick="handleLogout()">התנתק</button>
         </div>

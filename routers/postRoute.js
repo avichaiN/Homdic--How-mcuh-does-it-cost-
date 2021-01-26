@@ -204,7 +204,7 @@ router.post("/favorites/getall", checkUserToken, async (req, res) => {
     const userInfo = await getUserFavoritePostsId(userId)
     const favPostsIds = userInfo.favPosts
     let favPosts = []
-    // console.log(favPosts)
+
     for (i = 0; i < favPostsIds.length; i++) {
       let post = await findPostById(favPostsIds[i])
       favPosts.push(post)

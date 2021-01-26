@@ -49,7 +49,7 @@ const deleteComment = (commentId) => {
 router.delete("/", checkUserToken, async (req, res) => {
   const { commentId } = req.body
   const deleteCommentFunc = await deleteComment(commentId)
-
+  
   res.send({ deleted: true })
 });
 const addLikeToComment = async (commentId, userId) => {

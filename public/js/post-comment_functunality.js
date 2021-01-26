@@ -178,10 +178,9 @@ const handleNewComment = async (e, postID) => {
   const userId = user.id
   const fName = user.fName
   const lName = user.lName
-  console.log(user)
+
   const commentMessage = e.target.children.message.value
   const commentPrice = e.target.children.price.value
-
 
   fetch("/comments", {
     method: "POST",
@@ -192,62 +191,37 @@ const handleNewComment = async (e, postID) => {
   })
     .then((res) => res.json())
     .then(async (data) => {
-      const url = window.location.href
-      if (url.includes("posts")) {
+
+      if (data.posted) {
+        const url = window.location.href
+        if (url.includes("posts")) {
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "תגובה פורסמה בהצלחה",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          handleClickPost(postID)
+        } else {
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "תגובה פורסמה בהצלחה",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          location.reload();
+        }
+      }else{
         await Swal.fire({
           position: "center",
-          icon: "success",
-          title: "תגובה פורסמה בהצלחה",
+          icon: "error",
+          title: "אנא בדוק שכל השדות תקינים",
           showConfirmButton: false,
-          timer: 1000,
-        });
-        handleClickPost(postID)
-      } else {
-        await Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "תגובה פורסמה בהצלחה",
-          showConfirmButton: false,
-          timer: 1000,
-        });
-        location.reload();
+          timer: 1300, 
+      });
       }
-    });
-}
-const handleLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
-
-  fetch("/comments/like", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ commentId, userId }),
-  })
-    .then((res) => res.json())
-    .then(async (data) => {
-      const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
-      </span><span class='likesAmount' >${likesAmount}</span>`
-    });
-}
-const handleUnLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted()
-  const userId = user.id
-
-  fetch("/comments/like", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ commentId, userId }),
-  })
-    .then((res) => res.json())
-    .then(async (data) => {
-      const likesAmount = await checkHowMuchLikes(commentId)
-      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
-      </span><span class='likesAmount'>${likesAmount}</span>`
     });
 }
 const handleDeleteComment = (commentId) => {
@@ -285,6 +259,42 @@ const handleDeleteComment = (commentId) => {
     }
   })
 }
+const handleLikeComment = async (commentId) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+
+  fetch("/comments/like", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, userId }),
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      const likesAmount = await checkHowMuchLikes(commentId)
+      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+      </span><span class='likesAmount' >${likesAmount}</span>`
+    });
+}
+const handleUnLikeComment = async (commentId) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+
+  fetch("/comments/like", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, userId }),
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      const likesAmount = await checkHowMuchLikes(commentId)
+      document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+      </span><span class='likesAmount'>${likesAmount}</span>`
+    });
+}
 const handleFavoritePost = async (postID) => {
   let user = await getUserWhoPosted()
   const userId = user.id
@@ -320,7 +330,7 @@ const handleDeleteFavoritePost = async (postID) => {
     body: JSON.stringify({ postID, userId }),
   })
     .then((res) => res.json())
-    .then(async(data) => {
+    .then(async (data) => {
       document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
       await Swal.fire({
         position: "center",

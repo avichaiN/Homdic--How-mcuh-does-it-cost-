@@ -150,3 +150,8 @@ const renderTitlePostForAdmin = (username) => {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h2>פוסטים של שם משתמש: ${username}</h2>`
 }
+const renderTitlePostFavorits = () => {
+  document.querySelector(`#categoryHeder`).innerHTML +=
+    `<h1>פוסטים מועדפים</h1>`
+}
+
