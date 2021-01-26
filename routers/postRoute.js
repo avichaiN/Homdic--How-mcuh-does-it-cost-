@@ -3,6 +3,7 @@ const formidable = require('formidable');
 const router = express.Router();
 const Post = require("../models/post");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
 const path = require('path')
@@ -97,6 +98,7 @@ router.delete("/", checkUserToken, async (req, res) => {
         if (err) {
           res.send({ deleted: false });
         } else {
+          let deleteComments = await deletePostComments(postId)
           res.send({ deleted: true });
         }
       }
@@ -106,6 +108,9 @@ router.delete("/", checkUserToken, async (req, res) => {
     res.send({ deleted: false });
   }
 });
+const deletePostComments = async (postId) => {
+  return Comment.deleteMany({postId: postId}).exec()
+}
 
 //get posts by user id
 

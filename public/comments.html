@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles/dist/comments.css" />
   <link rel="stylesheet" href="styles/dist/posts.css" />
   <link rel="stylesheet" href="styles/dist/headerNav.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body onload="renderNavToDom(), getRenderPostComments()">
@@ -34,41 +35,7 @@
   <script src="/js/auth.js"></script>
   <script src="js/post-comment_render.js"></script>
   <script src="js/post-comment_functunality.js"></script>
-  <script>
-    function renderHederPostForCommentsPage(){
-      const html = buildOnePost(
-        type /*post or comment*/,
-        title,
-        massage,
-        NmTimesViewed,
-        postID
-      );
-      const app = document.getElementById('app');
-     app.style.top = "6.5%";
-     let newAppSection = app.innerHTML.replace('<div class="commenstsSection">', html+'<div class="commenstsSection">');
-      //console.log(newAppSection)
-      app.innerHTML = newAppSection;
-    }
 
-    function renderBodyCommentsForCommentsPage(){
-      const app = document.querySelector('.commenstsSection');
-    const fullComment = buildOneComment(comment,postedBy,atTdate);
-    app.innerHTML += fullComment;
-    }
-
-
-    renderHederPostForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-    renderBodyCommentsForCommentsPage();
-
-  </script>
   
 </body>
 

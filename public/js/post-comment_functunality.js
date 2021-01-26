@@ -1,6 +1,4 @@
 function HideAddComment(postID) {
-  console.log(postID);
-
   document.querySelector(`#AddCommentButton-${postID}`).classList.replace('hide', 'show');
   document.querySelector(`#cancelButton-${postID}`).classList.replace('show', 'hide');
   document.querySelector(`#addComment-${postID}`).classList.replace('show', 'hide');
@@ -60,7 +58,12 @@ const handleDeletePost = (e) => {
               showConfirmButton: false,
               timer: 1000,
             });
-            location.reload();
+            const url = window.location.href
+            if (url.includes("posts")) {
+              location.reload();
+            } else {
+              window.location.href = '/categories.html';
+            }
           } else {
             alert('תקלה במחיקת פוסט')
           }
@@ -86,27 +89,84 @@ const getRenderPostComments = () => {
       } else {
         const post = data.post
         const comments = data.comments
+        let userInfo = await getUserInfo()
+        let userId = userInfo.id
+        let isAdmin = false
+        isAdmin = await handleCheckAdmin();
+        let isUsersPost = false
+        if (post.publishedBy === userId) {
+          isUsersPost = true
+        }
 
-        /*  buildOnePost(
-           "comment",
-           title,
-           massage,
-           PostImgSrc,
-           NmTimesViewed,
-           numberOfComments,
-           postID,
-           fName,
-           lName
-         ) */
+        const html = buildOnePost(
+          "post" /*post or comment*/,
+          post.title,
+          post.desc,
+          post.img,
+          "0",
+          comments.length,
+          post._id,
+          post.fName,
+          post.lName
+        )
+        app.style.top = "8%";
+        let newAppSection = app.innerHTML.replace('<div class="commenstsSection">', html + '<div class="commenstsSection">');
+        app.innerHTML = newAppSection;
 
-        /*   buildOneComment(comment, postedBy, atTdate) */
-        /* buildOneComment */
-        console.log('Post info:')
-        console.log(post)
-        console.log('Post Comments:')
-        console.log(comments)
+        if (isUsersPost || isAdmin) {
+          document.getElementById(`${post._id}`).innerHTML =
+            `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
+        }
+
+        comments.forEach(async comment => {
+          userInfo = await getUserInfo()
+          userId = userInfo.id
+          let isUsersComment = false
+          if (comment.publishedBy === userId) {
+            isUsersComment = true
+          }
+          const date = comment.createdAt
+          const x = date.split('T')[1];
+          const when = x.split('+')[0];
+          const liked = await checkIfUserLikedComment(comment._id, userId)
+          const likesAmount = await checkHowMuchLikes(comment._id)
+          const app = document.querySelector('.commenstsSection');
+          const fullComment = buildOneComment(comment.desc, comment.fName, comment.lName, when, comment._id, liked, likesAmount, isUsersPost);
+          app.innerHTML += fullComment;
+
+        })
       }
     })
+}
+const checkIfUserLikedComment = async (commentId, userId) => {
+  let checkLike = false
+  await fetch("/comments/user/like/check", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, userId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      checkLike = data.checkLike
+    });
+  return checkLike
+}
+const checkHowMuchLikes = async (commentId) => {
+  let likedAmount
+  await fetch("/comments/likedAmount", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      likedAmount = data.likeAmount
+    });
+  return likedAmount
 }
 const handleNewComment = async (e, postID) => {
   e.preventDefault()
@@ -128,7 +188,99 @@ const handleNewComment = async (e, postID) => {
     body: JSON.stringify({ postID, userId, fName, lName, commentMessage, commentPrice }),
   })
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
+    .then(async(data) => {
+      const url = window.location.href
+      if (url.includes("posts")) {
+        await Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "תגובה פורסמה בהצלחה",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        handleClickPost(postID)
+      } else {
+        await Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "תגובה פורסמה בהצלחה",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        location.reload();
+      }
     });
+}
+const handleLikeComment = async (commentId) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+
+  fetch("/comments/like", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, userId }),
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      const likesAmount = await checkHowMuchLikes(commentId)
+      document.querySelector('#likeComment').innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+      </span><span class='likesAmount' >${likesAmount}</span>`
+    });
+}
+const handleUnLikeComment = async (commentId) => {
+  let user = await getUserWhoPosted()
+  const userId = user.id
+
+  fetch("/comments/like", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, userId }),
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      const likesAmount = await checkHowMuchLikes(commentId)
+      document.querySelector('#likeComment').innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+      </span><span class='likesAmount'>${likesAmount}</span>`
+    });
+}
+const handleDeleteComment = (commentId) => {
+  Swal.fire({
+    title: 'האם את/ה בטוח/ה?',
+    html: `לא יהיה אפשר לשחזר מידע זה!`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: "לא, בטל!",
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'כן, מחק תגובה!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch("/comments", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ commentId }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.deleted) {
+            await Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "תגובה נמחקה בהצלחה",
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            location.reload();
+          }
+        });
+    }
+  })
+  console.log(commentId)
+
 }

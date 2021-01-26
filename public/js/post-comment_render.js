@@ -1,14 +1,14 @@
-const type = 'post';
-const massage =
-  'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
-const title = 'מזגן';
-const NmTimesViewed = '36';
-const postID = 'sklgkh78h89xchv';
+// const type = 'post';
+// const massage =
+//   'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
+// const title = 'מזגן';
+// const NmTimesViewed = '36';
+// const postID = 'sklgkh78h89xchv';
 
 
-const comment = 'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
-const postedBy = 'eyal shemuel'
-const atTdate = "01/01/1999"
+// const comment = 'לורם איפסום דול';
+// const postedBy = 'eyal shemuel'
+// const atTdate = "01/01/1999"
 
 
 
@@ -86,22 +86,34 @@ function buildOnePost(
 
 
 
-function buildOneComment(comment, postedBy, atTdate) {
+function buildOneComment(comment, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
+  let deleteComment = ''
+  if(isUsersComment){
+    deleteComment = `<button class='deletePostButton' onclick="handleDeleteComment('${commentId}')">מחק תגובה</button>`
+  }
+  let likedButton = ''
+  if (liked) {
+    likedButton = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+    </span>`
+  } else {
+    likedButton = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+    </span>`
+  }
   const Html =
     `<article class="comment">
    <div ID="bodyComment">
      <p>
-      ${massage}
+      ${comment}
      </p>
    </div>
    <div id="authRouter">
-     <p>add by:${postedBy} at ${atTdate}</p>
+
+     <p>${atTdate} ${fName} ${lName}</p>
    </div>
- 
-   <div id="AddToFavoritButton">
-     <span class="material-icons active center" title="הוסף פוסט זה למועדפים">
-       favorite
-     </span>
+   <div data-id='${commentId}' class="deleteComment">${deleteComment}</div>
+   <div id="likeComment">
+   ${likedButton}
+   <span class='likesAmount'>${likesNum}</span>
    </div>
   </article>`;
 

@@ -46,15 +46,6 @@ const getCategoiresCheckBox = () => {
             categoryCheckBox.innerHTML = categoriesNames
         })
 }
-const getUserWhoPosted = async () => {
-    let user = ''
-    await fetch("/userInfo")
-        .then((res) => res.json())
-        .then((data) => {
-            user = data.decoded
-        });
-    return user
-};
 
 
 const handleNewPost = async (e) => {

@@ -10,6 +10,9 @@ const commentSchema = new Schema({
     fName: String,
     lName: String,
     publishedBy: String,
+    likes: [{
+        type: String
+    }],
     createdAt: {
         type: String,
         default: moment().format()
