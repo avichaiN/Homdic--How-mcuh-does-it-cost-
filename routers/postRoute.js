@@ -3,6 +3,7 @@ const formidable = require('formidable');
 const router = express.Router();
 const Post = require("../models/post");
 const User = require("../models/user");
+const temp = require("../models/temp");
 const Comment = require("../models/comment");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
@@ -27,11 +28,38 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
   res.send({ foundPostsByCategoryId })
 })
 
+
+
+
+
+
+router.post("/", checkUserToken, async (req, res) => {
+
+  const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
+
+  const post = new Post({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
+  try {
+    await post.save(req);
+    
+    res.send({ posted: true, post });
+  } catch (e) {
+    console.log(e.message)
+    res.send({ posted: false })
+  }
+
+});
+
+/* const findIDByPost = async (title,  desc, img, categoryId, userFname, userLname,  userId) => {
+  return Post.findOne({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId }).exec()
+} */
+
+
 const uploadImg = multer({
   limits:{
     fileSize:3145728
   },fileFilter(req,file,cb){
     if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+      console.log('filter ok')
       return cb(new Error('please upload image file'))
     }
     cb(undefined,true);
@@ -39,48 +67,22 @@ const uploadImg = multer({
 })
 
 
-router.post("/uploadImg/:id", checkUserToken,uploadImg.single('image'), async (req, res) => {
- try {
-  const  buffer = await sharp(req.file,buffer).resize({width:250,high:250}).toBuffer();
-  const post = await post.findById(req.params.id);
-  post.image = buffer;
-  await post.save();
-  res.status(201).send({uploaded:true})
-console.log('i have visit in the upload') 
- } catch (error) {
-   res.status(404).send({error:error});
- }
-  
-});
 
-
-router.post("/", checkUserToken, async (req, res) => {
-
-  /* var file = req.body.img;
-
-  var filename = `/.//styles/img/${path.parse(file).base}`; */
-
-  const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
-
-  const post = new Post({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
+router.post("/uploadImg", checkUserToken,uploadImg.single('image'), async (req, res) => {
+  console.log(req.file)
   try {
-    await post.save(req);
-    const postID = findIDByPost(title,  desc, img, categoryId, userFname, userLname,  userId)
-    console.log(postID)
-    //res.redirect(`/uploadImg/:${postID}`)
-    res.send({ posted: true, post });
-  } catch (e) {
-    console.log(e.message)
-    res.send({ posted: false })
+   const  Buffer = await sharp(req.file,buffer).resize({width:250,high:250}).toBuffer();
+                                             /* const post = await post.findById(req.params.id); */
+  /*  console.log(buffer)
+   temp.FileImg = buffer;
+   await temp.save(buffer);
+   res.status(201).send({uploaded:true}) */
+ console.log('i have visit in the upload') 
+  } catch (error) {
+    res.status(404).send({error:error});
   }
-});
-
-const findIDByPost = async (title,  desc, img, categoryId, userFname, userLname,  userId) => {
-  //return Post.findById({ _id: postId }).exec()
-  return Post.findOne({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId }).exec()
-}
-
-
+   
+ });
 
 //i try to mack a function to upload the file but its not working
 /* const fileUpload = (req) => {
