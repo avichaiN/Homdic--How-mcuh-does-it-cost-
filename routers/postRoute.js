@@ -6,8 +6,10 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
-const path = require('path')
-var moment = require('moment');
+const path = require('path');
+const moment = require('moment');
+const multer = require('multer');
+const sharp = require('sharp');
 
 
 
@@ -25,31 +27,47 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
   res.send({ foundPostsByCategoryId })
 })
 
+const uploadImg = multer({
+  limits:{
+    fileSize:3145728
+  },fileFilter(req,file,cb){
+    if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+      return cb(new Error('please upload image file'))
+    }
+    cb(undefined,true);
+  }
+})
+
+
+router.post("/uploadImg/:id", checkUserToken,uploadImg.single('image'), async (req, res) => {
+ try {
+  const  buffer = await sharp(req.file,buffer).resize({width:250,high:250}).toBuffer();
+  const post = await post.findById(req.params.id);
+  post.image = buffer;
+  await post.save();
+  res.status(201).send({uploaded:true})
+console.log('i have visit in the upload') 
+ } catch (error) {
+   res.status(404).send({error:error});
+ }
+  
+});
 
 
 router.post("/", checkUserToken, async (req, res) => {
 
-  var file = req.body.img;
+  /* var file = req.body.img;
 
-  var filename = `/.//styles/img/${path.parse(file).base}`;
+  var filename = `/.//styles/img/${path.parse(file).base}`; */
 
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
 
-  const post = new Post({ title: title, desc: desc, img: filename, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
+  const post = new Post({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
   try {
-
-
-    //////////////upload the file section/////////////////
-    let form = new formidable.IncomingForm();
-    form.parse(req);
-    console.log(__dirname + '/public/style/img/')
-    form.on('fileBegin', function (name, file) { file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name; })
-    form.on('file', function (name, file) {
-      console.log("Uploaded file", file.name);
-    });
-    ////////////////////////////////////////////////////////////////
-
     await post.save(req);
+    const postID = findIDByPost(title,  desc, img, categoryId, userFname, userLname,  userId)
+    console.log(postID)
+    //res.redirect(`/uploadImg/:${postID}`)
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message)
@@ -57,9 +75,15 @@ router.post("/", checkUserToken, async (req, res) => {
   }
 });
 
+const findIDByPost = async (title,  desc, img, categoryId, userFname, userLname,  userId) => {
+  //return Post.findById({ _id: postId }).exec()
+  return Post.findOne({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId }).exec()
+}
+
+
 
 //i try to mack a function to upload the file but its not working
-const fileUpload = (req) => {
+/* const fileUpload = (req) => {
   let form = new formidable.IncomingForm();
   form.parse(req);
   console.log(__dirname + '/public/style/img/')
@@ -67,7 +91,7 @@ const fileUpload = (req) => {
   form.on('file', function (name, file) {
     console.log("Uploaded file", file.name);
   });
-}
+} */
 
 
 const searchRegExp = (searched) => {
