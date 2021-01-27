@@ -30,6 +30,8 @@ var updateUserDataRouter = require("./routers/updateUserDataRoute");
 
 var postRouter = require("./routers/postRoute");
 
+var commentsRouter = require("./routers/commentsRoute");
+
 var updateUserPasswordRouter = require("./routers/updateUserPasswordRoute"); //Global Functions
 
 
@@ -53,6 +55,7 @@ app.use("/category", categoryRouter);
 app.use("/admin", adminRouter);
 app.use("/updateUserData", updateUserDataRouter);
 app.use("/posts", postRouter);
+app.use("/comments", commentsRouter);
 app.use("/resetpassword", updateUserPasswordRouter);
 app.use(express["static"](path.join(__dirname, "public")));
 app.listen(port, function () {
