@@ -36,6 +36,7 @@
         width: 33%;
         margin-right: 2%;
         color: white;
+        font-weight: bold;
 
         @include mq(260px) {
             font-size: x-small;

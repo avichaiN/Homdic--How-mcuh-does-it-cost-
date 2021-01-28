@@ -29,6 +29,7 @@
   width: 33%;
   margin-right: 2%;
   color: white;
+  font-weight: bold;
 }
 @media only screen and (min-width: 260px) {
   .header .header__helloUser {
