@@ -91,9 +91,3 @@ body #app .commenstsSection .comment #likeComment .likesAmount {
 .deletePostButton:hover {
   background-color: red;
 }
-
-@media only screen and (max-width: 650px) {
-  body #app .commenstsSection {
-    margin-top: 350px;
-  }
-}
