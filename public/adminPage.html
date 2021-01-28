@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="renderNavToDom(),getAllUsers(), getUserInfo()">
+<body onload="renderNavToDom(),getAllUsers(0), getUserInfo()">
     <div class="adminPage" onclick="hideUserDropDown()">
         <!-- header  -->
         <div class="header">
@@ -19,6 +19,10 @@
 
         <div class="allUsers">
 
+        </div>
+        <div id='pagesBox'>
+            <span class="title">עמוד</span>
+            <div id='pages'></div>
         </div>
         <div class="editUserForm">
 

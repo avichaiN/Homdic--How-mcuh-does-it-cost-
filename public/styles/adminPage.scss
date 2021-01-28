@@ -15,13 +15,11 @@ body {
     width: 100%;
     height: 100vh;
     overflow: scroll;
-    border: 1px solid black;
 
     .allUsers {
         font-size: 15px;
         position: relative;
         top: 10%;
-        border: 1px solid black;
         width: 98%;
         height: 100%;
         margin: auto;
@@ -42,13 +40,48 @@ body {
         }
     }
 
+    #pagesBox {
+        position: absolute;
+        left: 5%;
+        bottom: 10%;
+        width: 25%;
+        margin-left: 5%;
+        padding: 10px;
+        font-size: 21px;
+        background-color: white;
+        border-radius: 10px;
+        border: 3px solid darkgray;
+
+        .title {
+            font-weight: 550;
+            font-size: 25px;
+        }
+
+        #pages {
+
+            float: left;
+            .page {
+                border: 1px solid black;
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 2px;
+                padding: 2px;
+            }
+
+            .page:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+    }
+
     .editUserForm {
         background-color: white;
         position: absolute;
         top: 20%;
         left: 37%;
         width: 50%;
-        display:none;
+        display: none;
 
         .editUserFormm {
             width: 100%;
@@ -57,11 +90,12 @@ body {
             flex-direction: column;
             z-index: 5;
 
-            input{
+            input {
 
                 width: 80%;
             }
-            #role{
+
+            #role {
                 width: 50%;
             }
         }

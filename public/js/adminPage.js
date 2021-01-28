@@ -1,15 +1,30 @@
-const getAllUsers = () => {
-  fetch("/admin")
+const getAllUsers = (skip) => {
+  fetch(`/admin/${skip}`)
     .then((res) => res.json())
     .then((data) => {
       if (!data.admin) {
         window.location.href = "index.html"
       } else {
+        const usersAmount = data.usersAmount
+        getPageAmount(usersAmount)
         writeUsersToDom(data.allUsers);
       }
     });
 };
-
+const getPageAmount = (users) =>{
+  if (users>=10 && users<=20) {
+    renderPageAmount(2)
+  }
+}
+const renderPageAmount = (num) =>{
+  let html = ''
+  const pages = document.querySelector('#pages')
+  for(i=0;i<num;i++){
+    const skipAmount = parseInt(i+'0')
+    html += `<span class='page' onclick="getAllUsers(${skipAmount})">${i}</span>`
+  }
+  pages.innerHTML = html
+}
 const writeUsersToDom = (users) => {
   let usersBox = document.querySelector(".allUsers");
   let html = "";
