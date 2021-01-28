@@ -12,12 +12,16 @@ function getUserName() {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.user) {
-        const title = (document.getElementById(
-          "firstName"
-        ).innerHTML = `<h2>שלום לך  ${data.user}</h2>`);
-      } else {
-        console.log("can't get first name");
+      try {
+        if (data.user) {
+          const title = (document.getElementById(
+            "firstName"
+          ).innerHTML = `<h2>שלום לך  ${data.user}</h2>`);
+        } else {
+          console.log("can't get first name");
+        }
+      } catch (e) {
+        console.log(e);
       }
     });
 }
@@ -35,23 +39,27 @@ function handleUpdatePassword(e) {
   })
     .then((res) => res.json())
     .then(async (data) => {
-      if (data.user == "updated") {
-        await Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "פרטייך עודכנו במערכת, הנך מועבר/ת לאתר..",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        window.location.href = "/category";
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "אופס...",
-          text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
-          confirmButtonColor: "red",
-          confirmButtonText: "אישור",
-        });
+      try {
+        if (data.user == "updated") {
+          await Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "פרטייך עודכנו במערכת, הנך מועבר/ת לאתר..",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.href = "/category";
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "אופס...",
+            text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
+            confirmButtonColor: "red",
+            confirmButtonText: "אישור",
+          });
+        }
+      } catch (e) {
+        console.log(e);
       }
     });
 }

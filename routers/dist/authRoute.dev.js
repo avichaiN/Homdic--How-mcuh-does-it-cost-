@@ -46,7 +46,8 @@ router.post("/", function _callee(req, res) {
                 id: userFound._id,
                 role: userFound.role,
                 username: userFound.username,
-                name: userFound.firstName,
+                fName: userFound.firstName,
+                lName: userFound.lastName,
                 time: new Date().getTime()
               }, process.env.SECRET);
               res.cookie("userLoggedIn", token, {
@@ -111,8 +112,10 @@ router.post("/register", function (req, res) {
             token = jwt.encode({
               role: newUser.role,
               username: newUser.username,
-              name: newUser.firstName,
-              time: new Date().getTime()
+              fName: newUser.firstName,
+              lName: newUser.lastName,
+              time: new Date().getTime(),
+              id: newUser._id
             }, process.env.SECRET);
             res.cookie("userLoggedIn", token, {
               maxAge: 7200000,
@@ -144,32 +147,44 @@ router.post("/register", function (req, res) {
 router.get("/userInfo", function (req, res) {
   var token = req.cookies.userLoggedIn;
 
-  if (token) {
-    var decoded = jwt.decode(token, process.env.SECRET);
-    res.send({
-      decoded: decoded
-    });
-  } else {
-    res.send({
-      ok: false
-    });
+  try {
+    if (token) {
+      var decoded = jwt.decode(token, process.env.SECRET);
+      res.send({
+        decoded: decoded
+      });
+    } else {
+      res.send({
+        ok: false
+      });
+    }
+  } catch (e) {
+    console.log(e);
   }
 });
 router.get("/logout", function (req, res) {
-  res.cookie("userLoggedIn", "", {
-    expires: new Date(0)
-  }); // this delete cookie (sets it to a date that is gone)
+  try {
+    res.cookie("userLoggedIn", "", {
+      expires: new Date(0)
+    }); // this delete cookie (sets it to a date that is gone)
 
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
+    res.sendFile(path.join(__dirname, "../public", "index.html"));
+  } catch (e) {
+    console.log(e);
+  }
 });
 router.get("/logout/user", function (req, res) {
-  res.cookie("userLoggedIn", "", {
-    expires: new Date(0)
-  }); // this delete cookie (sets it to a date that is gone)
+  try {
+    res.cookie("userLoggedIn", "", {
+      expires: new Date(0)
+    }); // this delete cookie (sets it to a date that is gone)
 
-  res.send({
-    loggedout: true
-  });
+    res.send({
+      loggedout: true
+    });
+  } catch (e) {
+    console.log(e);
+  }
 });
 router.post("/reset", function _callee3(req, res) {
   var userEmail, userFound, userId, encodedId, tranporter, mailOptions;

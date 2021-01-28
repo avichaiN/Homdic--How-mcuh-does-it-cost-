@@ -1,18 +1,22 @@
 fetch("/updateUserData")
   .then((r) => r.json())
   .then((data) => {
-    document
-      .getElementById("firstName")
-      .setAttribute("value", `${data.userFound.firstName}`);
-    document
-      .getElementById("lastName")
-      .setAttribute("value", `${data.userFound.lastName}`);
-    document
-      .getElementById("username")
-      .setAttribute("value", `${data.userFound.username}`);
-    document
-      .getElementById("email")
-      .setAttribute("value", `${data.userFound.email}`);
+    try {
+      document
+        .getElementById("firstName")
+        .setAttribute("value", `${data.userFound.firstName}`);
+      document
+        .getElementById("lastName")
+        .setAttribute("value", `${data.userFound.lastName}`);
+      document
+        .getElementById("username")
+        .setAttribute("value", `${data.userFound.username}`);
+      document
+        .getElementById("email")
+        .setAttribute("value", `${data.userFound.email}`);
+    } catch (e) {
+      console.log(e);
+    }
   });
 
 function handleUpdateForm(e) {
@@ -31,23 +35,27 @@ function handleUpdateForm(e) {
   })
     .then((res) => res.json())
     .then(async (data) => {
-      if (data.user == "updated") {
-        await Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "פרטייך עודכנו במערכת",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        window.location.href = "/category";
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "אופס...",
-          text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
-          confirmButtonColor: "red",
-          confirmButtonText: "אישור",
-        });
+      try {
+        if (data.user == "updated") {
+          await Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "פרטייך עודכנו במערכת",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.href = "/category";
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "אופס...",
+            text: "משהו השתבש בעדכון הפרטים, נא לנסות שוב..",
+            confirmButtonColor: "red",
+            confirmButtonText: "אישור",
+          });
+        }
+      } catch (e) {
+        console.log(e);
       }
     });
 }

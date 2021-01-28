@@ -72,7 +72,7 @@ router.post("/register", (req, res) => {
           fName: newUser.firstName,
           lName: newUser.lastName,
           time: new Date().getTime(),
-          id: newUser._id
+          id: newUser._id,
         },
         process.env.SECRET
       );
@@ -91,22 +91,34 @@ router.post("/register", (req, res) => {
 
 router.get("/userInfo", (req, res) => {
   const token = req.cookies.userLoggedIn;
-  if (token) {
-    const decoded = jwt.decode(token, process.env.SECRET);
-    res.send({ decoded });
-  } else {
-    res.send({ ok: false });
+  try {
+    if (token) {
+      const decoded = jwt.decode(token, process.env.SECRET);
+      res.send({ decoded });
+    } else {
+      res.send({ ok: false });
+    }
+  } catch (e) {
+    console.log(e);
   }
 });
 
 router.get("/logout", (req, res) => {
-  res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
+  try {
+    res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
+    res.sendFile(path.join(__dirname, "../public", "index.html"));
+  } catch (e) {
+    console.log(e);
+  }
 });
 router.get("/logout/user", (req, res) => {
-  res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
+  try {
+    res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
-  res.send({ loggedout: true });
+    res.send({ loggedout: true });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.post("/reset", async (req, res) => {
