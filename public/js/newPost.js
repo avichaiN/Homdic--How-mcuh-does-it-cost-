@@ -31,7 +31,7 @@ const handleImgSelect = () => {
   const fileChosen = document.querySelector("#file-chosen");
   let file = imgUpload.files[0];
   fileChosen.textContent = file.name;
-  uploadImageFile(file);
+   uploadImageFile(file);
 };
 
 const getCategoiresCheckBox = () => {
@@ -47,10 +47,15 @@ const getCategoiresCheckBox = () => {
       categoryCheckBox.innerHTML = categoriesNames;
     });
 };
-const uploadImageFile = async (file) => {
+const uploadImageFile =  (file) => {
   let formData = new FormData();
-  formData.append("file",file);
-  await fetch("/posts/uploadImg", {method: "POST",  body: FormData});
+    fetch("/posts/uploadImg", {
+    method: "POST",
+    headers: {     
+      "content-type":"multipart/form-data",
+    },
+    body: formData,
+  })
   alert('the img has transferd')
 }
 const handleNewPost = async (e) => {

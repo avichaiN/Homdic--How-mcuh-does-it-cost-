@@ -50,42 +50,29 @@ var getCategoiresCheckBox = function getCategoiresCheckBox() {
 };
 
 var uploadImageFile = function uploadImageFile(file) {
-  var formData;
-  return regeneratorRuntime.async(function uploadImageFile$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          formData = new FormData();
-          formData.append("file", file);
-          _context.next = 4;
-          return regeneratorRuntime.awrap(fetch("/posts/uploadImg", {
-            method: "POST",
-            body: FormData
-          }));
-
-        case 4:
-          alert('the img has transferd');
-
-        case 5:
-        case "end":
-          return _context.stop();
-      }
-    }
+  var formData = new FormData();
+  fetch("/posts/uploadImg", {
+    method: "POST",
+    headers: {
+      "content-type": "multipart/form-data"
+    },
+    body: formData
   });
+  alert('the img has transferd');
 };
 
 var handleNewPost = function handleNewPost(e) {
   var user, categoryId, title, desc, img, userId, userFname, userLname;
-  return regeneratorRuntime.async(function handleNewPost$(_context3) {
+  return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
-      switch (_context3.prev = _context3.next) {
+      switch (_context2.prev = _context2.next) {
         case 0:
           e.preventDefault();
-          _context3.next = 3;
+          _context2.next = 3;
           return regeneratorRuntime.awrap(getUserWhoPosted());
 
         case 3:
-          user = _context3.sent;
+          user = _context2.sent;
           categoryId = e.target.children.category.value;
           title = e.target.children.title.value;
           desc = e.target.children.desc.value;
@@ -117,16 +104,16 @@ var handleNewPost = function handleNewPost(e) {
           }).then(function (res) {
             return res.json();
           }).then(function _callee(data) {
-            return regeneratorRuntime.async(function _callee$(_context2) {
+            return regeneratorRuntime.async(function _callee$(_context) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context.prev = _context.next) {
                   case 0:
                     if (data.posted) {
-                      _context2.next = 5;
+                      _context.next = 5;
                       break;
                     }
 
-                    _context2.next = 3;
+                    _context.next = 3;
                     return regeneratorRuntime.awrap(Swal.fire({
                       position: "center",
                       icon: "error",
@@ -136,11 +123,11 @@ var handleNewPost = function handleNewPost(e) {
                     }));
 
                   case 3:
-                    _context2.next = 9;
+                    _context.next = 9;
                     break;
 
                   case 5:
-                    _context2.next = 7;
+                    _context.next = 7;
                     return regeneratorRuntime.awrap(Swal.fire({
                       position: "center",
                       icon: "success",
@@ -155,7 +142,7 @@ var handleNewPost = function handleNewPost(e) {
 
                   case 9:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
               }
             });
@@ -163,7 +150,7 @@ var handleNewPost = function handleNewPost(e) {
 
         case 13:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
     }
   });
