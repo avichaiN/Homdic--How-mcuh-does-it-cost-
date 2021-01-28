@@ -3,20 +3,17 @@
   place-items: center;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .header {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 100%;
   height: 6.5%;
   background-color: #298cad;
   display: flex;
   justify-content: space-around;
   z-index: 5;
+  box-sizing: border-box;
 }
 .header input::-webkit-input-placeholder {
   font-size: 15px;
@@ -114,11 +111,9 @@
   width: 25%;
   height: 83%;
   margin-left: 5%;
-  display: flex;
-  flex-direction: row-reverse;
 }
 .header .header__userInfo img {
-  align-self: center;
+  float: left;
   margin-left: 15%;
   width: 30px;
   height: 30px;
@@ -160,17 +155,18 @@
 .header .header__userInfo .header__userInfoDrop {
   display: none;
   flex-direction: column;
-  position: absolute;
-  top: 95%;
   justify-content: space-around;
   padding: 15px;
-  min-width: 13%;
+  min-width: 50%;
+  float: left;
   background-color: #298cad;
   border-radius: 5px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   font-size: 35px;
   box-shadow: 0px 8px 16px 0px -2px rgba(0, 0, 0, 0.2);
+  margin-top: 10.2%;
+  margin-left: -30%;
 }
 .header .header__userInfo .header__userInfoDrop a, .header .header__userInfo .header__userInfoDrop button {
   text-align: center;
@@ -190,4 +186,23 @@
 .header .header__userInfo .header__userInfoDrop a:hover, .header .header__userInfo .header__userInfoDrop a:active, .header .header__userInfo .header__userInfoDrop button:hover, .header .header__userInfo .header__userInfoDrop button:active {
   background-color: #298cad;
   color: white;
+}
+
+@media only screen and (max-width: 1000px) {
+  .header .header__userInfo .header__userInfoDrop {
+    margin-top: 12%;
+    margin-left: -10%;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .header .header__userInfo .header__userInfoDrop {
+    margin-top: 12%;
+    margin-left: -25%;
+  }
+}
+@media only screen and (max-width: 560px) {
+  .header .header__userInfo .header__userInfoDrop {
+    margin-top: 8%;
+    margin-left: -18%;
+  }
 }
