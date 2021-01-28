@@ -11,17 +11,26 @@ const getAllUsers = (skip) => {
       }
     });
 };
-const getPageAmount = (users) =>{
-  if (users>=10 && users<=20) {
-    renderPageAmount(2)
+function getlength(number) {
+  return number.toString().length;
+}
+const getPageAmount = (users) => {
+  const length = getlength(users)
+  if (length == 1 || users == 10) {
+    console.log('only 1 page')
+  } else if (length == 2) {
+    const usersAmount = parseInt(('' + users)[0]) + 1
+    renderPageAmount(usersAmount)
+  } else if (length == 3) {
+    // if user amount over 100 need to work here
   }
 }
-const renderPageAmount = (num) =>{
+const renderPageAmount = (num) => {
   let html = ''
   const pages = document.querySelector('#pages')
-  for(i=0;i<num;i++){
-    const skipAmount = parseInt(i+'0')
-    html += `<span class='page' onclick="getAllUsers(${skipAmount})">${i}</span>`
+  for (i = 0; i < num; i++) {
+    const skipAmount = parseInt(i + '0')
+    html += `<span class='page' onclick="getAllUsers(${skipAmount})">${i + 1}</span>`
   }
   pages.innerHTML = html
 }
