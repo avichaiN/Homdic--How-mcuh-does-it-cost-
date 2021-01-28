@@ -31,7 +31,7 @@ const handleImgSelect = () => {
   const fileChosen = document.querySelector("#file-chosen");
   let file = imgUpload.files[0];
   fileChosen.textContent = file.name;
-   uploadImageFile(file);
+  uploadImageFile(file);
 };
 
 const getCategoiresCheckBox = () => {
@@ -47,12 +47,13 @@ const getCategoiresCheckBox = () => {
       categoryCheckBox.innerHTML = categoriesNames;
     });
 };
-const uploadImageFile =  (file) => {
+const uploadImageFile = (file) => {
   let formData = new FormData();
-    fetch("/posts/uploadImg", {
+  formData.append('img', file);
+  fetch("/posts/uploadImg", {
     method: "POST",
-    headers: {     
-      "content-type":"multipart/form-data",
+    headers: {
+      "content-type": "multipart/form-data",
     },
     body: formData,
   })
@@ -77,7 +78,7 @@ const handleNewPost = async (e) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-     /*  "content-type":"multipart/form-data" */
+      /*  "content-type":"multipart/form-data" */
     },
     body: JSON.stringify({
       userId,
@@ -110,7 +111,7 @@ const handleNewPost = async (e) => {
 
 
 
-        
+
 
         hideNewPostBox();
 
