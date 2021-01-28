@@ -295,4 +295,4 @@ router.post('/byid', function _callee7(req, res) {
     }
   });
 });
-module.exports = router;
+module.exports = [router];

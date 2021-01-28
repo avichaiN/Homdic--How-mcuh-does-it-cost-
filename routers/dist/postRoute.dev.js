@@ -26,6 +26,19 @@ var multer = require('multer');
 
 var sharp = require('sharp');
 
+var uploadImg = multer({
+  limits: {
+    fileSize: 3145728
+  },
+  fileFilter: function fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      console.log('filter ok');
+      return cb(new Error('please upload image file'));
+    }
+
+    cb(file, true);
+  }
+});
 router.get('/get/:id', checkUserToken, function _callee(req, res) {
   var posts, foundPostsByCategoryId;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -56,13 +69,14 @@ router.get('/get/:id', checkUserToken, function _callee(req, res) {
     }
   });
 });
-router.post("/", checkUserToken, function _callee2(req, res) {
+router.post("/", checkUserToken, uploadImg.single('img'), function _callee2(req, res) {
   var _req$body, userId, userFname, userLname, categoryId, title, desc, img, post;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
+          console.log(req.file);
           _req$body = req.body, userId = _req$body.userId, userFname = _req$body.userFname, userLname = _req$body.userLname, categoryId = _req$body.categoryId, title = _req$body.title, desc = _req$body.desc, img = _req$body.img;
           post = new Post({
             title: title,
@@ -73,51 +87,39 @@ router.post("/", checkUserToken, function _callee2(req, res) {
             lName: userLname,
             publishedBy: userId
           });
-          _context2.prev = 2;
-          _context2.next = 5;
+          _context2.prev = 3;
+          _context2.next = 6;
           return regeneratorRuntime.awrap(post.save(req));
 
-        case 5:
+        case 6:
           res.send({
             posted: true,
             post: post
           });
-          _context2.next = 12;
+          _context2.next = 13;
           break;
 
-        case 8:
-          _context2.prev = 8;
-          _context2.t0 = _context2["catch"](2);
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](3);
           console.log(_context2.t0.message);
           res.send({
             posted: false
           });
 
-        case 12:
+        case 13:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[2, 8]]);
+  }, null, null, [[3, 9]]);
 });
 /* const findIDByPost = async (title,  desc, img, categoryId, userFname, userLname,  userId) => {
   return Post.findOne({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId }).exec()
 } */
+// checkUserToken,uploadImg.single('img'),
 
-var uploadImg = multer({
-  limits: {
-    fileSize: 3145728
-  },
-  fileFilter: function fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      console.log('filter ok');
-      return cb(new Error('please upload image file'));
-    }
-
-    cb(undefined, true);
-  }
-});
-router.post("/uploadImg", checkUserToken, uploadImg.single('image'), function _callee3(req, res) {
+router.post("/uploadImg", function _callee3(req, res) {
   var Buffer;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
@@ -135,9 +137,9 @@ router.post("/uploadImg", checkUserToken, uploadImg.single('image'), function _c
           Buffer = _context3.sent;
 
           /* const post = await post.findById(req.params.id); */
+          // console.log(buffer)
 
-          /*  console.log(buffer)
-           temp.FileImg = buffer;
+          /*   temp.FileImg = buffer;
            await temp.save(buffer);
            res.status(201).send({uploaded:true}) */
           console.log('i have visit in the upload');

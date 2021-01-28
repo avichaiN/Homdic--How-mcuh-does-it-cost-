@@ -103,4 +103,4 @@ router.post('/byid', async (req,res)=>{
   res.send({categoryInfo})
 })
 
-module.exports = router;
+module.exports = [router];

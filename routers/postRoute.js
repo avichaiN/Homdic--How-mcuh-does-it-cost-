@@ -11,6 +11,18 @@ const path = require('path');
 const moment = require('moment');
 const multer = require('multer');
 const sharp = require('sharp');
+const uploadImg = multer({
+  limits:{
+    fileSize:3145728
+  },fileFilter(req,file,cb){
+    if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+      console.log('filter ok')
+      return cb(new Error('please upload image file'))
+    }
+    cb(file,true);
+  }
+})
+
 
 
 
@@ -29,15 +41,13 @@ router.get('/get/:id', checkUserToken, async (req, res) => {
 })
 
 
-
-
-
-
-router.post("/", checkUserToken, async (req, res) => {
-
+router.post("/", checkUserToken,uploadImg.single('img'), async (req, res) => {
+  console.log(req.file)
   const { userId, userFname, userLname, categoryId, title, desc, img } = req.body
 
   const post = new Post({ title: title, desc: desc, img: img, categoryId: categoryId, fName: userFname, lName: userLname, publishedBy: userId });
+ 
+ 
   try {
     await post.save(req);
     
@@ -54,27 +64,15 @@ router.post("/", checkUserToken, async (req, res) => {
 } */
 
 
-const uploadImg = multer({
-  limits:{
-    fileSize:3145728
-  },fileFilter(req,file,cb){
-    if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-      console.log('filter ok')
-      return cb(new Error('please upload image file'))
-    }
-    cb(undefined,true);
-  }
-})
 
-
-
-router.post("/uploadImg", checkUserToken,uploadImg.single('image'), async (req, res) => {
+// checkUserToken,uploadImg.single('img'),
+router.post("/uploadImg",  async (req, res) => {
   console.log(req.file)
-  try {
+  try {                     /* req.file  - is empty*/
    const  Buffer = await sharp(req.file,buffer).resize({width:250,high:250}).toBuffer();
                                              /* const post = await post.findById(req.params.id); */
-  /*  console.log(buffer)
-   temp.FileImg = buffer;
+  // console.log(buffer)
+  /*   temp.FileImg = buffer;
    await temp.save(buffer);
    res.status(201).send({uploaded:true}) */
  console.log('i have visit in the upload') 
