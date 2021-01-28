@@ -31,8 +31,7 @@ var handleImgSelect = function handleImgSelect() {
   var imgUpload = document.querySelector(".imgUpload");
   var fileChosen = document.querySelector("#file-chosen");
   var file = imgUpload.files[0];
-  fileChosen.textContent = file.name;
-  uploadImageFile(file);
+  fileChosen.textContent = file.name; //uploadImageFile(file);
 };
 
 var getCategoiresCheckBox = function getCategoiresCheckBox() {
@@ -51,6 +50,7 @@ var getCategoiresCheckBox = function getCategoiresCheckBox() {
 
 var uploadImageFile = function uploadImageFile(file) {
   var formData = new FormData();
+  formData.append('img', file);
   fetch("/posts/uploadImg", {
     method: "POST",
     headers: {
@@ -61,8 +61,8 @@ var uploadImageFile = function uploadImageFile(file) {
   alert('the img has transferd');
 };
 
-var handleNewPost = function handleNewPost(e) {
-  var user, categoryId, title, desc, img, userId, userFname, userLname;
+var handleNewPost = function handleNewPost(file) {
+  var user, categoryId, title, desc, img, userId, userFname, userLname, formData;
   return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -85,22 +85,31 @@ var handleNewPost = function handleNewPost(e) {
             categoryId = undefined;
           }
 
+          formData = new FormData();
+          formData.append('img', file);
+          formData.append('categoryId', categoryId);
+          formData.append('title', title);
+          formData.append('desc', desc);
+          formData.append('userId', userId);
+          formData.append('userFname', userFname);
+          formData.append('userLname', userLname);
           fetch("/posts", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
-              /*  "content-type":"multipart/form-data" */
-
+              /* "Content-Type": "application/json", */
+              "content-type": "multipart/form-data"
             },
-            body: JSON.stringify({
-              userId: userId,
-              userFname: userFname,
-              userLname: userLname,
-              categoryId: categoryId,
-              title: title,
-              desc: desc,
-              img: img
-            })
+
+            /* body: JSON.stringify({
+              userId,
+              userFname,
+              userLname,
+              categoryId,
+              title,
+              desc,
+              img,
+            }), */
+            body: formData
           }).then(function (res) {
             return res.json();
           }).then(function _callee(data) {
@@ -123,7 +132,7 @@ var handleNewPost = function handleNewPost(e) {
                     }));
 
                   case 3:
-                    _context.next = 9;
+                    _context.next = 7;
                     break;
 
                   case 5:
@@ -137,10 +146,6 @@ var handleNewPost = function handleNewPost(e) {
                     }));
 
                   case 7:
-                    hideNewPostBox();
-                    window.location.href = "/posts.html?".concat(categoryId);
-
-                  case 9:
                   case "end":
                     return _context.stop();
                 }
@@ -148,7 +153,7 @@ var handleNewPost = function handleNewPost(e) {
             });
           });
 
-        case 13:
+        case 21:
         case "end":
           return _context2.stop();
       }

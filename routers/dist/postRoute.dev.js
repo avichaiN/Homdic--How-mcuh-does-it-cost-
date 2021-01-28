@@ -68,100 +68,84 @@ var uploadImg = multer({
     cb(undefined, true);
   }
 });
-router.post("/uploadImg/:id", checkUserToken, uploadImg.single("image"), function _callee2(req, res) {
-  var buffer, post;
+router.post("/uploadImg", checkUserToken, uploadImg.single("img"), function _callee2(req, res) {
+  var _buffer;
+
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
+          return regeneratorRuntime.awrap(sharp(req.file, _buffer).resize({
+            width: 250,
+            high: 250
+          }).toBuffer());
+
+        case 3:
+          _buffer = _context2.sent;
+          // const post = await post.findById(req.params.id);
+          //  post.image = buffer;
+          // await post.save();
+          res.status(201).send({
+            uploaded: true
+          });
+          console.log("i have visit in the upload");
+          _context2.next = 11;
+          break;
+
+        case 8:
+          _context2.prev = 8;
+          _context2.t0 = _context2["catch"](0);
+          res.status(404).send({
+            error: _context2.t0
+          });
+
+        case 11:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, [[0, 8]]);
+});
+router.post("/", checkUserToken, uploadImg.single("img"), function _callee3(req, res) {
+  var Buffer;
+  return regeneratorRuntime.async(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
           return regeneratorRuntime.awrap(sharp(req.file, buffer).resize({
             width: 250,
             high: 250
           }).toBuffer());
 
         case 3:
-          buffer = _context2.sent;
-          _context2.next = 6;
-          return regeneratorRuntime.awrap(post.findById(req.params.id));
-
-        case 6:
-          post = _context2.sent;
-          post.image = buffer;
-          _context2.next = 10;
-          return regeneratorRuntime.awrap(post.save());
-
-        case 10:
-          res.status(201).send({
-            uploaded: true
-          });
-          console.log("i have visit in the upload");
-          _context2.next = 17;
-          break;
-
-        case 14:
-          _context2.prev = 14;
-          _context2.t0 = _context2["catch"](0);
-          res.status(404).send({
-            error: _context2.t0
-          });
-
-        case 17:
-        case "end":
-          return _context2.stop();
-      }
-    }
-  }, null, null, [[0, 14]]);
-});
-router.post("/", checkUserToken, function _callee3(req, res) {
-  var _req$body, userId, userFname, userLname, categoryId, title, desc, img, post, postID;
-
-  return regeneratorRuntime.async(function _callee3$(_context3) {
-    while (1) {
-      switch (_context3.prev = _context3.next) {
-        case 0:
-          /* var file = req.body.img;
-            var filename = `/.//styles/img/${path.parse(file).base}`; */
-          _req$body = req.body, userId = _req$body.userId, userFname = _req$body.userFname, userLname = _req$body.userLname, categoryId = _req$body.categoryId, title = _req$body.title, desc = _req$body.desc, img = _req$body.img;
-          post = new Post({
-            title: title,
-            desc: desc,
-            img: img,
-            categoryId: categoryId,
-            fName: userFname,
-            lName: userLname,
-            publishedBy: userId
-          });
-          _context3.prev = 2;
-          _context3.next = 5;
-          return regeneratorRuntime.awrap(post.save(req));
-
-        case 5:
-          postID = findIDByPost(title, desc, img, categoryId, userFname, userLname, userId);
-          console.log(postID); //res.redirect(`/uploadImg/:${postID}`)
+          Buffer = _context3.sent;
+          console.log(Buffer); // await post.save(req.body);
 
           res.send({
             posted: true,
             post: post
           });
-          _context3.next = 14;
+          _context3.next = 12;
           break;
 
-        case 10:
-          _context3.prev = 10;
-          _context3.t0 = _context3["catch"](2);
+        case 8:
+          _context3.prev = 8;
+          _context3.t0 = _context3["catch"](0);
           console.log(_context3.t0.message);
           res.send({
             posted: false
           });
 
-        case 14:
+        case 12:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[2, 10]]);
+  }, null, null, [[0, 8]]);
 });
 
 var findIDByPost = function findIDByPost(title, desc, img, categoryId, userFname, userLname, userId) {
@@ -498,13 +482,13 @@ var checkIfPostInFavorite = function checkIfPostInFavorite(postID, userId) {
 };
 
 router.post("/favorite/add", checkUserToken, function _callee9(req, res) {
-  var _req$body2, postID, userId, checkIfAlreadyFav, addToFavPost;
+  var _req$body, postID, userId, checkIfAlreadyFav, addToFavPost;
 
   return regeneratorRuntime.async(function _callee9$(_context14) {
     while (1) {
       switch (_context14.prev = _context14.next) {
         case 0:
-          _req$body2 = req.body, postID = _req$body2.postID, userId = _req$body2.userId;
+          _req$body = req.body, postID = _req$body.postID, userId = _req$body.userId;
           _context14.next = 3;
           return regeneratorRuntime.awrap(checkIfPostInFavorite(postID, userId));
 
@@ -540,13 +524,13 @@ router.post("/favorite/add", checkUserToken, function _callee9(req, res) {
   });
 });
 router["delete"]("/favorite/delete", checkUserToken, function _callee10(req, res) {
-  var _req$body3, postID, userId, deleteFromFavoritePosts;
+  var _req$body2, postID, userId, deleteFromFavoritePosts;
 
   return regeneratorRuntime.async(function _callee10$(_context15) {
     while (1) {
       switch (_context15.prev = _context15.next) {
         case 0:
-          _req$body3 = req.body, postID = _req$body3.postID, userId = _req$body3.userId;
+          _req$body2 = req.body, postID = _req$body2.postID, userId = _req$body2.userId;
           _context15.next = 3;
           return regeneratorRuntime.awrap(deletePostFromFavorite(postID, userId));
 
@@ -564,13 +548,13 @@ router["delete"]("/favorite/delete", checkUserToken, function _callee10(req, res
   });
 });
 router.post("/favorite/check", checkUserToken, function _callee11(req, res) {
-  var _req$body4, postID, userId, checkIfAlreadyFav;
+  var _req$body3, postID, userId, checkIfAlreadyFav;
 
   return regeneratorRuntime.async(function _callee11$(_context16) {
     while (1) {
       switch (_context16.prev = _context16.next) {
         case 0:
-          _req$body4 = req.body, postID = _req$body4.postID, userId = _req$body4.userId;
+          _req$body3 = req.body, postID = _req$body3.postID, userId = _req$body3.userId;
           _context16.next = 3;
           return regeneratorRuntime.awrap(checkIfPostInFavorite(postID, userId));
 
@@ -619,7 +603,8 @@ var findPostById = function findPostById(postId) {
 };
 
 router.post("/favorites/getall", checkUserToken, function _callee12(req, res) {
-  var userId, userInfo, favPostsIds, favPosts, post;
+  var userId, userInfo, favPostsIds, favPosts, _post;
+
   return regeneratorRuntime.async(function _callee12$(_context18) {
     while (1) {
       switch (_context18.prev = _context18.next) {
@@ -645,8 +630,8 @@ router.post("/favorites/getall", checkUserToken, function _callee12(req, res) {
           return regeneratorRuntime.awrap(findPostById(favPostsIds[i]));
 
         case 11:
-          post = _context18.sent;
-          favPosts.push(post);
+          _post = _context18.sent;
+          favPosts.push(_post);
 
         case 13:
           i++;

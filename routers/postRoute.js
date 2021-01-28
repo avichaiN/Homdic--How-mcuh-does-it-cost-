@@ -38,18 +38,14 @@ const uploadImg = multer({
   },
 });
 
-router.post(
-  "/uploadImg/:id",
-  checkUserToken,
-  uploadImg.single("image"),
-  async (req, res) => {
+router.post("/uploadImg",checkUserToken, uploadImg.single("img"),async (req, res) => {
     try {
       const buffer = await sharp(req.file, buffer)
         .resize({ width: 250, high: 250 })
         .toBuffer();
-      const post = await post.findById(req.params.id);
-      post.image = buffer;
-      await post.save();
+     // const post = await post.findById(req.params.id);
+    //  post.image = buffer;
+     // await post.save();
       res.status(201).send({ uploaded: true });
       console.log("i have visit in the upload");
     } catch (error) {
@@ -58,12 +54,14 @@ router.post(
   }
 );
 
-router.post("/", checkUserToken, async (req, res) => {
+router.post("/", checkUserToken,uploadImg.single("img"), async (req, res) => {
   /* var file = req.body.img;
 
   var filename = `/.//styles/img/${path.parse(file).base}`; */
 
-  const {
+
+  
+  /* const {
     userId,
     userFname,
     userLname,
@@ -71,9 +69,9 @@ router.post("/", checkUserToken, async (req, res) => {
     title,
     desc,
     img,
-  } = req.body;
+  } = req.body; */
 
-  const post = new Post({
+ /*  const post = new Post({
     title: title,
     desc: desc,
     img: img,
@@ -81,20 +79,13 @@ router.post("/", checkUserToken, async (req, res) => {
     fName: userFname,
     lName: userLname,
     publishedBy: userId,
-  });
+  }); */
   try {
-    await post.save(req);
-    const postID = findIDByPost(
-      title,
-      desc,
-      img,
-      categoryId,
-      userFname,
-      userLname,
-      userId
-    );
-    console.log(postID);
-    //res.redirect(`/uploadImg/:${postID}`)
+    const Buffer = await sharp(req.file, buffer)
+        .resize({ width: 250, high: 250 })
+        .toBuffer();
+    console.log(Buffer)
+   // await post.save(req.body);
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message);

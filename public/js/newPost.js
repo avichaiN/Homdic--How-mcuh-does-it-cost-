@@ -31,7 +31,7 @@ const handleImgSelect = () => {
   const fileChosen = document.querySelector("#file-chosen");
   let file = imgUpload.files[0];
   fileChosen.textContent = file.name;
-  uploadImageFile(file);
+  //uploadImageFile(file);
 };
 
 const getCategoiresCheckBox = () => {
@@ -47,6 +47,7 @@ const getCategoiresCheckBox = () => {
       categoryCheckBox.innerHTML = categoriesNames;
     });
 };
+
 const uploadImageFile = (file) => {
   let formData = new FormData();
   formData.append('img', file);
@@ -59,7 +60,8 @@ const uploadImageFile = (file) => {
   })
   alert('the img has transferd')
 }
-const handleNewPost = async (e) => {
+
+const handleNewPost = async (file) => {
   e.preventDefault();
   const user = await getUserWhoPosted();
   let categoryId = e.target.children.category.value;
@@ -73,14 +75,21 @@ const handleNewPost = async (e) => {
   if (categoryId === "choseCategory") {
     categoryId = undefined;
   }
-
+  let formData = new FormData();
+  formData.append('img', file);
+  formData.append('categoryId', categoryId);
+  formData.append('title', title);
+  formData.append('desc', desc);
+  formData.append('userId', userId);
+  formData.append('userFname', userFname);
+  formData.append('userLname', userLname);
   fetch("/posts", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      /*  "content-type":"multipart/form-data" */
+      /* "Content-Type": "application/json", */
+       "content-type":"multipart/form-data",
     },
-    body: JSON.stringify({
+    /* body: JSON.stringify({
       userId,
       userFname,
       userLname,
@@ -88,7 +97,8 @@ const handleNewPost = async (e) => {
       title,
       desc,
       img,
-    }),
+    }), */
+    body: formData,
   })
     .then((res) => res.json())
     .then(async (data) => {
@@ -113,9 +123,9 @@ const handleNewPost = async (e) => {
 
 
 
-        hideNewPostBox();
+     //   hideNewPostBox();
 
-        window.location.href = `/posts.html?${categoryId}`;
+     //   window.location.href = `/posts.html?${categoryId}`;
       }
     });
 };

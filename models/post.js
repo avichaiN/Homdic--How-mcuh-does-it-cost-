@@ -5,7 +5,7 @@ const moment = require('moment');
 const postSchema = new Schema({
         title: String,
         desc: String,
-        img: String,
+        img: Buffer,
         categoryId:{
             type: String,
             required: true
