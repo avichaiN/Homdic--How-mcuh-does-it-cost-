@@ -12,9 +12,8 @@
 // }
 
 const getPosts = () => {
-  document.querySelector("#PostsHeder").style.visibility = "hidden";
+  document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";
-  document.querySelector(".newPostButton").style.visibility = "hidden";
   document.querySelector("#loader").style.visibility = "visible";
   const url = window.location.href
   const params = url.split('?')[1];
@@ -218,8 +217,7 @@ const renderPosts = async (postsArray) => {
   }
   document.querySelector(
     "#loader").style.display = "none";
-    document.querySelector("#PostsHeder").style.visibility = "visible";
+    document.querySelector("#categoryHeder").style.visibility = "visible";
     document.querySelector("#app").style.visibility = "visible";
-    document.querySelector(".newPostButton").style.visibility = "visible";
 }
 

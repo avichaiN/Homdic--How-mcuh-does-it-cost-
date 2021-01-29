@@ -25,6 +25,8 @@ body {
   height: 99vh;
 }
 body #loader {
+  position: fixed;
+  bottom: 20%;
   z-index: 8;
   border: 12px solid #f3f3f3;
   border-radius: 50%;
