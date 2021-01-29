@@ -17,6 +17,7 @@ function buildOnePost(
   title,
   massage,
   PostImgSrc,
+  whenMade,
   NmTimesViewed,
   numberOfComments,
   postID,
@@ -24,6 +25,7 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
+  console.log(whenMade)
   let favoriteButton = ''
   /*  */
   const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">

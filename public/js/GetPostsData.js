@@ -9,7 +9,7 @@ const getPosts = () => {
     getPostsBySearch(searchedPosts)
   } else if (params === 'myposts') {
     getPostsByUser()
-  }else if(params === 'myfavorites'){
+  } else if (params === 'myfavorites') {
     getUserFavorites()
   } else if (params.includes('admin')) {
     getPostsUserIdForAdmin(params)
@@ -120,25 +120,46 @@ const getPostsUserIdForAdmin = (params) => {
 const getUserFavorites = async () => {
   let user = await getUserWhoPosted()
   const userId = user.id
-  
+
   fetch("/posts/favorites/getall", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId }),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId }),
   })
-      .then((res) => res.json())
-      .then((data) => {
-          if (data.status === "unauthorized") {
-              window.location.href = "index.html"
-          } else {
-            renderTitlePostFavorits()
-            let foundPosts = data.favPosts
-            renderPosts(foundPosts)
-          }
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html"
+      } else {
+        renderTitlePostFavorits()
+        let foundPosts = data.favPosts
+        renderPosts(foundPosts)
+      }
+    });
 }
+const checkHowMuchComments = async (postId) => {
+  let comments
+  await fetch("/comments/length", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ postId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html"
+      } else {
+        comments = data.commentLength
+      }
+    });
+  return comments
+}
+
+
 const renderPosts = async (postsArray) => {
   let userInfo = await getUserInfo()
   const userId = userInfo.id
@@ -147,7 +168,13 @@ const renderPosts = async (postsArray) => {
 
   postsArray.forEach((async post => {
     const isFavorite = await checkIfPostFavorite(post._id, userId)
+    const commentsLength = await checkHowMuchComments(post._id)
     let isUsersPost = false
+
+    const postCreatedTime = Date.parse(post.createdAt)
+    const timeAgo = timeSince(postCreatedTime)
+    console.log(timeAgo)
+    
     if (post.publishedBy === userId) {
       isUsersPost = true
     }
@@ -157,7 +184,8 @@ const renderPosts = async (postsArray) => {
       post.desc,
       post.img,
       "0",
-      "20",
+      "0",
+      commentsLength,
       post._id,
       post.fName,
       post.lName,
@@ -170,4 +198,30 @@ const renderPosts = async (postsArray) => {
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
     }
   }))
+}
+function timeSince(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + " שנים";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " חודשים";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " ימים";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return "שעות " + Math.floor(interval)
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " דקות";
+  }
+  return Math.floor(seconds) + " שניות";
 }

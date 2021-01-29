@@ -16,7 +16,7 @@ router.get('/:id', checkUserToken, async (req, res) => {
     const comments = commentsR.sort((a, b) => {
       return moment(a.createdAt).diff(b.createdAt);
     });
-  
+
     res.send({ post, comments })
   } catch (e) {
     console.log(e.message)
@@ -49,7 +49,7 @@ const deleteComment = (commentId) => {
 router.delete("/", checkUserToken, async (req, res) => {
   const { commentId } = req.body
   const deleteCommentFunc = await deleteComment(commentId)
-  
+
   res.send({ deleted: true })
 });
 const addLikeToComment = async (commentId, userId) => {
@@ -99,5 +99,18 @@ router.post("/user/like/check", checkUserToken, async (req, res) => {
 
   res.send({ checkLike })
 });
+
+
+router.post('/length', checkUserToken, async (req, res) => {
+  try {
+    const { postId } = req.body
+    const comments = await findCommentsByPostId(postId)
+    const commentLength = comments.length
+    res.send({ commentLength })
+  } catch (e) {
+    console.log(e.message)
+    res.send({ error: true })
+  }
+})
 
 module.exports = router
