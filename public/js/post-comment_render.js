@@ -91,7 +91,11 @@ function buildOnePost(
       <div data-id='${postID}' data-title='${title}' class='deletePost' id='${postID}'></div>
     </div>
   </div>
-  <div class='renderComment renderComment-${postID}' ></div>`;
+  <div class='renderComment renderComment-${postID}'></div>
+
+<div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
+  <div class="dot-spin"></div>
+</div>`;
   return html;
 }
 

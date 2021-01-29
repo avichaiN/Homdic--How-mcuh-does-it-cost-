@@ -80,99 +80,7 @@ const handleDeletePost = (e) => {
     }
   });
 };
-const handleClickPost = (postId) => {
-  console.log(postId);
-  window.location.href = `/comments.html?${postId}`;
-};
 
-const getRenderPostComments = () => {
-  const url = window.location.href;
-  const postId = url.split("?")[1];
-
-  fetch(`/comments/${postId}`)
-    .then((res) => res.json())
-    .then(async (data) => {
-      if (data.status === "unauthorized") {
-        window.location.href = "index.html";
-      } else {
-        const post = data.post;
-        const comments = data.comments;
-        let userInfo = await getUserInfo();
-        let userId = userInfo.id;
-        let isAdmin = false;
-        isAdmin = await handleCheckAdmin();
-        let isUsersPost = false;
-        const isFavorite = await checkIfPostFavorite(post._id, userId);
-
-        const postCreatedTime = Date.parse(post.createdAt)
-        const timeAgo = timeSince(postCreatedTime)
-
-        if (post.publishedBy === userId) {
-          isUsersPost = true;
-        }
-
-        const html = buildOnePost(
-          "post",
-          post.title,
-          post.desc,
-          post.img,
-          postCreatedTime,
-          timeAgo,
-          "0",
-          comments.length,
-          post._id,
-          post.fName,
-          post.lName,
-          isFavorite
-        );
-        app.style.top = "8%";
-        let newAppSection = app.innerHTML.replace(
-          '<div class="commenstsSection">',
-          html + '<div class="commenstsSection">'
-        );
-        app.innerHTML = newAppSection;
-
-        if (isUsersPost || isAdmin) {
-          document.getElementById(
-            `${post._id}`
-          ).innerHTML = `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`;
-        }
-
-        comments.forEach(async (comment) => {
-          userInfo = await getUserInfo();
-          userId = userInfo.id;
-          let isUsersComment = false;
-          if (comment.publishedBy === userId) {
-            isUsersComment = true;
-          }
-          // const date = comment.createdAt;
-          // const x = date.split("T")[1];
-          // const when = x.split("+")[0];
-
-          const commentCreatedTime = Date.parse(comment.createdAt)
-          const timeAgo = timeSince(commentCreatedTime)
-          console.log(timeAgo)
-
-          const liked = await checkIfUserLikedComment(comment._id, userId);
-          const likesAmount = await checkHowMuchLikes(comment._id);
-          const app = document.querySelector(".commenstsSection");
-          const fullComment = buildOneComment(
-            comment.desc,
-            comment.price,
-            comment.fName,
-            comment.lName,
-            commentCreatedTime,
-            timeAgo,
-            comment._id,
-            liked,
-            likesAmount,
-            isUsersComment
-          );
-          app.innerHTML += fullComment;
-        });
-      }
-    });
-};
 const checkIfUserLikedComment = async (commentId, userId) => {
   let checkLike = false;
   await fetch("/comments/user/like/check", {
@@ -415,87 +323,66 @@ const checkIfPostFavorite = async (postID, userId) => {
 
 const handleShowPostsComments = (numberOfComments, postId) => {
 
-  const app = document.querySelector(`.renderComment-${postId}`);
+  if (numberOfComments >= 1) {
+    const app = document.querySelector(`.renderComment-${postId}`);
+    const loadingComments = document.querySelector(`.loadingComments-${postId}`)
+    loadingComments.style.display = 'flex';
 
-  if (app.innerHTML.length > 0) {
-    handleHidePostsComments(numberOfComments, postId)
-  } else {
+    if (app.innerHTML.length > 0) {
+      loadingComments.style.display = 'none';
+      handleHidePostsComments(numberOfComments, postId)
+    } else {
 
-    fetch(`/comments/${postId}`)
-      .then((res) => res.json())
-      .then(async (data) => {
-        if (data.status === "unauthorized") {
-          window.location.href = "index.html";
-        } else {
-          document.querySelector(`.commentArrow-${postId}`).innerHTML
-            = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
+      fetch(`/comments/${postId}`)
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.status === "unauthorized") {
+            window.location.href = "index.html";
+          } else {
+            document.querySelector(`.commentArrow-${postId}`).innerHTML
+              = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
          <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
 
-          app.innerHTML = ''
-          let commentsHtml = ''
-          const comments = data.comments;
-          let userInfo = await getUserInfo();
-          let userId = userInfo.id;
-          let isAdmin = false;
-          isAdmin = await handleCheckAdmin();
+            app.innerHTML = ''
+            let commentsHtml = ''
+            const comments = data.comments;
+            let userInfo = await getUserInfo();
+            let userId = userInfo.id;
+            let isAdmin = false;
+            isAdmin = await handleCheckAdmin();
 
-          for (i = 0; i < comments.length; i++) {
-            userInfo = await getUserInfo();
-            userId = userInfo.id;
-            let isUsersComment = false;
-            if (comments[i].publishedBy === userId) {
-              isUsersComment = true;
+            for (i = 0; i < comments.length; i++) {
+              userInfo = await getUserInfo();
+              userId = userInfo.id;
+              let isUsersComment = false;
+              if (comments[i].publishedBy === userId) {
+                isUsersComment = true;
+              }
+              const commentCreatedTime = Date.parse(comments[i].createdAt)
+              const timeAgo = timeSince(commentCreatedTime)
+
+              const liked = await checkIfUserLikedComment(comments[i]._id, userId);
+              const likesAmount = await checkHowMuchLikes(comments[i]._id);
+              const fullComment = buildOneComment(
+                comments[i].desc,
+                comments[i].price,
+                comments[i].fName,
+                comments[i].lName,
+                comments[i],
+                timeAgo,
+                comments[i]._id,
+                liked,
+                likesAmount,
+                isUsersComment
+              );
+              commentsHtml += fullComment
             }
-            const commentCreatedTime = Date.parse(comments[i].createdAt)
-            const timeAgo = timeSince(commentCreatedTime)
-
-            const liked = await checkIfUserLikedComment(comments[i]._id, userId);
-            const likesAmount = await checkHowMuchLikes(comments[i]._id);
-            const fullComment = buildOneComment(
-              comments[i].desc,
-              comments[i].price,
-              comments[i].fName,
-              comments[i].lName,
-              comments[i],
-              timeAgo,
-              comments[i]._id,
-              liked,
-              likesAmount,
-              isUsersComment
-            );
-            commentsHtml += fullComment
+            app.innerHTML = commentsHtml;
+            loadingComments.style.display = 'none';
+            // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
           }
-          // comments.forEach(async (comment) => {
-          //   userInfo = await getUserInfo();
-          //   userId = userInfo.id;
-          //   let isUsersComment = false;
-          //   if (comment.publishedBy === userId) {
-          //     isUsersComment = true;
-          //   }
-
-          // const commentCreatedTime = Date.parse(comment.createdAt)
-          // const timeAgo = timeSince(commentCreatedTime)
-
-          // const liked = await checkIfUserLikedComment(comment._id, userId);
-          // const likesAmount = await checkHowMuchLikes(comment._id);
-          // const fullComment = buildOneComment(
-          //   comment.desc,
-          //   comment.price,
-          //   comment.fName,
-          //   comment.lName,
-          //   commentCreatedTime,
-          //   timeAgo,
-          //   comment._id,
-          //   liked,
-          //   likesAmount,
-          //   isUsersComment
-          // );
-          // app.innerHTML += fullComment;
-          // });
-          app.innerHTML = commentsHtml;
-          app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
-        }
-      });
+        });
+    }
   }
 }
 const handleHidePostsComments = (numberOfComments, postId) => {
