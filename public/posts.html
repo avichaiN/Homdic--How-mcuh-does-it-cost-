@@ -23,20 +23,7 @@
   <div id="app">
     <!-- add post -->
     <div class="newPostBox box">
-      <img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
-      <h1 class='box'>פוסט חדש</h1>
-      <form class='box' onsubmit="handleNewPost(event)">
-          <label class="box mustChoose">חייב לבחור קטגוריה</label>
-          <select required name='category' class='box' id="category" name="category"></select>
-          <label class='box' required for="title">כותרת</label>
-          <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
-          <label class='box' for="desc">שאלה</label>
-          <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
-          <label class='img box' name='imgLable' for="img">העלה תמונה</label>
-          <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
-          <span class='box' id="file-chosen"></span>
-          <input class='box' type="submit" value="פרסם">
-      </form> 
+      
   </div>
     <!-- end post -->
   </div>

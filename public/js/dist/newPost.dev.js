@@ -1,8 +1,14 @@
 "use strict";
 
+var HtmlNewPostForm = function HtmlNewPostForm() {
+  var html = "<img class='closeNewPost' onclick=\"hideNewPostBox()\" src=\"https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png\">\n  <h1 class='box'>\u05E4\u05D5\u05E1\u05D8 \u05D7\u05D3\u05E9</h1>\n  <form class='box' enctype=\"multipart/form-data\" onsubmit=\"handleNewPost(event)\">\n      <label class=\"box mustChoose\">\u05D7\u05D9\u05D9\u05D1 \u05DC\u05D1\u05D7\u05D5\u05E8 \u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4</label>\n      <select required name='category' class='box' id=\"category\" name=\"category\"></select>\n      <label class='box' required for=\"title\">\u05DB\u05D5\u05EA\u05E8\u05EA</label>\n      <input class='box' name=\"title\" required placeholder='\u05DB\u05D5\u05EA\u05E8\u05EA' type=\"text\" maxlength=\"45\" id=\"title\">\n      <label class='box' for=\"desc\">\u05E9\u05D0\u05DC\u05D4</label>\n      <textarea class='box' name=\"desc\" required placeholder='\u05EA\u05D9\u05D0\u05D5\u05E8 \u05D4\u05E9\u05D0\u05DC\u05D4' maxlength=\"250\" id='desc' type=\"text\"></textarea>\n      <label class='img box' name='imgLable' for=\"img\">\u05D4\u05E2\u05DC\u05D4 \u05EA\u05DE\u05D5\u05E0\u05D4</label>\n      <input class='box imgUpload' onchange='handleImgSelect()' id='img' type=\"file\" style=\"visibility:hidden;display: none;\" name=\"img\" accept=\"image/*\">\n      <span class='box' id=\"file-chosen\"></span>\n      <input class='box' type=\"submit\" value=\"\u05E4\u05E8\u05E1\u05DD\">\n  </form> ";
+  return html;
+};
+
 var displayPostBox = function displayPostBox(e) {
-  var postBox = document.querySelector(".newPostBox");
   e.stopPropagation();
+  var postBox = document.querySelector(".newPostBox");
+  postBox.innerHTML = HtmlNewPostForm();
   postBox.style.display = "block";
   setTimeout(function () {
     postBox.style.opacity = "1";
@@ -62,7 +68,7 @@ var uploadImageFile = function uploadImageFile(file) {
 };
 
 var handleNewPost = function handleNewPost(file) {
-  var user, categoryId, title, desc, img, userId, userFname, userLname, formData;
+  var user, categoryId, title, desc, img, userId, userFname, userLname;
   return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -84,31 +90,21 @@ var handleNewPost = function handleNewPost(file) {
           if (categoryId === "choseCategory") {
             categoryId = undefined;
           }
+          /*  let formData = new FormData();  
+           formData.append('categoryId', categoryId);
+           formData.append('title', title);
+           formData.append('desc', desc);
+           formData.append('userId', userId);
+           formData.append('userFname', userFname);
+           formData.append('userLname', userLname);
+           formData.append('img', file); */
 
-          formData = new FormData();
-          formData.append('img', file);
-          formData.append('categoryId', categoryId);
-          formData.append('title', title);
-          formData.append('desc', desc);
-          formData.append('userId', userId);
-          formData.append('userFname', userFname);
-          formData.append('userLname', userLname);
+
           fetch("/posts", {
             method: "POST",
             headers: {
-              /* "Content-Type": "application/json", */
               "content-type": "multipart/form-data"
             },
-
-            /* body: JSON.stringify({
-              userId,
-              userFname,
-              userLname,
-              categoryId,
-              title,
-              desc,
-              img,
-            }), */
             body: formData
           }).then(function (res) {
             return res.json();
@@ -132,7 +128,7 @@ var handleNewPost = function handleNewPost(file) {
                     }));
 
                   case 3:
-                    _context.next = 7;
+                    _context.next = 9;
                     break;
 
                   case 5:
@@ -146,6 +142,10 @@ var handleNewPost = function handleNewPost(file) {
                     }));
 
                   case 7:
+                    hideNewPostBox();
+                    window.location.href = "/posts.html?".concat(categoryId);
+
+                  case 9:
                   case "end":
                     return _context.stop();
                 }
@@ -153,7 +153,7 @@ var handleNewPost = function handleNewPost(file) {
             });
           });
 
-        case 21:
+        case 13:
         case "end":
           return _context2.stop();
       }

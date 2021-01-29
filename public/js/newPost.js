@@ -1,6 +1,24 @@
+const HtmlNewPostForm = () =>{
+  const html = `<img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
+  <h1 class='box'>פוסט חדש</h1>
+  <form class='box' enctype="multipart/form-data" onsubmit="handleNewPost(event)">
+      <label class="box mustChoose">חייב לבחור קטגוריה</label>
+      <select required name='category' class='box' id="category" name="category"></select>
+      <label class='box' required for="title">כותרת</label>
+      <input class='box' name="title" required placeholder='כותרת' type="text" maxlength="45" id="title">
+      <label class='box' for="desc">שאלה</label>
+      <textarea class='box' name="desc" required placeholder='תיאור השאלה' maxlength="250" id='desc' type="text"></textarea>
+      <label class='img box' name='imgLable' for="img">העלה תמונה</label>
+      <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
+      <span class='box' id="file-chosen"></span>
+      <input class='box' type="submit" value="פרסם">
+  </form> `
+  return html;
+}
 const displayPostBox = (e) => {
-  let postBox = document.querySelector(".newPostBox");
   e.stopPropagation();
+  let postBox = document.querySelector(".newPostBox");
+  postBox.innerHTML = HtmlNewPostForm();
   postBox.style.display = "block";
   setTimeout(function () {
     postBox.style.opacity = "1";
@@ -8,6 +26,8 @@ const displayPostBox = (e) => {
     getCategoiresCheckBox();
   }, 100);
 };
+
+
 const hideNewPostBox = () => {
   let postBox = document.querySelector(".newPostBox");
   postBox.style.opacity = "0";
@@ -75,30 +95,22 @@ const handleNewPost = async (file) => {
   if (categoryId === "choseCategory") {
     categoryId = undefined;
   }
-  let formData = new FormData();
-  formData.append('img', file);
+
+
+ /*  let formData = new FormData();  
   formData.append('categoryId', categoryId);
   formData.append('title', title);
   formData.append('desc', desc);
   formData.append('userId', userId);
   formData.append('userFname', userFname);
   formData.append('userLname', userLname);
+  formData.append('img', file); */
   fetch("/posts", {
     method: "POST",
     headers: {
-      /* "Content-Type": "application/json", */
-       "content-type":"multipart/form-data",
+        "content-type":"multipart/form-data",
     },
-    /* body: JSON.stringify({
-      userId,
-      userFname,
-      userLname,
-      categoryId,
-      title,
-      desc,
-      img,
-    }), */
-    body: formData,
+       body: formData,
   })
     .then((res) => res.json())
     .then(async (data) => {
@@ -118,14 +130,9 @@ const handleNewPost = async (file) => {
           showConfirmButton: false,
           timer: 2000,
         });
+        hideNewPostBox();
 
-
-
-
-
-     //   hideNewPostBox();
-
-     //   window.location.href = `/posts.html?${categoryId}`;
+        window.location.href = `/posts.html?${categoryId}`;
       }
     });
 };

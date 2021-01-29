@@ -54,65 +54,34 @@ router.post("/uploadImg",checkUserToken, uploadImg.single("img"),async (req, res
   }
 );
 
-router.post("/", checkUserToken,uploadImg.single("img"), async (req, res) => {
-  /* var file = req.body.img;
-
-  var filename = `/.//styles/img/${path.parse(file).base}`; */
-
-
+router.post("/", uploadImg.single("img"), async (req, res) => {
+    
+  const {userId,userFname,userLname,categoryId,title,desc} = req.body;
   
-  /* const {
-    userId,
-    userFname,
-    userLname,
-    categoryId,
-    title,
-    desc,
-    img,
-  } = req.body; */
-
- /*  const post = new Post({
+  const post = new Post({
     title: title,
     desc: desc,
-    img: img,
+    img: req.file.buffer,
     categoryId: categoryId,
     fName: userFname,
     lName: userLname,
     publishedBy: userId,
-  }); */
+  });
   try {
-    const Buffer = await sharp(req.file, buffer)
+    //console.log(post)
+    /* const Buffer = await sharp(req.file, buffer)
         .resize({ width: 250, high: 250 })
-        .toBuffer();
-    console.log(Buffer)
-   // await post.save(req.body);
+        .toBuffer(); */
+    //console.log(Buffer)
+    await post.save(post);
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message);
-    res.send({ posted: false });
+    res.send({ posted: false,error:e.message });
   }
 });
 
-const findIDByPost = async (
-  title,
-  desc,
-  img,
-  categoryId,
-  userFname,
-  userLname,
-  userId
-) => {
-  //return Post.findById({ _id: postId }).exec()
-  return Post.findOne({
-    title: title,
-    desc: desc,
-    img: img,
-    categoryId: categoryId,
-    fName: userFname,
-    lName: userLname,
-    publishedBy: userId,
-  }).exec();
-};
+
 
 //i try to mack a function to upload the file but its not working
 /* const fileUpload = (req) => {

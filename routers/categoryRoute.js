@@ -95,7 +95,12 @@ router.delete("/", checkAdmin, async (req, res) => {
   }
 });
 const getCategoryInfo = (id) => {
-  return Category.find({ _id: id }).exec()
+  try {
+    return Category.find({ _id: id }).exec()
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
 router.post('/byid', async (req,res)=>{
   const {categoryId} = req.body
