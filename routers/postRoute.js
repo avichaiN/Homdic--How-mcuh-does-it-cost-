@@ -12,16 +12,13 @@ const moment = require("moment");
 const multer = require("multer");
 const sharp = require("sharp");
 
+
 router.get("/get/:id", checkUserToken, async (req, res) => {
   chosenCategoryId = req.params.id;
 
-  let posts = await Post.aggregate([
+  let foundPostsByCategoryId = await Post.aggregate([
     { $match: { categoryId: chosenCategoryId } },
   ]);
-
-  const foundPostsByCategoryId = posts.sort((a, b) => {
-    return moment(b.createdAt).diff(a.createdAt);
-  });
 
   res.send({ foundPostsByCategoryId });
 });
@@ -38,29 +35,29 @@ const uploadImg = multer({
   },
 });
 
-router.post("/uploadImg",checkUserToken, uploadImg.single("img"),async (req, res) => {
-    try {
-      const buffer = await sharp(req.file, buffer)
-        .resize({ width: 250, high: 250 })
-        .toBuffer();
-     // const post = await post.findById(req.params.id);
+router.post("/uploadImg", checkUserToken, uploadImg.single("img"), async (req, res) => {
+  try {
+    const buffer = await sharp(req.file, buffer)
+      .resize({ width: 250, high: 250 })
+      .toBuffer();
+    // const post = await post.findById(req.params.id);
     //  post.image = buffer;
-     // await post.save();
-      res.status(201).send({ uploaded: true });
-      console.log("i have visit in the upload");
-    } catch (error) {
-      res.status(404).send({ error: error });
-    }
+    // await post.save();
+    res.status(201).send({ uploaded: true });
+    console.log("i have visit in the upload");
+  } catch (error) {
+    res.status(404).send({ error: error });
   }
+}
 );
 
-router.post("/", checkUserToken,uploadImg.single("img"), async (req, res) => {
+router.post("/", checkUserToken, uploadImg.single("img"), async (req, res) => {
   /* var file = req.body.img;
 
   var filename = `/.//styles/img/${path.parse(file).base}`; */
 
 
-  
+
   /* const {
     userId,
     userFname,
@@ -71,21 +68,21 @@ router.post("/", checkUserToken,uploadImg.single("img"), async (req, res) => {
     img,
   } = req.body; */
 
- /*  const post = new Post({
-    title: title,
-    desc: desc,
-    img: img,
-    categoryId: categoryId,
-    fName: userFname,
-    lName: userLname,
-    publishedBy: userId,
-  }); */
+  /*  const post = new Post({
+     title: title,
+     desc: desc,
+     img: img,
+     categoryId: categoryId,
+     fName: userFname,
+     lName: userLname,
+     publishedBy: userId,
+   }); */
   try {
     const Buffer = await sharp(req.file, buffer)
-        .resize({ width: 250, high: 250 })
-        .toBuffer();
+      .resize({ width: 250, high: 250 })
+      .toBuffer();
     console.log(Buffer)
-   // await post.save(req.body);
+    // await post.save(req.body);
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message);

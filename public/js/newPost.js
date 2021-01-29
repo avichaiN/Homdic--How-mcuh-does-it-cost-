@@ -61,7 +61,7 @@ const uploadImageFile = (file) => {
   alert('the img has transferd')
 }
 
-const handleNewPost = async (file) => {
+const handleNewPost = async (e, file) => {
   e.preventDefault();
   const user = await getUserWhoPosted();
   let categoryId = e.target.children.category.value;
