@@ -12,10 +12,7 @@ router.get('/:id', checkUserToken, async (req, res) => {
 
     const postId = req.params.id
     const post = await findPostById(postId)
-    const commentsR = await findCommentsByPostId(postId)
-    const comments = commentsR.sort((a, b) => {
-      return moment(a.createdAt).diff(b.createdAt);
-    });
+    const comments = await findCommentsByPostId(postId)
 
     res.send({ post, comments })
   } catch (e) {

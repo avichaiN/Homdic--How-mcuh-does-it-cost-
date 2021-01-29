@@ -29,7 +29,7 @@ function buildOnePost(
   const fullDate = new Date(postCreatedTime)
   let favoriteButton = ''
   /*  */
-  const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
+  const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}', '${numberOfComments}')">
     <span class="material-icons">
       add_comment
     </span>`;
@@ -56,7 +56,7 @@ function buildOnePost(
   /*  */
 
   const html = `<div class="post">
-    <div onclick='handleClickPost("${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
+    <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
@@ -70,9 +70,9 @@ function buildOnePost(
     </div>
     <!--  end add comment form -->
     <div class="futter">
-      <div id="NotificationsButton" class="Notifications">
-        <span class="material-icons">arrow_downward</span>
-        <p>תגובות: ${numberOfComments}</p>
+      <div id="NotificationsButton" class="Notifications commentArrow-${postID}">
+        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}')" class="material-icons">arrow_downward</span>
+        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}')">תגובות: ${numberOfComments}</p>
       </div>
       <div id="FavoriteButton" class="Notifications fav-${postID}">
       ${favoriteButton}
@@ -90,7 +90,8 @@ function buildOnePost(
       </div>
       <div data-id='${postID}' data-title='${title}' class='deletePost' id='${postID}'></div>
     </div>
-  </div>`;
+  </div>
+  <div class='renderComment renderComment-${postID}' ></div>`;
   return html;
 }
 

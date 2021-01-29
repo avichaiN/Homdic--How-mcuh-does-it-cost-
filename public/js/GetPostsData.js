@@ -165,37 +165,39 @@ const renderPosts = async (postsArray) => {
   let isAdmin = false
   isAdmin = await handleCheckAdmin();
 
-  postsArray.forEach((async post => {
-    const isFavorite = await checkIfPostFavorite(post._id, userId)
-    const commentsLength = await checkHowMuchComments(post._id)
+  const sortedPosts = postsArray.reverse()
+
+  for (i = 0; i < sortedPosts.length; i++) {
+    const isFavorite = await checkIfPostFavorite(sortedPosts[i]._id, userId)
+    const commentsLength = await checkHowMuchComments(sortedPosts[i]._id)
     let isUsersPost = false
 
-    const postCreatedTime = Date.parse(post.createdAt)
+    const postCreatedTime = Date.parse(sortedPosts[i].createdAt)
     const timeAgo = timeSince(postCreatedTime)
 
-    if (post.publishedBy === userId) {
+    if (sortedPosts[i].publishedBy === userId) {
       isUsersPost = true
     }
     const html = buildOnePost(
       "post" /*post or comment*/,
-      post.title,
-      post.desc,
-      post.img,
+      sortedPosts[i].title,
+      sortedPosts[i].desc,
+      sortedPosts[i].img,
       postCreatedTime,
       timeAgo,
       "0",
       commentsLength,
-      post._id,
-      post.fName,
-      post.lName,
+      sortedPosts[i]._id,
+      sortedPosts[i].fName,
+      sortedPosts[i].lName,
       isFavorite
     )
     document.getElementById('app').innerHTML += html;
 
     if (isUsersPost || isAdmin) {
-      document.getElementById(`${post._id}`).innerHTML =
+      document.getElementById(`${sortedPosts[i]._id}`).innerHTML =
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
     }
-  }))
+  }
 }
 
