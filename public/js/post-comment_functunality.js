@@ -432,39 +432,68 @@ const handleShowPostsComments = (numberOfComments, postId) => {
          <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
 
           app.innerHTML = ''
+          let commentsHtml = ''
           const comments = data.comments;
           let userInfo = await getUserInfo();
           let userId = userInfo.id;
           let isAdmin = false;
           isAdmin = await handleCheckAdmin();
 
-          comments.forEach(async (comment) => {
+          for (i = 0; i < comments.length; i++) {
             userInfo = await getUserInfo();
             userId = userInfo.id;
             let isUsersComment = false;
-            if (comment.publishedBy === userId) {
+            if (comments[i].publishedBy === userId) {
               isUsersComment = true;
             }
-
-            const commentCreatedTime = Date.parse(comment.createdAt)
+            const commentCreatedTime = Date.parse(comments[i].createdAt)
             const timeAgo = timeSince(commentCreatedTime)
 
-            const liked = await checkIfUserLikedComment(comment._id, userId);
-            const likesAmount = await checkHowMuchLikes(comment._id);
+            const liked = await checkIfUserLikedComment(comments[i]._id, userId);
+            const likesAmount = await checkHowMuchLikes(comments[i]._id);
             const fullComment = buildOneComment(
-              comment.desc,
-              comment.price,
-              comment.fName,
-              comment.lName,
-              commentCreatedTime,
+              comments[i].desc,
+              comments[i].price,
+              comments[i].fName,
+              comments[i].lName,
+              comments[i],
               timeAgo,
-              comment._id,
+              comments[i]._id,
               liked,
               likesAmount,
               isUsersComment
             );
-            app.innerHTML += fullComment;
-          });
+            commentsHtml += fullComment
+          }
+          // comments.forEach(async (comment) => {
+          //   userInfo = await getUserInfo();
+          //   userId = userInfo.id;
+          //   let isUsersComment = false;
+          //   if (comment.publishedBy === userId) {
+          //     isUsersComment = true;
+          //   }
+
+          // const commentCreatedTime = Date.parse(comment.createdAt)
+          // const timeAgo = timeSince(commentCreatedTime)
+
+          // const liked = await checkIfUserLikedComment(comment._id, userId);
+          // const likesAmount = await checkHowMuchLikes(comment._id);
+          // const fullComment = buildOneComment(
+          //   comment.desc,
+          //   comment.price,
+          //   comment.fName,
+          //   comment.lName,
+          //   commentCreatedTime,
+          //   timeAgo,
+          //   comment._id,
+          //   liked,
+          //   likesAmount,
+          //   isUsersComment
+          // );
+          // app.innerHTML += fullComment;
+          // });
+          app.innerHTML = commentsHtml;
+          app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
         }
       });
   }

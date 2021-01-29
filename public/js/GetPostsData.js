@@ -132,6 +132,7 @@ const getUserFavorites = async () => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
+
         renderTitlePostFavorits()
         let foundPosts = data.favPosts
         renderPosts(foundPosts)

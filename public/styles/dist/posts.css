@@ -378,6 +378,11 @@ body #app .renderComment .comment #likeComment .likesAmount {
   font-size: 1rem;
   font-weight: 550;
 }
+body #app .renderComment .hideCommentsButton {
+  padding: 5px;
+  margin: 5px;
+  width: 20%;
+}
 
 .liked {
   color: red;
