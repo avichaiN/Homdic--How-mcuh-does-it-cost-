@@ -1,5 +1,21 @@
-const getPosts = () => {
+// function myFunction() {
+//   document.querySelector(
+//     "body").style.visibility = "hidden";
+//   document.querySelector(
+//     "#loader").style.visibility = "visible";
+//   setTimeout(function () {
+//     document.querySelector(
+//       "#loader").style.display = "none";
+//     document.querySelector(
+//       "body").style.visibility = "visible";
+//   }, 1000);
+// }
 
+const getPosts = () => {
+  document.querySelector("#PostsHeder").style.visibility = "hidden";
+  document.querySelector("#app").style.visibility = "hidden";
+  document.querySelector(".newPostButton").style.visibility = "hidden";
+  document.querySelector("#loader").style.visibility = "visible";
   const url = window.location.href
   const params = url.split('?')[1];
 
@@ -200,5 +216,10 @@ const renderPosts = async (postsArray) => {
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
     }
   }
+  document.querySelector(
+    "#loader").style.display = "none";
+    document.querySelector("#PostsHeder").style.visibility = "visible";
+    document.querySelector("#app").style.visibility = "visible";
+    document.querySelector(".newPostButton").style.visibility = "visible";
 }
 

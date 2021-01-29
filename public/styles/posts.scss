@@ -16,6 +16,7 @@ $addButton-bg-color: #2097f5;
 $addButton-color: white;
 $postheder-bg-color: #cfd8dd;
 
+
 .material-icons {
     display: flex;
     justify-content: center;
@@ -38,6 +39,31 @@ body {
     width: 99vw;
     height: 99vh;
 
+    #loader {
+
+        z-index: 8;
+        border: 12px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 12px solid #444444;
+        width: 70px;
+        height: 70px;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .center {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
     #categoryHeder {
         overflow: hidden;
         height: 15%;
@@ -457,7 +483,8 @@ body {
                 }
 
             }
-            .hideCommentsButton{
+
+            .hideCommentsButton {
                 padding: 5px;
                 margin: 5px;
                 width: 20%;
