@@ -150,7 +150,6 @@ body #app .post #postheder {
   column-gap: 2%;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: repeat(3, auto);
-  border: 1px solid black;
 }
 body #app .post #postheder .whenPosted {
   font-size: 12px;

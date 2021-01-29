@@ -52,9 +52,9 @@ router.post("/uploadImg", checkUserToken, uploadImg.single("img"), async (req, r
 );
 
 router.post("/", uploadImg.single("img"), async (req, res) => {
-    
-  const {userId,userFname,userLname,categoryId,title,desc} = req.body;
-  
+
+  const { userId, userFname, userLname, categoryId, title, desc } = req.body;
+
   const post = new Post({
     title: title,
     desc: desc,
@@ -63,6 +63,7 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
     fName: userFname,
     lName: userLname,
     publishedBy: userId,
+    createdAt: new Date(Date.now())
   });
   try {
     //console.log(post)
@@ -74,7 +75,7 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message);
-    res.send({ posted: false,error:e.message });
+    res.send({ posted: false, error: e.message });
   }
 });
 

@@ -172,7 +172,6 @@ body {
         .post {
             border-radius: 0 0 10px 10px;
             box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
-            // border: 1px solid black;
             background-color: white;
             // margin: 1%;
 
@@ -184,7 +183,6 @@ body {
                 column-gap: 2%;
                 grid-template-columns: 2fr 1fr;
                 grid-template-rows: repeat(3, auto);
-                border: 1px solid black;
 
                 .whenPosted{
                     font-size: 12px;
