@@ -24,6 +24,30 @@ body {
   width: 99vw;
   height: 99vh;
 }
+body #loader {
+  position: fixed;
+  bottom: 20%;
+  z-index: 8;
+  border: 12px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 12px solid #444444;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+body .center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 body #categoryHeder {
   overflow: hidden;
   height: 15%;
@@ -139,6 +163,7 @@ body #app .AddPost #AddPostfutter div p {
   margin-bottom: 20%;
 }
 body #app .post {
+  margin-top: 3%;
   border-radius: 0 0 10px 10px;
   box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
   background-color: white;
@@ -326,6 +351,94 @@ body #app .post .futter .Toggled {
 }
 body #app .post .futter .UnToggled {
   color: black;
+}
+body #app .renderComment {
+  max-width: 95%;
+  margin: auto;
+}
+body #app .renderComment .comment {
+  border: 1px solid darkgray;
+  margin-top: 1%;
+  background-color: #f1f1f1;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+  padding: 1%;
+  justify-content: space-around;
+  align-items: center;
+}
+body #app .renderComment .comment:nth-child(even) {
+  background-color: #cfcece;
+}
+body #app .renderComment .comment #bodyComment {
+  grid-row: 1/4;
+  grid-column: 1/8;
+  display: grid;
+  align-self: center;
+  line-height: 1.3;
+}
+body #app .renderComment .comment #authRouter {
+  font-weight: 550;
+  font-size: 13px;
+  grid-row: 0/3;
+  grid-column: 8/9;
+  justify-items: last baseline;
+  justify-self: end;
+  display: grid;
+  align-self: end;
+}
+body #app .renderComment .comment #authRouter p {
+  margin: 0;
+}
+body #app .renderComment .comment #likeComment {
+  grid-row: 3;
+  grid-column: 1/9;
+  justify-self: end;
+  display: flex;
+  flex-direction: row;
+  flex-direction: row-reverse;
+}
+body #app .renderComment .comment #likeComment .likesAmount {
+  font-size: 1rem;
+  font-weight: 550;
+}
+body #app .renderComment .hideCommentsButton {
+  padding: 5px;
+  margin: 5px;
+  width: 20%;
+}
+
+.liked {
+  color: red;
+}
+
+.unliked {
+  color: black;
+}
+
+.material-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.active {
+  cursor: pointer;
+}
+
+.deletePostButton {
+  padding: 5px;
+  background-color: #fa5f5f;
+  color: white;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid red;
+  border-radius: 5px;
+  font-weight: 550;
+  transition: all 0.4s ease-in;
+}
+
+.deletePostButton:hover {
+  background-color: red;
 }
 
 .newPostButton {
