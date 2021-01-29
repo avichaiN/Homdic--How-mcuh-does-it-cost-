@@ -15,7 +15,7 @@ body #app .commenstsSection {
   margin: auto;
 }
 body #app .commenstsSection .comment {
-  border: 1px solid black;
+  border: 1px solid darkgray;
   margin-top: 1%;
   background-color: #f1f1f1;
   display: grid;
@@ -44,7 +44,6 @@ body #app .commenstsSection .comment #authRouter {
   justify-self: end;
   display: grid;
   align-self: end;
-  border: 1px solid black;
 }
 body #app .commenstsSection .comment #authRouter p {
   margin: 0;

@@ -38,7 +38,7 @@ body {
             margin: auto;
 
             .comment {
-                border: 1px solid black;
+                border: 1px solid darkgray;
                 margin-top: 1%;
                 background-color: rgb(241, 241, 241);
                 //height: 80px;
@@ -73,7 +73,6 @@ body {
                     justify-self: end;
                     display: grid;
                     align-self: end;
-                    border: 1px solid black;
 
                     p {
                         margin: 0;

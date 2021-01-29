@@ -31,7 +31,7 @@ function buildOnePost(
   /*  */
   const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
     <span class="material-icons">
-      add_circle_outline
+      add_comment
     </span>`;
   /*  */
   const TimesViewed = ` <div id="TimesViewed">
@@ -49,9 +49,9 @@ function buildOnePost(
     }
   }
   if (isFavorite) {
-    favoriteButton = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+    favoriteButton = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p>מועדפים</p>`
   } else {
-    favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`
+    favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`
   }
   /*  */
 
@@ -70,9 +70,9 @@ function buildOnePost(
     </div>
     <!--  end add comment form -->
     <div class="futter">
-      <div id="NotificationsButton" class="Notifications" onclick="PostNotificationsButtonClicked()">
-        <span class="material-icons"> notifications </span>
-        <p>${numberOfComments} :מס תגובות</p>
+      <div id="NotificationsButton" class="Notifications">
+        <span class="material-icons">arrow_downward</span>
+        <p>תגובות: ${numberOfComments}</p>
       </div>
       <div id="FavoriteButton" class="Notifications fav-${postID}">
       ${favoriteButton}

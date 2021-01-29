@@ -354,7 +354,7 @@ const handleFavoritePost = async (postID) => {
     .then(async () => {
       document.querySelector(
         `.fav-${postID}`
-      ).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`;
+      ).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
       await Swal.fire({
         position: "center",
         icon: "success",
@@ -381,7 +381,7 @@ const handleDeleteFavoritePost = async (postID) => {
 
       document.querySelector(
         `.fav-${postID}`
-      ).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> favorite </span><p>מועדפים</p>`;
+      ).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
       await Swal.fire({
         position: "center",
         icon: "success",
