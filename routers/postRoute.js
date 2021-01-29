@@ -35,42 +35,31 @@ const uploadImg = multer({
   },
 });
 
-router.post("/uploadImg", checkUserToken, uploadImg.single("img"), async (req, res) => {
-  try {
-    const buffer = await sharp(req.file, buffer)
-      .resize({ width: 250, high: 250 })
-      .toBuffer();
-    // const post = await post.findById(req.params.id);
-    //  post.image = buffer;
-    // await post.save();
-    res.status(201).send({ uploaded: true });
-    console.log("i have visit in the upload");
-  } catch (error) {
-    res.status(404).send({ error: error });
-  }
-}
-);
+
 
 router.post("/", uploadImg.single("img"), async (req, res) => {
 
   const { userId, userFname, userLname, categoryId, title, desc } = req.body;
 
-  const post = new Post({
-    title: title,
-    desc: desc,
-    img: req.file.buffer,
-    categoryId: categoryId,
-    fName: userFname,
-    lName: userLname,
-    publishedBy: userId,
-    createdAt: new Date(Date.now())
-  });
+  
   try {
-    //console.log(post)
-    /* const Buffer = await sharp(req.file, buffer)
-        .resize({ width: 250, high: 250 })
-        .toBuffer(); */
-    //console.log(Buffer)
+   
+    const Buffer = await sharp(req.file.buffer)
+        .resize({ width: 50, high: 50 })
+        .toBuffer();
+    
+        const post = new Post({
+          title: title,
+          desc: desc,
+          img: Buffer,
+          imgName:req.file.name,  
+          categoryId: categoryId,
+          fName: userFname,
+          lName: userLname,
+          publishedBy: userId,
+          createdAt: new Date(Date.now())
+        });
+
     await post.save(post);
     res.send({ posted: true, post });
   } catch (e) {

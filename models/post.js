@@ -5,6 +5,7 @@ const postSchema = new Schema({
     title: String,
     desc: String,
     img: Buffer,
+    imgName:String,
     categoryId: {
         type: String,
         required: true

@@ -3,13 +3,11 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-
-var moment = require('moment');
-
 var postSchema = new Schema({
   title: String,
   desc: String,
   img: Buffer,
+  imgName: String,
   categoryId: {
     type: String,
     required: true
@@ -18,8 +16,7 @@ var postSchema = new Schema({
   lName: String,
   publishedBy: String,
   createdAt: {
-    type: String,
-    "default": moment().format()
+    type: String
   }
 });
 module.exports = mongoose.model('Posts', postSchema);
