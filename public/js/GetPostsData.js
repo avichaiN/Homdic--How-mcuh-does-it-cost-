@@ -1,4 +1,3 @@
-
 const getPosts = () => {
 
   const url = window.location.href
@@ -173,8 +172,7 @@ const renderPosts = async (postsArray) => {
 
     const postCreatedTime = Date.parse(post.createdAt)
     const timeAgo = timeSince(postCreatedTime)
-    console.log(timeAgo)
-    
+
     if (post.publishedBy === userId) {
       isUsersPost = true
     }
@@ -183,7 +181,8 @@ const renderPosts = async (postsArray) => {
       post.title,
       post.desc,
       post.img,
-      "0",
+      postCreatedTime,
+      timeAgo,
       "0",
       commentsLength,
       post._id,
@@ -199,29 +198,4 @@ const renderPosts = async (postsArray) => {
     }
   }))
 }
-function timeSince(date) {
-  var seconds = Math.floor((new Date() - date) / 1000);
 
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " שנים";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " חודשים";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " ימים";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return "שעות " + Math.floor(interval)
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " דקות";
-  }
-  return Math.floor(seconds) + " שניות";
-}

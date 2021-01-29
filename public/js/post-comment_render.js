@@ -17,6 +17,7 @@ function buildOnePost(
   title,
   massage,
   PostImgSrc,
+  postCreatedTime,
   whenMade,
   NmTimesViewed,
   numberOfComments,
@@ -25,7 +26,7 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
-  console.log(whenMade)
+  const fullDate = new Date(postCreatedTime)
   let favoriteButton = ''
   /*  */
   const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
@@ -56,6 +57,7 @@ function buildOnePost(
 
   const html = `<div class="post">
     <div onclick='handleClickPost("${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
+    <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
@@ -94,7 +96,8 @@ function buildOnePost(
 
 
 
-function buildOneComment(comment, price, fName, lName, atTdate, commentId, liked, likesNum, isUsersComment) {
+function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTdate, commentId, liked, likesNum, isUsersComment) {
+  const fullDate = new Date(commentCreatedTime)
   let deleteComment = ''
   if (isUsersComment) {
     deleteComment = `<button class='deletePostButton' onclick="handleDeleteComment('${commentId}')">מחק תגובה</button>`
@@ -116,8 +119,8 @@ function buildOneComment(comment, price, fName, lName, atTdate, commentId, liked
      מחיר: ${price}
    </div>
    <div id="authRouter">
-
-     <p>${atTdate} ${fName} ${lName}</p>
+   <p title="${fullDate}">${atTdate}</p>
+     <p>${fName} ${lName}</p>
    </div>
    <div data-id='${commentId}' class="deleteComment">${deleteComment}</div>
    <div id="likeComment" class="likeComment-${commentId}">

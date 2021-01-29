@@ -104,6 +104,10 @@ const getRenderPostComments = () => {
         isAdmin = await handleCheckAdmin();
         let isUsersPost = false;
         const isFavorite = await checkIfPostFavorite(post._id, userId);
+
+        const postCreatedTime = Date.parse(post.createdAt)
+        const timeAgo = timeSince(postCreatedTime)
+
         if (post.publishedBy === userId) {
           isUsersPost = true;
         }
@@ -113,6 +117,8 @@ const getRenderPostComments = () => {
           post.title,
           post.desc,
           post.img,
+          postCreatedTime,
+          timeAgo,
           "0",
           comments.length,
           post._id,
@@ -140,9 +146,13 @@ const getRenderPostComments = () => {
           if (comment.publishedBy === userId) {
             isUsersComment = true;
           }
-          const date = comment.createdAt;
-          const x = date.split("T")[1];
-          const when = x.split("+")[0];
+          // const date = comment.createdAt;
+          // const x = date.split("T")[1];
+          // const when = x.split("+")[0];
+
+          const commentCreatedTime = Date.parse(comment.createdAt)
+          const timeAgo = timeSince(commentCreatedTime)
+          console.log(timeAgo)
 
           const liked = await checkIfUserLikedComment(comment._id, userId);
           const likesAmount = await checkHowMuchLikes(comment._id);
@@ -152,7 +162,8 @@ const getRenderPostComments = () => {
             comment.price,
             comment.fName,
             comment.lName,
-            when,
+            commentCreatedTime,
+            timeAgo,
             comment._id,
             liked,
             likesAmount,
