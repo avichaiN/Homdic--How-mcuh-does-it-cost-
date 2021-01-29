@@ -87,7 +87,8 @@ const handleNewPost = async (e, file) => {
   let categoryId = e.target.children.category.value;
   const title = e.target.children.title.value;
   const desc = e.target.children.desc.value;
-  const img = e.target.children.img.value;
+  const img = e.target.children.img;
+ let imgFile = img.files[0];
   const userId = user.id;
   const userFname = user.fName;
   const userLname = user.lName;
@@ -97,18 +98,18 @@ const handleNewPost = async (e, file) => {
   }
 
 
- /*  let formData = new FormData();  
+  let formData = new FormData();  
   formData.append('categoryId', categoryId);
   formData.append('title', title);
   formData.append('desc', desc);
   formData.append('userId', userId);
   formData.append('userFname', userFname);
   formData.append('userLname', userLname);
-  formData.append('img', file); */
+  formData.append('img', imgFile,imgFile.name);
   fetch("/posts", {
     method: "POST",
     headers: {
-        "content-type":"multipart/form-data",
+        
     },
        body: formData,
   })
