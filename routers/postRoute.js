@@ -105,11 +105,8 @@ router.get("/search/get/:id", checkUserToken, async (req, res) => {
   const searchedKeywords = req.params.id;
   const searchedSplitted = searchedKeywords.replace(/[-]+/, " ");
 
-  let posts = await searchRegExp(searchedSplitted);
+  let foundPosts = await searchRegExp(searchedSplitted);
 
-  const foundPosts = posts.sort((a, b) => {
-    return moment(b.createdAt).diff(a.createdAt);
-  });
 
   res.send({ foundPosts, searchedSplitted });
 });
@@ -144,11 +141,8 @@ const findPostsByUser = (userId) => {
 router.post("/user/get", checkUserToken, async (req, res) => {
   try {
     const { userId } = req.body;
-    let posts = await findPostsByUser(userId);
+    let foundPosts = await findPostsByUser(userId);
 
-    const foundPosts = posts.sort((a, b) => {
-      return moment(b.createdAt).diff(a.createdAt);
-    });
     res.send({ foundPosts, ok: true });
   } catch (e) {
     console.log(e.message);
