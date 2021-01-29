@@ -67,8 +67,8 @@ var uploadImageFile = function uploadImageFile(file) {
   alert('the img has transferd');
 };
 
-var handleNewPost = function handleNewPost(file) {
-  var user, categoryId, title, desc, img, userId, userFname, userLname;
+var handleNewPost = function handleNewPost(e, file) {
+  var user, categoryId, title, desc, img, imgFile, userId, userFname, userLname, formData;
   return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -82,7 +82,8 @@ var handleNewPost = function handleNewPost(file) {
           categoryId = e.target.children.category.value;
           title = e.target.children.title.value;
           desc = e.target.children.desc.value;
-          img = e.target.children.img.value;
+          img = e.target.children.img;
+          imgFile = img.files[0];
           userId = user.id;
           userFname = user.fName;
           userLname = user.lName;
@@ -90,21 +91,18 @@ var handleNewPost = function handleNewPost(file) {
           if (categoryId === "choseCategory") {
             categoryId = undefined;
           }
-          /*  let formData = new FormData();  
-           formData.append('categoryId', categoryId);
-           formData.append('title', title);
-           formData.append('desc', desc);
-           formData.append('userId', userId);
-           formData.append('userFname', userFname);
-           formData.append('userLname', userLname);
-           formData.append('img', file); */
 
-
+          formData = new FormData();
+          formData.append('categoryId', categoryId);
+          formData.append('title', title);
+          formData.append('desc', desc);
+          formData.append('userId', userId);
+          formData.append('userFname', userFname);
+          formData.append('userLname', userLname);
+          formData.append('img', imgFile, imgFile.name);
           fetch("/posts", {
             method: "POST",
-            headers: {
-              "content-type": "multipart/form-data"
-            },
+            headers: {},
             body: formData
           }).then(function (res) {
             return res.json();
@@ -153,7 +151,7 @@ var handleNewPost = function handleNewPost(file) {
             });
           });
 
-        case 13:
+        case 22:
         case "end":
           return _context2.stop();
       }
