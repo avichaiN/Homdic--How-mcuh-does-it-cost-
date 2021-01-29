@@ -63,7 +63,7 @@ const getPostsByCategory = (categoryId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-
+      
       renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].Img);
     });
 

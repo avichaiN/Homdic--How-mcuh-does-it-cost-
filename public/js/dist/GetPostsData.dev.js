@@ -1,6 +1,21 @@
 "use strict";
 
+// function myFunction() {
+//   document.querySelector(
+//     "body").style.visibility = "hidden";
+//   document.querySelector(
+//     "#loader").style.visibility = "visible";
+//   setTimeout(function () {
+//     document.querySelector(
+//       "#loader").style.display = "none";
+//     document.querySelector(
+//       "body").style.visibility = "visible";
+//   }, 1000);
+// }
 var getPosts = function getPosts() {
+  document.querySelector("#categoryHeder").style.visibility = "hidden";
+  document.querySelector("#app").style.visibility = "hidden";
+  document.querySelector("#loader").style.visibility = "visible";
   var url = window.location.href;
   var params = url.split('?')[1];
 
@@ -9,6 +24,8 @@ var getPosts = function getPosts() {
     getPostsBySearch(searchedPosts);
   } else if (params === 'myposts') {
     getPostsByUser();
+  } else if (params === 'myfavorites') {
+    getUserFavorites();
   } else if (params.includes('admin')) {
     getPostsUserIdForAdmin(params);
   } else {
@@ -170,44 +187,149 @@ var getPostsUserIdForAdmin = function getPostsUserIdForAdmin(params) {
   });
 };
 
-var renderPosts = function renderPosts(postsArray) {
-  var userInfo, userId, isAdmin;
-  return regeneratorRuntime.async(function renderPosts$(_context5) {
+var getUserFavorites = function getUserFavorites() {
+  var user, userId;
+  return regeneratorRuntime.async(function getUserFavorites$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.next = 2;
-          return regeneratorRuntime.awrap(getUserInfo());
+          return regeneratorRuntime.awrap(getUserWhoPosted());
 
         case 2:
-          userInfo = _context5.sent;
-          userId = userInfo.id;
-          isAdmin = false;
-          _context5.next = 7;
-          return regeneratorRuntime.awrap(handleCheckAdmin());
-
-        case 7:
-          isAdmin = _context5.sent;
-          postsArray.forEach(function (post) {
-            var isUsersPost = false;
-
-            if (post.publishedBy === userId) {
-              isUsersPost = true;
-            }
-
-            var html = buildOnePost("post"
-            /*post or comment*/
-            , post.title, post.desc, post.img, "0", "20", post._id, post.fName, post.lName);
-            document.getElementById('app').innerHTML += html;
-
-            if (isUsersPost || isAdmin) {
-              document.getElementById("".concat(post._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
+          user = _context5.sent;
+          userId = user.id;
+          fetch("/posts/favorites/getall", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              userId: userId
+            })
+          }).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            if (data.status === "unauthorized") {
+              window.location.href = "index.html";
+            } else {
+              renderTitlePostFavorits();
+              var foundPosts = data.favPosts;
+              renderPosts(foundPosts);
             }
           });
 
-        case 9:
+        case 5:
         case "end":
           return _context5.stop();
+      }
+    }
+  });
+};
+
+var checkHowMuchComments = function checkHowMuchComments(postId) {
+  var comments;
+  return regeneratorRuntime.async(function checkHowMuchComments$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.next = 2;
+          return regeneratorRuntime.awrap(fetch("/comments/length", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              postId: postId
+            })
+          }).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            if (data.status === "unauthorized") {
+              window.location.href = "index.html";
+            } else {
+              comments = data.commentLength;
+            }
+          }));
+
+        case 2:
+          return _context6.abrupt("return", comments);
+
+        case 3:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  });
+};
+
+var renderPosts = function renderPosts(postsArray) {
+  var userInfo, userId, isAdmin, sortedPosts, isFavorite, commentsLength, isUsersPost, postCreatedTime, timeAgo, html;
+  return regeneratorRuntime.async(function renderPosts$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.next = 2;
+          return regeneratorRuntime.awrap(getUserInfo());
+
+        case 2:
+          userInfo = _context7.sent;
+          userId = userInfo.id;
+          isAdmin = false;
+          _context7.next = 7;
+          return regeneratorRuntime.awrap(handleCheckAdmin());
+
+        case 7:
+          isAdmin = _context7.sent;
+          sortedPosts = postsArray.reverse();
+          i = 0;
+
+        case 10:
+          if (!(i < sortedPosts.length)) {
+            _context7.next = 27;
+            break;
+          }
+
+          _context7.next = 13;
+          return regeneratorRuntime.awrap(checkIfPostFavorite(sortedPosts[i]._id, userId));
+
+        case 13:
+          isFavorite = _context7.sent;
+          _context7.next = 16;
+          return regeneratorRuntime.awrap(checkHowMuchComments(sortedPosts[i]._id));
+
+        case 16:
+          commentsLength = _context7.sent;
+          isUsersPost = false;
+          postCreatedTime = Date.parse(sortedPosts[i].createdAt);
+          timeAgo = timeSince(postCreatedTime);
+
+          if (sortedPosts[i].publishedBy === userId) {
+            isUsersPost = true;
+          }
+
+          html = buildOnePost("post"
+          /*post or comment*/
+          , sortedPosts[i].title, sortedPosts[i].desc, sortedPosts[i].img, postCreatedTime, timeAgo, "0", commentsLength, sortedPosts[i]._id, sortedPosts[i].fName, sortedPosts[i].lName, isFavorite);
+          document.getElementById('app').innerHTML += html;
+
+          if (isUsersPost || isAdmin) {
+            document.getElementById("".concat(sortedPosts[i]._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
+          }
+
+        case 24:
+          i++;
+          _context7.next = 10;
+          break;
+
+        case 27:
+          document.querySelector("#loader").style.display = "none";
+          document.querySelector("#categoryHeder").style.visibility = "visible";
+          document.querySelector("#app").style.visibility = "visible";
+
+        case 30:
+        case "end":
+          return _context7.stop();
       }
     }
   });

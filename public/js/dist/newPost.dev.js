@@ -35,9 +35,9 @@ var hideNewPostBox = function hideNewPostBox() {
 
 var handleImgSelect = function handleImgSelect() {
   var imgUpload = document.querySelector(".imgUpload");
-  var fileChosen = document.querySelector("#file-chosen");
-  var file = imgUpload.files[0];
-  fileChosen.textContent = file.name; //uploadImageFile(file);
+  var fileChosen = document.querySelector("#file-chosen"); // let file = imgUpload.files[0];
+
+  fileChosen.textContent = imgUpload.files[0].name;
 };
 
 var getCategoiresCheckBox = function getCategoiresCheckBox() {
@@ -54,21 +54,8 @@ var getCategoiresCheckBox = function getCategoiresCheckBox() {
   });
 };
 
-var uploadImageFile = function uploadImageFile(file) {
-  var formData = new FormData();
-  formData.append('img', file);
-  fetch("/posts/uploadImg", {
-    method: "POST",
-    headers: {
-      "content-type": "multipart/form-data"
-    },
-    body: formData
-  });
-  alert('the img has transferd');
-};
-
 var handleNewPost = function handleNewPost(e, file) {
-  var user, categoryId, title, desc, img, imgFile, userId, userFname, userLname, formData;
+  var user, categoryId, title, desc, img, userId, userFname, userLname, imgFile, formData;
   return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -83,10 +70,10 @@ var handleNewPost = function handleNewPost(e, file) {
           title = e.target.children.title.value;
           desc = e.target.children.desc.value;
           img = e.target.children.img;
-          imgFile = img.files[0];
           userId = user.id;
           userFname = user.fName;
           userLname = user.lName;
+          imgFile = img.files[0];
 
           if (categoryId === "choseCategory") {
             categoryId = undefined;

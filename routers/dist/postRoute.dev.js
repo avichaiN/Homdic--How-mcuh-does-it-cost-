@@ -55,7 +55,8 @@ router.get("/get/:id", checkUserToken, function _callee(req, res) {
 });
 var uploadImg = multer({
   limits: {
-    fileSize: 3145728
+    fileSize: 5000000 // 5 MB
+
   },
   fileFilter: function fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -76,8 +77,8 @@ router.post("/", uploadImg.single("img"), function _callee2(req, res) {
           _context2.prev = 1;
           _context2.next = 4;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
-            width: 50,
-            high: 50
+            width: 120,
+            high: 120
           }).toBuffer());
 
         case 4:

@@ -49,9 +49,9 @@ const hideNewPostBox = () => {
 const handleImgSelect = () => {
   const imgUpload = document.querySelector(".imgUpload");
   const fileChosen = document.querySelector("#file-chosen");
-  let file = imgUpload.files[0];
-  fileChosen.textContent = file.name;
-  //uploadImageFile(file);
+ // let file = imgUpload.files[0];
+  fileChosen.textContent = imgUpload.files[0].name;
+ 
 };
 
 const getCategoiresCheckBox = () => {
@@ -68,18 +68,7 @@ const getCategoiresCheckBox = () => {
     });
 };
 
-const uploadImageFile = (file) => {
-  let formData = new FormData();
-  formData.append('img', file);
-  fetch("/posts/uploadImg", {
-    method: "POST",
-    headers: {
-      "content-type": "multipart/form-data",
-    },
-    body: formData,
-  })
-  alert('the img has transferd')
-}
+
 
 const handleNewPost = async (e, file) => {
   e.preventDefault();
@@ -88,10 +77,13 @@ const handleNewPost = async (e, file) => {
   const title = e.target.children.title.value;
   const desc = e.target.children.desc.value;
   const img = e.target.children.img;
- let imgFile = img.files[0];
   const userId = user.id;
   const userFname = user.fName;
   const userLname = user.lName;
+
+  let imgFile = img.files[0];
+
+
 
   if (categoryId === "choseCategory") {
     categoryId = undefined;

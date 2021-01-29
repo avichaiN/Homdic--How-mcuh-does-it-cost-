@@ -1,19 +1,22 @@
 "use strict";
 
-var type = 'post';
-var massage = 'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
-var title = 'מזגן';
-var NmTimesViewed = '36';
-var postID = 'sklgkh78h89xchv';
-var comment = 'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
-var postedBy = 'eyal shemuel';
-var atTdate = "01/01/1999";
-
+// const type = 'post';
+// const massage =
+//   'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך חקיגו רוגצה. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיע';
+// const title = 'מזגן';
+// const NmTimesViewed = '36';
+// const postID = 'sklgkh78h89xchv';
+// const comment = 'לורם איפסום דול';
+// const postedBy = 'eyal shemuel'
+// const atTdate = "01/01/1999"
 function buildOnePost(type
 /*post or comment*/
-, title, massage, PostImgSrc, NmTimesViewed, numberOfComments, postID, fName, lName) {
+, title, massage, PostImgSrc, postCreatedTime, whenMade, NmTimesViewed, numberOfComments, postID, fName, lName, isFavorite) {
+  var fullDate = new Date(postCreatedTime);
+  var favoriteButton = '';
   /*  */
-  var AddCommentButton = " <div id=\"AddCommentButton-".concat(postID, "\" class=\"Notifications show\" onclick=\"ShowAddComment('").concat(postID, "')\">\n    <span class=\"material-icons\">\n      add_circle_outline\n    </span>");
+
+  var AddCommentButton = " <div id=\"AddCommentButton-".concat(postID, "\" class=\"Notifications show\" onclick=\"ShowAddComment('").concat(postID, "', '").concat(numberOfComments, "')\">\n    <span class=\"material-icons\">\n      add_comment\n    </span>");
   /*  */
 
   var TimesViewed = " <div id=\"TimesViewed\">\n    <span class=\"material-icons\"> visibility </span>\n    <p>\u05E0\u05E6\u05E4\u05D4 ".concat(NmTimesViewed, " \u05E4\u05E2\u05DE\u05D9\u05DD</p>\n  </div>");
@@ -28,15 +31,36 @@ function buildOnePost(type
       leftButton = 'error wrong input type';
     }
   }
+
+  if (isFavorite) {
+    favoriteButton = "<span class=\"material-icons fav\" onclick=\"handleDeleteFavoritePost('".concat(postID, "')\"> star </span><p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>");
+  } else {
+    favoriteButton = "<span class=\"material-icons\" onclick=\"handleFavoritePost('".concat(postID, "')\"> star </span><p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>");
+  }
   /*  */
 
 
-  var html = "<div class=\"post\">\n    <div onclick='handleClickPost(\"".concat(postID, "\")' data-id='").concat(postID, "' data-title='").concat(title, "' id=\"postheder\">\n    <p class=\"userInfo\">").concat(fName + ' ' + lName, "</p>\n      <h1 class=\"posttitle\">").concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"").concat(PostImgSrc, "\" alt=\"\" />\n\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment-").concat(postID, "\" class=\"hide addComment\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications\" onclick=\"PostNotificationsButtonClicked()\">\n        <span class=\"material-icons\"> notifications </span>\n        <p>").concat(numberOfComments, " :\u05DE\u05E1 \u05EA\u05D2\u05D5\u05D1\u05D5\u05EA</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications\" onclick=\"PostFavoriteButtonClicked()\">\n        <span class=\"material-icons\"> favorite </span>\n        <p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>\n      </div>\n      <div id=\"cancelButton-").concat(postID, "\" class=\"Notifications hide\" onclick=\"HideAddComment('").concat(postID, "')\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n      <div data-id='").concat(postID, "' data-title='").concat(title, "' class='deletePost' id='").concat(postID, "'></div>\n    </div>\n  </div>");
+  var html = "<div class=\"post\">\n    <div onclick='handleShowPostsComments(".concat(numberOfComments, ", \"").concat(postID, "\")' data-id='").concat(postID, "' data-title='").concat(title, "' id=\"postheder\">\n    <p class='whenPosted' title='").concat(fullDate, "'>").concat(whenMade, "</p>\n    <p class=\"userInfo\">").concat(fName + ' ' + lName, "</p>\n      <h1 class=\"posttitle\">").concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"data:image/jpg;base64,").concat(PostImgSrc, "\" alt=\"\" />\n\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment-").concat(postID, "\" class=\"hide addComment\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications commentArrow-").concat(postID, "\">\n        <span data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "')\" class=\"material-icons\">arrow_downward</span>\n        <p data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "')\">\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA: ").concat(numberOfComments, "</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications fav-").concat(postID, "\">\n      ").concat(favoriteButton, "\n      </div>\n      <div id=\"cancelButton-").concat(postID, "\" class=\"Notifications hide\" onclick=\"HideAddComment('").concat(postID, "')\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n      <div data-id='").concat(postID, "' data-title='").concat(title, "' class='deletePost' id='").concat(postID, "'></div>\n    </div>\n  </div>\n  <div class='renderComment renderComment-").concat(postID, "' ></div>");
   return html;
 }
 
-function buildOneComment(comment, postedBy, atTdate) {
-  var Html = "<article class=\"comment\">\n   <div ID=\"bodyComment\">\n     <p>\n      ".concat(massage, "\n     </p>\n   </div>\n   <div id=\"authRouter\">\n     <p>add by:").concat(postedBy, " at ").concat(atTdate, "</p>\n   </div>\n \n   <div id=\"AddToFavoritButton\">\n     <span class=\"material-icons active center\" title=\"\u05D4\u05D5\u05E1\u05E3 \u05E4\u05D5\u05E1\u05D8 \u05D6\u05D4 \u05DC\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD\">\n       favorite\n     </span>\n   </div>\n  </article>");
+function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTdate, commentId, liked, likesNum, isUsersComment) {
+  var fullDate = new Date(commentCreatedTime);
+  var deleteComment = '';
+
+  if (isUsersComment) {
+    deleteComment = "<button class='deletePostButton' onclick=\"handleDeleteComment('".concat(commentId, "')\">\u05DE\u05D7\u05E7 \u05EA\u05D2\u05D5\u05D1\u05D4</button>");
+  }
+
+  var likedButton = '';
+
+  if (liked) {
+    likedButton = "<span onclick=\"handleUnLikeComment('".concat(commentId, "')\" class=\"material-icons active center liked\" title=\"\u05D4\u05D5\u05E8\u05D3 \u05DC\u05D9\u05D9\u05E7\">favorite_border\n    </span>");
+  } else {
+    likedButton = "<span onclick=\"handleLikeComment('".concat(commentId, "')\" class=\"material-icons active center unliked\" title=\"\u05DC\u05D9\u05D9\u05E7 \u05DC\u05EA\u05D2\u05D5\u05D1\u05D4\">favorite_border\n    </span>");
+  }
+
+  var Html = "<article class=\"comment\">\n   <div ID=\"bodyComment\">\n     <p>\n      ".concat(comment, "\n     </p>\n     \u05DE\u05D7\u05D9\u05E8: ").concat(price, "\n   </div>\n   <div id=\"authRouter\">\n   <p title=\"").concat(fullDate, "\">").concat(atTdate, "</p>\n     <p>").concat(fName, " ").concat(lName, "</p>\n   </div>\n   <div data-id='").concat(commentId, "' class=\"deleteComment\">").concat(deleteComment, "</div>\n   <div id=\"likeComment\" class=\"likeComment-").concat(commentId, "\">\n   ").concat(likedButton, "\n   <span class='likesAmount'>").concat(likesNum, "</span>\n   </div>\n  </article>");
   return Html;
 }
 
@@ -58,4 +82,8 @@ var renderTitleFoundPostsUser = function renderTitleFoundPostsUser(name) {
 
 var renderTitlePostForAdmin = function renderTitlePostForAdmin(username) {
   document.querySelector("#categoryHeder").innerHTML += "<h2>\u05E4\u05D5\u05E1\u05D8\u05D9\u05DD \u05E9\u05DC \u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9: ".concat(username, "</h2>");
+};
+
+var renderTitlePostFavorits = function renderTitlePostFavorits() {
+  document.querySelector("#categoryHeder").innerHTML += "<h1>\u05E4\u05D5\u05E1\u05D8\u05D9\u05DD \u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</h1>";
 };

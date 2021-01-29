@@ -25,7 +25,7 @@ router.get("/get/:id", checkUserToken, async (req, res) => {
 
 const uploadImg = multer({
   limits: {
-    fileSize: 3145728,
+    fileSize: 5000000, // 5 MB
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -45,7 +45,7 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
   try {
    
     const Buffer = await sharp(req.file.buffer)
-        .resize({ width: 50, high: 50 })
+        .resize({ width: 120, high: 120 })
         .toBuffer();
     
         const post = new Post({

@@ -61,7 +61,7 @@ function buildOnePost(
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
-      <img id="hederImg" src="${PostImgSrc}" alt="" />
+      <img id="hederImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />
 
     </div>
     <!--  add comment form -->
