@@ -41,26 +41,27 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
 
   const { userId, userFname, userLname, categoryId, title, desc } = req.body;
 
-  
-  try {
-   
-    const Buffer = await sharp(req.file.buffer)
-        .resize({ width: 120, high: 120 })
-        .toBuffer();
 
-        const post = new Post({
-          title: title,
-          desc: desc,
-          img: Buffer,
-          imgName:req.file.name,  
-          categoryId: categoryId,
-          fName: userFname,
-          lName: userLname,
-          publishedBy: userId,
-          createdAt: new Date(Date.now())
-        });
+  try {
+
+    const Buffer = await sharp(req.file.buffer)
+      .resize({ width: 120, high: 120 })
+      .toBuffer();
+
+    const post = new Post({
+      title: title,
+      desc: desc,
+      img: Buffer,
+      imgName: req.file.name,
+      categoryId: categoryId,
+      fName: userFname,
+      lName: userLname,
+      publishedBy: userId,
+      createdAt: new Date(Date.now())
+    });
 
     await post.save(post);
+
     res.send({ posted: true, post });
   } catch (e) {
     console.log(e.message);

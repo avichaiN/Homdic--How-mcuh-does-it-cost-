@@ -40,6 +40,8 @@ const uploadImg = multer({
 
 router.get("/get", checkUserToken, async (req, res) => {
   try {
+
+
     let categories = await categoriesFind();
 
     if (categories === false || categories === undefined) {
@@ -55,18 +57,21 @@ router.get("/get", checkUserToken, async (req, res) => {
 //create new category for admin
 router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { newCategoryName } = req.body;
-
-
-
   try {
     const Buffer = await sharp(req.file.buffer)
       .resize({ width: 120, high: 120 })
       .toBuffer();
 
-    const category = new Category({ Name: newCategoryName, img: Buffer });
+
+    const category = new Category({
+      img: Buffer,
+      Name: newCategoryName,
+      createdAt: new Date(Date.now())
+    });
+
     await category.save();
     let categories = await categoriesFind();
-    res.send({ ok: true, category, categories });
+    res.send({ ok: true, categories });
   } catch (e) {
     console.log(e);
     res.send({ ok: false });

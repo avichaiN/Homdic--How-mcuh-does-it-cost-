@@ -15,10 +15,8 @@ const handleNewCategory = (e) => {
   e.preventDefault();
   const newCategoryName = document.getElementById("categoryInput").value;
   const img = document.getElementById("categoryImgInput");
-
+  
   let imgFile = img.files[0];
-
-
   let formData = new FormData();  
   formData.append('newCategoryName', newCategoryName);
   formData.append('img', imgFile,imgFile.name);
