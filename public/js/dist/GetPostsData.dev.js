@@ -81,10 +81,7 @@ var getPostsByCategory = function getPostsByCategory(categoryId) {
             if (data.status === "unauthorized") {
               window.location.href = "index.html";
             } else {
-              foundPosts = data.foundPostsByCategoryId; // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
-              // console.log(sorted)
-              // console.log(foundPosts)
-
+              foundPosts = data.foundPostsByCategoryId;
               renderPosts(foundPosts);
             }
 
@@ -126,12 +123,16 @@ var getPostsByUser = function getPostsByUser() {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    if (!data.ok) {
-                      console.log('err finding posts');
+                    if (data.status === "unauthorized") {
+                      window.location.href = "index.html";
                     } else {
-                      renderTitleFoundPostsUser(userFirstName);
-                      foundPosts = data.foundPosts;
-                      renderPosts(foundPosts);
+                      if (!data.ok) {
+                        console.log('err finding posts');
+                      } else {
+                        renderTitleFoundPostsUser(userFirstName);
+                        foundPosts = data.foundPosts;
+                        renderPosts(foundPosts);
+                      }
                     }
 
                   case 1:

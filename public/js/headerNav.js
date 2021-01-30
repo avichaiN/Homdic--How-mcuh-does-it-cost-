@@ -31,6 +31,10 @@ const getUserInfo = async () => {
   await fetch("/userInfo")
     .then((res) => res.json())
     .then((data) => {
+      if(!data.decoded){
+        window.location.href = '/index.html'
+      }
+
       const name = data.decoded.fName;
       sayHelloToUser(name);
       user = data.decoded;
