@@ -10,7 +10,7 @@ const CategorySchema = new Schema({
         trim: true
     },
     Img:{
-        type:String,
+        type:Buffer,
         required: true
     },
     createdAt: { 

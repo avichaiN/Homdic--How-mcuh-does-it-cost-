@@ -4,7 +4,9 @@ var express = require("express");
 
 var Category = require("../models/category");
 
-var jwt = require("jwt-simple");
+var Post = require("../models/post");
+
+var Comment = require("../models/comment");
 
 var cookieParser = require("cookie-parser");
 
@@ -13,6 +15,10 @@ var checkUserToken = require("../routers/gFunctions/checkUserToken");
 var checkAdmin = require("../routers/gFunctions/checkAdmin");
 
 var path = require("path");
+
+var multer = require("multer");
+
+var sharp = require("sharp");
 
 var router = express.Router();
 router.use(cookieParser());
@@ -41,6 +47,19 @@ var categoriesFind = function categoriesFind() {
 
 router.get("/", checkUserToken, function (req, res) {
   res.sendFile(path.join(__dirname, "../public", "Categories.html"));
+});
+var uploadImg = multer({
+  limits: {
+    fileSize: 5000000 // 5 MB
+
+  },
+  fileFilter: function fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("please upload image file"));
+    }
+
+    cb(undefined, true);
+  }
 });
 router.get("/get", checkUserToken, function _callee(req, res) {
   var categories;
@@ -84,50 +103,57 @@ router.get("/get", checkUserToken, function _callee(req, res) {
   }, null, null, [[0, 7]]);
 }); //create new category for admin
 
-router.post("/", checkAdmin, function _callee2(req, res) {
-  var newCategoryName, newCategoryImg, category, categories;
+router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res) {
+  var newCategoryName, Buffer, category, categories;
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           newCategoryName = req.body.newCategoryName;
-          newCategoryImg = req.body.newCategoryImg;
+          _context3.prev = 1;
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
+            width: 120,
+            high: 120
+          }).toBuffer());
+
+        case 4:
+          Buffer = _context3.sent;
           category = new Category({
             Name: newCategoryName,
-            Img: newCategoryImg
+            Img: Buffer
           });
-          _context3.prev = 3;
-          _context3.next = 6;
+          _context3.next = 8;
           return regeneratorRuntime.awrap(category.save());
 
-        case 6:
-          _context3.next = 8;
+        case 8:
+          _context3.next = 10;
           return regeneratorRuntime.awrap(categoriesFind());
 
-        case 8:
+        case 10:
           categories = _context3.sent;
           res.send({
             ok: true,
             category: category,
             categories: categories
           });
-          _context3.next = 16;
+          _context3.next = 18;
           break;
 
-        case 12:
-          _context3.prev = 12;
-          _context3.t0 = _context3["catch"](3);
+        case 14:
+          _context3.prev = 14;
+          _context3.t0 = _context3["catch"](1);
           console.log(_context3.t0);
           res.send({
             ok: false
           });
 
-        case 16:
+        case 18:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[3, 12]]);
+  }, null, null, [[1, 14]]);
 });
 router.put("/", checkAdmin, function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg;
@@ -207,7 +233,7 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
           chosenCategoryid = req.body.chosenCategoryid;
           _context7.prev = 1;
           _context7.next = 4;
-          return regeneratorRuntime.awrap(Category.findOneAndRemove({
+          return regeneratorRuntime.awrap(Category.findOneAndDelete({
             _id: chosenCategoryid
           }, function _callee5(err, category) {
             var categories;
@@ -223,14 +249,18 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
                     res.send({
                       ok: false
                     });
-                    _context6.next = 8;
+                    _context6.next = 10;
                     break;
 
                   case 4:
                     _context6.next = 6;
-                    return regeneratorRuntime.awrap(categoriesFind());
+                    return regeneratorRuntime.awrap(findPostsCategoryAndDelete(chosenCategoryid));
 
                   case 6:
+                    _context6.next = 8;
+                    return regeneratorRuntime.awrap(categoriesFind());
+
+                  case 8:
                     categories = _context6.sent;
                     res.send({
                       ok: true,
@@ -238,7 +268,7 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
                       categories: categories
                     });
 
-                  case 8:
+                  case 10:
                   case "end":
                     return _context6.stop();
                 }
@@ -266,6 +296,93 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
   }, null, null, [[1, 6]]);
 });
 
+var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId) {
+  return regeneratorRuntime.async(function findPostsCategoryAndDelete$(_context10) {
+    while (1) {
+      switch (_context10.prev = _context10.next) {
+        case 0:
+          _context10.next = 2;
+          return regeneratorRuntime.awrap(Post.find({
+            categoryId: categoryId
+          }, function _callee8(err, posts) {
+            return regeneratorRuntime.async(function _callee8$(_context9) {
+              while (1) {
+                switch (_context9.prev = _context9.next) {
+                  case 0:
+                    if (err) {
+                      console.log(err.commentMessage);
+                    } else {
+                      posts.forEach(function _callee7(post) {
+                        return regeneratorRuntime.async(function _callee7$(_context8) {
+                          while (1) {
+                            switch (_context8.prev = _context8.next) {
+                              case 0:
+                                _context8.next = 2;
+                                return regeneratorRuntime.awrap(deletePostComments(post._id));
+
+                              case 2:
+                                _context8.next = 4;
+                                return regeneratorRuntime.awrap(deletePost(post._id));
+
+                              case 4:
+                              case "end":
+                                return _context8.stop();
+                            }
+                          }
+                        });
+                      });
+                    }
+
+                  case 1:
+                  case "end":
+                    return _context9.stop();
+                }
+              }
+            });
+          }));
+
+        case 2:
+        case "end":
+          return _context10.stop();
+      }
+    }
+  });
+};
+
+var deletePost = function deletePost(postId) {
+  return regeneratorRuntime.async(function deletePost$(_context11) {
+    while (1) {
+      switch (_context11.prev = _context11.next) {
+        case 0:
+          return _context11.abrupt("return", Post.findOneAndDelete({
+            _id: postId
+          }).exec());
+
+        case 1:
+        case "end":
+          return _context11.stop();
+      }
+    }
+  });
+};
+
+var deletePostComments = function deletePostComments(postId) {
+  return regeneratorRuntime.async(function deletePostComments$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          return _context12.abrupt("return", Comment.deleteMany({
+            postId: postId
+          }).exec());
+
+        case 1:
+        case "end":
+          return _context12.stop();
+      }
+    }
+  });
+};
+
 var getCategoryInfo = function getCategoryInfo(id) {
   try {
     return Category.find({
@@ -276,25 +393,25 @@ var getCategoryInfo = function getCategoryInfo(id) {
   }
 };
 
-router.post('/byid', function _callee7(req, res) {
+router.post('/byid', function _callee9(req, res) {
   var categoryId, categoryInfo;
-  return regeneratorRuntime.async(function _callee7$(_context8) {
+  return regeneratorRuntime.async(function _callee9$(_context13) {
     while (1) {
-      switch (_context8.prev = _context8.next) {
+      switch (_context13.prev = _context13.next) {
         case 0:
           categoryId = req.body.categoryId;
-          _context8.next = 3;
+          _context13.next = 3;
           return regeneratorRuntime.awrap(getCategoryInfo(categoryId));
 
         case 3:
-          categoryInfo = _context8.sent;
+          categoryInfo = _context13.sent;
           res.send({
             categoryInfo: categoryInfo
           });
 
         case 5:
         case "end":
-          return _context8.stop();
+          return _context13.stop();
       }
     }
   });

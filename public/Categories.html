@@ -39,7 +39,7 @@
             <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
             <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
                 <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
-                <input type="text" id="categoryImgInput" placeholder="תמונה של קטגוריה">
+                <input type="file" name="img" id="categoryImgInput" placeholder="תמונה של קטגוריה">
                 <input value="הוסף" type="submit">
                 <button type="button" onclick="hideAddCategoryAndEditForm()">בטל</button>
             </form>

@@ -56,7 +56,7 @@ function buildOnePost(
   /*  */
 
   const html = `<div class="post">
-    <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
+      <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>

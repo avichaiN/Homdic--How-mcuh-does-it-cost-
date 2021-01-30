@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const checkUserToken = require("../routers/gFunctions/checkUserToken");
 const checkAdmin = require("../routers/gFunctions/checkAdmin");
 const path = require("path");
+const multer = require("multer");
+const sharp = require("sharp");
 
 const router = express.Router();
 
@@ -23,6 +25,18 @@ const categoriesFind = async () => {
 router.get("/", checkUserToken, (req, res) => {
   res.sendFile(path.join(__dirname, "../public", "Categories.html"));
 });
+const uploadImg = multer({
+  limits: {
+    fileSize: 5000000, // 5 MB
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("please upload image file"));
+    }
+    cb(undefined, true);
+  },
+});
+
 
 router.get("/get", checkUserToken, async (req, res) => {
   try {
@@ -39,12 +53,18 @@ router.get("/get", checkUserToken, async (req, res) => {
 });
 
 //create new category for admin
-router.post("/", checkAdmin, async (req, res) => {
+router.post("/", checkAdmin,uploadImg.single("img"), async (req, res) => {
   const { newCategoryName } = req.body;
-  const { newCategoryImg } = req.body;
+  
 
-  const category = new Category({ Name: newCategoryName, Img: newCategoryImg });
+  
   try {
+    const Buffer = await sharp(req.file.buffer)
+    .resize({ width: 120, high: 120 })
+    .toBuffer();
+
+    const category = new Category({ Name: newCategoryName, Img: Buffer });
+
     await category.save();
     let categories = await categoriesFind();
     res.send({ ok: true, category, categories });

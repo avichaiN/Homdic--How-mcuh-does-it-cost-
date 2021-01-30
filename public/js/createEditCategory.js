@@ -14,14 +14,20 @@ const handleDisplayAddCategory = () => {
 const handleNewCategory = (e) => {
   e.preventDefault();
   const newCategoryName = document.getElementById("categoryInput").value;
-  const newCategoryImg = document.getElementById("categoryImgInput").value;
+  const img = document.getElementById("categoryImgInput");
+
+  let imgFile = img.files[0];
+
+
+  let formData = new FormData();  
+  formData.append('newCategoryName', newCategoryName);
+  formData.append('img', imgFile,imgFile.name);
 
   fetch("/category", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+    headers: {     
     },
-    body: JSON.stringify({ newCategoryName, newCategoryImg }),
+    body: formData,
   })
     .then((res) => res.json())
     .then((data) => {
