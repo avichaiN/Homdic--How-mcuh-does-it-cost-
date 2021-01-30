@@ -79,7 +79,7 @@ var getPostsByCategory = function getPostsByCategory(categoryId) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].Img);
+    renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].img);
   }); // this is when looking for category id
 
   fetch("/posts/get/".concat(categoryId)).then(function (res) {
@@ -213,9 +213,13 @@ var getUserFavorites = function getUserFavorites() {
             if (data.status === "unauthorized") {
               window.location.href = "index.html";
             } else {
+              var postsToDom = [];
               renderTitlePostFavorits();
               var foundPosts = data.favPosts;
-              renderPosts(foundPosts);
+              foundPosts.forEach(function (post) {
+                postsToDom.push(post[0]);
+              });
+              renderPosts(postsToDom);
             }
           });
 

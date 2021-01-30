@@ -1,4 +1,4 @@
-const HtmlNewPostForm = () =>{
+const HtmlNewPostForm = () => {
   const html = `<img class='closeNewPost' onclick="hideNewPostBox()" src="https://www.freeiconspng.com/thumbs/close-button-png/black-circle-close-button-png-5.png">
   <h1 class='box'>פוסט חדש</h1>
   <form class='box' enctype="multipart/form-data" onsubmit="handleNewPost(event)">
@@ -49,9 +49,9 @@ const hideNewPostBox = () => {
 const handleImgSelect = () => {
   const imgUpload = document.querySelector(".imgUpload");
   const fileChosen = document.querySelector("#file-chosen");
- // let file = imgUpload.files[0];
+  // let file = imgUpload.files[0];
   fileChosen.textContent = imgUpload.files[0].name;
- 
+
 };
 
 const getCategoiresCheckBox = () => {
@@ -85,25 +85,29 @@ const handleNewPost = async (e, file) => {
 
 
 
+
   if (categoryId === "choseCategory") {
     categoryId = undefined;
   }
 
 
-  let formData = new FormData();  
+  let formData = new FormData();
   formData.append('categoryId', categoryId);
   formData.append('title', title);
   formData.append('desc', desc);
   formData.append('userId', userId);
   formData.append('userFname', userFname);
   formData.append('userLname', userLname);
-  formData.append('img', imgFile,imgFile.name);
+  if (imgFile) {
+    formData.append('img', imgFile, imgFile.name);
+  }
+
   fetch("/posts", {
     method: "POST",
     headers: {
-        
+
     },
-       body: formData,
+    body: formData,
   })
     .then((res) => res.json())
     .then(async (data) => {

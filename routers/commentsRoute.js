@@ -3,7 +3,6 @@ const router = express.Router();
 const Comment = require("../models/comment");
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
-const moment = require('moment');
 
 
 // this finds post by id, finds comments by post id, and send back to client.
@@ -34,7 +33,9 @@ router.post("/", checkUserToken, async (req, res) => {
   const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, fName: fName, lName: lName, publishedBy: userId });
   try {
     await comment.save();
-    res.send({ posted: true, comment });
+    const comments = await findCommentsByPostId(postID)
+    const commentLength = comments.length
+    res.send({ posted: true, comment, commentLength });
   } catch (e) {
     console.log(e.message)
     res.send({ posted: false })

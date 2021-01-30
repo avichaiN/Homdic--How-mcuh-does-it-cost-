@@ -7,8 +7,7 @@ const router = express.Router();
 const User = require("../models/user");
 const multer = require("multer");
 const sharp = require("sharp");
-
-
+const mongoose = require("mongoose");
 
 
 
@@ -24,7 +23,7 @@ router.get("/get/:id", checkUserToken, async (req, res) => {
   let foundPostsByCategoryId = await Post.aggregate([
     { $match: { categoryId: chosenCategoryId } },
   ]);
-  console.log(foundPostsByCategoryId)
+
 
   res.send({ foundPostsByCategoryId });
 });
@@ -47,24 +46,24 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
 
   const { userId, userFname, userLname, categoryId, title, desc } = req.body;
 
-
   try {
-
-    const Buffer = await sharp(req.file.buffer)
-      .resize({ width: 120, high: 120 })
-      .toBuffer();
-
     const post = new Post({
       title: title,
       desc: desc,
-      img: Buffer,
-      imgName: req.file.name,
       categoryId: categoryId,
       fName: userFname,
       lName: userLname,
       publishedBy: userId,
       createdAt: new Date(Date.now())
     });
+
+    if(req.file){
+      const Buffer = await sharp(req.file.buffer)
+      .resize({ width: 120, high: 120 })
+      .toBuffer();
+      post.img = Buffer
+      post.imgName = req.file.name
+    }
 
     await post.save(post);
 
@@ -114,7 +113,8 @@ router.delete("/", checkUserToken, async (req, res) => {
 
         res.send({ deleted: false });
       } else {
-        const deleteComments = await deletePostComments(postId);
+        await deletePostComments(postId);
+        await deleteFromFavorites(postId)
         res.send({ deleted: true });
       }
     });
@@ -126,8 +126,14 @@ router.delete("/", checkUserToken, async (req, res) => {
 const deletePostComments = async (postId) => {
   return Comment.deleteMany({ postId: postId }).exec();
 };
-
-//get posts by user id
+const deleteFromFavorites = async (postId) => {
+  let userWhoFavorites = await User.aggregate([
+    { $match: { favPosts: postId } },
+  ]);
+  userWhoFavorites.forEach(async user => {
+    await deletePostFromFavorite(postId, user._id)
+  })
+}
 
 const findPostsByUser = (userId) => {
   return Post.aggregate([{ $match: { publishedBy: userId } },]).exec()
@@ -214,8 +220,12 @@ const getUserFavoritePostsId = (userId) => {
   return User.findOne({ _id: userId }).exec();
 };
 const findPostById = async (postId) => {
-  // return Post.aggregate([{ $match: { _id : `${postId}` } },])
-  return Post.findById({ _id: postId }).exec();
+  const ObjectId = mongoose.Types.ObjectId;
+  return Post.aggregate([
+    {
+      $match: { _id: ObjectId(`${postId}`) }
+    }
+  ])
 
 };
 router.post("/favorites/getall", checkUserToken, async (req, res) => {
@@ -227,7 +237,6 @@ router.post("/favorites/getall", checkUserToken, async (req, res) => {
 
     for (i = 0; i < favPostsIds.length; i++) {
       let post = await findPostById(favPostsIds[i]);
-      console.log(post)
       favPosts.push(post);
     }
     res.send({ favPosts });

@@ -86,7 +86,11 @@ var handleNewPost = function handleNewPost(e, file) {
           formData.append('userId', userId);
           formData.append('userFname', userFname);
           formData.append('userLname', userLname);
-          formData.append('img', imgFile, imgFile.name);
+
+          if (imgFile) {
+            formData.append('img', imgFile, imgFile.name);
+          }
+
           fetch("/posts", {
             method: "POST",
             headers: {},

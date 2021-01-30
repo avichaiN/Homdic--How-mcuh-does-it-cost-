@@ -2,6 +2,8 @@
 
 var express = require("express");
 
+var mongoose = require("mongoose");
+
 var Post = require("../models/post");
 
 var Comment = require("../models/comment");
@@ -387,9 +389,12 @@ var deletePostComments = function deletePostComments(postId) {
 
 var getCategoryInfo = function getCategoryInfo(id) {
   try {
-    return Category.find({
-      _id: id
-    }).exec();
+    var ObjectId = mongoose.Types.ObjectId;
+    return Category.aggregate([{
+      $match: {
+        _id: ObjectId("".concat(id))
+      }
+    }]);
   } catch (error) {
     console.log(error);
   }

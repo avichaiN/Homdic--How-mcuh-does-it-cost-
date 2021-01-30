@@ -148,8 +148,8 @@ const handleNewComment = async (e, postID, numberOfComments) => {
           timer: 1500,
         });
         HideAddComment(postID)
-        handleShowPostsComments(numberOfComments, postID)
-        // handleClickPost(postID);
+        const commentsAmount = data.commentLength
+        handleShowPostsComments(commentsAmount, postID)
       } else {
         await Swal.fire({
           position: "center",
@@ -308,7 +308,7 @@ const checkIfPostFavorite = async (postID, userId) => {
   return checkFav;
 };
 
-const handleShowPostsComments = (numberOfComments, postId) => {
+const handleShowPostsComments = (numberOfComments, postId, sort) => {
 
   if (numberOfComments >= 1) {
     const app = document.querySelector(`.renderComment-${postId}`);
@@ -326,15 +326,32 @@ const handleShowPostsComments = (numberOfComments, postId) => {
           if (data.status === "unauthorized") {
             window.location.href = "index.html";
           } else {
-            renderCommentsToDom(numberOfComments, postId, data)
+            if(sort=='date'){
+              renderCommentsToDom(numberOfComments, postId, data, 'date')
+            }else{
+              renderCommentsToDom(numberOfComments, postId, data, 'like')
+            }
             // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
           }
         });
     }
   }
 }
-const renderCommentsToDom = async (numberOfComments, postId, data) => {
-
+const sortByDate = (postId, numberOfComments) =>{
+  const app = document.querySelector(`.renderComment-${postId}`);
+  app.innerHTML = ''
+  handleShowPostsComments(numberOfComments, postId, 'date')
+}
+const sortByLike = (postId, numberOfComments) =>{
+  const app = document.querySelector(`.renderComment-${postId}`);
+  app.innerHTML = ''
+  handleShowPostsComments(numberOfComments, postId, 'like')
+}
+const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
+  let sortByLike = false
+  if(sort == 'like'){
+    sortByLike = true
+  }
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`)
   
@@ -349,6 +366,10 @@ const renderCommentsToDom = async (numberOfComments, postId, data) => {
   let userId = userInfo.id;
   let isAdmin = false;
   isAdmin = await handleCheckAdmin();
+
+  if(sortByLike){
+    comments.sort(function(a, b){return b.likes.length-a.likes.length});
+  }
 
   for (i = 0; i < comments.length; i++) {
     userInfo = await getUserInfo();
@@ -381,8 +402,8 @@ const renderCommentsToDom = async (numberOfComments, postId, data) => {
 }
 const handleHidePostsComments = (numberOfComments, postId) => {
   document.querySelector(`.commentArrow-${postId}`).innerHTML
-    = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_downward</span>
-  <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
+    = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}', 'date')" class="material-icons">arrow_downward</span>
+  <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}', 'date')">תגובות: ${numberOfComments}</p>`;
 
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = ''

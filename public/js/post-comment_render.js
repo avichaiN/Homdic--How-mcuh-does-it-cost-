@@ -26,6 +26,12 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
+  
+  let img = `<img id="hederImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`
+  if(!PostImgSrc){
+    img = ''
+  }
+
   const fullDate = new Date(postCreatedTime)
   let favoriteButton = ''
   /*  */
@@ -53,15 +59,16 @@ function buildOnePost(
   } else {
     favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`
   }
+  let sort = 'date'
   /*  */
 
   const html = `<div class="post">
-      <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}")' data-id='${postID}' data-title='${title}' id="postheder">
+      <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}", '${sort}')' data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
       <p class="postbudy">${massage}</p>
-      <img id="hederImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />
+      ${img}
 
     </div>
     <!--  add comment form -->
@@ -71,8 +78,8 @@ function buildOnePost(
     <!--  end add comment form -->
     <div class="futter">
       <div id="NotificationsButton" class="Notifications commentArrow-${postID}">
-        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}')" class="material-icons">arrow_downward</span>
-        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}')">תגובות: ${numberOfComments}</p>
+        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}', '${sort}')" class="material-icons">arrow_downward</span>
+        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}', '${sort}')">תגובות: ${numberOfComments}</p>
       </div>
       <div id="FavoriteButton" class="Notifications fav-${postID}">
       ${favoriteButton}
@@ -91,6 +98,8 @@ function buildOnePost(
       <div data-id='${postID}' data-title='${title}' class='deletePost' id='${postID}'></div>
     </div>
   </div>
+  <button onclick='sortByDate("${postID}", "${numberOfComments}")'>byDate</button>
+  <button onclick='sortByLike("${postID}", "${numberOfComments}")'>byLike</button>
   <div class='renderComment renderComment-${postID}'></div>
 
 <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
@@ -142,7 +151,7 @@ function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTda
 function renderPostsHeder(HederTitle, src) {
   document.querySelector(`#categoryHeder`).innerHTML +=
     `<h1>${HederTitle}</h1>
-        <img id="hederImg" src="/./${src}" alt="" />`
+    <img id="hederImg" src="data:image/jpg;base64,${src}" alt="" />`
 }
 const renderNoPostsFound = (keywords) => {
   document.querySelector(`#categoryHeder`).innerHTML +=

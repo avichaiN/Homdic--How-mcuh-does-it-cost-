@@ -12,6 +12,12 @@
 function buildOnePost(type
 /*post or comment*/
 , title, massage, PostImgSrc, postCreatedTime, whenMade, NmTimesViewed, numberOfComments, postID, fName, lName, isFavorite) {
+  var img = "<img id=\"hederImg\" src=\"data:image/jpg;base64,".concat(PostImgSrc, "\" alt=\"\" />");
+
+  if (!PostImgSrc) {
+    img = '';
+  }
+
   var fullDate = new Date(postCreatedTime);
   var favoriteButton = '';
   /*  */
@@ -37,10 +43,11 @@ function buildOnePost(type
   } else {
     favoriteButton = "<span class=\"material-icons\" onclick=\"handleFavoritePost('".concat(postID, "')\"> star </span><p>\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD</p>");
   }
+
+  var sort = 'date';
   /*  */
 
-
-  var html = "<div class=\"post\">\n      <div onclick='handleShowPostsComments(".concat(numberOfComments, ", \"").concat(postID, "\")' data-id='").concat(postID, "' data-title='").concat(title, "' id=\"postheder\">\n    <p class='whenPosted' title='").concat(fullDate, "'>").concat(whenMade, "</p>\n    <p class=\"userInfo\">").concat(fName + ' ' + lName, "</p>\n      <h1 class=\"posttitle\">").concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      <img id=\"hederImg\" src=\"data:image/jpg;base64,").concat(PostImgSrc, "\" alt=\"\" />\n\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment-").concat(postID, "\" class=\"hide addComment\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications commentArrow-").concat(postID, "\">\n        <span data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "')\" class=\"material-icons\">arrow_downward</span>\n        <p data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "')\">\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA: ").concat(numberOfComments, "</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications fav-").concat(postID, "\">\n      ").concat(favoriteButton, "\n      </div>\n      <div id=\"cancelButton-").concat(postID, "\" class=\"Notifications hide\" onclick=\"HideAddComment('").concat(postID, "')\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n      <div data-id='").concat(postID, "' data-title='").concat(title, "' class='deletePost' id='").concat(postID, "'></div>\n    </div>\n  </div>\n  <div class='renderComment renderComment-").concat(postID, "'></div>\n\n<div class=\"loadingComments loadingComments-").concat(postID, "\" data-title=\".dot-spin\">\n  <div class=\"dot-spin\"></div>\n</div>");
+  var html = "<div class=\"post\">\n      <div onclick='handleShowPostsComments(".concat(numberOfComments, ", \"").concat(postID, "\", '").concat(sort, "')' data-id='").concat(postID, "' data-title='").concat(title, "' id=\"postheder\">\n    <p class='whenPosted' title='").concat(fullDate, "'>").concat(whenMade, "</p>\n    <p class=\"userInfo\">").concat(fName + ' ' + lName, "</p>\n      <h1 class=\"posttitle\">").concat(title, "</h1>\n      <p class=\"postbudy\">").concat(massage, "</p>\n      ").concat(img, "\n\n    </div>\n    <!--  add comment form -->\n    <div id=\"addComment-").concat(postID, "\" class=\"hide addComment\">\n      <!--hide -->     \n    </div>\n    <!--  end add comment form -->\n    <div class=\"futter\">\n      <div id=\"NotificationsButton\" class=\"Notifications commentArrow-").concat(postID, "\">\n        <span data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "', '").concat(sort, "')\" class=\"material-icons\">arrow_downward</span>\n        <p data-id='").concat(postID, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postID, "', '").concat(sort, "')\">\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA: ").concat(numberOfComments, "</p>\n      </div>\n      <div id=\"FavoriteButton\" class=\"Notifications fav-").concat(postID, "\">\n      ").concat(favoriteButton, "\n      </div>\n      <div id=\"cancelButton-").concat(postID, "\" class=\"Notifications hide\" onclick=\"HideAddComment('").concat(postID, "')\">\n        <span class=\"material-icons\">\n          add_circle_outline\n        </span>\n        <p>\u05D1\u05D8\u05DC</p>\n      </div>\n      <div id=\"leftButton\">\n      ").concat(leftButton, "\n        <p>\u05E8\u05E9\u05D5\u05DD \u05EA\u05D2\u05D5\u05D1\u05D4</p>\n      </div>\n      </div>\n      <div data-id='").concat(postID, "' data-title='").concat(title, "' class='deletePost' id='").concat(postID, "'></div>\n    </div>\n  </div>\n  <button onclick='sortByDate(\"").concat(postID, "\", \"").concat(numberOfComments, "\")'>byDate</button>\n  <button onclick='sortByLike(\"").concat(postID, "\", \"").concat(numberOfComments, "\")'>byLike</button>\n  <div class='renderComment renderComment-").concat(postID, "'></div>\n\n<div class=\"loadingComments loadingComments-").concat(postID, "\" data-title=\".dot-spin\">\n  <div class=\"dot-spin\"></div>\n</div>");
   return html;
 }
 
@@ -65,7 +72,7 @@ function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTda
 }
 
 function renderPostsHeder(HederTitle, src) {
-  document.querySelector("#categoryHeder").innerHTML += "<h1>".concat(HederTitle, "</h1>\n        <img id=\"hederImg\" src=\"/./").concat(src, "\" alt=\"\" />");
+  document.querySelector("#categoryHeder").innerHTML += "<h1>".concat(HederTitle, "</h1>\n    <img id=\"hederImg\" src=\"data:image/jpg;base64,").concat(src, "\" alt=\"\" />");
 }
 
 var renderNoPostsFound = function renderNoPostsFound(keywords) {

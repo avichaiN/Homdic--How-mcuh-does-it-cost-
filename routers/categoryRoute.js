@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
 const checkUserToken = require("../routers/gFunctions/checkUserToken");
@@ -144,7 +145,12 @@ const deletePostComments = async (postId) => {
 };
 const getCategoryInfo = (id) => {
   try {
-    return Category.find({ _id: id }).exec()
+    const ObjectId = mongoose.Types.ObjectId;
+    return Category.aggregate([
+      {
+        $match: { _id: ObjectId(`${id}`) }
+      }
+    ])
   } catch (error) {
     console.log(error);
   }

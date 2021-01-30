@@ -63,8 +63,7 @@ const getPostsByCategory = (categoryId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      
-      renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].Img);
+      renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].img);
     });
 
   // this is when looking for category id
@@ -74,7 +73,6 @@ const getPostsByCategory = (categoryId) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-        console.log(data.foundPostsByCategoryId)
         let foundPosts = data.foundPostsByCategoryId
         // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
         // console.log(sorted)
@@ -147,9 +145,14 @@ const getUserFavorites = async () => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
+        const postsToDom = []
         renderTitlePostFavorits()
         let foundPosts = data.favPosts
-        renderPosts(foundPosts)
+        foundPosts.forEach(post=>{
+          postsToDom.push(post[0])
+        })
+        renderPosts(postsToDom)
+
       }
     });
 }
