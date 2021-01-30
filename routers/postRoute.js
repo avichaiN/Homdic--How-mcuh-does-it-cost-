@@ -1,12 +1,21 @@
 const express = require("express");
-const router = express.Router();
 const Post = require("../models/post");
-const User = require("../models/user");
 const Comment = require("../models/comment");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
+const router = express.Router();
+const User = require("../models/user");
 const multer = require("multer");
 const sharp = require("sharp");
+
+
+
+
+
+
+
+
+
 
 
 router.get("/get/:id", checkUserToken, async (req, res) => {

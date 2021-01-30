@@ -2,48 +2,26 @@
 
 var express = require("express");
 
-var Category = require("../models/category");
-
 var Post = require("../models/post");
 
 var Comment = require("../models/comment");
-
-var cookieParser = require("cookie-parser");
 
 var checkUserToken = require("../routers/gFunctions/checkUserToken");
 
 var checkAdmin = require("../routers/gFunctions/checkAdmin");
 
-var path = require("path");
+var router = express.Router();
+
+var Category = require("../models/category");
 
 var multer = require("multer");
 
 var sharp = require("sharp");
 
-var router = express.Router();
-router.use(cookieParser());
+var cookieParser = require("cookie-parser");
 
-var categoriesFind = function categoriesFind() {
-  return regeneratorRuntime.async(function categoriesFind$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.prev = 0;
-          return _context.abrupt("return", Category.find({}).exec());
-
-        case 4:
-          _context.prev = 4;
-          _context.t0 = _context["catch"](0);
-          console.log(_context.t0);
-
-        case 7:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, null, null, [[0, 4]]);
-}; // get all categories to display on category page.
-
+router.use(cookieParser()); //const path = require("path");
+// get all categories to display on category page.
 
 router.get("/", checkUserToken, function (req, res) {
   res.sendFile(path.join(__dirname, "../public", "Categories.html"));
@@ -63,16 +41,16 @@ var uploadImg = multer({
 });
 router.get("/get", checkUserToken, function _callee(req, res) {
   var categories;
-  return regeneratorRuntime.async(function _callee$(_context2) {
+  return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
-      switch (_context2.prev = _context2.next) {
+      switch (_context.prev = _context.next) {
         case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
+          _context.prev = 0;
+          _context.next = 3;
           return regeneratorRuntime.awrap(categoriesFind());
 
         case 3:
-          categories = _context2.sent;
+          categories = _context.sent;
 
           if (categories === false || categories === undefined) {
             res.send({
@@ -80,28 +58,51 @@ router.get("/get", checkUserToken, function _callee(req, res) {
             });
           } else {
             res.send({
-              ok: true,
               categories: categories
             });
           }
 
-          _context2.next = 10;
+          _context.next = 10;
           break;
 
         case 7:
-          _context2.prev = 7;
-          _context2.t0 = _context2["catch"](0);
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
           res.send({
             ok: false
           });
 
         case 10:
         case "end":
-          return _context2.stop();
+          return _context.stop();
       }
     }
   }, null, null, [[0, 7]]);
-}); //create new category for admin
+});
+
+var categoriesFind = function categoriesFind() {
+  return regeneratorRuntime.async(function categoriesFind$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          return _context2.abrupt("return", Category.aggregate([{
+            $match: {}
+          }]));
+
+        case 4:
+          _context2.prev = 4;
+          _context2.t0 = _context2["catch"](0);
+          console.log(_context2.t0);
+
+        case 7:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, [[0, 4]]);
+}; //create new category for admin
+
 
 router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res) {
   var newCategoryName, Buffer, category, categories;
@@ -120,8 +121,9 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
         case 4:
           Buffer = _context3.sent;
           category = new Category({
+            img: Buffer,
             Name: newCategoryName,
-            Img: Buffer
+            createdAt: new Date(Date.now())
           });
           _context3.next = 8;
           return regeneratorRuntime.awrap(category.save());
@@ -132,28 +134,28 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
 
         case 10:
           categories = _context3.sent;
+          console.log(categories);
           res.send({
             ok: true,
-            category: category,
             categories: categories
           });
-          _context3.next = 18;
+          _context3.next = 19;
           break;
 
-        case 14:
-          _context3.prev = 14;
+        case 15:
+          _context3.prev = 15;
           _context3.t0 = _context3["catch"](1);
           console.log(_context3.t0);
           res.send({
             ok: false
           });
 
-        case 18:
+        case 19:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[1, 14]]);
+  }, null, null, [[1, 15]]);
 });
 router.put("/", checkAdmin, function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg;

@@ -1,17 +1,19 @@
 const express = require("express");
-const Category = require("../models/category");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
-const cookieParser = require("cookie-parser");
 const checkUserToken = require("../routers/gFunctions/checkUserToken");
 const checkAdmin = require("../routers/gFunctions/checkAdmin");
-const path = require("path");
+const router = express.Router();
+const Category = require("../models/category");
 const multer = require("multer");
 const sharp = require("sharp");
 
-const router = express.Router();
 
+
+const cookieParser = require("cookie-parser");
 router.use(cookieParser());
+
+//const path = require("path");
 
 
 // get all categories to display on category page.
