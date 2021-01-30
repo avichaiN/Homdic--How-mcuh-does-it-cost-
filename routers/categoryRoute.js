@@ -53,18 +53,17 @@ router.get("/get", checkUserToken, async (req, res) => {
 });
 
 //create new category for admin
-router.post("/", checkAdmin,uploadImg.single("img"), async (req, res) => {
+router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { newCategoryName } = req.body;
-  
 
-  
+
+
   try {
     const Buffer = await sharp(req.file.buffer)
-    .resize({ width: 120, high: 120 })
-    .toBuffer();
+      .resize({ width: 120, high: 120 })
+      .toBuffer();
 
-    const category = new Category({ Name: newCategoryName, Img: Buffer });
-
+    const category = new Category({ Name: newCategoryName, img: Buffer });
     await category.save();
     let categories = await categoriesFind();
     res.send({ ok: true, category, categories });

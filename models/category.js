@@ -9,10 +9,7 @@ const CategorySchema = new Schema({
         required: true,
         trim: true
     },
-    Img:{
-        type:Buffer,
-        required: true
-    },
+    img:Buffer,
     createdAt: { 
         type: String,
         default: moment().format()
