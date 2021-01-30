@@ -22,9 +22,10 @@ const writeCategoiresToDom = (categories) => {
   let categoriesHtml = "";
 
   categories.forEach(category => {
+    console.log(category);
     console.log(category.Img)
     categoriesHtml += `<div onclick="goToClickedCategory(event)" class="cateogryPage__categorysBox" data-name='${category.Name}' data-id='${category._id}'>
-        <img src="data:image/jpg;base64,${category.Img}">
+        <img src="data:image/jpg;base64,${category.Img}" />
         <div class="cateogryPage__categorysBoxContainer" /* data-img='${category.Img}' data-name='${category.Name}' data-id='${category._id}' */>
             <p>${category.Name}</p>
             <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>

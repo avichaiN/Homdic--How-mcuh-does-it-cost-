@@ -194,6 +194,7 @@ const renderPosts = async (postsArray) => {
     if (sortedPosts[i].publishedBy === userId) {
       isUsersPost = true
     }
+    console.log(sortedPosts)
     const html = buildOnePost(
       "post" /*post or comment*/,
       sortedPosts[i].title,
