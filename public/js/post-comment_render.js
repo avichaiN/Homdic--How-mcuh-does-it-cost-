@@ -27,7 +27,7 @@ function buildOnePost(
   isFavorite
 ) {
   
-  let img = `<img id="hederImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`
+  let img = `<img id="postImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`
   if(!PostImgSrc){
     img = ''
   }

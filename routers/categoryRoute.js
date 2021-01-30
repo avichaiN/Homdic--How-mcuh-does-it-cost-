@@ -14,7 +14,7 @@ const sharp = require("sharp");
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-//const path = require("path");
+const path = require("path");
 
 
 // get all categories to display on category page.
@@ -60,7 +60,7 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { newCategoryName } = req.body;
   try {
     const Buffer = await sharp(req.file.buffer)
-      .resize({ width: 120, high: 120 })
+      .resize({ width: 240, high: 240 })
       .toBuffer();
 
 

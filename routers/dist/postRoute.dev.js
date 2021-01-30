@@ -86,8 +86,8 @@ router.post("/", uploadImg.single("img"), function _callee2(req, res) {
 
           _context2.next = 6;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
-            width: 120,
-            high: 120
+            width: 240,
+            high: 240
           }).toBuffer());
 
         case 6:

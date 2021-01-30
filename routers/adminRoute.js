@@ -7,8 +7,8 @@ require("dotenv").config();
 
 router.use(cookieParser());
 
-function getAllUsers(limit, skip) {
-  return User.find().limit(limit).skip(skip).exec();
+function getAllUsers() {
+  return User.find().exec();
 }
 async function getAllUsersLength() {
   let users = await User.find().exec();
@@ -18,10 +18,11 @@ function deleteUserById(id) {
   return User.findOneAndDelete({ _id: id }).exec();
 }
 
-router.get("/:num", checkAdmin, async (req, res) => {
+router.get("/", checkAdmin, async (req, res) => {
   const usersAmount = await getAllUsersLength()
-  const skip = parseInt(req.params.num)
-  let allUsers = await getAllUsers(10, skip);
+  console.log(usersAmount)
+  const skip = parseInt(req.params.skip)
+  let allUsers = await getAllUsers();
   res.send({ allUsers, admin: true, usersAmount });
 });
 

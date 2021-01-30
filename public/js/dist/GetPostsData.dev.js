@@ -1,17 +1,5 @@
 "use strict";
 
-// function myFunction() {
-//   document.querySelector(
-//     "body").style.visibility = "hidden";
-//   document.querySelector(
-//     "#loader").style.visibility = "visible";
-//   setTimeout(function () {
-//     document.querySelector(
-//       "#loader").style.display = "none";
-//     document.querySelector(
-//       "body").style.visibility = "visible";
-//   }, 1000);
-// }
 var getPosts = function getPosts() {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";

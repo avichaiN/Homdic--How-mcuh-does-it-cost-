@@ -59,7 +59,7 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
 
     if(req.file){
       const Buffer = await sharp(req.file.buffer)
-      .resize({ width: 120, high: 120 })
+      .resize({ width: 240, high: 240 })
       .toBuffer();
       post.img = Buffer
       post.imgName = req.file.name
