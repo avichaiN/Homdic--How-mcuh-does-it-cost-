@@ -1,16 +1,3 @@
-// function myFunction() {
-//   document.querySelector(
-//     "body").style.visibility = "hidden";
-//   document.querySelector(
-//     "#loader").style.visibility = "visible";
-//   setTimeout(function () {
-//     document.querySelector(
-//       "#loader").style.display = "none";
-//     document.querySelector(
-//       "body").style.visibility = "visible";
-//   }, 1000);
-// }
-
 const getPosts = () => {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";
@@ -74,9 +61,6 @@ const getPostsByCategory = (categoryId) => {
         window.location.href = "index.html"
       } else {
         let foundPosts = data.foundPostsByCategoryId
-        // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
-        // console.log(sorted)
-        // console.log(foundPosts)
         renderPosts(foundPosts)
       }
     });
@@ -96,12 +80,16 @@ const getPostsByUser = async () => {
   })
     .then((res) => res.json())
     .then(async (data) => {
-      if (!data.ok) {
-        console.log('err finding posts')
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html"
       } else {
-        renderTitleFoundPostsUser(userFirstName)
-        let foundPosts = data.foundPosts
-        renderPosts(foundPosts)
+        if (!data.ok) {
+          console.log('err finding posts')
+        } else {
+          renderTitleFoundPostsUser(userFirstName)
+          let foundPosts = data.foundPosts
+          renderPosts(foundPosts)
+        }
       }
     });
 }
@@ -148,7 +136,7 @@ const getUserFavorites = async () => {
         const postsToDom = []
         renderTitlePostFavorits()
         let foundPosts = data.favPosts
-        foundPosts.forEach(post=>{
+        foundPosts.forEach(post => {
           postsToDom.push(post[0])
         })
         renderPosts(postsToDom)
@@ -196,7 +184,7 @@ const renderPosts = async (postsArray) => {
     if (sortedPosts[i].publishedBy === userId) {
       isUsersPost = true
     }
-    
+
     const html = buildOnePost(
       "post" /*post or comment*/,
       sortedPosts[i].title,
@@ -220,7 +208,7 @@ const renderPosts = async (postsArray) => {
   }
   document.querySelector(
     "#loader").style.display = "none";
-    document.querySelector("#categoryHeder").style.visibility = "visible";
-    document.querySelector("#app").style.visibility = "visible";
+  document.querySelector("#categoryHeder").style.visibility = "visible";
+  document.querySelector("#app").style.visibility = "visible";
 }
 

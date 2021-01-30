@@ -87,7 +87,7 @@ function handleRegisterForm(e) {
           await Swal.fire({
             position: "top-center",
             icon: "success",
-            title: "פרטייך עודכנו במערכת",
+            title: "ברוך הבא! נוצר עוברך משתמש.",
             showConfirmButton: false,
             timer: 1500,
           });

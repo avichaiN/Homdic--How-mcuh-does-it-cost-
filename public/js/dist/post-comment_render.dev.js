@@ -12,7 +12,7 @@
 function buildOnePost(type
 /*post or comment*/
 , title, massage, PostImgSrc, postCreatedTime, whenMade, NmTimesViewed, numberOfComments, postID, fName, lName, isFavorite) {
-  var img = "<img id=\"hederImg\" src=\"data:image/jpg;base64,".concat(PostImgSrc, "\" alt=\"\" />");
+  var img = "<img id=\"postImg\" src=\"data:image/jpg;base64,".concat(PostImgSrc, "\" alt=\"\" />");
 
   if (!PostImgSrc) {
     img = '';

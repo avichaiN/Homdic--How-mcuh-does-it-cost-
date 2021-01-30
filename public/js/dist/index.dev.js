@@ -109,7 +109,7 @@ function handleRegisterForm(e) {
             return regeneratorRuntime.awrap(Swal.fire({
               position: "top-center",
               icon: "success",
-              title: "פרטייך עודכנו במערכת",
+              title: "ברוך הבא! נוצר עוברך משתמש.",
               showConfirmButton: false,
               timer: 1500
             }));

@@ -22,8 +22,10 @@ var sharp = require("sharp");
 
 var cookieParser = require("cookie-parser");
 
-router.use(cookieParser()); //const path = require("path");
-// get all categories to display on category page.
+router.use(cookieParser());
+
+var path = require("path"); // get all categories to display on category page.
+
 
 router.get("/", checkUserToken, function (req, res) {
   res.sendFile(path.join(__dirname, "../public", "Categories.html"));
@@ -116,8 +118,8 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
           _context3.prev = 1;
           _context3.next = 4;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
-            width: 120,
-            high: 120
+            width: 240,
+            high: 240
           }).toBuffer());
 
         case 4:

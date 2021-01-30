@@ -1,39 +1,41 @@
-const getAllUsers = (skip) => {
-  fetch(`/admin/${skip}`)
+const getAllUsers = () => {
+  fetch(`/admin`)
     .then((res) => res.json())
     .then((data) => {
       if (!data.admin) {
         window.location.href = "index.html"
       } else {
         const usersAmount = data.usersAmount
-        getPageAmount(usersAmount)
+        // getPageAmount(usersAmount)
         writeUsersToDom(data.allUsers);
       }
     });
 };
-function getlength(number) {
-  return number.toString().length;
-}
-const getPageAmount = (users) => {
-  const length = getlength(users)
-  if (length == 1 || users == 10) {
-    console.log('only 1 page')
-  } else if (length == 2) {
-    const usersAmount = parseInt(('' + users)[0]) + 1
-    renderPageAmount(usersAmount)
-  } else if (length == 3) {
-    // if user amount over 100 need to work here
-  }
-}
-const renderPageAmount = (num) => {
-  let html = ''
-  const pages = document.querySelector('#pages')
-  for (i = 0; i < num; i++) {
-    const skipAmount = parseInt(i + '0')
-    html += `<span class='page' onclick="getAllUsers(${skipAmount})">${i + 1}</span>`
-  }
-  pages.innerHTML = html
-}
+// function getlength(number) {
+//   return number.toString().length;
+// }
+// const getPageAmount = (users) => {
+//   const length = getlength(users)
+//   console.log(length)
+//   if (length == 1 || users == 10) {
+//     console.log('only 1 page')
+//   } else if (length == 2) {
+//     const usersAmount = parseInt(('' + users)[0]) + 1
+//     console.log(usersAmount)
+//     renderPageAmount(usersAmount)
+//   } else if (length == 3) {
+//     // if user amount over 100 need to work here
+//   }
+// }
+// const renderPageAmount = (num) => {
+//   let html = ''
+//   const pages = document.querySelector('#pages')
+//   for (i = 0; i < num; i++) {
+//     const skipAmount = parseInt(i + '0')
+//     html += `<span class='page' onclick="getAllUsers(${skipAmount})">${i + 1}</span>`
+//   }
+//   pages.innerHTML = html
+// }
 const writeUsersToDom = (users) => {
   let usersBox = document.querySelector(".allUsers");
   let html = "";
