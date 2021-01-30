@@ -569,9 +569,9 @@ var handleShowPostsComments = function handleShowPostsComments(numberOfComments,
                   window.location.href = "index.html";
                 } else {
                   if (sort == 'date') {
-                    renderCommentsToDom(numberOfComments, postId, data, 'date');
+                    renderCommentsToDom(data.comments.length, postId, data, 'date');
                   } else {
-                    renderCommentsToDom(numberOfComments, postId, data, 'like');
+                    renderCommentsToDom(data.comments.length, postId, data, 'like');
                   } // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
 
                 }
@@ -584,6 +584,10 @@ var handleShowPostsComments = function handleShowPostsComments(numberOfComments,
         });
       });
     }
+  } else {
+    var noComments = document.querySelector(".noComments-".concat(postId));
+    noComments.style.display = 'block';
+    console.log('no comments');
   }
 };
 
@@ -600,7 +604,7 @@ var sortByLike = function sortByLike(postId, numberOfComments) {
 };
 
 var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId, data, sort) {
-  var sortByLike, app, loadingComments, commentsHtml, comments, userInfo, userId, isAdmin, isUsersComment, commentCreatedTime, timeAgo, liked, likesAmount, fullComment;
+  var sortByLike, app, loadingComments, commentsHtml, comments, userInfo, userId, isAdmin, isUsersComment, commentCreatedTime, timeAgo, liked, likesAmount, fullComment, hideCommentsButton;
   return regeneratorRuntime.async(function renderCommentsToDom$(_context17) {
     while (1) {
       switch (_context17.prev = _context17.next) {
@@ -679,8 +683,10 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
         case 38:
           app.innerHTML = commentsHtml;
           loadingComments.style.display = 'none';
+          hideCommentsButton = document.querySelector(".closeComments-".concat(postId));
+          hideCommentsButton.style.display = 'block';
 
-        case 40:
+        case 42:
         case "end":
           return _context17.stop();
       }
@@ -689,7 +695,30 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
 };
 
 var handleHidePostsComments = function handleHidePostsComments(numberOfComments, postId) {
-  document.querySelector(".commentArrow-".concat(postId)).innerHTML = "<span data-id='".concat(postId, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postId, "', 'date')\" class=\"material-icons\">arrow_downward</span>\n  <p data-id='").concat(postId, "' data-comments='").concat(numberOfComments, "' onclick=\"handleShowPostsComments('").concat(numberOfComments, "', '").concat(postId, "', 'date')\">\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA: ").concat(numberOfComments, "</p>");
-  var app = document.querySelector(".renderComment-".concat(postId));
-  app.innerHTML = '';
+  fetch("/comments/".concat(postId)).then(function (res) {
+    return res.json();
+  }).then(function _callee9(data) {
+    var commentsLength, hideCommentsButton, app;
+    return regeneratorRuntime.async(function _callee9$(_context18) {
+      while (1) {
+        switch (_context18.prev = _context18.next) {
+          case 0:
+            if (data.status === "unauthorized") {
+              window.location.href = "index.html";
+            } else {
+              commentsLength = data.comments.length;
+              document.querySelector(".commentArrow-".concat(postId)).innerHTML = "<span data-id='".concat(postId, "' data-comments='").concat(commentsLength, "' onclick=\"handleShowPostsComments('").concat(commentsLength, "', '").concat(postId, "', 'date')\" class=\"material-icons\">arrow_downward</span>\n      <p data-id='").concat(postId, "' data-comments='").concat(commentsLength, "' onclick=\"handleShowPostsComments('").concat(commentsLength, "', '").concat(postId, "', 'date')\">\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA: ").concat(commentsLength, "</p>");
+              hideCommentsButton = document.querySelector(".closeComments-".concat(postId));
+              hideCommentsButton.style.display = 'none';
+              app = document.querySelector(".renderComment-".concat(postId));
+              app.innerHTML = '';
+            }
+
+          case 1:
+          case "end":
+            return _context18.stop();
+        }
+      }
+    });
+  });
 };
