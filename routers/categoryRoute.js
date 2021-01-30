@@ -1,6 +1,7 @@
 const express = require("express");
 const Category = require("../models/category");
-const jwt = require("jwt-simple");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 const cookieParser = require("cookie-parser");
 const checkUserToken = require("../routers/gFunctions/checkUserToken");
 const checkAdmin = require("../routers/gFunctions/checkAdmin");
@@ -10,7 +11,7 @@ const router = express.Router();
 
 router.use(cookieParser());
 
-const  categoriesFind = async ()=> {
+const categoriesFind = async () => {
   try {
     return Category.find({}).exec();
   } catch (e) {
@@ -77,12 +78,13 @@ router.delete("/", checkAdmin, async (req, res) => {
   const { chosenCategoryid } = req.body;
 
   try {
-    await Category.findOneAndRemove(
+    await Category.findOneAndDelete(
       { _id: chosenCategoryid },
       async function (err, category) {
         if (err) {
           res.send({ ok: false });
         } else {
+          await findPostsCategoryAndDelete(chosenCategoryid)
           let categories = await categoriesFind();
 
           res.send({ ok: true, category, categories });
@@ -94,18 +96,39 @@ router.delete("/", checkAdmin, async (req, res) => {
     res.send({ ok: false });
   }
 });
+const findPostsCategoryAndDelete = async (categoryId) => {
+  await Post.find(
+    { categoryId: categoryId },
+    async function (err, posts) {
+      if (err) {
+        console.log(err.commentMessage)
+      } else {
+        posts.forEach(async post => {
+          await deletePostComments(post._id)
+          await deletePost(post._id)
+        })
+      }
+    })
+}
+const deletePost = async (postId) => {
+  return Post.findOneAndDelete({ _id: postId }).exec();
+};
+
+const deletePostComments = async (postId) => {
+  return Comment.deleteMany({ postId: postId }).exec();
+};
 const getCategoryInfo = (id) => {
   try {
     return Category.find({ _id: id }).exec()
   } catch (error) {
     console.log(error);
   }
-  
+
 }
-router.post('/byid', async (req,res)=>{
-  const {categoryId} = req.body
+router.post('/byid', async (req, res) => {
+  const { categoryId } = req.body
   let categoryInfo = await getCategoryInfo(categoryId)
-  res.send({categoryInfo})
+  res.send({ categoryInfo })
 })
 
 module.exports = [router];

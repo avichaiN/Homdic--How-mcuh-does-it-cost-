@@ -107,9 +107,10 @@ router.delete("/", checkUserToken, async (req, res) => {
   try {
     await Post.findOneAndRemove({ _id: postId }, async function (err, post) {
       if (err) {
+
         res.send({ deleted: false });
       } else {
-        let deleteComments = await deletePostComments(postId);
+        const deleteComments = await deletePostComments(postId);
         res.send({ deleted: true });
       }
     });

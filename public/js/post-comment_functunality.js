@@ -140,29 +140,16 @@ const handleNewComment = async (e, postID, numberOfComments) => {
     .then((res) => res.json())
     .then(async (data) => {
       if (data.posted) {
-        const url = window.location.href;
-        if (url.includes("posts")) {
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "תגובה פורסמה בהצלחה",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          HideAddComment(postID)
-          handleShowPostsComments(numberOfComments, postID)
-          // handleClickPost(postID);
-        } else {
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "תגובה פורסמה בהצלחה",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          HideAddComment(postID)
-          handleShowPostsComments(numberOfComments, postID)
-        }
+        await Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "תגובה פורסמה בהצלחה",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        HideAddComment(postID)
+        handleShowPostsComments(numberOfComments, postID)
+        // handleClickPost(postID);
       } else {
         await Swal.fire({
           position: "center",
@@ -339,51 +326,58 @@ const handleShowPostsComments = (numberOfComments, postId) => {
           if (data.status === "unauthorized") {
             window.location.href = "index.html";
           } else {
-            document.querySelector(`.commentArrow-${postId}`).innerHTML
-              = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
-         <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
-
-            app.innerHTML = ''
-            let commentsHtml = ''
-            const comments = data.comments;
-            let userInfo = await getUserInfo();
-            let userId = userInfo.id;
-            let isAdmin = false;
-            isAdmin = await handleCheckAdmin();
-
-            for (i = 0; i < comments.length; i++) {
-              userInfo = await getUserInfo();
-              userId = userInfo.id;
-              let isUsersComment = false;
-              if (comments[i].publishedBy === userId) {
-                isUsersComment = true;
-              }
-              const commentCreatedTime = Date.parse(comments[i].createdAt)
-              const timeAgo = timeSince(commentCreatedTime)
-
-              const liked = await checkIfUserLikedComment(comments[i]._id, userId);
-              const likesAmount = await checkHowMuchLikes(comments[i]._id);
-              const fullComment = buildOneComment(
-                comments[i].desc,
-                comments[i].price,
-                comments[i].fName,
-                comments[i].lName,
-                comments[i],
-                timeAgo,
-                comments[i]._id,
-                liked,
-                likesAmount,
-                isUsersComment
-              );
-              commentsHtml += fullComment
-            }
-            app.innerHTML = commentsHtml;
-            loadingComments.style.display = 'none';
+            renderCommentsToDom(numberOfComments, postId, data)
             // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
           }
         });
     }
   }
+}
+const renderCommentsToDom = async (numberOfComments, postId, data) => {
+
+  const app = document.querySelector(`.renderComment-${postId}`);
+  const loadingComments = document.querySelector(`.loadingComments-${postId}`)
+  
+  document.querySelector(`.commentArrow-${postId}`).innerHTML
+    = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
+<p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
+
+  app.innerHTML = ''
+  let commentsHtml = ''
+  const comments = data.comments;
+  let userInfo = await getUserInfo();
+  let userId = userInfo.id;
+  let isAdmin = false;
+  isAdmin = await handleCheckAdmin();
+
+  for (i = 0; i < comments.length; i++) {
+    userInfo = await getUserInfo();
+    userId = userInfo.id;
+    let isUsersComment = false;
+    if (comments[i].publishedBy === userId) {
+      isUsersComment = true;
+    }
+    const commentCreatedTime = Date.parse(comments[i].createdAt)
+    const timeAgo = timeSince(commentCreatedTime)
+
+    const liked = await checkIfUserLikedComment(comments[i]._id, userId);
+    const likesAmount = await checkHowMuchLikes(comments[i]._id);
+    const fullComment = buildOneComment(
+      comments[i].desc,
+      comments[i].price,
+      comments[i].fName,
+      comments[i].lName,
+      comments[i],
+      timeAgo,
+      comments[i]._id,
+      liked,
+      likesAmount,
+      isUsersComment
+    );
+    commentsHtml += fullComment
+  }
+  app.innerHTML = commentsHtml;
+  loadingComments.style.display = 'none';
 }
 const handleHidePostsComments = (numberOfComments, postId) => {
   document.querySelector(`.commentArrow-${postId}`).innerHTML
