@@ -11,6 +11,7 @@ const getDisplayCategories = () => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
+        console.log(data)
         let categories = data.categories;
         writeCategoiresToDom(categories);
       }
@@ -21,9 +22,9 @@ const writeCategoiresToDom = (categories) => {
   const categoryDiv = document.querySelector(".cateogryPage__categorys");
   let categoriesHtml = "";
 
+
   categories.forEach(category => {
-    console.log(category);
-    console.log(category.img)
+
     categoriesHtml += `<div onclick="goToClickedCategory(event)" class="cateogryPage__categorysBox" data-name='${category.Name}' data-id='${category._id}'>
         <img src="data:image/jpg;base64,${category.img}" />
         <div class="cateogryPage__categorysBoxContainer" /* data-img='${category.img}' data-name='${category.Name}' data-id='${category._id}' */>

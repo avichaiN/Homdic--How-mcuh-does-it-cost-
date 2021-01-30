@@ -1,14 +1,10 @@
 const express = require("express");
-const formidable = require("formidable");
 const router = express.Router();
 const Post = require("../models/post");
 const User = require("../models/user");
-const temp = require("../models/temp");
 const Comment = require("../models/comment");
 const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
-const path = require("path");
-const moment = require("moment");
 const multer = require("multer");
 const sharp = require("sharp");
 
@@ -19,6 +15,7 @@ router.get("/get/:id", checkUserToken, async (req, res) => {
   let foundPostsByCategoryId = await Post.aggregate([
     { $match: { categoryId: chosenCategoryId } },
   ]);
+  console.log(foundPostsByCategoryId)
 
   res.send({ foundPostsByCategoryId });
 });
@@ -82,19 +79,16 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
   });
 } */
 
-const searchRegExp = (searched) => {
-  return Post.find({
-    $or: [
-      { title: { $regex: searched, $options: "" } },
-      { desc: { $regex: searched, $options: "" } },
-    ],
-  }).exec();
+const searchRegExp = async (searched) => {
+  // return Post.find({$or: [{ title: { $regex: searched, $options: "" } },{ desc: { $regex: searched, $options: "" } },],}).exec();
+  let foundPosts = await Post.aggregate([{ $match: { "desc": { $regex: searched, $options: "i" } } }])
+  return foundPosts
+
 };
 
 router.get("/search/get/:id", checkUserToken, async (req, res) => {
   const searchedKeywords = req.params.id;
   const searchedSplitted = searchedKeywords.replace(/[-]+/, " ");
-
   let foundPosts = await searchRegExp(searchedSplitted);
 
 
@@ -127,7 +121,7 @@ const deletePostComments = async (postId) => {
 //get posts by user id
 
 const findPostsByUser = (userId) => {
-  return Post.find({ publishedBy: userId }).exec();
+  return Post.aggregate([{ $match: { publishedBy: userId } },]).exec()
 };
 router.post("/user/get", checkUserToken, async (req, res) => {
   try {
@@ -211,7 +205,9 @@ const getUserFavoritePostsId = (userId) => {
   return User.findOne({ _id: userId }).exec();
 };
 const findPostById = async (postId) => {
+  // return Post.aggregate([{ $match: { _id : `${postId}` } },])
   return Post.findById({ _id: postId }).exec();
+
 };
 router.post("/favorites/getall", checkUserToken, async (req, res) => {
   try {
@@ -222,6 +218,7 @@ router.post("/favorites/getall", checkUserToken, async (req, res) => {
 
     for (i = 0; i < favPostsIds.length; i++) {
       let post = await findPostById(favPostsIds[i]);
+      console.log(post)
       favPosts.push(post);
     }
     res.send({ favPosts });

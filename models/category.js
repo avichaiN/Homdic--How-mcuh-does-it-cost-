@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
     img: Buffer,
+    imgName: String,
     Name: {
         type: String,
         required: true,

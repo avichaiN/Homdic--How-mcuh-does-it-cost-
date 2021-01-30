@@ -74,7 +74,7 @@ const getPostsByCategory = (categoryId) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-
+        console.log(data.foundPostsByCategoryId)
         let foundPosts = data.foundPostsByCategoryId
         // const sorted = foundPosts.sort((a, b) => b.createdAt - a.createdAt)
         // console.log(sorted)
@@ -147,7 +147,6 @@ const getUserFavorites = async () => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-
         renderTitlePostFavorits()
         let foundPosts = data.favPosts
         renderPosts(foundPosts)
@@ -194,7 +193,7 @@ const renderPosts = async (postsArray) => {
     if (sortedPosts[i].publishedBy === userId) {
       isUsersPost = true
     }
-    console.log(sortedPosts)
+    
     const html = buildOnePost(
       "post" /*post or comment*/,
       sortedPosts[i].title,

@@ -13,13 +13,6 @@ const router = express.Router();
 
 router.use(cookieParser());
 
-const categoriesFind = async () => {
-  try {
-    return Category.find({}).exec();
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 // get all categories to display on category page.
 router.get("/", checkUserToken, (req, res) => {
@@ -40,20 +33,25 @@ const uploadImg = multer({
 
 router.get("/get", checkUserToken, async (req, res) => {
   try {
+  let categories = await categoriesFind()
 
-
-    let categories = await categoriesFind();
-
-    if (categories === false || categories === undefined) {
-      res.send({ ok: false });
-    } else {
-      res.send({ ok: true, categories });
-    }
+  if (categories === false || categories === undefined) {
+    res.send({ ok: false });
+  } else {
+  res.send({ categories });
+  }
   } catch (e) {
     res.send({ ok: false });
   }
-});
+})
 
+const categoriesFind = async () => {
+  try {
+    return  Category.aggregate([{ $match: {  } },]);
+  } catch (e) {
+    console.log(e);
+  }
+}
 //create new category for admin
 router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { newCategoryName } = req.body;
@@ -71,6 +69,7 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
 
     await category.save();
     let categories = await categoriesFind();
+    console.log(categories)
     res.send({ ok: true, categories });
   } catch (e) {
     console.log(e);
