@@ -161,8 +161,8 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
     }
   }, null, null, [[1, 15]]);
 });
-router.put("/", checkAdmin, function _callee4(req, res) {
-  var _req$body, categoryId, newCategoryName, newCategoryImg;
+router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res) {
+  var _req$body, categoryId, newCategoryName, newCategoryImg, Buffer;
 
   return regeneratorRuntime.async(function _callee4$(_context5) {
     while (1) {
@@ -170,11 +170,29 @@ router.put("/", checkAdmin, function _callee4(req, res) {
         case 0:
           _req$body = req.body, categoryId = _req$body.categoryId, newCategoryName = _req$body.newCategoryName, newCategoryImg = _req$body.newCategoryImg;
           _context5.prev = 1;
-          _context5.next = 4;
+
+          if (!req.file) {
+            _context5.next = 8;
+            break;
+          }
+
+          _context5.next = 5;
+          return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
+            width: 240,
+            high: 240
+          }).toBuffer());
+
+        case 5:
+          Buffer = _context5.sent;
+          post.img = Buffer;
+          post.imgName = req.file.name;
+
+        case 8:
+          _context5.next = 10;
           return regeneratorRuntime.awrap(Category.findOneAndUpdate({
             _id: categoryId
           }, {
-            Img: newCategoryImg,
+            img: newCategoryImg,
             Name: newCategoryName
           }, function _callee3(err, category) {
             var categories;
@@ -214,21 +232,21 @@ router.put("/", checkAdmin, function _callee4(req, res) {
             });
           }));
 
-        case 4:
-          _context5.next = 9;
+        case 10:
+          _context5.next = 15;
           break;
 
-        case 6:
-          _context5.prev = 6;
+        case 12:
+          _context5.prev = 12;
           _context5.t0 = _context5["catch"](1);
           console.log(_context5.t0);
 
-        case 9:
+        case 15:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[1, 6]]);
+  }, null, null, [[1, 12]]);
 });
 router["delete"]("/", checkAdmin, function _callee6(req, res) {
   var chosenCategoryid;

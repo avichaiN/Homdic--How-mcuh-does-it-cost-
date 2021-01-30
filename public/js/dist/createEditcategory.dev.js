@@ -122,26 +122,31 @@ var editCategory = function editCategory(e) {
   var oldCategoryName = e.target.children.name.dataset.name;
   var oldCategoryImg = e.target.children.img.dataset.img;
   var newCategoryName = e.target.children.name.value;
-  var newCategoryImg = e.target.children.img.value;
+  var newCategoryImg = e.target.children.img;
 
   if (newCategoryName === "") {
     newCategoryName = oldCategoryName;
   }
+  /*  if (newCategoryImg === "") {
+     newCategoryImg = oldCategoryImg;
+   }
+  */
 
-  if (newCategoryImg === "") {
-    newCategoryImg = oldCategoryImg;
+  /* JSON.stringify({ categoryId, newCategoryImg, newCategoryName }) */
+
+
+  var formData = new FormData();
+  formData.append('categoryId', categoryId);
+  formData.append('Name', newCategoryName);
+
+  if (newCategoryImg.files[0]) {
+    formData.append('img', newCategoryImg.files[0], newCategoryImg.files[0].name);
   }
 
   fetch("/category", {
     method: "put",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      categoryId: categoryId,
-      newCategoryImg: newCategoryImg,
-      newCategoryName: newCategoryName
-    })
+    headers: {},
+    body: formData
   }).then(function (res) {
     return res.json();
   }).then(function (data) {

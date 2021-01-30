@@ -122,17 +122,7 @@ router.post("/", uploadImg.single("img"), function _callee2(req, res) {
       }
     }
   }, null, null, [[1, 14]]);
-}); //i try to mack a function to upload the file but its not working
-
-/* const fileUpload = (req) => {
-  let form = new formidable.IncomingForm();
-  form.parse(req);
-  console.log(__dirname + '/public/style/img/')
-  form.on('fileBegin', function (name, file) { file.path = path.dirname(__dirname) + '/public/styles/img/' + file.name; })
-  form.on('file', function (name, file) {
-    console.log("Uploaded file", file.name);
-  });
-} */
+});
 
 var searchRegExp = function searchRegExp(searched) {
   var foundPosts;

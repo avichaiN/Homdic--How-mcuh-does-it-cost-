@@ -79,13 +79,25 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
     res.send({ ok: false });
   }
 });
-router.put("/", checkAdmin, async (req, res) => {
+
+
+
+router.put("/", checkAdmin, uploadImg.single("img"),async (req, res) => {
   const { categoryId, newCategoryName, newCategoryImg } = req.body;
 
   try {
+    if(req.file){
+      const Buffer = await sharp(req.file.buffer)
+      .resize({ width: 240, high: 240 })
+      .toBuffer();
+      post.img = Buffer
+      post.imgName = req.file.name
+    }
+
+
     await Category.findOneAndUpdate(
       { _id: categoryId },
-      { Img: newCategoryImg, Name: newCategoryName },
+      { img: newCategoryImg, Name: newCategoryName },
       async function (err, category) {
         if (err) {
           console.log(err);
