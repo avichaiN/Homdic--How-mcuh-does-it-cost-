@@ -85,25 +85,13 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
 router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { categoryId, newCategoryName, newCategoryImg } = req.body;
 
-  /* try {
+  try {
     if (req.file) {
       const Buffer = await sharp(req.file.buffer)
         .resize({ width: 240, high: 240 })
         .toBuffer();
-      post.img = Buffer
-      post.imgName = req.file.name
-    } */
-    try {
-      const Buffer = await sharp(req.file.buffer)
-        .resize({ width: 240, high: 240 })
-        .toBuffer();
-
-      /* const category = new Category({
-        img: Buffer,
-        Name: newCategoryName,
-        createdAt: new Date(Date.now())
-      });
- */
+    }
+   
 
     await Category.findOneAndUpdate(
       { _id: categoryId },

@@ -125,7 +125,7 @@ const editCategory = (e) => {
 /* JSON.stringify({ categoryId, newCategoryImg, newCategoryName }) */
   let formData = new FormData();
   formData.append('categoryId', categoryId);
-  formData.append('Name', newCategoryName);
+  formData.append('newCategoryName', newCategoryName);
 
   if (newCategoryImg.files[0]) {
     formData.append('img', newCategoryImg.files[0], newCategoryImg.files[0].name);

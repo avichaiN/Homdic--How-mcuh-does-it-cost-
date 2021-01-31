@@ -111,7 +111,8 @@ var categoriesFind = function categoriesFind() {
 
 
 router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res) {
-  var newCategoryName, Buffer, category, categories;
+  var newCategoryName, _Buffer, category, categories;
+
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -125,9 +126,9 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
           }).toBuffer());
 
         case 4:
-          Buffer = _context3.sent;
+          _Buffer = _context3.sent;
           category = new Category({
-            img: Buffer,
+            img: _Buffer,
             Name: newCategoryName,
             createdAt: new Date(Date.now())
           });
@@ -163,32 +164,31 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
   }, null, null, [[1, 14]]);
 });
 router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res) {
-  var _req$body, categoryId, newCategoryName, newCategoryImg, Buffer;
+  var _req$body, categoryId, newCategoryName, newCategoryImg, _Buffer2;
 
   return regeneratorRuntime.async(function _callee4$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _req$body = req.body, categoryId = _req$body.categoryId, newCategoryName = _req$body.newCategoryName, newCategoryImg = _req$body.newCategoryImg;
-          /* try {
-            if (req.file) {
-              const Buffer = await sharp(req.file.buffer)
-                .resize({ width: 240, high: 240 })
-                .toBuffer();
-              post.img = Buffer
-              post.imgName = req.file.name
-            } */
-
           _context5.prev = 1;
-          _context5.next = 4;
+
+          if (!req.file) {
+            _context5.next = 6;
+            break;
+          }
+
+          _context5.next = 5;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
             width: 240,
             high: 240
           }).toBuffer());
 
-        case 4:
-          Buffer = _context5.sent;
-          _context5.next = 7;
+        case 5:
+          _Buffer2 = _context5.sent;
+
+        case 6:
+          _context5.next = 8;
           return regeneratorRuntime.awrap(Category.findOneAndUpdate({
             _id: categoryId
           }, {
@@ -232,21 +232,21 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
             });
           }));
 
-        case 7:
-          _context5.next = 12;
+        case 8:
+          _context5.next = 13;
           break;
 
-        case 9:
-          _context5.prev = 9;
+        case 10:
+          _context5.prev = 10;
           _context5.t0 = _context5["catch"](1);
           console.log(_context5.t0);
 
-        case 12:
+        case 13:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[1, 9]]);
+  }, null, null, [[1, 10]]);
 });
 router["delete"]("/", checkAdmin, function _callee6(req, res) {
   var chosenCategoryid;
