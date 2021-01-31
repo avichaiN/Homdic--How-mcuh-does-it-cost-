@@ -553,6 +553,8 @@ var handleShowPostsComments = function handleShowPostsComments(numberOfComments,
     var app = document.querySelector(".renderComment-".concat(postId));
     var loadingComments = document.querySelector(".loadingComments-".concat(postId));
     loadingComments.style.display = 'flex';
+    var noComments = document.querySelector(".noComments-".concat(postId));
+    noComments.style.display = 'none';
 
     if (app.innerHTML.length > 0) {
       loadingComments.style.display = 'none';
@@ -585,9 +587,9 @@ var handleShowPostsComments = function handleShowPostsComments(numberOfComments,
       });
     }
   } else {
-    var noComments = document.querySelector(".noComments-".concat(postId));
-    noComments.style.display = 'block';
-    console.log('no comments');
+    var _noComments = document.querySelector(".noComments-".concat(postId));
+
+    _noComments.style.display = 'block';
   }
 };
 
@@ -604,7 +606,7 @@ var sortByLike = function sortByLike(postId, numberOfComments) {
 };
 
 var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId, data, sort) {
-  var sortByLike, app, loadingComments, commentsHtml, comments, userInfo, userId, isAdmin, isUsersComment, commentCreatedTime, timeAgo, liked, likesAmount, fullComment, hideCommentsButton;
+  var sortByLike, app, loadingComments, commentsHtml, comments, userInfo, userId, isAdmin, isUsersComment, commentCreatedTime, timeAgo, liked, likesAmount, fullComment, hideCommentsButton, sortComments;
   return regeneratorRuntime.async(function renderCommentsToDom$(_context17) {
     while (1) {
       switch (_context17.prev = _context17.next) {
@@ -684,9 +686,11 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
           app.innerHTML = commentsHtml;
           loadingComments.style.display = 'none';
           hideCommentsButton = document.querySelector(".closeComments-".concat(postId));
+          sortComments = document.querySelector(".sortComments-".concat(postId));
           hideCommentsButton.style.display = 'block';
+          sortComments.style.display = 'flex';
 
-        case 42:
+        case 44:
         case "end":
           return _context17.stop();
       }
@@ -698,7 +702,7 @@ var handleHidePostsComments = function handleHidePostsComments(numberOfComments,
   fetch("/comments/".concat(postId)).then(function (res) {
     return res.json();
   }).then(function _callee9(data) {
-    var commentsLength, hideCommentsButton, app;
+    var commentsLength, hideCommentsButton, app, sortComments;
     return regeneratorRuntime.async(function _callee9$(_context18) {
       while (1) {
         switch (_context18.prev = _context18.next) {
@@ -712,6 +716,8 @@ var handleHidePostsComments = function handleHidePostsComments(numberOfComments,
               hideCommentsButton.style.display = 'none';
               app = document.querySelector(".renderComment-".concat(postId));
               app.innerHTML = '';
+              sortComments = document.querySelector(".sortComments-".concat(postId));
+              sortComments.style.display = 'none';
             }
 
           case 1:

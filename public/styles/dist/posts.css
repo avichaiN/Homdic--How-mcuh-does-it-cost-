@@ -428,10 +428,20 @@ body #app .renderComment .hideCommentsButton {
   margin: 5px;
   width: 20%;
 }
+body #app .sortComments {
+  display: none;
+  justify-content: center;
+  margin: auto;
+}
+body #app .sortComments button {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
 body #app .loadingComments {
   display: none;
   width: 20%;
-  margin: 5% auto;
+  margin: 2% auto;
   padding: 10px;
   align-items: center;
   justify-items: center;

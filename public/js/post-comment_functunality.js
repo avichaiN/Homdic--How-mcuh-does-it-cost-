@@ -314,6 +314,8 @@ const handleShowPostsComments = (numberOfComments, postId, sort) => {
     const app = document.querySelector(`.renderComment-${postId}`);
     const loadingComments = document.querySelector(`.loadingComments-${postId}`)
     loadingComments.style.display = 'flex';
+    const noComments = document.querySelector(`.noComments-${postId}`)
+    noComments.style.display = 'none'
 
     if (app.innerHTML.length > 0) {
       loadingComments.style.display = 'none';
@@ -338,7 +340,6 @@ const handleShowPostsComments = (numberOfComments, postId, sort) => {
   }else{
     const noComments = document.querySelector(`.noComments-${postId}`)
     noComments.style.display = 'block'
-    console.log('no comments')
   }
 }
 const sortByDate = (postId, numberOfComments) => {
@@ -404,7 +405,9 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
   app.innerHTML = commentsHtml;
   loadingComments.style.display = 'none';
   const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
+  const sortComments = document.querySelector(`.sortComments-${postId}`)
   hideCommentsButton.style.display = 'block'
+  sortComments.style.display = 'flex'
 }
 const handleHidePostsComments = (numberOfComments, postId) => {
   fetch(`/comments/${postId}`)
@@ -421,6 +424,8 @@ const handleHidePostsComments = (numberOfComments, postId) => {
       hideCommentsButton.style.display = 'none'
       const app = document.querySelector(`.renderComment-${postId}`);
       app.innerHTML = ''
+      const sortComments = document.querySelector(`.sortComments-${postId}`)
+      sortComments.style.display = 'none'
       }
     });
 }

@@ -26,9 +26,9 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
-  
+
   let img = `<img id="postImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`
-  if(!PostImgSrc){
+  if (!PostImgSrc) {
     img = ''
   }
 
@@ -98,14 +98,17 @@ function buildOnePost(
       <div data-id='${postID}' data-title='${title}' class='deletePost' id='${postID}'></div>
     </div>
   </div>
+  <div class='sortComments sortComments-${postID}'>
   <button onclick='sortByDate("${postID}", "${numberOfComments}")'>byDate</button>
   <button onclick='sortByLike("${postID}", "${numberOfComments}")'>byLike</button>
+  </div>
   <div class='renderComment renderComment-${postID}'></div>
-  <div class='noComments noComments-${postID}'>אין תגובות לפוסט זה<div>
-  <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${numberOfComments}', '${postID}')">החבא תגובות של פוסט זה</button>
-<div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
+  <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
   <div class="dot-spin"></div>
-</div>`;
+</div>
+  <div class='noComments noComments-${postID}'>אין תגובות לפוסט זה<div>
+  <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${numberOfComments}', '${postID}')">החבא תגובות של פוסט זה</button>`
+
   return html;
 }
 

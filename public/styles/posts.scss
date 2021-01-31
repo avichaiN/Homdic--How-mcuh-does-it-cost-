@@ -511,11 +511,22 @@ body {
                 width: 20%;
             }
         }
+        .sortComments{
+            display: none;
+            justify-content: center;
+            margin: auto;
+
+            button{
+                padding: 5px;
+                margin: 5px;
+                border-radius: 5px;
+            }
+        }
 
         .loadingComments {
             display: none;
             width: 20%;
-            margin: 5% auto;
+            margin: 2% auto;
             padding: 10px;
             align-items: center;
             justify-items: center;
