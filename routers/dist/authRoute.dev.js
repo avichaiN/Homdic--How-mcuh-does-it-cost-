@@ -205,7 +205,6 @@ router.post("/reset", function _callee3(req, res) {
           if (userFound) {
             userId = userFound._id;
             encodedId = jwt.encode(userId, process.env.SECRET);
-            console.log(encodedId);
             tranporter = nodemailer.createTransport({
               service: "gmail",
               auth: {
@@ -221,7 +220,6 @@ router.post("/reset", function _callee3(req, res) {
             };
             tranporter.sendMail(mailOptions, function (e, info) {
               if (e) {
-                console.log(e);
                 res.send({
                   email: "failed"
                 });

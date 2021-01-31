@@ -128,7 +128,6 @@ router.post("/reset", async (req, res) => {
     if (userFound) {
       const userId = userFound._id;
       const encodedId = jwt.encode(userId, process.env.SECRET);
-      console.log(encodedId);
       const tranporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -147,7 +146,6 @@ router.post("/reset", async (req, res) => {
 
       tranporter.sendMail(mailOptions, function (e, info) {
         if (e) {
-          console.log(e);
           res.send({ email: "failed" });
         } else {
           res.send({ email: "success" });

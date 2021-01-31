@@ -26,17 +26,17 @@ router.post("/", function (req, res) {
           case 0:
             _context.prev = 0;
             newPassword = hash;
-            encodedId = req.headers.referer.replace("http://localhost:3000/updateUserPassword.html?", "");
-            console.log(encodedId);
+            encodedId = req.headers.referer.replace("http://localhost:3000/updateUserPassword.html?", ""); //console.log(encodedId);
+
             decodedId = jwt.decode(encodedId, process.env.SECRET);
-            _context.next = 7;
+            _context.next = 6;
             return regeneratorRuntime.awrap(User.findOneAndUpdate({
               _id: decodedId
             }, {
               password: hash
             }));
 
-          case 7:
+          case 6:
             userFound = _context.sent;
             token = jwt.encode({
               role: userFound.role,
@@ -51,11 +51,11 @@ router.post("/", function (req, res) {
             res.send({
               user: "updated"
             });
-            _context.next = 18;
+            _context.next = 17;
             break;
 
-          case 13:
-            _context.prev = 13;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
             res.send({
@@ -63,12 +63,12 @@ router.post("/", function (req, res) {
             });
             res.end();
 
-          case 18:
+          case 17:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[0, 13]]);
+    }, null, null, [[0, 12]]);
   });
 });
 router.post("/getusername", function _callee2(req, res) {

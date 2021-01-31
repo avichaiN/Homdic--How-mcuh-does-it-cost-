@@ -20,8 +20,7 @@ function deleteUserById(id) {
 
 router.get("/", checkAdmin, async (req, res) => {
   const usersAmount = await getAllUsersLength()
-  console.log(usersAmount)
-  const skip = parseInt(req.params.skip)
+  //const skip = parseInt(req.params.skip)
   let allUsers = await getAllUsers();
   res.send({ allUsers, admin: true, usersAmount });
 });

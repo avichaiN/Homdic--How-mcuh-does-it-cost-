@@ -111,8 +111,7 @@ var categoriesFind = function categoriesFind() {
 
 
 router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res) {
-  var newCategoryName, _Buffer, category, categories;
-
+  var newCategoryName, Buffer, category, categories;
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -126,9 +125,9 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
           }).toBuffer());
 
         case 4:
-          _Buffer = _context3.sent;
+          Buffer = _context3.sent;
           category = new Category({
-            img: _Buffer,
+            img: Buffer,
             Name: newCategoryName,
             createdAt: new Date(Date.now())
           });
@@ -163,32 +162,30 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
     }
   }, null, null, [[1, 14]]);
 });
-router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res) {
-  var _req$body, categoryId, newCategoryName, newCategoryImg, _Buffer2;
+router.put("/", checkAdmin, uploadImg.single("img"), function _callee5(req, res) {
+  var _req$body, categoryId, newCategoryName, newCategoryImg, Buffer;
 
-  return regeneratorRuntime.async(function _callee4$(_context5) {
+  return regeneratorRuntime.async(function _callee5$(_context6) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
           _req$body = req.body, categoryId = _req$body.categoryId, newCategoryName = _req$body.newCategoryName, newCategoryImg = _req$body.newCategoryImg;
-          _context5.prev = 1;
+          _context6.prev = 1;
 
           if (!req.file) {
-            _context5.next = 6;
+            _context6.next = 10;
             break;
           }
 
-          _context5.next = 5;
+          _context6.next = 5;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
             width: 240,
             high: 240
           }).toBuffer());
 
         case 5:
-          _Buffer2 = _context5.sent;
-
-        case 6:
-          _context5.next = 8;
+          Buffer = _context6.sent;
+          _context6.next = 8;
           return regeneratorRuntime.awrap(Category.findOneAndUpdate({
             _id: categoryId
           }, {
@@ -201,22 +198,22 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
                 switch (_context4.prev = _context4.next) {
                   case 0:
                     if (!err) {
-                      _context4.next = 5;
+                      _context4.next = 4;
                       break;
                     }
 
-                    console.log(err);
+                    // console.log(err);
                     res.send({
                       ok: false
                     });
-                    _context4.next = 9;
+                    _context4.next = 8;
                     break;
 
-                  case 5:
-                    _context4.next = 7;
+                  case 4:
+                    _context4.next = 6;
                     return regeneratorRuntime.awrap(categoriesFind());
 
-                  case 7:
+                  case 6:
                     categories = _context4.sent;
                     res.send({
                       ok: true,
@@ -224,7 +221,7 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
                       categories: categories
                     });
 
-                  case 9:
+                  case 8:
                   case "end":
                     return _context4.stop();
                 }
@@ -233,60 +230,108 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
           }));
 
         case 8:
-          _context5.next = 13;
+          _context6.next = 12;
           break;
 
         case 10:
-          _context5.prev = 10;
-          _context5.t0 = _context5["catch"](1);
-          console.log(_context5.t0);
-
-        case 13:
-        case "end":
-          return _context5.stop();
-      }
-    }
-  }, null, null, [[1, 10]]);
-});
-router["delete"]("/", checkAdmin, function _callee6(req, res) {
-  var chosenCategoryid;
-  return regeneratorRuntime.async(function _callee6$(_context7) {
-    while (1) {
-      switch (_context7.prev = _context7.next) {
-        case 0:
-          chosenCategoryid = req.body.chosenCategoryid;
-          _context7.prev = 1;
-          _context7.next = 4;
-          return regeneratorRuntime.awrap(Category.findOneAndDelete({
-            _id: chosenCategoryid
-          }, function _callee5(err, category) {
-            var deletePostCommentsFavorites, categories;
-            return regeneratorRuntime.async(function _callee5$(_context6) {
+          _context6.next = 12;
+          return regeneratorRuntime.awrap(Category.findOneAndUpdate({
+            _id: categoryId
+          }, {
+            Name: newCategoryName
+          }, function _callee4(err, category) {
+            var categories;
+            return regeneratorRuntime.async(function _callee4$(_context5) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
                     if (!err) {
-                      _context6.next = 4;
+                      _context5.next = 4;
+                      break;
+                    }
+
+                    // console.log(err);
+                    res.send({
+                      ok: false
+                    });
+                    _context5.next = 8;
+                    break;
+
+                  case 4:
+                    _context5.next = 6;
+                    return regeneratorRuntime.awrap(categoriesFind());
+
+                  case 6:
+                    categories = _context5.sent;
+                    res.send({
+                      ok: true,
+                      category: category,
+                      categories: categories
+                    });
+
+                  case 8:
+                  case "end":
+                    return _context5.stop();
+                }
+              }
+            });
+          }));
+
+        case 12:
+          _context6.next = 17;
+          break;
+
+        case 14:
+          _context6.prev = 14;
+          _context6.t0 = _context6["catch"](1);
+          console.log(_context6.t0);
+
+        case 17:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[1, 14]]);
+});
+router["delete"]("/", checkAdmin, function _callee7(req, res) {
+  var chosenCategoryid;
+  return regeneratorRuntime.async(function _callee7$(_context8) {
+    while (1) {
+      switch (_context8.prev = _context8.next) {
+        case 0:
+          chosenCategoryid = req.body.chosenCategoryid;
+          _context8.prev = 1;
+          _context8.next = 4;
+          return regeneratorRuntime.awrap(Category.findOneAndDelete({
+            _id: chosenCategoryid
+          }, function _callee6(err, category) {
+            var deletePostCommentsFavorites, categories;
+            return regeneratorRuntime.async(function _callee6$(_context7) {
+              while (1) {
+                switch (_context7.prev = _context7.next) {
+                  case 0:
+                    if (!err) {
+                      _context7.next = 4;
                       break;
                     }
 
                     res.send({
                       ok: false
                     });
-                    _context6.next = 11;
+                    _context7.next = 11;
                     break;
 
                   case 4:
-                    _context6.next = 6;
+                    _context7.next = 6;
                     return regeneratorRuntime.awrap(findPostsCategoryAndDelete(chosenCategoryid));
 
                   case 6:
-                    deletePostCommentsFavorites = _context6.sent;
-                    _context6.next = 9;
+                    deletePostCommentsFavorites = _context7.sent;
+                    _context7.next = 9;
                     return regeneratorRuntime.awrap(categoriesFind());
 
                   case 9:
-                    categories = _context6.sent;
+                    categories = _context7.sent;
                     res.send({
                       ok: true,
                       categories: categories
@@ -294,65 +339,65 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
 
                   case 11:
                   case "end":
-                    return _context6.stop();
+                    return _context7.stop();
                 }
               }
             });
           }));
 
         case 4:
-          _context7.next = 10;
+          _context8.next = 10;
           break;
 
         case 6:
-          _context7.prev = 6;
-          _context7.t0 = _context7["catch"](1);
-          console.log(_context7.t0);
+          _context8.prev = 6;
+          _context8.t0 = _context8["catch"](1);
+          console.log(_context8.t0);
           res.send({
             ok: false
           });
 
         case 10:
         case "end":
-          return _context7.stop();
+          return _context8.stop();
       }
     }
   }, null, null, [[1, 6]]);
 });
 
 var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId) {
-  return regeneratorRuntime.async(function findPostsCategoryAndDelete$(_context10) {
+  return regeneratorRuntime.async(function findPostsCategoryAndDelete$(_context11) {
     while (1) {
-      switch (_context10.prev = _context10.next) {
+      switch (_context11.prev = _context11.next) {
         case 0:
-          _context10.next = 2;
+          _context11.next = 2;
           return regeneratorRuntime.awrap(Post.find({
             categoryId: categoryId
-          }, function _callee8(err, posts) {
-            return regeneratorRuntime.async(function _callee8$(_context9) {
+          }, function _callee9(err, posts) {
+            return regeneratorRuntime.async(function _callee9$(_context10) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
                     if (err) {} else {
-                      posts.forEach(function _callee7(post) {
-                        return regeneratorRuntime.async(function _callee7$(_context8) {
+                      posts.forEach(function _callee8(post) {
+                        return regeneratorRuntime.async(function _callee8$(_context9) {
                           while (1) {
-                            switch (_context8.prev = _context8.next) {
+                            switch (_context9.prev = _context9.next) {
                               case 0:
-                                _context8.next = 2;
+                                _context9.next = 2;
                                 return regeneratorRuntime.awrap(deleteFromFavorites(post._id));
 
                               case 2:
-                                _context8.next = 4;
+                                _context9.next = 4;
                                 return regeneratorRuntime.awrap(deletePostComments(post._id));
 
                               case 4:
-                                _context8.next = 6;
+                                _context9.next = 6;
                                 return regeneratorRuntime.awrap(deletePost(post._id));
 
                               case 6:
                               case "end":
-                                return _context8.stop();
+                                return _context9.stop();
                             }
                           }
                         });
@@ -361,7 +406,7 @@ var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId)
 
                   case 1:
                   case "end":
-                    return _context9.stop();
+                    return _context10.stop();
                 }
               }
             });
@@ -369,7 +414,7 @@ var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId)
 
         case 2:
         case "end":
-          return _context10.stop();
+          return _context11.stop();
       }
     }
   });
@@ -377,11 +422,11 @@ var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId)
 
 var deleteFromFavorites = function deleteFromFavorites(postId) {
   var userWhoFavorites;
-  return regeneratorRuntime.async(function deleteFromFavorites$(_context12) {
+  return regeneratorRuntime.async(function deleteFromFavorites$(_context13) {
     while (1) {
-      switch (_context12.prev = _context12.next) {
+      switch (_context13.prev = _context13.next) {
         case 0:
-          _context12.next = 2;
+          _context13.next = 2;
           return regeneratorRuntime.awrap(User.aggregate([{
             $match: {
               favPosts: "".concat(postId)
@@ -389,18 +434,18 @@ var deleteFromFavorites = function deleteFromFavorites(postId) {
           }]));
 
         case 2:
-          userWhoFavorites = _context12.sent;
-          userWhoFavorites.forEach(function _callee9(user) {
-            return regeneratorRuntime.async(function _callee9$(_context11) {
+          userWhoFavorites = _context13.sent;
+          userWhoFavorites.forEach(function _callee10(user) {
+            return regeneratorRuntime.async(function _callee10$(_context12) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
-                    _context11.next = 2;
+                    _context12.next = 2;
                     return regeneratorRuntime.awrap(deletePostFromFavorite(postId, user._id));
 
                   case 2:
                   case "end":
-                    return _context11.stop();
+                    return _context12.stop();
                 }
               }
             });
@@ -408,40 +453,23 @@ var deleteFromFavorites = function deleteFromFavorites(postId) {
 
         case 4:
         case "end":
-          return _context12.stop();
-      }
-    }
-  });
-};
-
-var deletePostFromFavorite = function deletePostFromFavorite(postID, userId) {
-  return regeneratorRuntime.async(function deletePostFromFavorite$(_context13) {
-    while (1) {
-      switch (_context13.prev = _context13.next) {
-        case 0:
-          return _context13.abrupt("return", User.findOneAndUpdate({
-            _id: userId
-          }, {
-            $pull: {
-              favPosts: postID
-            }
-          }).exec());
-
-        case 1:
-        case "end":
           return _context13.stop();
       }
     }
   });
 };
 
-var deletePost = function deletePost(postId) {
-  return regeneratorRuntime.async(function deletePost$(_context14) {
+var deletePostFromFavorite = function deletePostFromFavorite(postID, userId) {
+  return regeneratorRuntime.async(function deletePostFromFavorite$(_context14) {
     while (1) {
       switch (_context14.prev = _context14.next) {
         case 0:
-          return _context14.abrupt("return", Post.findOneAndDelete({
-            _id: postId
+          return _context14.abrupt("return", User.findOneAndUpdate({
+            _id: userId
+          }, {
+            $pull: {
+              favPosts: postID
+            }
           }).exec());
 
         case 1:
@@ -452,18 +480,35 @@ var deletePost = function deletePost(postId) {
   });
 };
 
-var deletePostComments = function deletePostComments(postId) {
-  return regeneratorRuntime.async(function deletePostComments$(_context15) {
+var deletePost = function deletePost(postId) {
+  return regeneratorRuntime.async(function deletePost$(_context15) {
     while (1) {
       switch (_context15.prev = _context15.next) {
         case 0:
-          return _context15.abrupt("return", Comment.deleteMany({
-            postId: postId
+          return _context15.abrupt("return", Post.findOneAndDelete({
+            _id: postId
           }).exec());
 
         case 1:
         case "end":
           return _context15.stop();
+      }
+    }
+  });
+};
+
+var deletePostComments = function deletePostComments(postId) {
+  return regeneratorRuntime.async(function deletePostComments$(_context16) {
+    while (1) {
+      switch (_context16.prev = _context16.next) {
+        case 0:
+          return _context16.abrupt("return", Comment.deleteMany({
+            postId: postId
+          }).exec());
+
+        case 1:
+        case "end":
+          return _context16.stop();
       }
     }
   });
@@ -482,25 +527,25 @@ var getCategoryInfo = function getCategoryInfo(id) {
   }
 };
 
-router.post('/byid', function _callee10(req, res) {
+router.post('/byid', function _callee11(req, res) {
   var categoryId, categoryInfo;
-  return regeneratorRuntime.async(function _callee10$(_context16) {
+  return regeneratorRuntime.async(function _callee11$(_context17) {
     while (1) {
-      switch (_context16.prev = _context16.next) {
+      switch (_context17.prev = _context17.next) {
         case 0:
           categoryId = req.body.categoryId;
-          _context16.next = 3;
+          _context17.next = 3;
           return regeneratorRuntime.awrap(getCategoryInfo(categoryId));
 
         case 3:
-          categoryInfo = _context16.sent;
+          categoryInfo = _context17.sent;
           res.send({
             categoryInfo: categoryInfo
           });
 
         case 5:
         case "end":
-          return _context16.stop();
+          return _context17.stop();
       }
     }
   });

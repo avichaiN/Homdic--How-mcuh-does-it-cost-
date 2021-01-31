@@ -1,6 +1,4 @@
-const express = require("express");
 const jwt = require("jwt-simple");
-const path = require('path')
 require("dotenv").config();
 
 

@@ -46,7 +46,7 @@ function deleteUserById(id) {
 }
 
 router.get("/", checkAdmin, function _callee(req, res) {
-  var usersAmount, skip, allUsers;
+  var usersAmount, allUsers;
   return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -56,12 +56,10 @@ router.get("/", checkAdmin, function _callee(req, res) {
 
         case 2:
           usersAmount = _context2.sent;
-          console.log(usersAmount);
-          skip = parseInt(req.params.skip);
-          _context2.next = 7;
+          _context2.next = 5;
           return regeneratorRuntime.awrap(getAllUsers());
 
-        case 7:
+        case 5:
           allUsers = _context2.sent;
           res.send({
             allUsers: allUsers,
@@ -69,7 +67,7 @@ router.get("/", checkAdmin, function _callee(req, res) {
             usersAmount: usersAmount
           });
 
-        case 9:
+        case 7:
         case "end":
           return _context2.stop();
       }

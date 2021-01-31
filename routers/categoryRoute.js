@@ -95,7 +95,7 @@ router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
         { img: Buffer, Name: newCategoryName },
         async (err, category) => {
           if (err) {
-            console.log(err);
+           // console.log(err);
             res.send({ ok: false });
           } else {
             let categories = await categoriesFind();
@@ -109,7 +109,7 @@ router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
         { Name: newCategoryName },
         async (err, category) => {
           if (err) {
-            console.log(err);
+           // console.log(err);
             res.send({ ok: false });
           } else {
             let categories = await categoriesFind();

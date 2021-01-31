@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
         "http://localhost:3000/updateUserPassword.html?",
         ""
       );
-      console.log(encodedId);
+      //console.log(encodedId);
 
       const decodedId = jwt.decode(encodedId, process.env.SECRET);
       const userFound = await User.findOneAndUpdate(
