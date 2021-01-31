@@ -383,6 +383,7 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
     if (comments[i].publishedBy === userId) {
       isUsersComment = true;
     }
+    console.log(comments[i].createdAt)
     const commentCreatedTime = Date.parse(comments[i].createdAt)
     const timeAgo = timeSince(commentCreatedTime)
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const moment = require('moment'); // require
 const commentSchema = new Schema({
 
     desc: String,
@@ -14,7 +14,7 @@ const commentSchema = new Schema({
     }],
     createdAt: { 
         type: String,
-        default: new Date(Date.now())
+        default: moment().format(),
     }
 })
 

@@ -54,7 +54,6 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
       fName: userFname,
       lName: userLname,
       publishedBy: userId,
-      createdAt: new Date(Date.now())
     });
 
     if(req.file){

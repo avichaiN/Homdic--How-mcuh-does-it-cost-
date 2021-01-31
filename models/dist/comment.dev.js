@@ -7,21 +7,22 @@ var Schema = mongoose.Schema;
 var moment = require('moment'); // require
 
 
-var postSchema = new Schema({
-  title: String,
+var commentSchema = new Schema({
   desc: String,
-  img: Buffer,
-  imgName: String,
-  categoryId: {
-    type: String,
+  price: {
+    type: Number,
     required: true
   },
+  postId: String,
   fName: String,
   lName: String,
   publishedBy: String,
+  likes: [{
+    type: String
+  }],
   createdAt: {
     type: String,
     "default": moment().format()
   }
 });
-module.exports = mongoose.model('Posts', postSchema);
+module.exports = mongoose.model('Comments', commentSchema);

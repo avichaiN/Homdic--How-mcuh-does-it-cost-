@@ -646,7 +646,7 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
 
         case 18:
           if (!(i < comments.length)) {
-            _context17.next = 38;
+            _context17.next = 39;
             break;
           }
 
@@ -662,27 +662,28 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
             isUsersComment = true;
           }
 
+          console.log(comments[i].createdAt);
           commentCreatedTime = Date.parse(comments[i].createdAt);
           timeAgo = timeSince(commentCreatedTime);
-          _context17.next = 29;
+          _context17.next = 30;
           return regeneratorRuntime.awrap(checkIfUserLikedComment(comments[i]._id, userId));
 
-        case 29:
+        case 30:
           liked = _context17.sent;
-          _context17.next = 32;
+          _context17.next = 33;
           return regeneratorRuntime.awrap(checkHowMuchLikes(comments[i]._id));
 
-        case 32:
+        case 33:
           likesAmount = _context17.sent;
           fullComment = buildOneComment(comments[i].desc, comments[i].price, comments[i].fName, comments[i].lName, comments[i], timeAgo, comments[i]._id, liked, likesAmount, isUsersComment);
           commentsHtml += fullComment;
 
-        case 35:
+        case 36:
           i++;
           _context17.next = 18;
           break;
 
-        case 38:
+        case 39:
           app.innerHTML = commentsHtml;
           loadingComments.style.display = 'none';
           hideCommentsButton = document.querySelector(".closeComments-".concat(postId));
@@ -690,7 +691,7 @@ var renderCommentsToDom = function renderCommentsToDom(numberOfComments, postId,
           hideCommentsButton.style.display = 'block';
           sortComments.style.display = 'flex';
 
-        case 44:
+        case 45:
         case "end":
           return _context17.stop();
       }

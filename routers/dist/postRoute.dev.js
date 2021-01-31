@@ -75,8 +75,7 @@ router.post("/", uploadImg.single("img"), function _callee2(req, res) {
             categoryId: categoryId,
             fName: userFname,
             lName: userLname,
-            publishedBy: userId,
-            createdAt: new Date(Date.now())
+            publishedBy: userId
           });
 
           if (!req.file) {
