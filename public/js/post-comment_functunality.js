@@ -326,10 +326,10 @@ const handleShowPostsComments = (numberOfComments, postId, sort) => {
           if (data.status === "unauthorized") {
             window.location.href = "index.html";
           } else {
-            if(sort=='date'){
-              renderCommentsToDom(numberOfComments, postId, data, 'date')
-            }else{
-              renderCommentsToDom(numberOfComments, postId, data, 'like')
+            if (sort == 'date') {
+              renderCommentsToDom(data.comments.length, postId, data, 'date')
+            } else {
+              renderCommentsToDom(data.comments.length, postId, data, 'like')
             }
             // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
           }
@@ -337,24 +337,24 @@ const handleShowPostsComments = (numberOfComments, postId, sort) => {
     }
   }
 }
-const sortByDate = (postId, numberOfComments) =>{
+const sortByDate = (postId, numberOfComments) => {
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = ''
   handleShowPostsComments(numberOfComments, postId, 'date')
 }
-const sortByLike = (postId, numberOfComments) =>{
+const sortByLike = (postId, numberOfComments) => {
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = ''
   handleShowPostsComments(numberOfComments, postId, 'like')
 }
 const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
   let sortByLike = false
-  if(sort == 'like'){
+  if (sort == 'like') {
     sortByLike = true
   }
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`)
-  
+
   document.querySelector(`.commentArrow-${postId}`).innerHTML
     = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
 <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
@@ -367,8 +367,8 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
   let isAdmin = false;
   isAdmin = await handleCheckAdmin();
 
-  if(sortByLike){
-    comments.sort(function(a, b){return b.likes.length-a.likes.length});
+  if (sortByLike) {
+    comments.sort(function (a, b) { return b.likes.length - a.likes.length });
   }
 
   for (i = 0; i < comments.length; i++) {
@@ -399,12 +399,24 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
   }
   app.innerHTML = commentsHtml;
   loadingComments.style.display = 'none';
+  const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
+  hideCommentsButton.style.display = 'block'
 }
 const handleHidePostsComments = (numberOfComments, postId) => {
-  document.querySelector(`.commentArrow-${postId}`).innerHTML
-    = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}', 'date')" class="material-icons">arrow_downward</span>
-  <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postId}', 'date')">תגובות: ${numberOfComments}</p>`;
-
-  const app = document.querySelector(`.renderComment-${postId}`);
-  app.innerHTML = ''
+  fetch(`/comments/${postId}`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html";
+      } else {
+        const commentsLength = data.comments.length
+        document.querySelector(`.commentArrow-${postId}`).innerHTML
+        = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleShowPostsComments('${commentsLength}', '${postId}', 'date')" class="material-icons">arrow_downward</span>
+      <p data-id='${postId}' data-comments='${commentsLength}' onclick="handleShowPostsComments('${commentsLength}', '${postId}', 'date')">תגובות: ${commentsLength}</p>`;
+      const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
+      hideCommentsButton.style.display = 'none'
+      const app = document.querySelector(`.renderComment-${postId}`);
+      app.innerHTML = ''
+      }
+    });
 }
