@@ -62,8 +62,8 @@ function buildOnePost(
   let sort = 'date'
   /*  */
 
-  const html = `<div class="post">
-      <div onclick='handleShowPostsComments(${numberOfComments}, "${postID}", '${sort}')' data-id='${postID}' data-title='${title}' id="postheder">
+  const html = `<div class="post" onclick='handleShowPostsComments(${numberOfComments}, "${postID}", "${sort}")'>
+      <div data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
       <h1 class="posttitle">${title}</h1>
