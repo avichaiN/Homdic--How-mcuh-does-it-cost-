@@ -90,7 +90,6 @@ router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
       const Buffer = await sharp(req.file.buffer)
         .resize({ width: 240, high: 240 })
         .toBuffer();
-
       await Category.findOneAndUpdate(
         { _id: categoryId },
         { img: Buffer, Name: newCategoryName },

@@ -18,6 +18,7 @@ const getDisplayCategories = () => {
     });
 };
 
+
 const writeCategoiresToDom = (categories) => {
   const categoryDiv = document.querySelector(".cateogryPage__categorys");
   let categoriesHtml = "";
