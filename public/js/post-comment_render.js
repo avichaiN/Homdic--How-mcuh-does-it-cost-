@@ -101,6 +101,7 @@ function buildOnePost(
   <button onclick='sortByDate("${postID}", "${numberOfComments}")'>byDate</button>
   <button onclick='sortByLike("${postID}", "${numberOfComments}")'>byLike</button>
   <div class='renderComment renderComment-${postID}'></div>
+  <div class='noComments noComments-${postID}'>אין תגובות לפוסט זה<div>
   <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${numberOfComments}', '${postID}')">החבא תגובות של פוסט זה</button>
 <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
   <div class="dot-spin"></div>

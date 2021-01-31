@@ -356,6 +356,15 @@ body #app .post .futter .Toggled {
 body #app .post .futter .UnToggled {
   color: black;
 }
+body #app .noComments {
+  display: none;
+  align-self: center;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+}
 body #app .closeComments {
   display: none;
   width: 50%;

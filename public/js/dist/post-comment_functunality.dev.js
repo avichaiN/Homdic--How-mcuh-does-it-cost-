@@ -584,6 +584,10 @@ var handleShowPostsComments = function handleShowPostsComments(numberOfComments,
         });
       });
     }
+  } else {
+    var noComments = document.querySelector(".noComments-".concat(postId));
+    noComments.style.display = 'block';
+    console.log('no comments');
   }
 };
 

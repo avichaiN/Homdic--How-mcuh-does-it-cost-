@@ -423,7 +423,15 @@ body {
 
             }
         }
-
+        .noComments{
+            display: none;
+            align-self: center;
+            text-align: center;
+            width: 50%;
+            margin: 0 auto;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
         .closeComments {
             display: none;
             width: 50%;

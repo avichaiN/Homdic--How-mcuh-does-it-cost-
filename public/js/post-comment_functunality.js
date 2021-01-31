@@ -335,6 +335,10 @@ const handleShowPostsComments = (numberOfComments, postId, sort) => {
           }
         });
     }
+  }else{
+    const noComments = document.querySelector(`.noComments-${postId}`)
+    noComments.style.display = 'block'
+    console.log('no comments')
   }
 }
 const sortByDate = (postId, numberOfComments) => {
