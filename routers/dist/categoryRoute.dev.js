@@ -6,15 +6,17 @@ var mongoose = require("mongoose");
 
 var Post = require("../models/post");
 
+var User = require("../models/user");
+
 var Comment = require("../models/comment");
+
+var Category = require("../models/category");
 
 var checkUserToken = require("../routers/gFunctions/checkUserToken");
 
 var checkAdmin = require("../routers/gFunctions/checkAdmin");
 
 var router = express.Router();
-
-var Category = require("../models/category");
 
 var multer = require("multer");
 
@@ -138,28 +140,27 @@ router.post("/", checkAdmin, uploadImg.single("img"), function _callee2(req, res
 
         case 10:
           categories = _context3.sent;
-          console.log(categories);
           res.send({
             ok: true,
             categories: categories
           });
-          _context3.next = 19;
+          _context3.next = 18;
           break;
 
-        case 15:
-          _context3.prev = 15;
+        case 14:
+          _context3.prev = 14;
           _context3.t0 = _context3["catch"](1);
           console.log(_context3.t0);
           res.send({
             ok: false
           });
 
-        case 19:
+        case 18:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[1, 15]]);
+  }, null, null, [[1, 14]]);
 });
 router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res) {
   var _req$body, categoryId, newCategoryName, newCategoryImg, Buffer;
@@ -169,30 +170,29 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
       switch (_context5.prev = _context5.next) {
         case 0:
           _req$body = req.body, categoryId = _req$body.categoryId, newCategoryName = _req$body.newCategoryName, newCategoryImg = _req$body.newCategoryImg;
+          /* try {
+            if (req.file) {
+              const Buffer = await sharp(req.file.buffer)
+                .resize({ width: 240, high: 240 })
+                .toBuffer();
+              post.img = Buffer
+              post.imgName = req.file.name
+            } */
+
           _context5.prev = 1;
-
-          if (!req.file) {
-            _context5.next = 8;
-            break;
-          }
-
-          _context5.next = 5;
+          _context5.next = 4;
           return regeneratorRuntime.awrap(sharp(req.file.buffer).resize({
             width: 240,
             high: 240
           }).toBuffer());
 
-        case 5:
+        case 4:
           Buffer = _context5.sent;
-          post.img = Buffer;
-          post.imgName = req.file.name;
-
-        case 8:
-          _context5.next = 10;
+          _context5.next = 7;
           return regeneratorRuntime.awrap(Category.findOneAndUpdate({
             _id: categoryId
           }, {
-            img: newCategoryImg,
+            img: Buffer,
             Name: newCategoryName
           }, function _callee3(err, category) {
             var categories;
@@ -232,21 +232,21 @@ router.put("/", checkAdmin, uploadImg.single("img"), function _callee4(req, res)
             });
           }));
 
-        case 10:
-          _context5.next = 15;
+        case 7:
+          _context5.next = 12;
           break;
 
-        case 12:
-          _context5.prev = 12;
+        case 9:
+          _context5.prev = 9;
           _context5.t0 = _context5["catch"](1);
           console.log(_context5.t0);
 
-        case 15:
+        case 12:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[1, 12]]);
+  }, null, null, [[1, 9]]);
 });
 router["delete"]("/", checkAdmin, function _callee6(req, res) {
   var chosenCategoryid;
@@ -260,7 +260,7 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
           return regeneratorRuntime.awrap(Category.findOneAndDelete({
             _id: chosenCategoryid
           }, function _callee5(err, category) {
-            var categories;
+            var deletePostCommentsFavorites, categories;
             return regeneratorRuntime.async(function _callee5$(_context6) {
               while (1) {
                 switch (_context6.prev = _context6.next) {
@@ -273,7 +273,7 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
                     res.send({
                       ok: false
                     });
-                    _context6.next = 10;
+                    _context6.next = 11;
                     break;
 
                   case 4:
@@ -281,18 +281,18 @@ router["delete"]("/", checkAdmin, function _callee6(req, res) {
                     return regeneratorRuntime.awrap(findPostsCategoryAndDelete(chosenCategoryid));
 
                   case 6:
-                    _context6.next = 8;
+                    deletePostCommentsFavorites = _context6.sent;
+                    _context6.next = 9;
                     return regeneratorRuntime.awrap(categoriesFind());
 
-                  case 8:
+                  case 9:
                     categories = _context6.sent;
                     res.send({
                       ok: true,
-                      category: category,
                       categories: categories
                     });
 
-                  case 10:
+                  case 11:
                   case "end":
                     return _context6.stop();
                 }
@@ -333,22 +333,24 @@ var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId)
               while (1) {
                 switch (_context9.prev = _context9.next) {
                   case 0:
-                    if (err) {
-                      console.log(err.commentMessage);
-                    } else {
+                    if (err) {} else {
                       posts.forEach(function _callee7(post) {
                         return regeneratorRuntime.async(function _callee7$(_context8) {
                           while (1) {
                             switch (_context8.prev = _context8.next) {
                               case 0:
                                 _context8.next = 2;
-                                return regeneratorRuntime.awrap(deletePostComments(post._id));
+                                return regeneratorRuntime.awrap(deleteFromFavorites(post._id));
 
                               case 2:
                                 _context8.next = 4;
-                                return regeneratorRuntime.awrap(deletePost(post._id));
+                                return regeneratorRuntime.awrap(deletePostComments(post._id));
 
                               case 4:
+                                _context8.next = 6;
+                                return regeneratorRuntime.awrap(deletePost(post._id));
+
+                              case 6:
                               case "end":
                                 return _context8.stop();
                             }
@@ -373,35 +375,95 @@ var findPostsCategoryAndDelete = function findPostsCategoryAndDelete(categoryId)
   });
 };
 
-var deletePost = function deletePost(postId) {
-  return regeneratorRuntime.async(function deletePost$(_context11) {
+var deleteFromFavorites = function deleteFromFavorites(postId) {
+  var userWhoFavorites;
+  return regeneratorRuntime.async(function deleteFromFavorites$(_context12) {
     while (1) {
-      switch (_context11.prev = _context11.next) {
+      switch (_context12.prev = _context12.next) {
         case 0:
-          return _context11.abrupt("return", Post.findOneAndDelete({
+          _context12.next = 2;
+          return regeneratorRuntime.awrap(User.aggregate([{
+            $match: {
+              favPosts: "".concat(postId)
+            }
+          }]));
+
+        case 2:
+          userWhoFavorites = _context12.sent;
+          userWhoFavorites.forEach(function _callee9(user) {
+            return regeneratorRuntime.async(function _callee9$(_context11) {
+              while (1) {
+                switch (_context11.prev = _context11.next) {
+                  case 0:
+                    _context11.next = 2;
+                    return regeneratorRuntime.awrap(deletePostFromFavorite(postId, user._id));
+
+                  case 2:
+                  case "end":
+                    return _context11.stop();
+                }
+              }
+            });
+          });
+
+        case 4:
+        case "end":
+          return _context12.stop();
+      }
+    }
+  });
+};
+
+var deletePostFromFavorite = function deletePostFromFavorite(postID, userId) {
+  return regeneratorRuntime.async(function deletePostFromFavorite$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          return _context13.abrupt("return", User.findOneAndUpdate({
+            _id: userId
+          }, {
+            $pull: {
+              favPosts: postID
+            }
+          }).exec());
+
+        case 1:
+        case "end":
+          return _context13.stop();
+      }
+    }
+  });
+};
+
+var deletePost = function deletePost(postId) {
+  return regeneratorRuntime.async(function deletePost$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
+          return _context14.abrupt("return", Post.findOneAndDelete({
             _id: postId
           }).exec());
 
         case 1:
         case "end":
-          return _context11.stop();
+          return _context14.stop();
       }
     }
   });
 };
 
 var deletePostComments = function deletePostComments(postId) {
-  return regeneratorRuntime.async(function deletePostComments$(_context12) {
+  return regeneratorRuntime.async(function deletePostComments$(_context15) {
     while (1) {
-      switch (_context12.prev = _context12.next) {
+      switch (_context15.prev = _context15.next) {
         case 0:
-          return _context12.abrupt("return", Comment.deleteMany({
+          return _context15.abrupt("return", Comment.deleteMany({
             postId: postId
           }).exec());
 
         case 1:
         case "end":
-          return _context12.stop();
+          return _context15.stop();
       }
     }
   });
@@ -420,25 +482,25 @@ var getCategoryInfo = function getCategoryInfo(id) {
   }
 };
 
-router.post('/byid', function _callee9(req, res) {
+router.post('/byid', function _callee10(req, res) {
   var categoryId, categoryInfo;
-  return regeneratorRuntime.async(function _callee9$(_context13) {
+  return regeneratorRuntime.async(function _callee10$(_context16) {
     while (1) {
-      switch (_context13.prev = _context13.next) {
+      switch (_context16.prev = _context16.next) {
         case 0:
           categoryId = req.body.categoryId;
-          _context13.next = 3;
+          _context16.next = 3;
           return regeneratorRuntime.awrap(getCategoryInfo(categoryId));
 
         case 3:
-          categoryInfo = _context13.sent;
+          categoryInfo = _context16.sent;
           res.send({
             categoryInfo: categoryInfo
           });
 
         case 5:
         case "end":
-          return _context13.stop();
+          return _context16.stop();
       }
     }
   });
