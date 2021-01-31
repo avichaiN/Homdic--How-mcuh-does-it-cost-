@@ -4,10 +4,10 @@ function HideAddComment(postID) {
   document.querySelector(`#addComment-${postID}`).classList.replace("show", "hide");
 }
 
-function ShowAddComment(postID, numberOfComments) {
+function ShowAddComment(postID) {
   document.querySelector(`#addComment-${postID}`).innerHTML = `<div>
     <p>הוסף תגובה</p>
-    <form onsubmit='handleNewComment(event, "${postID}", "${numberOfComments}")'>
+    <form onsubmit='handleNewComment(event, "${postID}")'>
       <textarea style='resize: none;' name="message"></textarea>
       <input type='text' name="price" placeholder='מחיר'>
       <input type="submit" value="שלח">
@@ -21,6 +21,7 @@ function ShowAddComment(postID, numberOfComments) {
 function PostFavoriteButtonClicked() {
   document.querySelector("#FavoriteButton").classList.toggle("Toggled");
 }
+
 // delete post user/admin
 const handleDeletePost = (e) => {
   const postId = e.target.parentNode.dataset.id;
@@ -66,6 +67,7 @@ const handleDeletePost = (e) => {
     }
   });
 };
+
 const checkIfUserLikedComment = async (commentId, userId) => {
   let checkLike = false;
   await fetch("/comments/user/like/check", {
@@ -82,6 +84,7 @@ const checkIfUserLikedComment = async (commentId, userId) => {
   });
   return checkLike;
 };
+
 const checkHowMuchLikes = async (commentId) => {
   let likedAmount;
   await fetch("/comments/likedAmount", {
@@ -97,7 +100,8 @@ const checkHowMuchLikes = async (commentId) => {
   });
   return likedAmount;
 };
-const handleNewComment = async (e, postID, numberOfComments) => {
+
+const handleNewComment = async (e, postID) => {
   e.preventDefault();
   let user = await getUserWhoPosted();
   const userId = user.id;
@@ -128,8 +132,7 @@ const handleNewComment = async (e, postID, numberOfComments) => {
         timer: 1500,
       });
       HideAddComment(postID)
-      const commentsAmount = data.commentLength
-      handleShowPostsComments(commentsAmount, postID)
+      handleGetComments(postID)
     } else {
       await Swal.fire({
         position: "center",
@@ -141,6 +144,7 @@ const handleNewComment = async (e, postID, numberOfComments) => {
     }
   });
 };
+
 const handleDeleteComment = (commentId) => {
   Swal.fire({
     title: "האם את/ה בטוח/ה?",
@@ -176,6 +180,7 @@ const handleDeleteComment = (commentId) => {
     }
   });
 };
+
 const handleLikeComment = async (commentId) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
@@ -194,6 +199,7 @@ const handleLikeComment = async (commentId) => {
       </span><span class='likesAmount' >${likesAmount}</span>`;
   });
 };
+
 const handleUnLikeComment = async (commentId) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
@@ -212,6 +218,7 @@ const handleUnLikeComment = async (commentId) => {
       </span><span class='likesAmount'>${likesAmount}</span>`;
   });
 };
+
 const handleFavoritePost = async (postID) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
@@ -235,6 +242,7 @@ const handleFavoritePost = async (postID) => {
     });
   });
 };
+
 const handleDeleteFavoritePost = async (postID) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
@@ -263,6 +271,7 @@ const handleDeleteFavoritePost = async (postID) => {
     }
   });
 };
+
 const checkIfPostFavorite = async (postID, userId) => {
   let checkFav = false;
   await fetch("/posts/favorite/check", {
@@ -279,66 +288,75 @@ const checkIfPostFavorite = async (postID, userId) => {
   });
   return checkFav;
 };
-const handleShowPostsComments = (numberOfComments, postId, sort) => {
+
+const handleGetComments = async (postId, sort) => {
+  const numberOfComments = await checkHowMuchComments(postId)
   if (numberOfComments >= 1) {
     const app = document.querySelector(`.renderComment-${postId}`);
     const loadingComments = document.querySelector(`.loadingComments-${postId}`)
     loadingComments.style.display = 'flex';
-    const noComments = document.querySelector(`.noComments-${postId}`)
-    noComments.style.display = 'none'
     if (app.innerHTML.length > 0) {
       loadingComments.style.display = 'none';
-      handleHidePostsComments(numberOfComments, postId)
+      handleHidePostsComments(postId)
     } else {
       fetch(`/comments/${postId}`).then((res) => res.json()).then(async (data) => {
         if (data.status === "unauthorized") {
           window.location.href = "index.html";
         } else {
           if (sort == 'date') {
-            renderCommentsToDom(data.comments.length, postId, data, 'date')
+            renderCommentsToDom(postId, data, 'date')
+          } else if (sort == 'like') {
+            renderCommentsToDom(postId, data, 'like')
           } else {
-            renderCommentsToDom(data.comments.length, postId, data, 'like')
+            renderCommentsToDom(postId, data, '')
           }
-          // app.innerHTML += `<button class='hideCommentsButton' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">החבא תגובות</button>`
         }
       });
     }
-  } else {
-    const noComments = document.querySelector(`.noComments-${postId}`)
-    noComments.style.display = 'block'
   }
 }
-const sortByDate = (postId, numberOfComments) => {
+
+const sortCommentsByDate = (postId) => {
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = ''
-  handleShowPostsComments(numberOfComments, postId, 'date')
+  handleGetComments(postId, 'date')
 }
-const sortByLike = (postId, numberOfComments) => {
+const sortCommentsByLike = (postId) => {
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = ''
-  handleShowPostsComments(numberOfComments, postId, 'like')
+  handleGetComments(postId, 'like')
 }
-const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
+
+const renderCommentsToDom = async (postId, data, sort) => {
+  const numberOfComments = await checkHowMuchComments(postId)
   let sortByLike = false
+  let sortByDate = false
   if (sort == 'like') {
     sortByLike = true
+  } else if (sort == 'date') {
+    sortByDate = true
   }
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`)
-  document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')" class="material-icons">arrow_upward</span>
-<p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${numberOfComments}', '${postId}')">תגובות: ${numberOfComments}</p>`;
+  document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')" class="material-icons">arrow_upward</span>
+<p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')">תגובות: ${numberOfComments}</p>`;
   app.innerHTML = ''
   let commentsHtml = ''
-  const comments = data.comments;
+  let comments = data.comments;
   let userInfo = await getUserInfo();
   let userId = userInfo.id;
   let isAdmin = false;
   isAdmin = await handleCheckAdmin();
+
+  if (sortByDate) {
+    comments = comments.reverse();
+  }
   if (sortByLike) {
     comments.sort(function (a, b) {
       return b.likes.length - a.likes.length
     });
   }
+
   for (i = 0; i < comments.length; i++) {
     userInfo = await getUserInfo();
     userId = userInfo.id;
@@ -346,7 +364,6 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
     if (comments[i].publishedBy === userId) {
       isUsersComment = true;
     }
-    console.log(comments[i].createdAt)
     const commentCreatedTime = Date.parse(comments[i].createdAt)
     const timeAgo = timeSince(commentCreatedTime)
     const liked = await checkIfUserLikedComment(comments[i]._id, userId);
@@ -361,14 +378,14 @@ const renderCommentsToDom = async (numberOfComments, postId, data, sort) => {
   hideCommentsButton.style.display = 'block'
   sortComments.style.display = 'flex'
 }
-const handleHidePostsComments = (numberOfComments, postId) => {
+const handleHidePostsComments = (postId) => {
   fetch(`/comments/${postId}`).then((res) => res.json()).then(async (data) => {
     if (data.status === "unauthorized") {
       window.location.href = "index.html";
     } else {
       const commentsLength = data.comments.length
-      document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleShowPostsComments('${commentsLength}', '${postId}', 'date')" class="material-icons">arrow_downward</span>
-      <p data-id='${postId}' data-comments='${commentsLength}' onclick="handleShowPostsComments('${commentsLength}', '${postId}', 'date')">תגובות: ${commentsLength}</p>`;
+      document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')" class="material-icons">arrow_downward</span>
+      <p data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')">תגובות: ${commentsLength}</p>`;
       const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
       hideCommentsButton.style.display = 'none'
       const app = document.querySelector(`.renderComment-${postId}`);

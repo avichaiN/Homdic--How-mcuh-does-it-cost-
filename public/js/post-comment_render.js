@@ -35,7 +35,7 @@ function buildOnePost(
   const fullDate = new Date(postCreatedTime)
   let favoriteButton = ''
   /*  */
-  const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}', '${numberOfComments}')">
+  const AddCommentButton = ` <div id="AddCommentButton-${postID}" class="Notifications show" onclick="ShowAddComment('${postID}')">
     <span class="material-icons">
       add_comment
     </span>`;
@@ -59,10 +59,10 @@ function buildOnePost(
   } else {
     favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`
   }
-  let sort = 'date'
+  let sort = 'def'
   /*  */
 
-  const html = `<div class="post" onclick='handleShowPostsComments(${numberOfComments}, "${postID}", "${sort}")'>
+  const html = `<div class="post">
       <div data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
@@ -78,8 +78,8 @@ function buildOnePost(
     <!--  end add comment form -->
     <div class="futter">
       <div id="NotificationsButton" class="Notifications commentArrow-${postID}">
-        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}', '${sort}')" class="material-icons">arrow_downward</span>
-        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleShowPostsComments('${numberOfComments}', '${postID}', '${sort}')">תגובות: ${numberOfComments}</p>
+        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleGetComments('${postID}', '${sort}')" class="material-icons">arrow_downward</span>
+        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleGetComments('${postID}', '${sort}')">תגובות: ${numberOfComments}</p>
       </div>
       <div id="FavoriteButton" class="Notifications fav-${postID}">
       ${favoriteButton}
@@ -99,15 +99,14 @@ function buildOnePost(
     </div>
   </div>
   <div class='sortComments sortComments-${postID}'>
-  <button onclick='sortByDate("${postID}", "${numberOfComments}")'>byDate</button>
-  <button onclick='sortByLike("${postID}", "${numberOfComments}")'>byLike</button>
+  <button onclick='sortCommentsByDate("${postID}")'>byDate</button>
+  <button onclick='sortCommentsByLike("${postID}")'>byLike</button>
   </div>
   <div class='renderComment renderComment-${postID}'></div>
   <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
   <div class="dot-spin"></div>
 </div>
-  <div class='noComments noComments-${postID}'>אין תגובות לפוסט זה<div>
-  <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${numberOfComments}', '${postID}')">החבא תגובות של פוסט זה</button>`
+  <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${postID}')">החבא תגובות של פוסט זה</button>`
 
   return html;
 }

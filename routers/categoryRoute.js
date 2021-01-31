@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Post = require("../models/post");
+const User = require("../models/user");
 const Comment = require("../models/comment");
+const Category = require("../models/category");
 const checkUserToken = require("../routers/gFunctions/checkUserToken");
 const checkAdmin = require("../routers/gFunctions/checkAdmin");
 const router = express.Router();
-const Category = require("../models/category");
 const multer = require("multer");
 const sharp = require("sharp");
 
@@ -36,13 +37,13 @@ const uploadImg = multer({
 
 router.get("/get", checkUserToken, async (req, res) => {
   try {
-  let categories = await categoriesFind()
+    let categories = await categoriesFind()
 
-  if (categories === false || categories === undefined) {
-    res.send({ ok: false });
-  } else {
-  res.send({ categories });
-  }
+    if (categories === false || categories === undefined) {
+      res.send({ ok: false });
+    } else {
+      res.send({ categories });
+    }
   } catch (e) {
     res.send({ ok: false });
   }
@@ -50,7 +51,7 @@ router.get("/get", checkUserToken, async (req, res) => {
 
 const categoriesFind = async () => {
   try {
-    return  Category.aggregate([{ $match: {  } },]);
+    return Category.aggregate([{ $match: {} },]);
   } catch (e) {
     console.log(e);
   }
@@ -72,7 +73,6 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
 
     await category.save();
     let categories = await categoriesFind();
-    console.log(categories)
     res.send({ ok: true, categories });
   } catch (e) {
     console.log(e);
@@ -82,14 +82,14 @@ router.post("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
 
 
 
-router.put("/", checkAdmin, uploadImg.single("img"),async (req, res) => {
+router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
   const { categoryId, newCategoryName, newCategoryImg } = req.body;
 
   try {
-    if(req.file){
+    if (req.file) {
       const Buffer = await sharp(req.file.buffer)
-      .resize({ width: 240, high: 240 })
-      .toBuffer();
+        .resize({ width: 240, high: 240 })
+        .toBuffer();
       post.img = Buffer
       post.imgName = req.file.name
     }
@@ -122,10 +122,9 @@ router.delete("/", checkAdmin, async (req, res) => {
         if (err) {
           res.send({ ok: false });
         } else {
-          await findPostsCategoryAndDelete(chosenCategoryid)
+          let deletePostCommentsFavorites = await findPostsCategoryAndDelete(chosenCategoryid)
           let categories = await categoriesFind();
-
-          res.send({ ok: true, category, categories });
+          res.send({ ok: true, categories});
         }
       }
     );
@@ -139,15 +138,32 @@ const findPostsCategoryAndDelete = async (categoryId) => {
     { categoryId: categoryId },
     async function (err, posts) {
       if (err) {
-        console.log(err.commentMessage)
+
       } else {
         posts.forEach(async post => {
+          await deleteFromFavorites(post._id)
           await deletePostComments(post._id)
           await deletePost(post._id)
         })
       }
     })
 }
+const deleteFromFavorites = async (postId) => {
+  let userWhoFavorites = await User.aggregate([
+    { $match: { favPosts: `${postId}` } },
+  ]);
+
+  userWhoFavorites.forEach(async user => {
+    await deletePostFromFavorite(postId, user._id)
+  })
+}
+const deletePostFromFavorite = async (postID, userId) => {
+  return User.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { favPosts: postID } }
+  ).exec();
+};
+
 const deletePost = async (postId) => {
   return Post.findOneAndDelete({ _id: postId }).exec();
 };
