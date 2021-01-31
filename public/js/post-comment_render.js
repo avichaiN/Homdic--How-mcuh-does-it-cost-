@@ -62,7 +62,7 @@ function buildOnePost(
   let sort = 'def'
   /*  */
 
-  const html = `<div class="post">
+  const html = `<div class="post" data-test='tt'>
       <div data-id='${postID}' data-title='${title}' id="postheder">
     <p class='whenPosted' title='${fullDate}'>${whenMade}</p>
     <p class="userInfo">${fName + ' ' + lName}</p>
@@ -152,28 +152,28 @@ function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTda
 
 
 function renderPostsHeder(HederTitle, src) {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h1>${HederTitle}</h1>
     <img id="hederImg" src="data:image/jpg;base64,${src}" alt="" />`
 }
 const renderNoPostsFound = (keywords) => {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h1>לא נמצאו פוסטים הכוללים: ${keywords}</h1>`
 }
 const renderSearchedPostsTitle = (keywords) => {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h1>תוצאות חיפוש - ${keywords}</h1><br>`
 }
 const renderTitleFoundPostsUser = (name) => {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h1>שלום ${name}, הפוסטים שפירסמת:</h1>`
 }
 const renderTitlePostForAdmin = (username) => {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h2>פוסטים של שם משתמש: ${username}</h2>`
 }
 const renderTitlePostFavorits = () => {
-  document.querySelector(`#categoryHeder`).innerHTML +=
+  document.querySelector(`#categoryHeder`).innerHTML =
     `<h1>פוסטים מועדפים</h1>`
 }
 

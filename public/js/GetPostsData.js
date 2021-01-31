@@ -1,3 +1,4 @@
+let canLoadMore = false
 const getPosts = () => {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";
@@ -15,7 +16,8 @@ const getPosts = () => {
   } else if (params.includes('admin')) {
     getPostsUserIdForAdmin(params)
   } else {
-    getPostsByCategory(params)
+    skipLimitPostsCategory(params, 0)
+    // getPostsByCategory(params, 0)
   }
 };
 
@@ -38,7 +40,7 @@ const getPostsBySearch = (searchedPosts) => {
       }
     });
 }
-const getPostsByCategory = (categoryId) => {
+const getPostsByCategory = async (categoryId) => {
 
   // this is when user clicks category
   fetch("/category/byid", {
@@ -53,17 +55,18 @@ const getPostsByCategory = (categoryId) => {
       renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].img);
     });
 
+  let foundPosts
   // this is when looking for category id
-  fetch(`/posts/get/${categoryId}`)
+  await fetch(`/posts/get/${categoryId}`)
     .then((res) => res.json())
     .then(async (data) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-        let foundPosts = data.foundPostsByCategoryId
-        renderPosts(foundPosts)
+        foundPosts = data.foundPostsByCategoryId
       }
     });
+  return foundPosts
 }
 
 const getPostsByUser = async () => {
@@ -171,7 +174,8 @@ const renderPosts = async (postsArray) => {
   let isAdmin = false
   isAdmin = await handleCheckAdmin();
 
-  const sortedPosts = postsArray.reverse()
+  const sortedPosts = postsArray
+  // .reverse()
 
   for (i = 0; i < sortedPosts.length; i++) {
     const isFavorite = await checkIfPostFavorite(sortedPosts[i]._id, userId)
@@ -200,7 +204,6 @@ const renderPosts = async (postsArray) => {
       isFavorite
     )
     document.getElementById('app').innerHTML += html;
-
     if (isUsersPost || isAdmin) {
       document.getElementById(`${sortedPosts[i]._id}`).innerHTML =
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
@@ -210,5 +213,42 @@ const renderPosts = async (postsArray) => {
     "#loader").style.display = "none";
   document.querySelector("#categoryHeder").style.visibility = "visible";
   document.querySelector("#app").style.visibility = "visible";
+
+  setTimeout(function () {
+    canLoadMore = true
+  }, 1000)
 }
 
+
+// getPostsByCategory
+const getCurrentCategory = () => {
+  const url = window.location.href
+  const categoryId = url.split('?')[1];
+  return categoryId
+}
+const skipLimitPostsCategory = async (categoryId, skip) => {
+  setTimeout(function () { blockLoadMore = false;}, 2000);
+  let foundPosts = await getPostsByCategory(categoryId)
+  foundPosts.reverse()
+  let sortedPosts = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPosts)
+}
+let blockLoadMore = false
+const something = (function () {
+  return function (currentCategory, howMuchToSkip) {
+    if (!blockLoadMore) {
+      blockLoadMore = true
+      skipLimitPostsCategory(currentCategory, howMuchToSkip)
+    }
+  }
+})()
+
+window.onscroll = function (ev) {
+  if (canLoadMore) {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      const howMuchToSkip = document.getElementsByClassName('post').length
+      const currentCategory = getCurrentCategory()
+      something(currentCategory, howMuchToSkip)
+    }
+  }
+};

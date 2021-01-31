@@ -17,16 +17,18 @@ const mongoose = require("mongoose");
 
 
 
-router.get("/get/:id", checkUserToken, async (req, res) => {
+router.get("/get/:id/", checkUserToken, async (req, res) => {
   chosenCategoryId = req.params.id;
+
 
   let foundPostsByCategoryId = await Post.aggregate([
     { $match: { categoryId: chosenCategoryId } },
-  ]);
+  ])
 
 
   res.send({ foundPostsByCategoryId });
 });
+
 
 const uploadImg = multer({
   limits: {
@@ -39,7 +41,6 @@ const uploadImg = multer({
     cb(undefined, true);
   },
 });
-
 
 
 router.post("/", uploadImg.single("img"), async (req, res) => {
@@ -56,11 +57,11 @@ router.post("/", uploadImg.single("img"), async (req, res) => {
       publishedBy: userId,
     });
 
-    if(req.file){
+    if (req.file) {
       const Buffer = await sharp(req.file.buffer)
-      .resize({ width: 240, high: 240 })
-      .toBuffer();
-      
+        .resize({ width: 240, high: 240 })
+        .toBuffer();
+
       post.img = Buffer
       post.imgName = req.file.name
     }
