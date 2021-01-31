@@ -89,10 +89,10 @@ const editCategoryForm = (e) => {
 
   let editCategoryFormHtml = `
     <label>שם קטגוריה: ${categoryName}</label>
-    <img src="${categoryImg}">
+    <img src="data:image/jpg;base64,${categoryImg}">
     <form onsubmit="editCategory(event)">
     <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש">
-        <input type="text" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה">
+        <input type="file" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה">
         <input type="submit" value="עדכן">
         <button onclick='hideAddCategoryAndEditForm()'>בטל</button>
     </form>
