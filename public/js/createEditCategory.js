@@ -94,7 +94,7 @@ const editCategoryForm = (e) => {
     <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש">
         <input type="file" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה">
         <input type="submit" value="עדכן">
-        <button onclick='hideAddCategoryAndEditForm()'>בטל</button>
+        <button type='button' onclick='hideAddCategoryAndEditForm()'>בטל</button>
     </form>
     <label>כל שדה שישאר ריק ישמור את הערך הישן</label>`;
 

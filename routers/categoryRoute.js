@@ -90,22 +90,35 @@ router.put("/", checkAdmin, uploadImg.single("img"), async (req, res) => {
       const Buffer = await sharp(req.file.buffer)
         .resize({ width: 240, high: 240 })
         .toBuffer();
-    }
-   
 
-    await Category.findOneAndUpdate(
-      { _id: categoryId },
-      { img: Buffer, Name: newCategoryName },
-      async  (err, category) => {
-        if (err) {
-          console.log(err);
-          res.send({ ok: false });
-        } else {
-          let categories = await categoriesFind();
-          res.send({ ok: true, category, categories });
+      await Category.findOneAndUpdate(
+        { _id: categoryId },
+        { img: Buffer, Name: newCategoryName },
+        async (err, category) => {
+          if (err) {
+            console.log(err);
+            res.send({ ok: false });
+          } else {
+            let categories = await categoriesFind();
+            res.send({ ok: true, category, categories });
+          }
         }
-      }
-    );
+      );
+    }else{
+      await Category.findOneAndUpdate(
+        { _id: categoryId },
+        { Name: newCategoryName },
+        async (err, category) => {
+          if (err) {
+            console.log(err);
+            res.send({ ok: false });
+          } else {
+            let categories = await categoriesFind();
+            res.send({ ok: true, category, categories });
+          }
+        }
+      );
+    }
   } catch (e) {
     console.log(e);
   }
@@ -122,7 +135,7 @@ router.delete("/", checkAdmin, async (req, res) => {
         } else {
           let deletePostCommentsFavorites = await findPostsCategoryAndDelete(chosenCategoryid)
           let categories = await categoriesFind();
-          res.send({ ok: true, categories});
+          res.send({ ok: true, categories });
         }
       }
     );
