@@ -24,19 +24,11 @@ var hideNewPostBox = function hideNewPostBox() {
   setTimeout(function () {
     postBox.style.display = "none";
   }, 100);
-}; // document.onclick = function (e) {
-//     className = e.target.className
-//     const classNameInclude = className.includes('box')
-//     if (!classNameInclude) {
-//         hideNewPostBox()
-//     }
-// }
-
+};
 
 var handleImgSelect = function handleImgSelect() {
   var imgUpload = document.querySelector(".imgUpload");
-  var fileChosen = document.querySelector("#file-chosen"); // let file = imgUpload.files[0];
-
+  var fileChosen = document.querySelector("#file-chosen");
   fileChosen.textContent = imgUpload.files[0].name;
 };
 

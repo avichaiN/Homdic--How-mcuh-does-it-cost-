@@ -37,19 +37,10 @@ const hideNewPostBox = () => {
   }, 100);
 };
 
-// document.onclick = function (e) {
 
-//     className = e.target.className
-//     const classNameInclude = className.includes('box')
-
-//     if (!classNameInclude) {
-//         hideNewPostBox()
-//     }
-// }
 const handleImgSelect = () => {
   const imgUpload = document.querySelector(".imgUpload");
-  const fileChosen = document.querySelector("#file-chosen");
-  // let file = imgUpload.files[0];
+  const fileChosen = document.querySelector("#file-chosen");  
   fileChosen.textContent = imgUpload.files[0].name;
 
 };

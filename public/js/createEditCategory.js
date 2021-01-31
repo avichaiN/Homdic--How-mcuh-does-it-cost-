@@ -111,20 +111,30 @@ const editCategory = (e) => {
   const oldCategoryName = e.target.children.name.dataset.name;
   const oldCategoryImg = e.target.children.img.dataset.img;
   let newCategoryName = e.target.children.name.value;
-  let newCategoryImg = e.target.children.img.value;
+  let newCategoryImg = e.target.children.img;
+  
+  
+  
   if (newCategoryName === "") {
     newCategoryName = oldCategoryName;
   }
-  if (newCategoryImg === "") {
+ /*  if (newCategoryImg === "") {
     newCategoryImg = oldCategoryImg;
+  }
+ */
+/* JSON.stringify({ categoryId, newCategoryImg, newCategoryName }) */
+  let formData = new FormData();
+  formData.append('categoryId', categoryId);
+  formData.append('Name', newCategoryName);
+
+  if (newCategoryImg.files[0]) {
+    formData.append('img', newCategoryImg.files[0], newCategoryImg.files[0].name);
   }
 
   fetch("/category", {
     method: "put",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ categoryId, newCategoryImg, newCategoryName }),
+    headers: {},
+    body: formData,
   })
     .then((res) => res.json())
     .then((data) => {
