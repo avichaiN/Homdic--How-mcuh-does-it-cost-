@@ -15,7 +15,7 @@
   height: 6.5%;
   background-color: #298cad;
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.2fr 0.15fr;
+  grid-template-columns: 0.4fr 0.15fr 1fr 0.2fr 0.15fr;
   justify-content: space-around;
   z-index: 5;
 }
@@ -53,8 +53,6 @@
   }
 }
 .header .header__adminPage {
-  display: none;
-  position: absolute;
   right: 18%;
   width: 70px;
   height: 20px;

@@ -1,12 +1,13 @@
 const renderNavToDom = () => {
   let html = "";
   html = `<div class="header__helloUser"></div>
+  <a href="/adminPage.html" class="header__adminPage">אדמין</a>
       <form class="header__form" onsubmit="handleSearch(event)">
           <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
           <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
           <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
       </form>
-      <a href="/adminPage.html" class="header__adminPage">אדמין</a>
+      
   
       <!-- user info / logout / edit user // show all posts -->
       
