@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const path = require("path");
-const jwt = require("jwt-simple");
 
 // Connection to DB
 mongoose.connect(`${process.env.DATABASE_URL}`, {
