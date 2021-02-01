@@ -21,9 +21,11 @@ const renderNavToDom = () => {
               <button onclick="handleLogout()">התנתק</button>
           </div>
       </div>
-      <span onclick="goBack()" class="material-icons goBack">
+      <div  onclick="goBack()" class='goBack'>
+      <span class="material-icons icon">
       keyboard_backspace
-      </span>`;
+      </span>
+      </div>`;
 
   let header = document.querySelector(".header");
   header.innerHTML = html;

@@ -239,16 +239,22 @@ const something = (function () {
     if (!blockLoadMore) {
       blockLoadMore = true
       skipLimitPostsCategory(currentCategory, howMuchToSkip)
+
     }
   }
 })()
 
 window.onscroll = function (ev) {
-  if (canLoadMore) {
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      const howMuchToSkip = document.getElementsByClassName('post').length
-      const currentCategory = getCurrentCategory()
-      something(currentCategory, howMuchToSkip)
+  const url = window.location.href
+  const checkIfCategoryPage = url.split('/')[3]
+
+  if (!checkIfCategoryPage.includes('myfavorites') && !checkIfCategoryPage.includes('myposts') && !checkIfCategoryPage.includes('admin')) {
+    if (canLoadMore) {
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        const howMuchToSkip = document.getElementsByClassName('post').length
+        const currentCategory = getCurrentCategory()
+        something(currentCategory, howMuchToSkip)
+      }
     }
   }
 };
