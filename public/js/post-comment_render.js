@@ -122,7 +122,7 @@ function buildOneComment(comment, price, fName, lName, commentCreatedTime, atTda
      מחיר: ${price}
    </div>
    <div id="authRouter">
-   <p title="${fullDate}">${atTdate}</p>
+   <p title="${fullDate}">לפני ${atTdate}</p>
      <p>${fName} ${lName}</p>
    </div>
    <div data-id='${commentId}' class="deleteComment">${deleteComment}</div>

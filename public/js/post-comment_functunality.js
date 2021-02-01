@@ -132,7 +132,10 @@ const handleNewComment = async (e, postID) => {
         timer: 1500,
       });
       HideAddComment(postID)
-      handleGetComments(postID)
+      handleHidePostsComments(postID)
+      setTimeout(function(){
+        handleGetComments(postID)
+      },500)
     } else {
       await Swal.fire({
         position: "center",
