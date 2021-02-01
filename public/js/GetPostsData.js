@@ -1,7 +1,7 @@
 let canLoadMore = false
 let postsOnLoad
 let searchedPosts
-let blockLoadMore
+let blockLoadMore = true
 
 const getPosts = async () => {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
@@ -108,7 +108,7 @@ const getPostsByUser = async () => {
 
 const getPostsUserIdForAdmin = async (params) => {
   const userId = params.split('=')[1];
-  let foundPost
+  let foundPosts
   // let userInfo = await userInfoById(userId)
   await fetch("/posts/admin/user/get", {
     method: "POST",
@@ -182,36 +182,34 @@ const renderPosts = async (postsArray) => {
   let isAdmin = false
   isAdmin = await handleCheckAdmin();
 
-  const sortedPosts = postsArray
-
-  for (i = 0; i < sortedPosts.length; i++) {
-    const isFavorite = await checkIfPostFavorite(sortedPosts[i]._id, userId)
-    const commentsLength = await checkHowMuchComments(sortedPosts[i]._id)
+  for (i = 0; i < postsArray.length; i++) {
+    const isFavorite = await checkIfPostFavorite(postsArray[i]._id, userId)
+    const commentsLength = await checkHowMuchComments(postsArray[i]._id)
     let isUsersPost = false
 
-    const postCreatedTime = Date.parse(sortedPosts[i].createdAt)
+    const postCreatedTime = Date.parse(postsArray[i].createdAt)
     const timeAgo = timeSince(postCreatedTime)
 
-    if (sortedPosts[i].publishedBy === userId) {
+    if (postsArray[i].publishedBy === userId) {
       isUsersPost = true
     }
     const html = buildOnePost(
       "post" /*post or comment*/,
-      sortedPosts[i].title,
-      sortedPosts[i].desc,
-      sortedPosts[i].img,
+      postsArray[i].title,
+      postsArray[i].desc,
+      postsArray[i].img,
       postCreatedTime,
       timeAgo,
       "0",
       commentsLength,
-      sortedPosts[i]._id,
-      sortedPosts[i].fName,
-      sortedPosts[i].lName,
+      postsArray[i]._id,
+      postsArray[i].fName,
+      postsArray[i].lName,
       isFavorite
     )
     document.getElementById('app').innerHTML += html;
     if (isUsersPost || isAdmin) {
-      document.getElementById(`${sortedPosts[i]._id}`).innerHTML =
+      document.getElementById(`${postsArray[i]._id}`).innerHTML =
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
     }
   }
@@ -222,7 +220,8 @@ const renderPosts = async (postsArray) => {
 
   setTimeout(function () {
     canLoadMore = true
-  }, 100)
+    blockLoadMore = false;
+  }, 50)
 }
 
 
@@ -246,7 +245,7 @@ const numOfPostsAmountOnLoad = async (id) => {
   return numOfPostsAmountOnLoad
 }
 const skipLimitPostsCategory = async (categoryId, skip) => {
-  setTimeout(function () { blockLoadMore = false; }, 100);
+  canLoadMore = false
   const foundPosts = await getPostsByCategory(categoryId)
   const popNewPosts = foundPosts.length - postsOnLoad
   foundPosts.reverse()
@@ -254,13 +253,13 @@ const skipLimitPostsCategory = async (categoryId, skip) => {
   renderPosts(sortedPosts)
 }
 const skipLimitPostsByUser = async (skip) => {
-  setTimeout(function () { blockLoadMore = false; }, 100);
+  canLoadMore = false
   let foundPosts = await getPostsByUser()
   const sortedPosts = foundPosts.slice(skip, skip + 10)
   renderPosts(sortedPosts)
 }
 const skipLimitPostsFavorite = async (skip) => {
-  setTimeout(function () { blockLoadMore = false; }, 100);
+  canLoadMore = false
   let foundPosts = await getUserFavorites()
   foundPosts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
@@ -269,7 +268,7 @@ const skipLimitPostsFavorite = async (skip) => {
   renderPosts(sortedPostsSkip)
 }
 const skipLimitPostsBySearched = async (searchedWords, skip) => {
-  setTimeout(function () { blockLoadMore = false; }, 100);
+  canLoadMore = false
   let foundPosts = await getPostsBySearch(searchedWords, skip)
   foundPosts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
@@ -278,7 +277,7 @@ const skipLimitPostsBySearched = async (searchedWords, skip) => {
   renderPosts(sortedPostsSkip)
 }
 const skipLimitPostsForAdminPage = async (params, skip) => {
-  setTimeout(function () { blockLoadMore = false; }, 100);
+  canLoadMore = false
   let foundPosts = await getPostsUserIdForAdmin(params)
   foundPosts.reverse()
   const sortedPosts = foundPosts.slice(skip, skip + 10)
