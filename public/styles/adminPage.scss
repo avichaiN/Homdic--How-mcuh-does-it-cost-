@@ -20,7 +20,7 @@ body {
         font-size: 15px;
         position: relative;
         top: 10%;
-        width: 98%;
+        width: 100%;
         height: 100%;
         margin: auto;
         display: flex;
@@ -28,8 +28,8 @@ body {
         flex-wrap: wrap;
 
         .user {
-            height: 15rem;
-            width: 23%;
+            // height: 15rem;
+            width: 22%;
             display: flex;
             flex-direction: column;
             overflow: scroll;
