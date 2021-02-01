@@ -1,5 +1,8 @@
 let canLoadMore = false
 let postsOnLoad
+let searchedPosts
+let blockLoadMore
+
 const getPosts = async () => {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";
@@ -9,8 +12,8 @@ const getPosts = async () => {
   if (params === undefined) {
     window.location.href = "Categories.html"
   } else if (params === 'search') {
-    const searchedPosts = url.split('?')[2];
-    getPostsBySearch(searchedPosts)
+    searchedPosts = url.split('?')[2];
+    skipLimitPostsBySearched(searchedPosts, 0)
   } else if (params === 'myposts') {
     skipLimitPostsByUser(0)
   } else if (params === 'myfavorites') {
@@ -25,12 +28,13 @@ const getPosts = async () => {
   }
 };
 
-const getPostsBySearch = (searchedPosts) => {
-  fetch(`/posts/search/get/${searchedPosts}`)
+const getPostsBySearch = async (searchedPosts) => {
+
+  await fetch(`/posts/search/get/${searchedPosts}`)
     .then((res) => res.json())
     .then(async (data) => {
       let keywords = data.searchedSplitted
-      let foundPosts = data.foundPosts
+      foundPosts = data.foundPosts
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
@@ -40,9 +44,9 @@ const getPostsBySearch = (searchedPosts) => {
         } else {
           renderSearchedPostsTitle(keywords)
         }
-        renderPosts(foundPosts)
       }
     });
+  return foundPosts
 }
 const getPostsByCategory = async (categoryId) => {
 
@@ -258,7 +262,16 @@ const skipLimitPostsByUser = async (skip) => {
 const skipLimitPostsFavorite = async (skip) => {
   setTimeout(function () { blockLoadMore = false; }, 100);
   let foundPosts = await getUserFavorites()
-  foundPosts.sort(function(a,b){
+  foundPosts.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+  const sortedPostsSkip = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPostsSkip)
+}
+const skipLimitPostsBySearched = async (searchedWords, skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  let foundPosts = await getPostsBySearch(searchedWords, skip)
+  foundPosts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
   const sortedPostsSkip = foundPosts.slice(skip, skip + 10)
@@ -272,8 +285,6 @@ const skipLimitPostsForAdminPage = async (params, skip) => {
   renderPosts(sortedPosts)
 }
 
-
-let blockLoadMore
 const loadMoreOnBottom = (function () {
   return function (currentCategory, howMuchToSkip) {
     if (!blockLoadMore) {
@@ -284,9 +295,10 @@ const loadMoreOnBottom = (function () {
         skipLimitPostsByUser(howMuchToSkip)
       } else if (params === 'myfavorites') {
         skipLimitPostsFavorite(howMuchToSkip)
-
       } else if (params.includes('admin')) {
         skipLimitPostsForAdminPage(params, howMuchToSkip)
+      } else if (params === 'search') {
+        skipLimitPostsBySearched(searchedPosts, howMuchToSkip)
       } else {
         skipLimitPostsCategory(currentCategory, howMuchToSkip)
       }
@@ -295,9 +307,9 @@ const loadMoreOnBottom = (function () {
   }
 })()
 
-window.onscroll = function (ev) {
+window.onscroll = function () {
   if (canLoadMore) {
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight-650) {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 650) {
       const howMuchToSkip = document.getElementsByClassName('post').length
       const currentCategory = getCurrentCategory()
       loadMoreOnBottom(currentCategory, howMuchToSkip)

@@ -25,7 +25,6 @@ router.get("/get/:id/", checkUserToken, async (req, res) => {
     { $match: { categoryId: chosenCategoryId } },
   ])
 
-
   res.send({ foundPostsByCategoryId });
 });
 
