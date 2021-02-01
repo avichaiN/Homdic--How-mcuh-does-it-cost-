@@ -12,9 +12,8 @@ const renderNavToDom = () => {
       <!-- user info / logout / edit user // show all posts -->
       
       <div class="header__userInfo">
-          <img onclick="showUserDropDown(event)"
-              src="/styles/img/menu.png">
-          <div class="header__userInfoDrop">
+          <h1 class="fas fa-bars" onclick="showUserDropDown(event)"></h1>
+              <div class="header__userInfoDrop">
               <a href="/Categories.html">קטגוריות</a>
               <a href="/posts.html?myposts">פוסטים שלי</a>
               <a href="/posts.html?myfavorites">מועדפים</a>
