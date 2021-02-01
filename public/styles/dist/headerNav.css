@@ -15,7 +15,7 @@
   height: 6.5%;
   background-color: #247C99;
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.2fr 0.15fr;
+  grid-template-columns: 0.4fr 0.15fr 1fr 0.2fr 0.15fr;
   justify-content: space-around;
   z-index: 5;
 }
