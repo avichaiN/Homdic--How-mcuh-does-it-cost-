@@ -9,7 +9,7 @@ const renderNavToDom = () => {
       <a href="/adminPage.html" class="header__adminPage">אדמין</a>
   
       <!-- user info / logout / edit user // show all posts -->
-  
+      
       <div class="header__userInfo">
           <img onclick="showUserDropDown(event)"
               src="/styles/img/menu.png">
@@ -20,6 +20,11 @@ const renderNavToDom = () => {
               <a href="/updateUserData.html">עדכן פרטי חשבון</a>
               <button onclick="handleLogout()">התנתק</button>
           </div>
+      </div>
+      <div  onclick="goBack()" class='goBack'>
+      <span class="material-icons icon">
+      keyboard_backspace
+      </span>
       </div>`;
 
   let header = document.querySelector(".header");
@@ -31,7 +36,7 @@ const getUserInfo = async () => {
   await fetch("/userInfo")
     .then((res) => res.json())
     .then((data) => {
-      if(!data.decoded){
+      if (!data.decoded) {
         window.location.href = '/index.html'
       }
 
@@ -83,4 +88,6 @@ const handleSearch = (e) => {
   }
 };
 
-// hello user
+function goBack() {
+  window.history.back();
+}

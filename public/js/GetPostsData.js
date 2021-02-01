@@ -1,30 +1,40 @@
-const getPosts = () => {
+let canLoadMore = false
+let postsOnLoad
+let searchedPosts
+let blockLoadMore
+
+const getPosts = async () => {
   document.querySelector("#categoryHeder").style.visibility = "hidden";
   document.querySelector("#app").style.visibility = "hidden";
   document.querySelector("#loader").style.visibility = "visible";
   const url = window.location.href
   const params = url.split('?')[1];
-
-  if (params === 'search') {
-    const searchedPosts = url.split('?')[2];
-    getPostsBySearch(searchedPosts)
+  if (params === undefined) {
+    window.location.href = "Categories.html"
+  } else if (params === 'search') {
+    searchedPosts = url.split('?')[2];
+    skipLimitPostsBySearched(searchedPosts, 0)
   } else if (params === 'myposts') {
-    getPostsByUser()
+    skipLimitPostsByUser(0)
   } else if (params === 'myfavorites') {
-    getUserFavorites()
+    skipLimitPostsFavorite(0)
+    // getUserFavorites()
   } else if (params.includes('admin')) {
-    getPostsUserIdForAdmin(params)
+    skipLimitPostsForAdminPage(params, 0)
   } else {
-    getPostsByCategory(params)
+    postsOnLoad = await numOfPostsAmountOnLoad(params)
+    skipLimitPostsCategory(params, 0)
+    // getPostsByCategory(params, 0)
   }
 };
 
-const getPostsBySearch = (searchedPosts) => {
-  fetch(`/posts/search/get/${searchedPosts}`)
+const getPostsBySearch = async (searchedPosts) => {
+
+  await fetch(`/posts/search/get/${searchedPosts}`)
     .then((res) => res.json())
     .then(async (data) => {
       let keywords = data.searchedSplitted
-      let foundPosts = data.foundPosts
+      foundPosts = data.foundPosts
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
@@ -34,11 +44,11 @@ const getPostsBySearch = (searchedPosts) => {
         } else {
           renderSearchedPostsTitle(keywords)
         }
-        renderPosts(foundPosts)
       }
     });
+  return foundPosts
 }
-const getPostsByCategory = (categoryId) => {
+const getPostsByCategory = async (categoryId) => {
 
   // this is when user clicks category
   fetch("/category/byid", {
@@ -53,17 +63,18 @@ const getPostsByCategory = (categoryId) => {
       renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].img);
     });
 
+  let foundPosts
   // this is when looking for category id
-  fetch(`/posts/get/${categoryId}`)
+  await fetch(`/posts/get/${categoryId}`)
     .then((res) => res.json())
     .then(async (data) => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-        let foundPosts = data.foundPostsByCategoryId
-        renderPosts(foundPosts)
+        foundPosts = data.foundPostsByCategoryId
       }
     });
+  return foundPosts
 }
 
 const getPostsByUser = async () => {
@@ -71,7 +82,8 @@ const getPostsByUser = async () => {
   const userFirstName = userInfo.fName
   const userId = userInfo.id
 
-  fetch("/posts/user/get", {
+  let foundPosts
+  await fetch("/posts/user/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,18 +99,18 @@ const getPostsByUser = async () => {
           console.log('err finding posts')
         } else {
           renderTitleFoundPostsUser(userFirstName)
-          let foundPosts = data.foundPosts
-          renderPosts(foundPosts)
+          foundPosts = data.foundPosts.reverse()
         }
       }
     });
+  return foundPosts
 }
 
-const getPostsUserIdForAdmin = (params) => {
+const getPostsUserIdForAdmin = async (params) => {
   const userId = params.split('=')[1];
-
+  let foundPost
   // let userInfo = await userInfoById(userId)
-  fetch("/posts/admin/user/get", {
+  await fetch("/posts/admin/user/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -112,16 +124,17 @@ const getPostsUserIdForAdmin = (params) => {
       } else {
         const username = data.userInfo.username
         renderTitlePostForAdmin(username)
-        let foundPosts = data.foundPosts
-        renderPosts(foundPosts)
+        foundPosts = data.foundPosts
       }
     });
+  return foundPosts
 }
 const getUserFavorites = async () => {
   let user = await getUserWhoPosted()
   const userId = user.id
 
-  fetch("/posts/favorites/getall", {
+  let postsToDom = []
+  await fetch("/posts/favorites/getall", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -133,16 +146,14 @@ const getUserFavorites = async () => {
       if (data.status === "unauthorized") {
         window.location.href = "index.html"
       } else {
-        const postsToDom = []
         renderTitlePostFavorits()
         let foundPosts = data.favPosts
         foundPosts.forEach(post => {
           postsToDom.push(post[0])
         })
-        renderPosts(postsToDom)
-
       }
     });
+  return postsToDom
 }
 const checkHowMuchComments = async (postId) => {
   let comments
@@ -171,7 +182,7 @@ const renderPosts = async (postsArray) => {
   let isAdmin = false
   isAdmin = await handleCheckAdmin();
 
-  const sortedPosts = postsArray.reverse()
+  const sortedPosts = postsArray
 
   for (i = 0; i < sortedPosts.length; i++) {
     const isFavorite = await checkIfPostFavorite(sortedPosts[i]._id, userId)
@@ -184,7 +195,6 @@ const renderPosts = async (postsArray) => {
     if (sortedPosts[i].publishedBy === userId) {
       isUsersPost = true
     }
-
     const html = buildOnePost(
       "post" /*post or comment*/,
       sortedPosts[i].title,
@@ -200,7 +210,6 @@ const renderPosts = async (postsArray) => {
       isFavorite
     )
     document.getElementById('app').innerHTML += html;
-
     if (isUsersPost || isAdmin) {
       document.getElementById(`${sortedPosts[i]._id}`).innerHTML =
         `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`
@@ -210,5 +219,101 @@ const renderPosts = async (postsArray) => {
     "#loader").style.display = "none";
   document.querySelector("#categoryHeder").style.visibility = "visible";
   document.querySelector("#app").style.visibility = "visible";
+
+  setTimeout(function () {
+    canLoadMore = true
+  }, 100)
 }
 
+
+// getPostsByCategory
+const getCurrentCategory = () => {
+  const url = window.location.href
+  const categoryId = url.split('?')[1];
+  return categoryId
+}
+const numOfPostsAmountOnLoad = async (id) => {
+  let numOfPostsAmountOnLoad
+  await fetch(`/posts/get/${id}`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html"
+      } else {
+        numOfPostsAmountOnLoad = data.foundPostsByCategoryId.length
+      }
+    });
+  return numOfPostsAmountOnLoad
+}
+const skipLimitPostsCategory = async (categoryId, skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  const foundPosts = await getPostsByCategory(categoryId)
+  const popNewPosts = foundPosts.length - postsOnLoad
+  foundPosts.reverse()
+  const sortedPosts = foundPosts.slice(skip + popNewPosts, popNewPosts + skip + 10)
+  renderPosts(sortedPosts)
+}
+const skipLimitPostsByUser = async (skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  let foundPosts = await getPostsByUser()
+  const sortedPosts = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPosts)
+}
+const skipLimitPostsFavorite = async (skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  let foundPosts = await getUserFavorites()
+  foundPosts.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+  const sortedPostsSkip = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPostsSkip)
+}
+const skipLimitPostsBySearched = async (searchedWords, skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  let foundPosts = await getPostsBySearch(searchedWords, skip)
+  foundPosts.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+  const sortedPostsSkip = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPostsSkip)
+}
+const skipLimitPostsForAdminPage = async (params, skip) => {
+  setTimeout(function () { blockLoadMore = false; }, 100);
+  let foundPosts = await getPostsUserIdForAdmin(params)
+  foundPosts.reverse()
+  const sortedPosts = foundPosts.slice(skip, skip + 10)
+  renderPosts(sortedPosts)
+}
+
+const loadMoreOnBottom = (function () {
+  return function (currentCategory, howMuchToSkip) {
+    if (!blockLoadMore) {
+      blockLoadMore = true
+      const url = window.location.href
+      const params = url.split('?')[1];
+      if (params === 'myposts') {
+        skipLimitPostsByUser(howMuchToSkip)
+      } else if (params === 'myfavorites') {
+        skipLimitPostsFavorite(howMuchToSkip)
+      } else if (params.includes('admin')) {
+        skipLimitPostsForAdminPage(params, howMuchToSkip)
+      } else if (params === 'search') {
+        skipLimitPostsBySearched(searchedPosts, howMuchToSkip)
+      } else {
+        skipLimitPostsCategory(currentCategory, howMuchToSkip)
+      }
+
+    }
+  }
+})()
+
+window.onscroll = function () {
+  if (canLoadMore) {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 650) {
+      const howMuchToSkip = document.getElementsByClassName('post').length
+      const currentCategory = getCurrentCategory()
+      loadMoreOnBottom(currentCategory, howMuchToSkip)
+    }
+  }
+
+};

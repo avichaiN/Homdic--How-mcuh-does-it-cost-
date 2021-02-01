@@ -15,11 +15,9 @@
 
 <body onload="renderNavToDom(), getPosts() ,displayGoToAdminPage()" onclick="hideUserDropDown()">
   <div id="loader" class="center"></div>
-
   <!-- header  -->
   <div class="header"></div>
   <heder id="categoryHeder">
-    <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
     <div id="PostsHeder"></div>
   </heder>
   <div id="app">
@@ -28,6 +26,9 @@
 
     </div>
     <!-- end post -->
+  </div>
+  <div class="loadingNewPosts" data-title=".dot-spin">
+    <div class="dot-spin"></div>
   </div>
 
   <script src="js/headerNav.js"></script>
