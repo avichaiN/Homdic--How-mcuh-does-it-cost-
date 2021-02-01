@@ -146,3 +146,14 @@ function hideButton() {
     .getElementById("hideBtn")
     .setAttribute("style", "display:none");
 }
+
+const checkIfUserHasCookie = () => {
+  fetch('/checkCookie')
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.validCookie) {
+        window.location.href = 'Categoires.html'
+      }
+    })
+
+}

@@ -6,6 +6,7 @@ const jwt = require("jwt-simple");
 const saltRounds = 12;
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const checkUserToken = require("../routers/gFunctions/checkUserToken");
 const nodemailer = require("nodemailer");
 
 router.use(cookieParser());
@@ -120,7 +121,9 @@ router.get("/logout/user", (req, res) => {
     console.log(e);
   }
 });
-
+router.get('/checkCookie', checkUserToken, (req, res) => {
+  res.send({ validCookie: true })
+})
 router.post("/reset", async (req, res) => {
   const userEmail = req.body.userEmail;
   try {
