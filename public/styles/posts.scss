@@ -75,7 +75,7 @@ body {
         top: 6.5%;
         text-align: center;
         border-bottom: 1px solid darkgray;
-
+        padding: 1%;
         h1 {
             margin-right: 3%;
             font-size: xxx-large;
@@ -85,9 +85,19 @@ body {
         }
 
         img {
-            float: left;
-            max-width: 20%;
-            max-height: max-content;
+           float: left;
+            max-height: 90%;
+            margin: auto 0.2% auto 0.3%;
+            @include mq(0px) {
+                display: none;
+            }
+            @include mq(488px) {
+                display: block;
+            }
+
+
+
+            
         }
 
         input {
@@ -201,9 +211,7 @@ body {
             // margin: 1%;
 
             #postheder {
-                background-color: $postheder-bg-color;
-                cursor: pointer;
-                // padding: 2% 5% 2% 5%;
+                background-color: $postheder-bg-color;                               
                 display: grid;
                 column-gap: 2%;
                 grid-template-columns: 2fr 1fr;
@@ -632,7 +640,7 @@ body {
 
 
 .newPostButton {
-    top: 35%;
+    
     right: 15%;
     position: absolute;
     border: none;
@@ -649,6 +657,14 @@ body {
     background-color: #007AA3;
     color: white;
     border: 1px solid white;
+
+    @include mq(0px) {
+        top: 70%;
+    }
+    @include mq(1000px) {
+        top: 15%;
+    }
+
 }
 
 .newPostButton:hover {

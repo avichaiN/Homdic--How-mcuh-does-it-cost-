@@ -28,7 +28,7 @@ const writeCategoiresToDom = (categories) => {
     categoriesHtml += `<div onclick="goToClickedCategory(event)" class="cateogryPage__categorysBox" data-name='${category.Name}' data-id='${category._id}'>
         <img src="data:image/jpg;base64,${category.img}" />
         <div class="cateogryPage__categorysBoxContainer" data-img='${category.img}' data-name='${category.Name}' data-id='${category._id}'>
-            <p>${category.Name}</p>
+            <h3>${category.Name}</h3>
             <button onclick='deleteCategory(event)' style="display: none;" class="deleteCategory">מחק</button>
             <!-- add menu of edit cateogry -->
             <button onclick='editCategoryForm(event)' style="display: none;" class="editCategory">ערוך</button>

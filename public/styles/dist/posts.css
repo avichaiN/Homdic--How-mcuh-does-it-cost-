@@ -56,6 +56,7 @@ body #categoryHeder {
   top: 6.5%;
   text-align: center;
   border-bottom: 1px solid darkgray;
+  padding: 1%;
 }
 body #categoryHeder h1 {
   margin-right: 3%;
@@ -66,8 +67,18 @@ body #categoryHeder h1 {
 }
 body #categoryHeder img {
   float: left;
-  max-width: 20%;
-  max-height: max-content;
+  max-height: 90%;
+  margin: auto 0.2% auto 0.3%;
+}
+@media only screen and (min-width: 0px) {
+  body #categoryHeder img {
+    display: none;
+  }
+}
+@media only screen and (min-width: 488px) {
+  body #categoryHeder img {
+    display: block;
+  }
 }
 body #categoryHeder input {
   position: relative;
@@ -167,7 +178,6 @@ body #app .post {
 }
 body #app .post #postheder {
   background-color: #cfd8dd;
-  cursor: pointer;
   display: grid;
   column-gap: 2%;
   grid-template-columns: 2fr 1fr;
@@ -529,7 +539,6 @@ body #app .dot-spin {
 }
 
 .newPostButton {
-  top: 35%;
   right: 15%;
   position: absolute;
   border: none;
@@ -545,6 +554,16 @@ body #app .dot-spin {
   background-color: #007AA3;
   color: white;
   border: 1px solid white;
+}
+@media only screen and (min-width: 0px) {
+  .newPostButton {
+    top: 70%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .newPostButton {
+    top: 15%;
+  }
 }
 
 .newPostButton:hover {
