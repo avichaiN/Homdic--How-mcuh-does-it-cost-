@@ -65,6 +65,7 @@ const displayGoToAdminPage = async () => {
 
   if (checkAdmin) {
     document.querySelector(".header__adminPage").style.display = "block";
+    document.querySelector(".header").style.gridTemplateColumns = '0.4fr 0.15fr 1fr 0.2fr  0.15fr'
   }
 };
 const showUserDropDown = (e) => {
