@@ -58,7 +58,7 @@
     }
 
     .header__adminPage {
-        display: none;
+        visibility: hidden;
         // position: absolute;
         right: 18%;
         width: 70px;
@@ -152,6 +152,7 @@
     }
     .goBack:hover{
             background-position: right center; /* change the direction of the change here */
+            animation: jello-horizontal 0.9s both;
         
     }
 

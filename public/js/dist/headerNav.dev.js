@@ -60,7 +60,8 @@ var displayGoToAdminPage = function displayGoToAdminPage() {
           checkAdmin = _context2.sent;
 
           if (checkAdmin) {
-            document.querySelector(".header__adminPage").style.display = "block";
+            document.querySelector(".header__adminPage").style.visibility = "visible";
+            document.querySelector(".header").style.gridTemplateColumns = '0.4fr 0.15fr 1fr 0.2fr  0.15fr';
           }
 
         case 4:

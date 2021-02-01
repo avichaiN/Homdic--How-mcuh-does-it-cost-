@@ -63,7 +63,7 @@ const displayGoToAdminPage = async () => {
   let checkAdmin = await handleCheckAdmin();
 
   if (checkAdmin) {
-    document.querySelector(".header__adminPage").style.display = "block";
+    document.querySelector(".header__adminPage").style.visibility = "visible";
     document.querySelector(".header").style.gridTemplateColumns = '0.4fr 0.15fr 1fr 0.2fr  0.15fr'
   }
 };

@@ -53,7 +53,7 @@
   }
 }
 .header .header__adminPage {
-  display: none;
+  visibility: hidden;
   right: 18%;
   width: 70px;
   height: 20px;
@@ -134,6 +134,7 @@
 .header .goBack:hover {
   background-position: right center;
   /* change the direction of the change here */
+  animation: jello-horizontal 0.9s both;
 }
 .header .header__userInfo {
   align-self: center;
