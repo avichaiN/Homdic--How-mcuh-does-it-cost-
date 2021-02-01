@@ -55,6 +55,11 @@ app.use("/comments", commentsRouter);
 
 app.use("/resetpassword", updateUserPasswordRouter);
 
+
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "./public", "Categories.html"));
+})
 
 app.listen(port, () => console.log(`server now running on port: ${port}`));

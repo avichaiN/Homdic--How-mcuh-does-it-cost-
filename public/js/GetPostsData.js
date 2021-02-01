@@ -5,8 +5,9 @@ const getPosts = () => {
   document.querySelector("#loader").style.visibility = "visible";
   const url = window.location.href
   const params = url.split('?')[1];
-
-  if (params === 'search') {
+  if(params === undefined){
+    window.location.href = "Categories.html"
+  } else if (params === 'search') {
     const searchedPosts = url.split('?')[2];
     getPostsBySearch(searchedPosts)
   } else if (params === 'myposts') {
