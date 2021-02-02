@@ -33,6 +33,11 @@ body .titles .newPostButton:hover {
   color: white;
   animation: heartbeat 1.5s ease-in-out infinite both;
 }
+@media only screen and (max-width: 600px) {
+  body .titles .newPostButton {
+    grid-row: 2;
+  }
+}
 @keyframes heartbeat {
   from {
     -webkit-transform: scale(1);
