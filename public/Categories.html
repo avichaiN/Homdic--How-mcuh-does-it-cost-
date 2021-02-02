@@ -1,55 +1,93 @@
 <!DOCTYPE html>
-<html lang="heb" dir="rtl"">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homdic - Categoires</title>
-    <link rel="stylesheet" href="/styles/dist/category.css">
-    <link rel="stylesheet" href="/styles/dist/headerNav.css">
-    <link rel="stylesheet" href="/styles/dist/addPost.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/dist/category.css" />
+    <link rel="stylesheet" href="/styles/dist/headerNav.css" />
+    <link rel="stylesheet" href="/styles/dist/addPost.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://kit.fontawesome.com/83c62a74b7.js" crossorigin="anonymous"></script>
-</head>
+    <script
+      src="https://kit.fontawesome.com/83c62a74b7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<body onload="renderNavToDom(),startLoad()">
-    <div class="cateogryPage" onclick="hideUserDropDown(),hideEditOrDeleteCategory()">
-
-        <!-- header  -->
-        <div class="header">
-
-        </div>
-        <!-- categorys -->
-        <div class="titles">
-            <h1>כמה יעלה לי?</h1>
-            <h2>קטגוריות.</h2>
-        </div>
-        <div class="cateogryPage__categorys">
-            
-        </div>
-
-        <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>
-        <div class="newPostBox box">            
-        </div>
+  <body onload="renderNavToDom(),startLoad()">
+    <div class="cateogryPage" onclick="hideEditOrDeleteCategory()">
+      <!-- header  -->
+      <div class="header"></div>
+      <!-- categorys -->
+      <div class="titles">
+        <button onclick="displayPostBox(event)" class="newPostButton">
+          פוסט חדש
+        </button>
+        <h1>קטגוריות</h1>
+        <div class="newPostBox box"></div>
         <!-- Admin add category DIV - defualt: display:none -->
         <div class="category__admin">
-            <label style="font-size: 10px;">רק למראה אדמין</label>
-            <button class="deleteCategoryAdmin" onclick="showEditOrDeleteCategory(event)" style="display: inline;">מחק
-                או ערוך קטגוריה</button>
-            <button class="category__adminAddCategory" onclick="handleDisplayAddCategory()">הוסף קטגוריה</button>
-            <form class="category__adminAddCategoryForm" onsubmit="handleNewCategory(event)">
-                <input type="text" id="categoryInput" placeholder="קטגוריה להוספה">
-                <input type="file" name="img" id="categoryImgInput" placeholder="תמונה של קטגוריה">
-                <input value="הוסף" type="submit">
-                <button type="button" onclick="hideAddCategoryAndEditForm()">בטל</button>
-            </form>
-        </div>
+          <div class="header__adminPage">
+            <a href="/adminPage.html"><button>עמוד אדמין</button></a>
+          </div>
+          <div>
+            <button
+              class="deleteCategoryAdmin"
+              onclick="showEditOrDeleteCategory(event)"
+              style="display: inline"
+            >
+              מחק או ערוך קטגוריה
+            </button>
+          </div>
+          <div>
+            <button
+              class="category__adminAddCategory"
+              onclick="handleDisplayAddCategory()"
+            >
+              הוסף קטגוריה
+            </button>
+          </div>
 
-        <div class="category__edit">
-
+          <form
+            class="category__adminAddCategoryForm"
+            onsubmit="handleNewCategory(event)"
+          >
+            <input
+              type="text"
+              id="categoryInput"
+              placeholder="קטגוריה להוספה"
+            />
+            <label for="img">תמונה</label>
+            <div>
+              <input
+                type="file"
+                name="img"
+                id="categoryImgInput"
+                placeholder="תמונה של קטגוריה"
+              />
+            </div>
+            <button type="submit">הוסף</button>
+            <button type="button" onclick="hideAddCategoryAndEditForm()">
+              בטל
+            </button>
+          </form>
         </div>
+      </div>
+      <div class="category__edit"></div>
+      <div class="cateogryPage__categorys"></div>
     </div>
 
     <script src="js/chooseCategory.js"></script>
@@ -57,6 +95,5 @@
     <script src="js/createEditcategory.js"></script>
     <script src="js/newPost.js"></script>
     <script src="js/auth.js"></script>
-</body>
-
+  </body>
 </html>

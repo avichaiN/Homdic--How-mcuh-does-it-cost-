@@ -15,19 +15,15 @@
   margin-right: auto;
   background-color: white;
   border-radius: 5px;
-  background-color: #f2f2f2;
   padding: 20px;
   box-shadow: 7px 7px 14px 2px rgba(153, 153, 153, 0.74);
 }
 .newPostBox .closeNewPost {
   cursor: pointer;
   display: inline;
-  width: 7%;
+  max-width: 3%;
   height: 6%;
   float: left;
-}
-.newPostBox .closeNewPost img {
-  width: 100%;
 }
 .newPostBox h1 {
   text-align: center;

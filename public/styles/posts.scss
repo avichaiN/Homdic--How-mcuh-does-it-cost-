@@ -4,17 +4,13 @@
     }
 }
 
-* {
-    box-sizing: border-box;
-}
 
-$post-bg-color: blue;
-$body-bg-color: #ededef;
+$post-bg-color: white;
+$body-bg-color: white;
 $categoryHeder-bg-color: white;
-$postheder-bg-color: #cfd8dd;
 $addButton-bg-color: #2097f5;
 $addButton-color: white;
-$postheder-bg-color: #cfd8dd;
+$postheder-bg-color: #298cad;
 
 
 .material-icons {
@@ -31,13 +27,29 @@ $postheder-bg-color: #cfd8dd;
 }
 
 body {
-    direction: rtl;
-    margin: 0 !important;
-    padding: 0 !important;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: $body-bg-color;
-    width: 99vw;
-    height: 99vh;
+    margin: 0;
+    direction: rtl;
+    text-align: center;
+
+    .sendCommentBtn{
+        width: inherit;
+    }
+
+    h1,h2,h3,h4,p,label{
+        color: #298cad;
+    }
+
+    h1,h2,h3,h4,p,label,button,input{
+        font-family: 'Rubik', sans-serif;
+    }
+
+    button{
+        border: 1px solid white;
+        color: white;
+        background-color: #298cad;
+        border-radius: 5px;
+    }
 
     #loader {
         position: fixed;
@@ -63,41 +75,30 @@ body {
     }
 
     #categoryHeder {
+        display: grid;
+        grid-template-columns: 4fr 4fr 4fr;
         overflow: hidden;
         height: 15%;
-        width: 100%;
         z-index: 1;
-        position: fixed;
         background-color: $categoryHeder-bg-color;
-        /*  margin: 3% 0% 1% 0%; */
-        // display: flex;
-        // justify-content: space-between;
-        top: 6.5%;
         text-align: center;
         border-bottom: 1px solid darkgray;
         padding: 1%;
+
+        button{
+            margin: auto;
+        }
+
         h1 {
-            margin-right: 3%;
-            font-size: xxx-large;
-            text-shadow: 1px 3px 5px silver;
-            display: inline-block;
-            text-align: center;
+            grid-column: 2;
+            margin: auto;
         }
 
         img {
-           float: left;
-            max-height: 90%;
-            margin: auto 0.2% auto 0.3%;
-            @include mq(0px) {
-                display: none;
-            }
-            @include mq(488px) {
-                display: block;
-            }
-
-
-
-            
+            margin: auto;
+            grid-column: 3;
+            width: 150px; 
+            border-radius: 5px;           
         }
 
         input {
@@ -216,6 +217,12 @@ body {
                 column-gap: 2%;
                 grid-template-columns: 2fr 1fr;
                 grid-template-rows: repeat(3, auto);
+                margin-bottom: 5px;
+                border-radius: 5px 0 0 0;
+
+                h1,p{
+                    color: white;
+                }
 
                 .whenPosted {
                     font-size: 12px;
@@ -238,20 +245,23 @@ body {
                 }
 
                 .posttitle {
-                    // margin-right: 9%;
                     margin-bottom: 0;
                     grid-row: 1;
                     grid-column: 1;
+                    text-align: initial;
+                    font-size: 24px;
                 }
 
 
 
                 .postbudy {
-                    width: 40%;
                     word-wrap: break-word;
                     margin-right: 1%;
                     grid-row: 2/4;
                     grid-column: 1;
+                    text-align: initial;
+                    max-width: 500px;
+
                 }
 
                 img {
@@ -313,22 +323,28 @@ body {
 
                     form {
                         display: grid;
-                        align-items: center;
-                        align-self: center;
-                        grid-template-columns: 5fr 1fr;
+                        grid-template-rows: 1fr 1fr 1fr;
+                        margin: auto;
+
 
                         textarea {
-                            width: 99%;
-                            height: 80px;
+                            width: 70%;
+                            height: 50px;
                             font-size: 20px;
-                            grid-row: 1;
-
+                            margin: auto;
                         }
 
                         input {
                             width: 60px;
-                            height: 80px;
-                            grid-row: 1;
+                            height: 30px;
+                            text-align: center;
+                            margin: auto;
+                        }
+
+                        button{
+                            width: 150px;
+                            height: 30px;
+                            margin: auto;
                         }
 
                     }
@@ -339,12 +355,12 @@ body {
             }
 
             .futter {
-                display: flex;
-                margin: 0 auto 1% auto;
-                margin-top: 1%;
                 background-color: white;
-                max-width: 50%;
-                justify-content: space-evenly;
+                display: grid;
+                grid-template-columns: 2fr 2fr 2fr 2fr;
+                margin: auto;
+                margin-top: 10px;
+
 
                 @include mq(260px) {
                     max-width: 90%;
@@ -363,9 +379,9 @@ body {
                 }
 
                 .deletePost {
-                    // align-items: center;
-                    // align-self: center;
-                    width: 5%;
+                    margin: auto;
+                    grid-column: 4;
+                    grid-row: 1;
 
                     .deletePostButton {
                         padding: 5px;
@@ -377,6 +393,7 @@ body {
                         border-radius: 5px;
                         font-weight: 550;
                         transition: all 0.4s ease-in;
+                        margin: auto;
                     }
 
                     .deletePostButton:hover {
@@ -458,38 +475,27 @@ body {
             .comment {
                 border: 1px solid darkgray;
                 margin-top: 1%;
-                background-color: rgb(241, 241, 241);
-                //height: 80px;
                 display: grid;
-                grid-template-rows: repeat(3, 1fr);
+                grid-template-rows: 1fr;
                 grid-template-columns: repeat(8, 1fr);
                 padding: 1%;
                 justify-content: space-around;
                 align-items: center;
-
-                &:nth-child(even) {
-                    background-color: #cfcece;
-                }
+                border-radius: 5px;
 
                 #bodyComment {
-                    // width: 80%;
-                    grid-row: 1/4;
-                    grid-column: 1/8;
-                    display: grid;
-                    align-self: center;
+                    grid-row: 1;
+                    grid-column: 1;
+                    text-align: initial;
                     line-height: 1.3;
                 }
 
                 #authRouter {
                     font-weight: 550;
                     font-size: 13px;
-
-                    grid-row: 0/3;
-                    grid-column: 8/9;
+                    grid-column: 8;
                     justify-items: last baseline;
                     justify-self: end;
-                    display: grid;
-                    align-self: end;
 
                     p {
                         margin: 0;
@@ -497,13 +503,19 @@ body {
 
                 }
 
+                .deleteComment{
+                    grid-column: 6;
+                    grid-row: 1;
+                }
+
                 #likeComment {
-                    grid-row: 3;
-                    grid-column: 1/9;
+                    grid-row: 1;
+                    grid-column: 7;
                     justify-self: end;
                     display: flex;
                     flex-direction: row;
                     flex-direction: row-reverse;
+                    margin: auto;
 
                     .likesAmount {
                         font-size: 1rem;
@@ -639,42 +651,53 @@ body {
 
 
 
-.newPostButton {
-    
-    right: 15%;
-    position: absolute;
-    border: none;
-    color: white;
-    padding: 12px 22px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 17px;
-    border-radius: 20px;
-
-    transition: all 0.4s ease-in;
-    cursor: pointer;
-    background-color: #007AA3;
-    color: white;
-    border: 1px solid white;
-
-    @include mq(0px) {
-        top: 70%;
-    }
-    @include mq(1000px) {
-        top: 15%;
-    }
-
-}
-
-.newPostButton:hover {
-    font-weight: 550;
-    right: 14.9%;
-    border: 3px solid #007AA3;
+.newPostButton{
+    margin: auto;
+    height: 50px;
     background-color: white;
-    color: black;
+    color: #298cad;
+    border: 1px solid #298cad;
+    border-radius: 5px;
+    grid-row: 1;
 }
 
-.newPostButton:focus {
-    outline: 0;
+.newPostButton:hover{
+    background-color: #298cad;
+    color: white;
+    animation: heartbeat 1.5s ease-in-out infinite both;
 }
+
+@keyframes heartbeat {
+    from {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-transform-origin: center center;
+              transform-origin: center center;
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    10% {
+      -webkit-transform: scale(0.91);
+              transform: scale(0.91);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    17% {
+      -webkit-transform: scale(0.98);
+              transform: scale(0.98);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    33% {
+      -webkit-transform: scale(0.87);
+              transform: scale(0.87);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    45% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+  }

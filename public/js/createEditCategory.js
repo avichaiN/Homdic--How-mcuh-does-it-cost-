@@ -15,16 +15,15 @@ const handleNewCategory = (e) => {
   e.preventDefault();
   const newCategoryName = document.getElementById("categoryInput").value;
   const img = document.getElementById("categoryImgInput");
-  
+
   let imgFile = img.files[0];
-  let formData = new FormData();  
-  formData.append('newCategoryName', newCategoryName);
-  formData.append('img', imgFile,imgFile.name);
+  let formData = new FormData();
+  formData.append("newCategoryName", newCategoryName);
+  formData.append("img", imgFile, imgFile.name);
 
   fetch("/category", {
     method: "POST",
-    headers: {     
-    },
+    headers: {},
     body: formData,
   })
     .then((res) => res.json())
@@ -65,7 +64,7 @@ const deleteCategory = (e) => {
   e.stopPropagation();
   const chosenCategoryid = e.target.parentNode.dataset.id;
 
-  console.log('delete category')
+  console.log("delete category");
   fetch("/category", {
     method: "DELETE",
     headers: {
@@ -75,7 +74,7 @@ const deleteCategory = (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-     // console.log(data)
+      // console.log(data)
       writeCategoiresToDom(data.categories);
     });
 };
@@ -88,18 +87,19 @@ const editCategoryForm = (e) => {
   document.querySelector(".category__edit").style.display = "block";
 
   let editCategoryFormHtml = `
-    <label>שם קטגוריה: ${categoryName}</label>
-    <img src="data:image/jpg;base64,${categoryImg}">
-    <form onsubmit="editCategory(event)">
-    <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש">
-        <input type="file" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה">
-        <input type="submit" value="עדכן">
-        <button type='button' onclick='hideAddCategoryAndEditForm()'>בטל</button>
-    </form>
-    <label>כל שדה שישאר ריק ישמור את הערך הישן</label>`;
+  <label>שם קטגוריה: ${categoryName}</label><br>
+  <img src="data:image/jpg;base64,${categoryImg}">
+  <form onsubmit="editCategory(event)">
+  <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש"><br>
+      <input style="margin-top:10px;margin-right:120px;margin-bottom:10px;" type="file" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה"><br>
+      <button type="submit">עדכן</button>
+      <button onclick='hideAddCategoryAndEditForm()'>בטל</button>
+  </form>
+  <label>כל שדה שישאר ריק ישמור את הערך הישן</label>`;
 
   document.querySelector(".category__edit").innerHTML = editCategoryFormHtml;
 };
+
 const hideAddCategoryAndEditForm = () => {
   document.querySelector(".category__edit").style.display = "none";
   document.querySelector(".category__adminAddCategoryForm").style.display =
@@ -112,23 +112,25 @@ const editCategory = (e) => {
   const oldCategoryImg = e.target.children.img.dataset.img;
   let newCategoryName = e.target.children.name.value;
   let newCategoryImg = e.target.children.img;
-  
-  
-  
+
   if (newCategoryName === "") {
     newCategoryName = oldCategoryName;
   }
- /*  if (newCategoryImg === "") {
+  /*  if (newCategoryImg === "") {
     newCategoryImg = oldCategoryImg;
   }
  */
-/* JSON.stringify({ categoryId, newCategoryImg, newCategoryName }) */
+  /* JSON.stringify({ categoryId, newCategoryImg, newCategoryName }) */
   let formData = new FormData();
-  formData.append('categoryId', categoryId);
-  formData.append('newCategoryName', newCategoryName);
+  formData.append("categoryId", categoryId);
+  formData.append("newCategoryName", newCategoryName);
 
   if (newCategoryImg.files[0]) {
-    formData.append('img', newCategoryImg.files[0], newCategoryImg.files[0].name);
+    formData.append(
+      "img",
+      newCategoryImg.files[0],
+      newCategoryImg.files[0].name
+    );
   }
 
   fetch("/category", {

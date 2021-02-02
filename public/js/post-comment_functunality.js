@@ -1,7 +1,13 @@
 function HideAddComment(postID) {
-  document.querySelector(`#AddCommentButton-${postID}`).classList.replace("hide", "show");
-  document.querySelector(`#cancelButton-${postID}`).classList.replace("show", "hide");
-  document.querySelector(`#addComment-${postID}`).classList.replace("show", "hide");
+  document
+    .querySelector(`#AddCommentButton-${postID}`)
+    .classList.replace("hide", "show");
+  document
+    .querySelector(`#cancelButton-${postID}`)
+    .classList.replace("show", "hide");
+  document
+    .querySelector(`#addComment-${postID}`)
+    .classList.replace("show", "hide");
 }
 
 function ShowAddComment(postID) {
@@ -10,12 +16,18 @@ function ShowAddComment(postID) {
     <form onsubmit='handleNewComment(event, "${postID}")'>
       <textarea style='resize: none;' name="message"></textarea>
       <input type='text' name="price" placeholder='מחיר'>
-      <input type="submit" value="שלח">
+      <button class="sendCommentBtn" type="submit">שלח</button>
     </form>
   </div>`;
-  document.querySelector(`#AddCommentButton-${postID}`).classList.replace("show", "hide");
-  document.querySelector(`#cancelButton-${postID}`).classList.replace("hide", "show");
-  document.querySelector(`#addComment-${postID}`).classList.replace("hide", "show");
+  document
+    .querySelector(`#AddCommentButton-${postID}`)
+    .classList.replace("show", "hide");
+  document
+    .querySelector(`#cancelButton-${postID}`)
+    .classList.replace("hide", "show");
+  document
+    .querySelector(`#addComment-${postID}`)
+    .classList.replace("hide", "show");
 }
 
 function PostFavoriteButtonClicked() {
@@ -43,27 +55,29 @@ const handleDeletePost = (e) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          postId
+          postId,
         }),
-      }).then((res) => res.json()).then(async (data) => {
-        if (data.deleted) {
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "פוסט נמחק בהצלחה",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          const url = window.location.href;
-          if (url.includes("posts")) {
-            location.reload();
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.deleted) {
+            await Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "פוסט נמחק בהצלחה",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            const url = window.location.href;
+            if (url.includes("posts")) {
+              location.reload();
+            } else {
+              window.location.href = "/categories.html";
+            }
           } else {
-            window.location.href = "/categories.html";
+            alert("תקלה במחיקת פוסט");
           }
-        } else {
-          alert("תקלה במחיקת פוסט");
-        }
-      });
+        });
     }
   });
 };
@@ -77,11 +91,13 @@ const checkIfUserLikedComment = async (commentId, userId) => {
     },
     body: JSON.stringify({
       commentId,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then((data) => {
-    checkLike = data.checkLike;
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      checkLike = data.checkLike;
+    });
   return checkLike;
 };
 
@@ -93,11 +109,13 @@ const checkHowMuchLikes = async (commentId) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      commentId
+      commentId,
     }),
-  }).then((res) => res.json()).then((data) => {
-    likedAmount = data.likeAmount;
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      likedAmount = data.likeAmount;
+    });
   return likedAmount;
 };
 
@@ -122,30 +140,32 @@ const handleNewComment = async (e, postID) => {
       commentMessage,
       commentPrice,
     }),
-  }).then((res) => res.json()).then(async (data) => {
-    if (data.posted) {
-      await Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "תגובה פורסמה בהצלחה",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      HideAddComment(postID)
-      handleHidePostsComments(postID)
-      setTimeout(function () {
-        handleGetComments(postID)
-      }, 500)
-    } else {
-      await Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "אנא בדוק שכל השדות תקינים",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.posted) {
+        await Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "תגובה פורסמה בהצלחה",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        HideAddComment(postID);
+        handleHidePostsComments(postID);
+        setTimeout(function () {
+          handleGetComments(postID);
+        }, 500);
+      } else {
+        await Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "אנא בדוק שכל השדות תקינים",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
 };
 
 const handleDeleteComment = (commentId) => {
@@ -166,24 +186,26 @@ const handleDeleteComment = (commentId) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          commentId
+          commentId,
         }),
-      }).then((res) => res.json()).then(async (data) => {
-        if (data.deleted) {
-          const postId = data.deleteCommentFunc.postId
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "תגובה נמחקה בהצלחה",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          handleHidePostsComments(postId)
-          setTimeout(function () {
-            handleGetComments(postId)
-          }, 500)
-        }
-      });
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.deleted) {
+            const postId = data.deleteCommentFunc.postId;
+            await Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "תגובה נמחקה בהצלחה",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            handleHidePostsComments(postId);
+            setTimeout(function () {
+              handleGetComments(postId);
+            }, 500);
+          }
+        });
     }
   });
 };
@@ -198,13 +220,17 @@ const handleLikeComment = async (commentId) => {
     },
     body: JSON.stringify({
       commentId,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then(async () => {
-    const likesAmount = await checkHowMuchLikes(commentId);
-    document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+  })
+    .then((res) => res.json())
+    .then(async () => {
+      const likesAmount = await checkHowMuchLikes(commentId);
+      document.querySelector(
+        `.likeComment-${commentId}`
+      ).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
       </span><span class='likesAmount' >${likesAmount}</span>`;
-  });
+    });
 };
 
 const handleUnLikeComment = async (commentId) => {
@@ -217,13 +243,17 @@ const handleUnLikeComment = async (commentId) => {
     },
     body: JSON.stringify({
       commentId,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then(async () => {
-    const likesAmount = await checkHowMuchLikes(commentId);
-    document.querySelector(`.likeComment-${commentId}`).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+  })
+    .then((res) => res.json())
+    .then(async () => {
+      const likesAmount = await checkHowMuchLikes(commentId);
+      document.querySelector(
+        `.likeComment-${commentId}`
+      ).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
       </span><span class='likesAmount'>${likesAmount}</span>`;
-  });
+    });
 };
 
 const handleFavoritePost = async (postID) => {
@@ -236,18 +266,22 @@ const handleFavoritePost = async (postID) => {
     },
     body: JSON.stringify({
       postID,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then(async () => {
-    document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
-    await Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "פוסט נוסף למועדפים",
-      showConfirmButton: false,
-      timer: 1500,
+  })
+    .then((res) => res.json())
+    .then(async () => {
+      document.querySelector(
+        `.fav-${postID}`
+      ).innerHTML = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
+      await Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "פוסט נוסף למועדפים",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
-  });
 };
 
 const handleDeleteFavoritePost = async (postID) => {
@@ -260,23 +294,27 @@ const handleDeleteFavoritePost = async (postID) => {
     },
     body: JSON.stringify({
       postID,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then(async () => {
-    const url = window.location.href;
-    const params = url.split("?")[1];
-    document.querySelector(`.fav-${postID}`).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
-    await Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "פוסט נמחק מהמועדפים",
-      showConfirmButton: false,
-      timer: 1500,
+  })
+    .then((res) => res.json())
+    .then(async () => {
+      const url = window.location.href;
+      const params = url.split("?")[1];
+      document.querySelector(
+        `.fav-${postID}`
+      ).innerHTML = `<span class="material-icons notFav" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
+      await Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "פוסט נמחק מהמועדפים",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      if (params.includes("myfavorites")) {
+        location.reload();
+      }
     });
-    if (params.includes("myfavorites")) {
-      location.reload();
-    }
-  });
 };
 
 const checkIfPostFavorite = async (postID, userId) => {
@@ -288,67 +326,75 @@ const checkIfPostFavorite = async (postID, userId) => {
     },
     body: JSON.stringify({
       postID,
-      userId
+      userId,
     }),
-  }).then((res) => res.json()).then((data) => {
-    checkFav = data.checkFav;
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      checkFav = data.checkFav;
+    });
   return checkFav;
 };
 
 const handleGetComments = async (postId, sort) => {
-  const numberOfComments = await checkHowMuchComments(postId)
+  const numberOfComments = await checkHowMuchComments(postId);
   if (numberOfComments >= 1) {
     const app = document.querySelector(`.renderComment-${postId}`);
-    const loadingComments = document.querySelector(`.loadingComments-${postId}`)
-    loadingComments.style.display = 'flex';
+    const loadingComments = document.querySelector(
+      `.loadingComments-${postId}`
+    );
+    loadingComments.style.display = "flex";
     if (app.innerHTML.length > 0) {
-      loadingComments.style.display = 'none';
-      handleHidePostsComments(postId)
+      loadingComments.style.display = "none";
+      handleHidePostsComments(postId);
     } else {
-      fetch(`/comments/${postId}`).then((res) => res.json()).then(async (data) => {
-        if (data.status === "unauthorized") {
-          window.location.href = "index.html";
-        } else {
-          if (sort == 'date') {
-            renderCommentsToDom(postId, data, 'date')
-          } else if (sort == 'like') {
-            renderCommentsToDom(postId, data, 'like')
+      fetch(`/comments/${postId}`)
+        .then((res) => res.json())
+        .then(async (data) => {
+          if (data.status === "unauthorized") {
+            window.location.href = "index.html";
           } else {
-            renderCommentsToDom(postId, data, '')
+            if (sort == "date") {
+              renderCommentsToDom(postId, data, "date");
+            } else if (sort == "like") {
+              renderCommentsToDom(postId, data, "like");
+            } else {
+              renderCommentsToDom(postId, data, "");
+            }
           }
-        }
-      });
+        });
     }
   }
-}
+};
 
 const sortCommentsByDate = (postId) => {
   const app = document.querySelector(`.renderComment-${postId}`);
-  app.innerHTML = ''
-  handleGetComments(postId, 'date')
-}
+  app.innerHTML = "";
+  handleGetComments(postId, "date");
+};
 const sortCommentsByLike = (postId) => {
   const app = document.querySelector(`.renderComment-${postId}`);
-  app.innerHTML = ''
-  handleGetComments(postId, 'like')
-}
+  app.innerHTML = "";
+  handleGetComments(postId, "like");
+};
 
 const renderCommentsToDom = async (postId, data, sort) => {
-  const numberOfComments = await checkHowMuchComments(postId)
-  let sortByLike = false
-  let sortByDate = false
-  if (sort == 'like') {
-    sortByLike = true
-  } else if (sort == 'date') {
-    sortByDate = true
+  const numberOfComments = await checkHowMuchComments(postId);
+  let sortByLike = false;
+  let sortByDate = false;
+  if (sort == "like") {
+    sortByLike = true;
+  } else if (sort == "date") {
+    sortByDate = true;
   }
   const app = document.querySelector(`.renderComment-${postId}`);
-  const loadingComments = document.querySelector(`.loadingComments-${postId}`)
-  document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')" class="material-icons">arrow_upward</span>
+  const loadingComments = document.querySelector(`.loadingComments-${postId}`);
+  document.querySelector(
+    `.commentArrow-${postId}`
+  ).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')" class="material-icons">arrow_upward</span>
 <p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')">תגובות: ${numberOfComments}</p>`;
-  app.innerHTML = ''
-  let commentsHtml = ''
+  app.innerHTML = "";
+  let commentsHtml = "";
   let comments = data.comments;
   let userInfo = await getUserInfo();
   let userId = userInfo.id;
@@ -360,7 +406,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
   }
   if (sortByLike) {
     comments.sort(function (a, b) {
-      return b.likes.length - a.likes.length
+      return b.likes.length - a.likes.length;
     });
   }
 
@@ -371,34 +417,51 @@ const renderCommentsToDom = async (postId, data, sort) => {
     if (comments[i].publishedBy === userId || isAdmin) {
       isUsersComment = true;
     }
-    const commentCreatedTime = Date.parse(comments[i].createdAt)
-    const timeAgo = timeSince(commentCreatedTime)
+    const commentCreatedTime = Date.parse(comments[i].createdAt);
+    const timeAgo = timeSince(commentCreatedTime);
     const liked = await checkIfUserLikedComment(comments[i]._id, userId);
     const likesAmount = await checkHowMuchLikes(comments[i]._id);
-    const fullComment = buildOneComment(comments[i].desc, comments[i].price, comments[i].fName, comments[i].lName, comments[i], timeAgo, comments[i]._id, liked, likesAmount, isUsersComment);
-    commentsHtml += fullComment
+    const fullComment = buildOneComment(
+      comments[i].desc,
+      comments[i].price,
+      comments[i].fName,
+      comments[i].lName,
+      comments[i],
+      timeAgo,
+      comments[i]._id,
+      liked,
+      likesAmount,
+      isUsersComment
+    );
+    commentsHtml += fullComment;
   }
   app.innerHTML = commentsHtml;
-  loadingComments.style.display = 'none';
-  const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
-  const sortComments = document.querySelector(`.sortComments-${postId}`)
-  hideCommentsButton.style.display = 'block'
-  sortComments.style.display = 'flex'
-}
+  loadingComments.style.display = "none";
+  const hideCommentsButton = document.querySelector(`.closeComments-${postId}`);
+  const sortComments = document.querySelector(`.sortComments-${postId}`);
+  hideCommentsButton.style.display = "block";
+  sortComments.style.display = "flex";
+};
 const handleHidePostsComments = (postId) => {
-  fetch(`/comments/${postId}`).then((res) => res.json()).then(async (data) => {
-    if (data.status === "unauthorized") {
-      window.location.href = "index.html";
-    } else {
-      const commentsLength = data.comments.length
-      document.querySelector(`.commentArrow-${postId}`).innerHTML = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')" class="material-icons">arrow_downward</span>
+  fetch(`/comments/${postId}`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.status === "unauthorized") {
+        window.location.href = "index.html";
+      } else {
+        const commentsLength = data.comments.length;
+        document.querySelector(
+          `.commentArrow-${postId}`
+        ).innerHTML = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')" class="material-icons">arrow_downward</span>
       <p data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')">תגובות: ${commentsLength}</p>`;
-      const hideCommentsButton = document.querySelector(`.closeComments-${postId}`)
-      hideCommentsButton.style.display = 'none'
-      const app = document.querySelector(`.renderComment-${postId}`);
-      app.innerHTML = ''
-      const sortComments = document.querySelector(`.sortComments-${postId}`)
-      sortComments.style.display = 'none'
-    }
-  });
-}
+        const hideCommentsButton = document.querySelector(
+          `.closeComments-${postId}`
+        );
+        hideCommentsButton.style.display = "none";
+        const app = document.querySelector(`.renderComment-${postId}`);
+        app.innerHTML = "";
+        const sortComments = document.querySelector(`.sortComments-${postId}`);
+        sortComments.style.display = "none";
+      }
+    });
+};

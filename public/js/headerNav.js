@@ -1,25 +1,16 @@
 const renderNavToDom = () => {
   let html = "";
-  html = `<div class="header__helloUser"></div>
-  <a href="/adminPage.html" class="header__adminPage">אדמין</a>
+  html = `
+  <div class="header__helloUser"></div>
       <form class="header__form" onsubmit="handleSearch(event)">
           <input class="header__formInput" placeholder='חפש פוסטים' type="text" required>
-          <!-- <input class="header__formSubmit" type="submit" value="חפש"> -->
           <button class="header__formSubmit" type="submit"><i class="fa fa-search"></i></button>
       </form>
-      
   
       <!-- user info / logout / edit user // show all posts -->
-      
+  
       <div class="header__userInfo">
-          <h1 class="fas fa-bars" onclick="showUserDropDown(event)"></h1>
-              <div class="header__userInfoDrop">
-              <a href="/Categories.html">קטגוריות</a>
-              <a href="/posts.html?myposts">פוסטים שלי</a>
-              <a href="/posts.html?myfavorites">מועדפים</a>
-              <a href="/updateUserData.html">עדכן פרטי חשבון</a>
-              <button onclick="handleLogout()">התנתק</button>
-          </div>
+      <h1 style="color:white;" class="fas fa-bars" onclick="showUserDropDown(event)"></h1>
       </div>
       <div  onclick="goBack()" class='goBack'>
       <span class="material-icons icon">
@@ -37,7 +28,7 @@ const getUserInfo = async () => {
     .then((res) => res.json())
     .then((data) => {
       if (!data.decoded) {
-        window.location.href = '/index.html'
+        window.location.href = "/index.html";
       }
 
       const name = data.decoded.fName;
@@ -63,15 +54,30 @@ const displayGoToAdminPage = async () => {
   let checkAdmin = await handleCheckAdmin();
 
   if (checkAdmin) {
-    document.querySelector(".header__adminPage").style.visibility = "visible";
+    document
+      .querySelector(".header__adminPage")
+      .setAttribute("style", "display:inherit");
   }
 };
+
 const showUserDropDown = (e) => {
-  document.querySelector(".header__userInfoDrop").style.display = "flex";
-  e.stopPropagation();
-};
-const hideUserDropDown = () => {
-  document.querySelector(".header__userInfoDrop").style.display = "none";
+  Swal.fire({
+    title: "<h3 style='color:#298cad;margin-bottom:0;'>תפריט</h3>",
+
+    showClass: {
+      popup: "animate__animated animate__fadeInDown",
+    },
+    hideClass: {
+      popup: "animate__animated animate__fadeOutUp",
+    },
+    html:
+      '<div class="menuItem"><a href="/Categories.html">קטגוריות</a></div>' +
+      '<div class="menuItem"><a href="/posts.html?myposts">פוסטים שלי</a></div>' +
+      '<div class="menuItem"><a href="/posts.html?myfavorites">מועדפים</a></div>' +
+      '<div class="menuItem"><a href="/updateUserData.html">עדכן פרטי חשבון</a></div>' +
+      '<button style="height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>',
+    confirmButtonText: "X",
+  });
 };
 
 //search bar
