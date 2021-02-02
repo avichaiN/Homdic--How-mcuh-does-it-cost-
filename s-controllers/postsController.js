@@ -1,7 +1,7 @@
-const Post = require("../models/post");
-const Comment = require("../models/comment");
+const Post = require("../s-models/post");
+const Comment = require("../s-models/comment");
 
-const User = require("../models/user");
+const User = require("../s-models/user");
 const sharp = require("sharp");
 const mongoose = require("mongoose");
 

@@ -1,5 +1,5 @@
 const jwt = require("jwt-simple");
-const User = require("../models/user");
+const User = require("../s-models/user");
 const bcrypt = require("bcrypt");
 const saltRounds = 12;
 require("dotenv").config();

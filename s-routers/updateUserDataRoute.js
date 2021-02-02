@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const checkUserToken = require("../routers/gFunctions/checkUserToken");
-const updateUserController = require("../controllers/updateUserController")
+const checkUserToken = require("../s-routers/gFunctions/checkUserToken");
+const updateUserController = require("../s-controllers/updateUserController")
 
 
 router

@@ -14,15 +14,15 @@ mongoose.connect(`${process.env.DATABASE_URL}`, {
 });
 
 // Routes
-const authRouter = require("./routers/authRoute");
-const categoryRouter = require("./routers/categoryRoute");
-const adminRouter = require("./routers/adminRoute");
-const updateUserDataRouter = require("./routers/updateUserDataRoute");
-const postRouter = require("./routers/postRoute");
-const commentsRouter = require("./routers/commentsRoute");
+const authRouter = require("./s-routers/authRoute");
+const categoryRouter = require("./s-routers/categoryRoute");
+const adminRouter = require("./s-routers/adminRoute");
+const updateUserDataRouter = require("./s-routers/updateUserDataRoute");
+const postRouter = require("./s-routers/postRoute");
+const commentsRouter = require("./s-routers/commentsRoute");
 
 //Global Functions
-const checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
+const checkUserTokenLogin = require("./s-routers/gFunctions/checkUserTokenLogin");
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -59,4 +59,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, "./public", "Categories.html"));
 })
 
-app.listen(port, () => console.log(`server now running on port: ${port}`));
+app.listen(port, () => console.log(`Server Live On Port: ${port}`));

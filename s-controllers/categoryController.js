@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const Post = require("../models/post");
-const User = require("../models/user");
-const Comment = require("../models/comment");
-const Category = require("../models/category");
+const Post = require("../s-models/post");
+const User = require("../s-models/user");
+const Comment = require("../s-models/comment");
+const Category = require("../s-models/category");
 const sharp = require("sharp");
 const path = require("path");
 

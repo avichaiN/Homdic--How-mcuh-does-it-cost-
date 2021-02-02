@@ -1,5 +1,5 @@
 
-const User = require("../models/user");
+const User = require("../s-models/user");
 require("dotenv").config();
 
 exports.getAllUsers = async function (req, res) {

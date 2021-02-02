@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const cookieParser = require("cookie-parser");
-const checkUserToken = require("../routers/gFunctions/checkUserToken");
-const authController = require("../controllers/authController")
+const checkUserToken = require("../s-routers/gFunctions/checkUserToken");
+const authController = require("../s-controllers/authController")
 
 router.use(cookieParser());
 

@@ -3,7 +3,7 @@ const checkUserToken = require("./gFunctions/checkUserToken");
 const checkAdmin = require("./gFunctions/checkAdmin");
 const router = express.Router();
 const multer = require("multer");
-const postsController = require("../controllers/postsController")
+const postsController = require("../s-controllers/postsController")
 
 const uploadImg = multer({
   limits: {

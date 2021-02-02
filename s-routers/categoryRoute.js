@@ -1,7 +1,7 @@
 const express = require("express");
-const checkUserToken = require("../routers/gFunctions/checkUserToken");
-const categoryController = require("../controllers/categoryController");
-const checkAdmin = require("../routers/gFunctions/checkAdmin");
+const checkUserToken = require("../s-routers/gFunctions/checkUserToken");
+const categoryController = require("../s-controllers/categoryController");
+const checkAdmin = require("../s-routers/gFunctions/checkAdmin");
 const router = express.Router();
 const multer = require("multer");
 

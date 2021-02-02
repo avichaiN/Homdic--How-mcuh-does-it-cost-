@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const Comment = require("../models/comment");
-const Post = require("../models/post");
+const Comment = require("../s-models/comment");
+const Post = require("../s-models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
 
-const commentsController = require("../controllers/commentsController")
+const commentsController = require("../s-controllers/commentsController")
 
 router
   .route("/")

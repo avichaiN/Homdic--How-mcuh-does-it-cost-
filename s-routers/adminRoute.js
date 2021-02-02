@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const adminController = require("../controllers/adminController");
+const adminController = require("../s-controllers/adminController");
 
-const User = require("../models/user");
+const User = require("../s-models/user");
 const cookieParser = require("cookie-parser");
-const checkAdmin = require("../routers/gFunctions/checkAdmin");
+const checkAdmin = require("../s-routers/gFunctions/checkAdmin");
 require("dotenv").config();
 
 router.use(cookieParser());

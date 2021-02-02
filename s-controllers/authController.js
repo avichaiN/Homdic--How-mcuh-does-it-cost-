@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../s-models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jwt-simple");
 const saltRounds = 12;
