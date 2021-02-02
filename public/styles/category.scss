@@ -41,9 +41,17 @@ body{
             }
 
             @media only screen and (max-width: 600px) {
+
+                .title{
+                    grid-row: 1;
+                    grid-column: 2;
+                }
+
                 .newPostButton{
                     grid-row: 2;
+                    grid-column: 2;
                 }
+
             }
     
             @keyframes heartbeat {

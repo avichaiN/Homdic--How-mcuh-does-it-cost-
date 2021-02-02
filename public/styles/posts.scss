@@ -116,6 +116,12 @@ body {
             place-items: center; */
             text-align: center;
         }
+
+        @media only screen and (max-width: 600px) {
+            img{
+                width: 100px;
+            }
+        }
     }
 
     #app {
@@ -666,6 +672,7 @@ body {
     color: white;
     animation: heartbeat 1.5s ease-in-out infinite both;
 }
+
 
 @keyframes heartbeat {
     from {
