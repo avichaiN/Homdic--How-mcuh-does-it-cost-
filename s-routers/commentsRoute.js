@@ -17,7 +17,7 @@ router
 
   router
   .route("/like")
-  .get(checkUserToken, commentsController.addLike)
+  .post(checkUserToken, commentsController.addLike)
   .delete(checkUserToken, commentsController.deleteLike)
 
   router
