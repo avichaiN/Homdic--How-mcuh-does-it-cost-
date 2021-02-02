@@ -51,13 +51,7 @@ const getPostsBySearch = async (searchedPosts) => {
 const getPostsByCategory = async (categoryId) => {
 
   // this is when user clicks category
-  fetch("/category/byid", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ categoryId }),
-  })
+  fetch(`/category/${categoryId}`)
     .then((res) => res.json())
     .then((data) => {
       renderPostsHeder(data.categoryInfo[0].Name, data.categoryInfo[0].img);
@@ -134,13 +128,7 @@ const getUserFavorites = async () => {
   const userId = user.id
 
   let postsToDom = []
-  await fetch("/posts/favorites/getall", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userId }),
-  })
+  await fetch(`/posts/favorites/${userId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "unauthorized") {

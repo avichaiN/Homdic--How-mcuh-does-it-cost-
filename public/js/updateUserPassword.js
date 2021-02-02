@@ -3,7 +3,7 @@ function getUserName() {
     "http://localhost:3000/updateUserPassword.html?",
     ""
   );
-  fetch("/resetpassword/getusername", {
+  fetch("updateUserData/resetpassword", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -30,8 +30,8 @@ function handleUpdatePassword(e) {
   e.preventDefault();
   const newPassword = e.target.children.password.value;
 
-  fetch("/resetpassword", {
-    method: "POST",
+  fetch("/updateUserData/resetpassword", {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

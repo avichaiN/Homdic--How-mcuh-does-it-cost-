@@ -133,9 +133,9 @@ const handleNewComment = async (e, postID) => {
       });
       HideAddComment(postID)
       handleHidePostsComments(postID)
-      setTimeout(function(){
+      setTimeout(function () {
         handleGetComments(postID)
-      },500)
+      }, 500)
     } else {
       await Swal.fire({
         position: "center",
@@ -170,6 +170,7 @@ const handleDeleteComment = (commentId) => {
         }),
       }).then((res) => res.json()).then(async (data) => {
         if (data.deleted) {
+          const postId = data.deleteCommentFunc.postId
           await Swal.fire({
             position: "center",
             icon: "success",
@@ -177,7 +178,10 @@ const handleDeleteComment = (commentId) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          location.reload();
+          handleHidePostsComments(postId)
+          setTimeout(function () {
+            handleGetComments(postId)
+          }, 500)
         }
       });
     }
@@ -225,7 +229,7 @@ const handleUnLikeComment = async (commentId) => {
 const handleFavoritePost = async (postID) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
-  fetch("/posts/favorite/add", {
+  fetch("/posts/favorite", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -249,7 +253,7 @@ const handleFavoritePost = async (postID) => {
 const handleDeleteFavoritePost = async (postID) => {
   let user = await getUserWhoPosted();
   const userId = user.id;
-  fetch("/posts/favorite/delete", {
+  fetch("/posts/favorite", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -277,7 +281,7 @@ const handleDeleteFavoritePost = async (postID) => {
 
 const checkIfPostFavorite = async (postID, userId) => {
   let checkFav = false;
-  await fetch("/posts/favorite/check", {
+  await fetch("/posts/favorites", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -364,7 +368,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
     userInfo = await getUserInfo();
     userId = userInfo.id;
     let isUsersComment = false;
-    if (comments[i].publishedBy === userId) {
+    if (comments[i].publishedBy === userId || isAdmin) {
       isUsersComment = true;
     }
     const commentCreatedTime = Date.parse(comments[i].createdAt)

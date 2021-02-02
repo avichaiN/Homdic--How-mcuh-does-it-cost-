@@ -20,7 +20,6 @@ const adminRouter = require("./routers/adminRoute");
 const updateUserDataRouter = require("./routers/updateUserDataRoute");
 const postRouter = require("./routers/postRoute");
 const commentsRouter = require("./routers/commentsRoute");
-const updateUserPasswordRouter = require("./routers/updateUserPasswordRoute");
 
 //Global Functions
 const checkUserTokenLogin = require("./routers/gFunctions/checkUserTokenLogin");
@@ -52,7 +51,6 @@ app.use("/posts", postRouter);
 
 app.use("/comments", commentsRouter);
 
-app.use("/resetpassword", updateUserPasswordRouter);
 
 
 app.use(express.static(path.join(__dirname, "public")));

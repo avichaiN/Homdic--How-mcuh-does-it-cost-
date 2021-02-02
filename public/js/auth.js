@@ -21,7 +21,9 @@ const getUserWhoPosted = async () => {
   return user
 };
 const handleLogout = () => {
-  fetch("/logout/user")
+  fetch("/", {
+    method: "delete",
+  })
     .then((res) => res.json())
     .then((data) => {
       if (data.loggedout) {

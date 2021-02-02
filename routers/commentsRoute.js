@@ -4,111 +4,33 @@ const Comment = require("../models/comment");
 const Post = require("../models/post");
 const checkUserToken = require("./gFunctions/checkUserToken");
 
+const commentsController = require("../controllers/commentsController")
 
-// this finds post by id, finds comments by post id, and send back to client.
-router.get('/:id', checkUserToken, async (req, res) => {
-  try {
+router
+  .route("/")
+  .post(checkUserToken, commentsController.createComment)
+  .delete(checkUserToken, commentsController.deleteComment)
 
-    const postId = req.params.id
-    const post = await findPostById(postId)
-    const comments = await findCommentsByPostId(postId)
+router
+  .route("/:id")
+  .get(checkUserToken, commentsController.getPostsComments)
 
-    res.send({ post, comments })
-  } catch (e) {
-    console.log(e.message)
-  }
-})
-const findPostById = async (postId) => {
-  return Post.findById({ _id: postId }).exec()
-}
-const findCommentsByPostId = async (postId) => {
-  return await Comment.aggregate([{ $match: { postId: postId } }])
-}
+  router
+  .route("/like")
+  .get(checkUserToken, commentsController.addLike)
+  .delete(checkUserToken, commentsController.deleteLike)
 
+  router
+  .route("/likedAmount")
+  .post(checkUserToken, commentsController.checkHowMuchLiked)
 
-router.post("/", checkUserToken, async (req, res) => {
+  router
+  .route("/length")
+  .post(checkUserToken, commentsController.checkHowMuchComments)
 
-  const { postID, userId, fName, lName, commentMessage, commentPrice } = req.body
+  router
+  .route("/user/like/check")
+  .post(checkUserToken, commentsController.checkIfUserLiked)
 
-  const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, fName: fName, lName: lName, publishedBy: userId });
-  try {
-    await comment.save();
-    const comments = await findCommentsByPostId(postID)
-    const commentLength = comments.length
-    res.send({ posted: true, comment, commentLength });
-  } catch (e) {
-    console.log(e.message)
-    res.send({ posted: false })
-  }
-});
-const deleteComment = (commentId) => {
-  return Comment.findOneAndDelete({ _id: commentId }).exec()
-}
-router.delete("/", checkUserToken, async (req, res) => {
-  const { commentId } = req.body
-  const deleteCommentFunc = await deleteComment(commentId)
-
-  res.send({ deleted: true })
-});
-const addLikeToComment = async (commentId, userId) => {
-  return Comment.findOneAndUpdate({ _id: commentId }, { $push: { likes: userId } }).exec()
-}
-const deleteLikeToComment = async (commentId, userId) => {
-  return Comment.findOneAndUpdate({ _id: commentId }, { $pull: { likes: userId } }).exec()
-}
-router.post("/like", checkUserToken, async (req, res) => {
-  const { commentId, userId } = req.body
-  const addLike = await addLikeToComment(commentId, userId)
-
-  res.send({ liked: true })
-});
-router.delete("/like", checkUserToken, async (req, res) => {
-  const { commentId, userId } = req.body
-  const deleteLike = await deleteLikeToComment(commentId, userId)
-
-  res.send({ deleted: true })
-});
-const checkIfUserLikedComment = async (commentId, userId) => {
-  let checkIfUserLiked = false;
-  const comment = await Comment.find({ _id: commentId })
-  const commentsLikes = comment[0].likes
-  checkIfUserLiked = commentsLikes.includes(userId)
-
-  if (checkIfUserLiked) {
-    return true
-  } else {
-    return false
-  }
-}
-const checkHowMuchLikesComment = (commentId) => {
-  return Comment.find({ _id: commentId }).exec()
-}
-
-router.post("/likedAmount", checkUserToken, async (req, res) => {
-  const { commentId } = req.body
-  const checkLikeAmount = await checkHowMuchLikesComment(commentId)
-  const likeAmount = checkLikeAmount[0].likes.length
-
-  res.send({ likeAmount })
-});
-router.post("/user/like/check", checkUserToken, async (req, res) => {
-  const { commentId, userId } = req.body
-  let checkLike = await checkIfUserLikedComment(commentId, userId)
-
-  res.send({ checkLike })
-});
-
-
-router.post('/length', checkUserToken, async (req, res) => {
-  try {
-    const { postId } = req.body
-    const comments = await findCommentsByPostId(postId)
-    const commentLength = comments.length
-    res.send({ commentLength })
-  } catch (e) {
-    console.log(e.message)
-    res.send({ error: true })
-  }
-})
 
 module.exports = router
