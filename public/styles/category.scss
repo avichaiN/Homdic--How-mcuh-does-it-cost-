@@ -30,10 +30,16 @@ body {
         border-radius: 5px;
     }
 
+    .cateogryPage{
+        width: 100%;
+        height: 100vh;
+    }
     .titles {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         margin: auto;
+        position: relative;
+        top: 5%;
 
         .newPostButton {
             margin: auto;
@@ -120,6 +126,8 @@ body {
     }
 
     .cateogryPage__categorys {
+        position: relative;
+        top: 3%;
         margin-top: 50px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));

@@ -11,6 +11,11 @@
   display: block;
 }
 
+.postsPage {
+  width: 100%;
+  height: 100vh;
+}
+
 body {
   background-color: white;
   margin: 0;
@@ -57,12 +62,16 @@ body #categoryHeder {
   display: grid;
   grid-template-columns: 4fr 4fr 4fr;
   overflow: hidden;
-  height: 15%;
-  z-index: 1;
+  height: 12%;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  top: 5%;
   background-color: white;
   text-align: center;
   border-bottom: 1px solid darkgray;
   padding: 1%;
+  opacity: 0.9;
 }
 body #categoryHeder button {
   margin: auto;
@@ -99,10 +108,11 @@ body #categoryHeder input {
 }
 body #app {
   margin: auto;
+  width: 100%;
   height: 100%;
   background-color: white;
   position: relative;
-  top: 25%;
+  top: 20%;
 }
 @media only screen and (min-width: 260px) {
   body #app {

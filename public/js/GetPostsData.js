@@ -157,17 +157,29 @@ const checkHowMuchComments = async (postId) => {
         comments = data.commentLength;
       }
     });
+<<<<<<< HEAD
+  return comments;
+};
+=======
   return comments
 }
+>>>>>>> master
 const getWhoPosted = async (userId) => {
-  let fNamelName
+  let fNamelName;
   await fetch(`/posts/user/${userId}`)
     .then((res) => res.json())
     .then((data) => {
+<<<<<<< HEAD
+      fNamelName = data.userFNameLName;
+    });
+  return fNamelName;
+};
+=======
       fNamelName = data.userFNameLName
     })
     return fNamelName
 }
+>>>>>>> master
 
 const renderPosts = async (postsArray) => {
   let userInfo = await getUserInfo();
@@ -183,7 +195,7 @@ const renderPosts = async (postsArray) => {
     const postCreatedTime = Date.parse(postsArray[i].createdAt);
     const timeAgo = timeSince(postCreatedTime);
 
-    const getUserWhoPosted = await getWhoPosted(postsArray[i].publishedBy)
+    const getUserWhoPosted = await getWhoPosted(postsArray[i].publishedBy);
 
     if (postsArray[i].publishedBy === userId) {
       isUsersPost = true;
