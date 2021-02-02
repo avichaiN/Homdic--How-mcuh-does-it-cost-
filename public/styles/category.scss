@@ -1,156 +1,162 @@
-body{
-        
+body {
     margin: 0;
-        direction: rtl;
-        text-align: center;
-    
-        h1,h2,h3,h4,p,label{
-            color: #298cad;
-        }
-    
-        h1,h2,h3,h4,p,label,button,input{
-            font-family: 'Rubik', sans-serif;
-        }
-    
-        button{
-            border: 1px solid white;
-            color: white;
-            background-color: #298cad;
+    direction: rtl;
+    text-align: center;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    label {
+        color: #247c99;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    label,
+    button,
+    input {
+        font-family: "Rubik", sans-serif;
+    }
+
+    button {
+        border: 1px solid white;
+        color: white;
+        background-color: #247c99;
+        border-radius: 5px;
+    }
+
+    .titles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: auto;
+
+        .newPostButton {
+            margin: auto;
+            height: 50px;
+            background-color: white;
+            color: #247c99;
+            border: 1px solid #247c99;
             border-radius: 5px;
         }
-    
-    
-        .titles{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            margin: auto;
-    
-            .newPostButton{
-                margin: auto;
-                height: 50px;
-                background-color: white;
-                color: #298cad;
-                border: 1px solid #298cad;
-                border-radius: 5px;
-            }
-    
-            .newPostButton:hover{
-                background-color: #298cad;
-                color: white;
-                animation: heartbeat 1.5s ease-in-out infinite both;
+
+        .newPostButton:hover {
+            background-color: #247c99;
+            color: white;
+            animation: heartbeat 1.5s ease-in-out infinite both;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .title {
+                grid-row: 1;
+                grid-column: 2;
             }
 
-            @media only screen and (max-width: 600px) {
-
-                .title{
-                    grid-row: 1;
-                    grid-column: 2;
-                }
-
-                .newPostButton{
-                    grid-row: 2;
-                    grid-column: 2;
-                }
-
-            }
-    
-            @keyframes heartbeat {
-                from {
-                  -webkit-transform: scale(1);
-                          transform: scale(1);
-                  -webkit-transform-origin: center center;
-                          transform-origin: center center;
-                  -webkit-animation-timing-function: ease-out;
-                          animation-timing-function: ease-out;
-                }
-                10% {
-                  -webkit-transform: scale(0.91);
-                          transform: scale(0.91);
-                  -webkit-animation-timing-function: ease-in;
-                          animation-timing-function: ease-in;
-                }
-                17% {
-                  -webkit-transform: scale(0.98);
-                          transform: scale(0.98);
-                  -webkit-animation-timing-function: ease-out;
-                          animation-timing-function: ease-out;
-                }
-                33% {
-                  -webkit-transform: scale(0.87);
-                          transform: scale(0.87);
-                  -webkit-animation-timing-function: ease-in;
-                          animation-timing-function: ease-in;
-                }
-                45% {
-                  -webkit-transform: scale(1);
-                          transform: scale(1);
-                  -webkit-animation-timing-function: ease-out;
-                          animation-timing-function: ease-out;
-                }
-              }
-              
-    
-            .category__admin{
-                display: none;
-                border: 1px solid #298cad;
-                margin: auto;
-                width: 200px;
-                padding: 5px;
-                border-radius: 5px;
-                margin-top: 15px;
-            }
-    
-            .category__adminAddCategoryForm{
-                margin: auto;
-                margin-top: 15px;
-                display: none;
-    
-                div{
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
+            .newPostButton {
+                grid-row: 1;
+                grid-column: 1;
             }
         }
-    
-        .cateogryPage__categorys{
-            margin-top: 50px;
+
+        @keyframes heartbeat {
+            from {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                -webkit-transform-origin: center center;
+                transform-origin: center center;
+                -webkit-animation-timing-function: ease-out;
+                animation-timing-function: ease-out;
+            }
+            10% {
+                -webkit-transform: scale(0.91);
+                transform: scale(0.91);
+                -webkit-animation-timing-function: ease-in;
+                animation-timing-function: ease-in;
+            }
+            17% {
+                -webkit-transform: scale(0.98);
+                transform: scale(0.98);
+                -webkit-animation-timing-function: ease-out;
+                animation-timing-function: ease-out;
+            }
+            33% {
+                -webkit-transform: scale(0.87);
+                transform: scale(0.87);
+                -webkit-animation-timing-function: ease-in;
+                animation-timing-function: ease-in;
+            }
+            45% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                -webkit-animation-timing-function: ease-out;
+                animation-timing-function: ease-out;
+            }
+        }
+
+        .category__admin {
+            display: none;
+            border: 1px solid #247c99;
+            margin: auto;
+            width: 200px;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .category__adminAddCategoryForm {
+            margin: auto;
+            margin-top: 15px;
+            display: none;
+
+            div {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .cateogryPage__categorys {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+        .cateogryPage__categorysBoxContainer {
+            img {
+                /* width: 300px;
+                    height: 130px; */
+                width: 80%;
+                height: 250px;
+                border-radius: 10px;
+                box-shadow: 3px 3px 3px black;
+                
+            }
+
+            img:hover {
+                animation: heartbeat 1.5s ease-in-out infinite both;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .category__admin {
+            max-width: 80px;
+        }
+
+        .cateogryPage__categorys {
             display: grid;
-            grid-template-columns: 3fr 3fr 3fr 3fr;
-            
-            .cateogryPage__categorysBoxContainer{
-                img{
-                    width: 200px;
-                    height: 130px;
+            grid-template-columns: 1fr 1fr;
+
+            .cateogryPage__categorysBoxContainer {
+                img {
+                   // max-width: 120px;
                     border-radius: 10px;
                     box-shadow: 3px 3px 3px black;
                 }
-    
-                img:hover{
-                animation: heartbeat 1.5s ease-in-out infinite both;
-                }
             }
         }
-    
-    
-        @media only screen and (max-width: 600px) {
-            .category__admin{
-                max-width: 80px;
-            }
-    
-            .cateogryPage__categorys{
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                
-                .cateogryPage__categorysBoxContainer{
-                    img{
-                        max-width: 120px;
-                        border-radius: 10px;
-                        box-shadow: 3px 3px 3px black;
-                    }
-                }
-    
-            }
-        }
-        
-    
     }
+}

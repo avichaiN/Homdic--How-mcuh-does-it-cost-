@@ -10,7 +10,7 @@ $body-bg-color: white;
 $categoryHeder-bg-color: white;
 $addButton-bg-color: #2097f5;
 $addButton-color: white;
-$postheder-bg-color: #298cad;
+$postheder-bg-color: #247C99;
 
 
 .material-icons {
@@ -37,7 +37,7 @@ body {
     }
 
     h1,h2,h3,h4,p,label{
-        color: #298cad;
+        color: #247C99;
     }
 
     h1,h2,h3,h4,p,label,button,input{
@@ -47,7 +47,7 @@ body {
     button{
         border: 1px solid white;
         color: white;
-        background-color: #298cad;
+        background-color: #247C99;
         border-radius: 5px;
     }
 
@@ -661,14 +661,14 @@ body {
     margin: auto;
     height: 50px;
     background-color: white;
-    color: #298cad;
-    border: 1px solid #298cad;
+    color: #247C99;
+    border: 1px solid #247C99;
     border-radius: 5px;
     grid-row: 1;
 }
 
 .newPostButton:hover{
-    background-color: #298cad;
+    background-color: #247C99;
     color: white;
     animation: heartbeat 1.5s ease-in-out infinite both;
 }

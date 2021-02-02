@@ -77,7 +77,7 @@
   cursor: pointer;
 }
 .newPostBox form .img:hover {
-  background-color: #298cad;
+  background-color: #247C99;
 }
 .newPostBox form input[type=submit] {
   width: 100%;
@@ -87,7 +87,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #298cad;
+  background-color: #247C99;
 }
 .newPostBox form input[type=submit]:hover {
   transition: 0.3s;
