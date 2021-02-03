@@ -34,6 +34,13 @@ const writeCategoiresToDom = (categories) => {
   categoryDiv.innerHTML = categoriesHtml;
   displayAdminCategory();
 };
+const displayAdminCategory = async () => {
+  let checkAdmin = await handleCheckAdmin();
+
+  if (checkAdmin) {
+    document.querySelector(".category__admin").style.display = "block";
+  }
+};
 
 // go to clicked category
 const goToClickedCategory = (e) => {

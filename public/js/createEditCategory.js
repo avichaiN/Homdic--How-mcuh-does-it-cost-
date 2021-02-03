@@ -1,11 +1,5 @@
-//if admin display this.
-const displayAdminCategory = async () => {
-  let checkAdmin = await handleCheckAdmin();
 
-  if (checkAdmin) {
-    document.querySelector(".category__admin").style.display = "block";
-  }
-};
+
 const handleDisplayAddCategory = () => {
   document.querySelector(".category__adminAddCategoryForm").style.display =
     "block";
