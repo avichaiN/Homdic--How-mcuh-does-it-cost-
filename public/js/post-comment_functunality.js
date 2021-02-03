@@ -336,10 +336,13 @@ const handleGetComments = async (postId, sort) => {
   const showCommentsButton = document.querySelector(`.commentArrow-${postId}`)
   const commentSection = document.querySelector(`.renderComment-${postId}`)
   const numberOfComments = await checkHowMuchComments(postId);
+
+  showCommentsButton.classList.add("cantClick")
+
   if (commentSection.innerHTML.length > 0 || numberOfComments < 1) {
     handleHidePostsComments(postId);
+    showCommentsButton.classList.remove("cantClick")
   } else {
-    showCommentsButton.classList.add("cantClick")
     const loadingComments = document.querySelector(
       `.loadingComments-${postId}`
     );
