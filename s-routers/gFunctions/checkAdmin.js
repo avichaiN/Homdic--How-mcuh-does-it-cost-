@@ -9,9 +9,8 @@ function checkAdmin(req, res, next) {
 
   if (token) {
     var decoded = jwt.decode(token, process.env.SECRET);
-    console.log(decoded)
     const tokenMadeTime = decoded.time
-    console.log(tokenMadeTime)
+
 
     if (tokenMadeTime < oneDayAgo) { // not a valid date ( made over 24 hours ago )
       console.log('not valid')

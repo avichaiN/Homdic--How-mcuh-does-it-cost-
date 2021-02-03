@@ -1,5 +1,8 @@
 
 const User = require("../s-models/user");
+const Post = require("../s-models/post");
+const Comment = require("../s-models/comment");
+
 require("dotenv").config();
 
 exports.getAllUsers = async function (req, res) {
@@ -12,13 +15,16 @@ exports.getAllUsers = async function (req, res) {
         res.status(404).send({ status: "unauthorized" });
     }
 };
-exports.deleteUser = async function(req, res) {
+exports.deleteUser = async function (req, res) {
     try {
         const { userId } = req.body;
+        await deleteUserPosts(userId)
+        await deleteUserComments(userId)
+        await deleteUserLikes(userId)
         await deleteUserById(userId);
         let allUsers = await getAllUsers();
         res.send({ allUsers });
-    } catch (err) {
+    } catch (e) {
         console.log(e.message);
         res.status(404).send({ status: "unauthorized" });
     }
@@ -43,15 +49,32 @@ exports.editUser = async function (req, res) {
         res.status(404).send({ status: "unauthorized" });
     }
 };
-exports.checkAdminF = function(req, res) {
+exports.checkAdminF = function (req, res) {
     try {
-        console.log('in check admin F')
         res.send({ admin: true });
     } catch (err) {
         console.log(e.message);
         res.status(404).send({ status: "unauthorized" });
     }
 };
+const deleteUserPosts = (userId) => {
+    return Post.deleteMany({ publishedBy: userId }).exec()
+}
+const deleteUserComments = (userId) => {
+    return Comment.deleteMany({ publishedBy: userId }).exec()
+}
+const deleteUserLikes = async (userId) => {
+    let comments = await Comment.find({})
+    let commentsWhichLiked = []
+    comments.forEach(comment => {
+        if (comment.likes.includes(userId)) {
+            commentsWhichLiked.push(comment._id)
+        }
+    })
+    commentsWhichLiked.forEach(async commentId => {
+        await Comment.findOneAndUpdate({ _id: commentId }, { $pull: { likes: userId } }).exec();
+    })
+}
 async function getAllUsersLength() {
     let users = await User.find().exec();
     return users.length

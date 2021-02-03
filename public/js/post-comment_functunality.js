@@ -381,6 +381,8 @@ const sortCommentsByLike = (postId) => {
 };
 
 const renderCommentsToDom = async (postId, data, sort) => {
+  blockLoadMore = true;
+  canLoadMore = false;
   const numberOfComments = await checkHowMuchComments(postId);
   let sortByLike = false;
   let sortByDate = false;
@@ -448,6 +450,10 @@ const renderCommentsToDom = async (postId, data, sort) => {
   sortComments.style.display = "flex";
   showCommentsButton.classList.remove("cantClick")
   sortCommentsButtons.classList.remove("cantClick")
+  setTimeout(function () {
+    canLoadMore = true;
+    blockLoadMore = false;
+  }, 50);
 };
 const handleHidePostsComments = (postId) => {
   fetch(`/comments/${postId}`)
