@@ -47,7 +47,7 @@ var getCategoiresCheckBox = function getCategoiresCheckBox() {
 };
 
 var handleNewPost = function handleNewPost(e, file) {
-  var user, categoryId, title, desc, img, userId, imgFile, firstword, formData;
+  var user, categoryId, title, desc, img, userId, imgFile, newSentenc, wordsArry, formData;
   return regeneratorRuntime.async(function handleNewPost$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -63,12 +63,28 @@ var handleNewPost = function handleNewPost(e, file) {
           desc = e.target.children.desc.value;
           img = e.target.children.img;
           userId = user.id;
-          imgFile = img.files[0];
-          firstword = desc.split(" ");
+          imgFile = img.files[0]; /////////////////error
 
-          if (firstword[0].length > 20) {
-            desc = 'Not Allowd Word!';
-          }
+          wordsArry = desc.split(" ");
+          wordsArry.forEach(word = function (_word) {
+            function word() {
+              return _word.apply(this, arguments);
+            }
+
+            word.toString = function () {
+              return _word.toString();
+            };
+
+            return word;
+          }(function () {
+            if (word.length > 20) {
+              newSentenc += 'X';
+            } else {
+              newSentenc += word;
+            }
+
+            desc = newSentenc;
+          }));
 
           if (categoryId === "choseCategory") {
             categoryId = undefined;

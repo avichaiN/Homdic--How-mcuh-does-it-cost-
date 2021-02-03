@@ -71,10 +71,23 @@ const handleNewPost = async (e, file) => {
   const userId = user.id;
 
   let imgFile = img.files[0];
-let firstword = desc.split(" ");
-if (firstword[0].length > 20) {
-  desc = 'Not Allowd Word!'
+
+
+  /////////////////error
+let newSentenc;
+let wordsArry = desc.split(" ");
+wordsArry.forEach(   word =() =>{
+  if (word.length > 20) {
+    newSentenc += 'X';
+  } else {
+    newSentenc += word;
+  }
+  
+  desc = newSentenc;
 }
+  
+)
+
 
 
   if (categoryId === "choseCategory") {
