@@ -1,12 +1,12 @@
 const Comment = require("../s-models/comment");
 const Post = require("../s-models/post");
-const moment = require('moment'); // require
+const moment = require('moment-timezone');
 
 exports.createComment = async function (req, res) {
     try {
         const { postID, userId, commentMessage, commentPrice } = req.body
 
-        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, publishedBy: userId, createdAt: moment().format() });
+        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, publishedBy: userId, createdAt: moment().tz("Asia/Jerusalem").format() });
         await comment.save();
         const comments = await findCommentsByPostId(postID)
         const commentLength = comments.length

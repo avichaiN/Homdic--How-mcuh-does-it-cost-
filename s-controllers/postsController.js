@@ -16,7 +16,7 @@ exports.createPost = async function (req, res) {
             desc: desc,
             categoryId: categoryId,
             publishedBy: userId,
-            createdAt: moment().format()
+            createdAt: moment().tz("Asia/Jerusalem").format()
         });
         if (req.file) {
             const Buffer = await sharp(req.file.buffer)
