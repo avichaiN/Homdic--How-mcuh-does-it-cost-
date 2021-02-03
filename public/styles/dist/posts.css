@@ -469,6 +469,14 @@ body #app .renderComment .hideCommentsButton {
 }
 body #app .average {
   display: none;
+  color: #247c99;
+  border: 1px solid #247c99;
+  box-shadow: 1px 1px black;
+  max-width: 150px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: auto;
+  font-family: "Rubik", sans-serif;
 }
 body #app .cantClick {
   pointer-events: none;
@@ -548,7 +556,7 @@ body #app .dot-spin {
 }
 
 .unliked {
-  color: black;
+  color: #247c99;
 }
 
 .material-icons {
