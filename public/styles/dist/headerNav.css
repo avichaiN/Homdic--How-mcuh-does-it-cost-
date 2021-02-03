@@ -1,7 +1,8 @@
 .header {
   display: grid;
-  grid-template-columns: 1fr 3fr 3fr 1fr;
-  background-color: #247C99;
+  grid-template-columns: repeat(12, auto);
+  background-color: #247c99;
+  position: sticky;
 }
 .header h1 {
   margin-top: 5px;
@@ -18,13 +19,15 @@
 }
 .header .header__form {
   margin: auto;
+  grid-column: 4/10;
+  width: 100%;
 }
 .header .header__form .header__formInput {
-  width: 250px;
+  width: 50%;
   height: 25px;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid #247C99;
+  border: 1px solid #247c99;
 }
 .header .header__form .header__formSubmit {
   width: 50px;
@@ -32,7 +35,7 @@
 }
 .header .header__form .header__formSubmit:hover {
   background-color: white;
-  color: #247C99;
+  color: #247c99;
 }
 @media only screen and (max-width: 950px) {
   .header .header__form .header__formInput {
@@ -42,9 +45,9 @@
     width: 30px;
   }
 }
-.header .header__userInfo img {
-  max-width: 40px;
-  margin: auto;
+.header .header__userInfo {
+  justify-self: end;
+  grid-column: 11;
 }
 .header .header__userInfo:hover {
   animation: heartbeat 1.5s ease-in-out infinite both;
@@ -92,7 +95,8 @@
   margin: auto;
   width: 50px;
   transition: 0.5s;
-  background-image: linear-gradient(to right, #247C99 0%, #247e9b 51%, #20708a 100%);
+  background-image: linear-gradient(to right, #247c99 0%, #247e9b 51%, #20708a 100%);
+  grid-column: 12;
 }
 .header .goBack .icon {
   align-self: center;
@@ -109,13 +113,13 @@
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
-  border: 1px solid #247C99;
+  border: 1px solid #247c99;
 }
 .menuItem a {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  color: #247C99;
+  color: #247c99;
   outline: 0;
   padding: 6px 12px;
   border: 2px solid white;
@@ -124,8 +128,11 @@
   margin: 2px;
   cursor: pointer;
 }
-.menuItem a:hover, .menuItem a:active, .menuItem button:hover, .menuItem button:active {
-  background-color: #247C99;
+.menuItem a:hover,
+.menuItem a:active,
+.menuItem button:hover,
+.menuItem button:active {
+  background-color: #247c99;
   color: white;
 }
 
