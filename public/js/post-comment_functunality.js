@@ -14,8 +14,8 @@ function ShowAddComment(postID) {
   document.querySelector(`#addComment-${postID}`).innerHTML = `<div>
     <p>הוסף תגובה</p>
     <form onsubmit='handleNewComment(event, "${postID}")'>
-      <textarea style='resize: none;' name="message"></textarea>
-      <input type='text' name="price" placeholder='מחיר'>
+      <textarea style='resize: none;' maxlength="220" name="message"></textarea>
+      <input type='text' name="price" maxlength="6" placeholder='מחיר'>
       <button class="sendCommentBtn" type="submit">שלח</button>
     </form>
   </div>`;
@@ -156,7 +156,7 @@ const handleNewComment = async (e, postID) => {
         await Swal.fire({
           position: "center",
           icon: "error",
-          title: "אנא בדוק שכל השדות תקינים",
+          title: "מחיר חייב להיות אך ורק מספר.",
           showConfirmButton: false,
           timer: 1500,
         });

@@ -79,7 +79,7 @@ body #categoryHeder {
   position: fixed;
   z-index: 3;
   width: 100%;
-  top: 5%;
+  top: 4%;
   background-color: white;
   text-align: center;
   border-bottom: 1px solid darkgray;
@@ -416,7 +416,8 @@ body #app .renderComment {
   margin: auto;
 }
 body #app .renderComment .comment {
-  border: 1px solid darkgray;
+  overflow: hidden;
+  border: 2px solid darkgray;
   margin-top: 1%;
   display: grid;
   grid-template-rows: 1fr;
@@ -556,7 +557,6 @@ body #app .dot-spin {
 
 .active {
   cursor: pointer;
-  color: #247C99;
 }
 
 .deletePostButton {
