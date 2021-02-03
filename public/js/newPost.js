@@ -73,8 +73,8 @@ const handleNewPost = async (e, file) => {
   let imgFile = img.files[0];
 
 
-  /////////////////error
-  let newSentenc;
+
+  let newSentenc ='';
   let wordsArry = desc.split(" ");
   wordsArry.forEach(word => {
     if (word.length > 20) {

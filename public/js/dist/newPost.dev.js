@@ -63,8 +63,7 @@ var handleNewPost = function handleNewPost(e, file) {
           desc = e.target.children.desc.value;
           img = e.target.children.img;
           userId = user.id;
-          imgFile = img.files[0]; /////////////////error
-
+          imgFile = img.files[0];
           newSentenc = '';
           wordsArry = desc.split(" ");
           wordsArry.forEach(function (word) {
@@ -75,7 +74,14 @@ var handleNewPost = function handleNewPost(e, file) {
             }
 
             desc = newSentenc;
-          });
+          }); // wordsArry.forEach(word = () => {
+          //   if (word.length > 20) {
+          //     newSentenc += 'X';
+          //   } else {
+          //     newSentenc += word;
+          //   }
+          //   desc = newSentenc;
+          // })
 
           if (categoryId === "choseCategory") {
             categoryId = undefined;
