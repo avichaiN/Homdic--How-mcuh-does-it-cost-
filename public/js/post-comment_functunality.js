@@ -415,7 +415,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
       isUsersComment = true;
     }
     const commentCreatedTime = Date.parse(comments[i].createdAt);
-    const timeAgo = timeSince(commentCreatedTime);
+    const timeAgo = await timeSince(commentCreatedTime)
     const liked = await checkIfUserLikedComment(comments[i]._id, userId);
     const likesAmount = await checkHowMuchLikes(comments[i]._id);
     const fullComment = buildOneComment(

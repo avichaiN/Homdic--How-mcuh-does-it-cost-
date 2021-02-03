@@ -26,8 +26,8 @@ $postheder-bg-color: #247C99;
     display: block;
 }
 .postsPage{
-    // width: 100%;
-    // height: 100vh;
+    width: 100%;
+    height: 100vh;
 }
 body {
     background-color: $body-bg-color;
@@ -82,10 +82,10 @@ body {
         grid-template-columns: 4fr 4fr 4fr;
         overflow: hidden;
         height: 12%;
-        // position: fixed;
-        // z-index: 5;
-        // width: 100%;
-        // top: 5%;
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        top: 5%;
         background-color: $categoryHeder-bg-color;
         text-align: center;
         border-bottom: 1px solid darkgray;
@@ -136,15 +136,15 @@ body {
         width: 100%;
         height: 100%;
         background-color: $body-bg-color;
-        // position: relative;
-        // top: 20%;
+        position: relative;
+        top: 20%;
 
         @include mq(260px) {
-            width: 100%;
+            width: 95%;
         }
 
         @include mq(480px) {
-            width: 100%;
+            width: 95%;
         }
 
         @include mq(768px) {
@@ -222,8 +222,6 @@ body {
             border-radius: 0 0 10px 10px;
             box-shadow: 1px 1px 1px rgba(134, 134, 139, 0.699);
             background-color: white;
-
-            
 
             #postheder {
                 background-color: $postheder-bg-color;                               

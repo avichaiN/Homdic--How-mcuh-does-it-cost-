@@ -181,7 +181,7 @@ const renderPosts = async (postsArray) => {
     let isUsersPost = false;
 
     const postCreatedTime = Date.parse(postsArray[i].createdAt);
-    const timeAgo = timeSince(postCreatedTime);
+    const timeAgo = await timeSince(postCreatedTime)
 
     const getUserWhoPosted = await getWhoPosted(postsArray[i].publishedBy);
 

@@ -34,7 +34,7 @@ router
   .route("/user/get")
   .post(checkUserToken, postsController.getPostsByUser)
 
-  router
+router
   .route("/user/:id")
   .get(checkUserToken, postsController.getUserWhoPostedName)
 
@@ -55,5 +55,8 @@ router
   .route("/favorites/:id")
   .get(checkUserToken, postsController.getFavoritePosts)
 
+router
+  .route("/timeAgo")
+  .post(checkUserToken, postsController.timeAgo)
 
 module.exports = router
