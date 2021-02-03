@@ -203,6 +203,10 @@ const renderPosts = async (postsArray) => {
       isFavorite
     );
     document.getElementById("app").innerHTML += html;
+    if(isUsersPost){
+      document.getElementById(`favoriteIcon-${postsArray[i]._id}`).style.visibility = 'hidden'
+      document.getElementById(`favoriteWord-${postsArray[i]._id}`).style.visibility = 'hidden'
+    }
     if (isUsersPost || isAdmin) {
       document.getElementById(
         `${postsArray[i]._id}`

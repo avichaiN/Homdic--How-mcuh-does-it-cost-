@@ -64,7 +64,7 @@ body #categoryHeder {
   overflow: hidden;
   height: 12%;
   position: fixed;
-  z-index: 5;
+  z-index: 3;
   width: 100%;
   top: 5%;
   background-color: white;

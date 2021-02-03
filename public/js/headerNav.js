@@ -80,7 +80,7 @@ const showUserDropDown = (e) => {
       '<div class="menuItem"><a href="/posts.html?myposts">פוסטים שלי</a></div>' +
       '<div class="menuItem"><a href="/posts.html?myfavorites">מועדפים</a></div>' +
       '<div class="menuItem"><a href="/updateUserData.html">עדכן פרטי חשבון</a></div>' +
-      '<button style="height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>',
+      '<button style="cursor: pointer;height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>',
     confirmButtonText: "X",
   });
 };

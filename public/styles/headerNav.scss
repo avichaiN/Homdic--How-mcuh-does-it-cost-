@@ -4,7 +4,7 @@
     background-color: #247c99;
     position: fixed;
     width: 100%;
-    z-index: 5;
+    z-index: 6;
     top: 0;
     left: 0;
     right: 0;
@@ -40,6 +40,7 @@
         }
 
         .header__formSubmit {
+            cursor: pointer;
             width: 50px;
             height: 25px;
         }
@@ -60,6 +61,7 @@
     }
 
     .header__userInfo {
+        cursor: pointer;
         justify-self: end;
         grid-column: 11;
     }

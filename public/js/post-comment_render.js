@@ -40,9 +40,9 @@ function buildOnePost(
     }
   }
   if (isFavorite) {
-    favoriteButton = `<span class="material-icons fav" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
+    favoriteButton = `<span class="material-icons fav" id="favoriteIcon-${postID}" onclick="handleDeleteFavoritePost('${postID}')"> star </span><p id="favoriteWord-${postID}">מועדפים</p>`;
   } else {
-    favoriteButton = `<span class="material-icons" onclick="handleFavoritePost('${postID}')"> star </span><p>מועדפים</p>`;
+    favoriteButton = `<span class="material-icons" id="favoriteIcon-${postID}" onclick="handleFavoritePost('${postID}')"> star </span><p id="favoriteWord-${postID}">מועדפים</p>`;
   }
   let sort = "def";
   /*  */
