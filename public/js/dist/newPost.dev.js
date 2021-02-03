@@ -67,7 +67,7 @@ var handleNewPost = function handleNewPost(e, file) {
           newSentenc = '';
           wordsArry = desc.split(" ");
           wordsArry.forEach(function (word) {
-            if (word.length > 20) {
+            if (word.length > 11) {
               newSentenc += 'X';
             } else {
               newSentenc += word;
