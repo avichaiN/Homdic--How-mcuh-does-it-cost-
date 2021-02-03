@@ -1,5 +1,7 @@
 function timeSince(date) {
-  let seconds = Math.floor((new Date() - date) / 1000);
+  let israel = moment().tz("Asia/Jerusalem").format()
+  let seconds = Math.floor((new Date(israel) - date) / 1000);
+
 
   let interval = seconds / 31536000;
 
