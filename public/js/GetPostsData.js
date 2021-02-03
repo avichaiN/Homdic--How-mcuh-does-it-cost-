@@ -157,7 +157,6 @@ const checkHowMuchComments = async (postId) => {
         comments = data.commentLength;
       }
     });
-<<<<<<< Updated upstream
   return comments
 }
 const getWhoPosted = async (userId) => {
@@ -169,10 +168,6 @@ const getWhoPosted = async (userId) => {
     })
     return fNamelName
 }
-=======
-  return comments;
-};
->>>>>>> Stashed changes
 
 const renderPosts = async (postsArray) => {
   let userInfo = await getUserInfo();
