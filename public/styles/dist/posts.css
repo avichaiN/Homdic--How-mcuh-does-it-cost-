@@ -562,7 +562,6 @@ body #app .dot-spin {
 .material-icons {
   display: flex;
   justify-content: center;
-  color: #247c99;
 }
 
 .active {
