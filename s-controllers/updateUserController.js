@@ -58,7 +58,7 @@ exports.sendEmail = async function (req, res) {
     try {
       newPassword = hash;
       const encodedId = req.headers.referer.replace(
-        "http://localhost:3000/updateUserPassword.html?",
+        "http://homdic.herokuapp.com/updateUserPassword.html?",
         ""
       );
 
