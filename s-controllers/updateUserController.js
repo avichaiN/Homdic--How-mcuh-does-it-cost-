@@ -70,13 +70,15 @@ exports.sendEmail = async function (req, res) {
         }
       );
 
-      const token = jwt.encode(
-        {
-          role: userFound.role,
-          username: userFound.username,
-          name: userFound.firstName,
-          time: new Date().getTime(),
-        },
+        const token = jwt.encode(
+          {
+            id: userFound._id,
+            role: userFound.role,
+            username: userFound.username,
+            fName: userFound.firstName,
+            lName: userFound.lastName,
+            time: new Date().getTime(),
+          },
         process.env.SECRET
       );
       res.cookie("userLoggedIn", token, {

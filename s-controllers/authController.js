@@ -121,10 +121,10 @@ exports.resetPassword = async function (req, res) {
       });
 
       const mailOptions = {
-        from: "Homedic Support",
+        from: "Homdic, תמיכה",
         to: `${userEmail}`,
-        subject: "Reset your password at Homedic",
-        html: `<p>היי <br> שמענו ששכחת את הסיסמא שלך, אל דאגה! נא להכנס לקישור המצורף לאיפוס , צוות homdic</p><br>http://homdic.herokuapp.com/updateUserPassword.html?${encodedId} `,
+        subject: "Homdic, אפס סיסמה",
+        html: `<p>היי ${userFound.fName}<br> שמענו ששכחת את הסיסמא שלך, אל דאגה! נא להכנס לקישור המצורף לאיפוס , צוות</p><br>http://homdic.herokuapp.com/updateUserPassword.html?${encodedId} `,
       };
 
       tranporter.sendMail(mailOptions, function (e, info) {
