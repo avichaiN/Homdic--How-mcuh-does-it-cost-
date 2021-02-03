@@ -489,7 +489,7 @@ const getAveragePrice = (comments) => {
   })
   let sum = 0;
   for (i = 0; i < commentsPrice.length; i++) {
-    sum += parseInt(commentsPrice[i], 10); //don't forget to add the base
+    sum += parseInt(commentsPrice[i], 10);
   }
   const x = sum / commentsPrice.length;
   let priceAvarge = ~~x
