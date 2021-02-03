@@ -4,9 +4,11 @@ const Comment = require("../s-models/comment");
 const User = require("../s-models/user");
 const sharp = require("sharp");
 const mongoose = require("mongoose");
+const moment = require('moment-timezone');
 
 exports.createPost = async function (req, res) {
     try {
+        console.log(moment().tz("Asia/Jerusalem").format())
         const { userId, categoryId, title, desc } = req.body;
 
         const post = new Post({
@@ -14,8 +16,8 @@ exports.createPost = async function (req, res) {
             desc: desc,
             categoryId: categoryId,
             publishedBy: userId,
+            createdAt: moment().format()
         });
-
         if (req.file) {
             const Buffer = await sharp(req.file.buffer)
                 .resize({ width: 240, high: 240 })
@@ -24,6 +26,7 @@ exports.createPost = async function (req, res) {
             post.img = Buffer
             post.imgName = req.file.name
         }
+
 
         await post.save(post);
 

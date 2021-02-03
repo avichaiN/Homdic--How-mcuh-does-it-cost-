@@ -1,11 +1,12 @@
 const Comment = require("../s-models/comment");
 const Post = require("../s-models/post");
+const moment = require('moment'); // require
 
 exports.createComment = async function (req, res) {
     try {
         const { postID, userId, commentMessage, commentPrice } = req.body
 
-        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, publishedBy: userId });
+        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, publishedBy: userId, createdAt: moment().format() });
         await comment.save();
         const comments = await findCommentsByPostId(postID)
         const commentLength = comments.length
@@ -20,7 +21,7 @@ exports.deleteComment = async function (req, res) {
         const { commentId } = req.body
         const deleteCommentFunc = await deleteComment(commentId)
 
-        res.send({ deleted: true,deleteCommentFunc })
+        res.send({ deleted: true, deleteCommentFunc })
     } catch (e) {
         console.log(e.message);
         res.send({ status: "unauthorized" });
@@ -115,13 +116,13 @@ const checkIfUserLikedComment = async (commentId, userId) => {
     const comment = await Comment.find({ _id: commentId })
     const commentsLikes = comment[0].likes
     checkIfUserLiked = commentsLikes.includes(userId)
-  
+
     if (checkIfUserLiked) {
-      return true
+        return true
     } else {
-      return false
+        return false
     }
-  }
-  const checkHowMuchLikesComment = (commentId) => {
+}
+const checkHowMuchLikesComment = (commentId) => {
     return Comment.find({ _id: commentId }).exec()
-  }
+}

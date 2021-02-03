@@ -12,8 +12,7 @@ const postSchema = new Schema({
     },
     publishedBy: String,
     createdAt: {
-        type: String,
-        default: moment().format(),
+        type: String
     }
 })
 

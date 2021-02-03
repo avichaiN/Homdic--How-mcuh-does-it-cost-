@@ -11,8 +11,7 @@ const commentSchema = new Schema({
         type: String
     }],
     createdAt: { 
-        type: String,
-        default: moment().format(),
+        type: String
     }
 })
 
