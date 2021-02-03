@@ -87,6 +87,7 @@ function buildOnePost(
   <button onclick='sortCommentsByDate("${postID}")'>לפי תאריך</button>
   <button onclick='sortCommentsByLike("${postID}")'>לפי לייקים</button>
   </div>
+  <div class="average average-${postID}"></div>
   <div class='renderComment renderComment-${postID}'></div>
   <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
   <div class="dot-spin"></div>

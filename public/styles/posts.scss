@@ -556,7 +556,9 @@ body {
                 width: 20%;
             }
         }
-
+        .average{
+            display: none;
+        }
         .cantClick {
             pointer-events: none;
         }

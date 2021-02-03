@@ -379,7 +379,6 @@ const sortCommentsByLike = (postId) => {
   app.innerHTML = "";
   handleGetComments(postId, "like");
 };
-
 const renderCommentsToDom = async (postId, data, sort) => {
   blockLoadMore = true;
   canLoadMore = false;
@@ -409,6 +408,10 @@ const renderCommentsToDom = async (postId, data, sort) => {
   let comments = data.comments;
   let isAdmin = false;
   isAdmin = await handleCheckAdmin();
+
+  const priceAverage = getAveragePrice(comments)
+  const averageDom = document.querySelector(`.average-${postId}`)
+  averageDom.innerHTML = `מחיר ממוצע לפי תגובות: ${priceAverage}₪`
 
   if (sortByDate) {
     comments = comments.reverse();
@@ -450,6 +453,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
   sortComments.style.display = "flex";
   showCommentsButton.classList.remove("cantClick")
   sortCommentsButtons.classList.remove("cantClick")
+  averageDom.style.display = "block"
   setTimeout(function () {
     canLoadMore = true;
     blockLoadMore = false;
@@ -478,3 +482,16 @@ const handleHidePostsComments = (postId) => {
       }
     });
 };
+const getAveragePrice = (comments) => {
+  let commentsPrice = []
+  comments.forEach(comment => {
+    commentsPrice.push(comment.price)
+  })
+  let sum = 0;
+  for (i = 0; i < commentsPrice.length; i++) {
+    sum += parseInt(commentsPrice[i], 10); //don't forget to add the base
+  }
+  const x = sum / commentsPrice.length;
+  let priceAvarge = ~~x
+  return priceAvarge
+}
