@@ -428,7 +428,7 @@ body #app .renderComment .comment {
 }
 body #app .renderComment .comment #bodyComment {
   grid-row: 1;
-  grid-column: 1;
+  grid-column: 1/6;
   text-align: initial;
   line-height: 1.3;
 }
@@ -438,6 +438,7 @@ body #app .renderComment .comment #authRouter {
   grid-column: 8;
   justify-items: last baseline;
   justify-self: end;
+  align-self: flex-end;
 }
 body #app .renderComment .comment #authRouter p {
   margin: 0;
@@ -445,6 +446,7 @@ body #app .renderComment .comment #authRouter p {
 body #app .renderComment .comment .deleteComment {
   grid-column: 6;
   grid-row: 1;
+  align-self: flex-end;
 }
 body #app .renderComment .comment #likeComment {
   grid-row: 1;
@@ -454,6 +456,7 @@ body #app .renderComment .comment #likeComment {
   flex-direction: row;
   flex-direction: row-reverse;
   margin: auto;
+  align-self: flex-end;
 }
 body #app .renderComment .comment #likeComment .likesAmount {
   font-size: 1rem;

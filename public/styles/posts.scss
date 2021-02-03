@@ -508,7 +508,7 @@ body {
 
                 #bodyComment {
                     grid-row: 1;
-                    grid-column: 1;
+                    grid-column: 1/6;
                     text-align: initial;
                     line-height: 1.3;
                 }
@@ -519,6 +519,7 @@ body {
                     grid-column: 8;
                     justify-items: last baseline;
                     justify-self: end;
+                    align-self: flex-end;
 
                     p {
                         margin: 0;
@@ -529,6 +530,7 @@ body {
                 .deleteComment {
                     grid-column: 6;
                     grid-row: 1;
+                    align-self: flex-end;
                 }
 
                 #likeComment {
@@ -539,7 +541,8 @@ body {
                     flex-direction: row;
                     flex-direction: row-reverse;
                     margin: auto;
-
+                    align-self: flex-end;
+                    
                     .likesAmount {
                         font-size: 1rem;
                         font-weight: 550;
