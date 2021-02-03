@@ -1,5 +1,7 @@
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var renderNavToDom = function renderNavToDom() {
   var html = "";
   html = "\n  <div class=\"header__helloUser\"></div>\n      <form class=\"header__form\" onsubmit=\"handleSearch(event)\">\n          <input class=\"header__formInput\" placeholder='\u05D7\u05E4\u05E9 \u05E4\u05D5\u05E1\u05D8\u05D9\u05DD' type=\"text\" required>\n          <button class=\"header__formSubmit\" type=\"submit\"><i class=\"fa fa-search\"></i></button>\n      </form>\n  \n      <!-- user info / logout / edit user // show all posts -->\n  \n      <div class=\"header__userInfo\">\n      <h1 style=\"color:white;\" class=\"fas fa-bars\" onclick=\"showUserDropDown(event)\"></h1>\n      </div>\n      <div  onclick=\"goBack()\" class='goBack'>\n      <span class=\"material-icons icon\">\n      keyboard_backspace\n      </span>\n      </div>";
@@ -79,18 +81,22 @@ var displayGoToAdminPage = function displayGoToAdminPage() {
 };
 
 var showUserDropDown = function showUserDropDown(e) {
-  Swal.fire({
+  var _Swal$fire;
+
+  Swal.fire((_Swal$fire = {
     confirmButtonText: "X",
-    title: "<h3 style='color:#298cad;margin-bottom:0;'>תפריט</h3>",
     showClass: {
       popup: "animate__animated animate__fadeInDown"
     },
-    confirmButtonColor: "#247c99",
     hideClass: {
       popup: "animate__animated animate__fadeOutUp"
     },
-    html: '<div class="menuItem"><a href="/Categories.html">קטגוריות</a></div>' + '<div class="menuItem"><a href="/posts.html?myposts">פוסטים שלי</a></div>' + '<div class="menuItem"><a href="/posts.html?myfavorites">מועדפים</a></div>' + '<div class="menuItem"><a href="/updateUserData.html">עדכן פרטי חשבון</a></div>' + '<button style="cursor: pointer;height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>'
-  });
+    title: "<h3 style='color:#298cad;margin-bottom:0;'>תפריט</h3>"
+  }, _defineProperty(_Swal$fire, "showClass", {
+    popup: "animate__animated animate__fadeInDown"
+  }), _defineProperty(_Swal$fire, "confirmButtonColor", "#247c99"), _defineProperty(_Swal$fire, "hideClass", {
+    popup: "animate__animated animate__fadeOutUp"
+  }), _defineProperty(_Swal$fire, "html", '<div class="menuItem"><a href="/Categories.html">קטגוריות</a></div>' + '<div class="menuItem"><a href="/posts.html?myposts">פוסטים שלי</a></div>' + '<div class="menuItem"><a href="/posts.html?myfavorites">מועדפים</a></div>' + '<div class="menuItem"><a href="/updateUserData.html">עדכן פרטי חשבון</a></div>' + '<button style="cursor: pointer;height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>'), _Swal$fire));
 }; //search bar
 
 

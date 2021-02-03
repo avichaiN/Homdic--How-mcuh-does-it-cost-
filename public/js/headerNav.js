@@ -68,6 +68,12 @@ const displayGoToAdminPage = async () => {
 const showUserDropDown = (e) => {
   Swal.fire({
     confirmButtonText: "X",
+    showClass: {
+      popup: "animate__animated animate__fadeInDown",
+    },
+    hideClass: {
+      popup: "animate__animated animate__fadeOutUp",
+    },
     title: "<h3 style='color:#298cad;margin-bottom:0;'>תפריט</h3>",
     showClass: {
       popup: "animate__animated animate__fadeInDown",
