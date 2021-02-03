@@ -45,6 +45,7 @@ exports.editUser = async function (req, res) {
 };
 exports.checkAdminF = function(req, res) {
     try {
+        console.log('in check admin F')
         res.send({ admin: true });
     } catch (err) {
         console.log(e.message);
