@@ -79,7 +79,7 @@ body #categoryHeder {
   position: fixed;
   z-index: 3;
   width: 100%;
-  top: 4%;
+  top: 5%;
   background-color: white;
   text-align: center;
   border-bottom: 1px solid darkgray;
@@ -248,7 +248,7 @@ body #app .post #postheder .postbudy {
   max-width: 500px;
 }
 body #app .post #postheder img {
-  height: 150px;
+  max-width: 90%;
   grid-row: 1;
   grid-column: 2;
   border-radius: 5px;
@@ -453,9 +453,7 @@ body #app .renderComment .comment #likeComment {
   grid-column: 7;
   justify-self: end;
   display: flex;
-  flex-direction: row;
   flex-direction: row-reverse;
-  margin: auto;
   align-self: flex-end;
 }
 body #app .renderComment .comment #likeComment .likesAmount {
@@ -469,13 +467,6 @@ body #app .renderComment .hideCommentsButton {
 }
 body #app .average {
   display: none;
-  font-family: "Rubik", sans-serif;
-  color: #247c99;
-  border-radius: 5px;
-  border: 1px solid #247c99;
-  box-shadow: 1px 1px black;
-  max-width: 150px;
-  margin: auto;
 }
 body #app .cantClick {
   pointer-events: none;
