@@ -66,13 +66,15 @@ const handleNewPost = async (e, file) => {
   const user = await getUserWhoPosted();
   let categoryId = e.target.children.category.value;
   const title = e.target.children.title.value;
-  const desc = e.target.children.desc.value;
+  let desc = e.target.children.desc.value;
   const img = e.target.children.img;
   const userId = user.id;
 
   let imgFile = img.files[0];
-
-
+let firstword = desc.split(" ");
+if (firstword[0].length > 20) {
+  desc = 'Not Allowd Word!'
+}
 
 
   if (categoryId === "choseCategory") {
