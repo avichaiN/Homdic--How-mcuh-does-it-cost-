@@ -20,12 +20,12 @@ const renderNavToDom = () => {
 
   let header = document.querySelector(".header");
   header.innerHTML = html;
-  const url = window.location.href
-  const params = url.split('/')[3];
-  if(params.includes("Categories")){
-    displayGoToAdminPage()
+  const url = window.location.href;
+  const params = url.split("/")[3];
+  if (params.includes("Categories")) {
+    displayGoToAdminPage();
   }
-  getUserInfo()
+  getUserInfo();
 };
 const getUserInfo = async () => {
   let user;
@@ -67,11 +67,12 @@ const displayGoToAdminPage = async () => {
 
 const showUserDropDown = (e) => {
   Swal.fire({
+    confirmButtonText: "X",
     title: "<h3 style='color:#298cad;margin-bottom:0;'>תפריט</h3>",
-
     showClass: {
       popup: "animate__animated animate__fadeInDown",
     },
+    confirmButtonColor: "#247c99",
     hideClass: {
       popup: "animate__animated animate__fadeOutUp",
     },
@@ -81,7 +82,6 @@ const showUserDropDown = (e) => {
       '<div class="menuItem"><a href="/posts.html?myfavorites">מועדפים</a></div>' +
       '<div class="menuItem"><a href="/updateUserData.html">עדכן פרטי חשבון</a></div>' +
       '<button style="cursor: pointer;height:30px;margin-top:4px" onclick="handleLogout()">התנתק</button>',
-    confirmButtonText: "X",
   });
 };
 
