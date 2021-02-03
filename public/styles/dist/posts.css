@@ -25,10 +25,22 @@ body {
 body .sendCommentBtn {
   width: inherit;
 }
-body h1, body h2, body h3, body h4, body p, body label {
+body h1,
+body h2,
+body h3,
+body h4,
+body p,
+body label {
   color: #247C99;
 }
-body h1, body h2, body h3, body h4, body p, body label, body button, body input {
+body h1,
+body h2,
+body h3,
+body h4,
+body p,
+body label,
+body button,
+body input {
   font-family: "Rubik", sans-serif;
 }
 body button {
@@ -198,7 +210,8 @@ body #app .post #postheder {
   margin-bottom: 5px;
   border-radius: 5px 0 0 0;
 }
-body #app .post #postheder h1, body #app .post #postheder p {
+body #app .post #postheder h1,
+body #app .post #postheder p {
   color: white;
 }
 body #app .post #postheder .whenPosted {
@@ -299,6 +312,9 @@ body #app .post .addComment div form button {
   height: 30px;
   margin: auto;
 }
+body #app .post .cantClick {
+  pointer-events: none;
+}
 body #app .post .futter {
   background-color: white;
   display: grid;
@@ -345,9 +361,6 @@ body #app .post .futter .deletePost .deletePostButton {
 }
 body #app .post .futter .deletePost .deletePostButton:hover {
   background-color: red;
-}
-body #app .post .futter .cantClick {
-  pointer-events: none;
 }
 body #app .post .futter .Notifications {
   cursor: pointer;
@@ -454,6 +467,9 @@ body #app .renderComment .hideCommentsButton {
   margin: 5px;
   width: 20%;
 }
+body #app .cantClick {
+  pointer-events: none;
+}
 body #app .sortComments {
   display: none;
   justify-content: center;
@@ -463,6 +479,9 @@ body #app .sortComments button {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
+}
+body #app .sortComments .cantClick {
+  pointer-events: none;
 }
 body #app .loadingComments {
   display: none;

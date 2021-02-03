@@ -25,29 +25,43 @@ $postheder-bg-color: #247C99;
 .show {
     display: block;
 }
-.postsPage{
+
+.postsPage {
     width: 100%;
     height: 100vh;
 }
+
 body {
     background-color: $body-bg-color;
     margin: 0;
     direction: rtl;
     text-align: center;
 
-    .sendCommentBtn{
+    .sendCommentBtn {
         width: inherit;
     }
 
-    h1,h2,h3,h4,p,label{
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    label {
         color: #247C99;
     }
 
-    h1,h2,h3,h4,p,label,button,input{
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    label,
+    button,
+    input {
         font-family: 'Rubik', sans-serif;
     }
 
-    button{
+    button {
         cursor: pointer;
         border: 1px solid white;
         color: white;
@@ -93,7 +107,7 @@ body {
         padding: 1%;
         opacity: 0.9;
 
-        button{
+        button {
             margin: auto;
         }
 
@@ -105,8 +119,8 @@ body {
         img {
             margin: auto;
             grid-column: 3;
-            width: 150px; 
-            border-radius: 5px;           
+            width: 150px;
+            border-radius: 5px;
         }
 
         input {
@@ -126,7 +140,7 @@ body {
         }
 
         @media only screen and (max-width: 600px) {
-            img{
+            img {
                 width: 100px;
             }
         }
@@ -225,7 +239,7 @@ body {
             background-color: white;
 
             #postheder {
-                background-color: $postheder-bg-color;                               
+                background-color: $postheder-bg-color;
                 display: grid;
                 column-gap: 2%;
                 grid-template-columns: repeat(6, auto);
@@ -233,7 +247,8 @@ body {
                 margin-bottom: 5px;
                 border-radius: 5px 0 0 0;
 
-                h1,p{
+                h1,
+                p {
                     color: white;
                 }
 
@@ -291,7 +306,7 @@ body {
 
                 }
 
-                img:hover{
+                img:hover {
                     transform: scale(2.5);
                 }
 
@@ -347,7 +362,7 @@ body {
                             margin: auto;
                         }
 
-                        button{
+                        button {
                             width: 150px;
                             height: 30px;
                             margin: auto;
@@ -358,6 +373,10 @@ body {
                 }
 
 
+            }
+
+            .cantClick {
+                pointer-events: none;
             }
 
             .futter {
@@ -406,9 +425,6 @@ body {
                         background-color: rgb(255, 0, 0);
                     }
 
-                }
-                .cantClick{
-                    pointer-events: none;
                 }
 
                 .Notifications {
@@ -512,7 +528,7 @@ body {
 
                 }
 
-                .deleteComment{
+                .deleteComment {
                     grid-column: 6;
                     grid-row: 1;
                 }
@@ -541,6 +557,10 @@ body {
             }
         }
 
+        .cantClick {
+            pointer-events: none;
+        }
+
         .sortComments {
             display: none;
             justify-content: center;
@@ -550,6 +570,10 @@ body {
                 padding: 5px;
                 margin: 5px;
                 border-radius: 5px;
+            }
+
+            .cantClick {
+                pointer-events: none;
             }
         }
 
@@ -563,7 +587,7 @@ body {
             justify-content: center;
         }
 
-        .loadingNewPosts{
+        .loadingNewPosts {
             display: block;
             width: 100%;
             height: 100px;
@@ -574,6 +598,7 @@ body {
             justify-content: center;
             z-index: 6;
         }
+
         .dot-spin {
             position: relative;
             width: 10px;
@@ -660,7 +685,7 @@ body {
 
 
 
-.newPostButton{
+.newPostButton {
     margin: auto;
     height: 50px;
     background-color: white;
@@ -670,7 +695,7 @@ body {
     grid-row: 1;
 }
 
-.newPostButton:hover{
+.newPostButton:hover {
     background-color: #247C99;
     color: white;
     animation: heartbeat 1.5s ease-in-out infinite both;
@@ -679,35 +704,39 @@ body {
 
 @keyframes heartbeat {
     from {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-      -webkit-transform-origin: center center;
-              transform-origin: center center;
-      -webkit-animation-timing-function: ease-out;
-              animation-timing-function: ease-out;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
     }
+
     10% {
-      -webkit-transform: scale(0.91);
-              transform: scale(0.91);
-      -webkit-animation-timing-function: ease-in;
-              animation-timing-function: ease-in;
+        -webkit-transform: scale(0.91);
+        transform: scale(0.91);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
     }
+
     17% {
-      -webkit-transform: scale(0.98);
-              transform: scale(0.98);
-      -webkit-animation-timing-function: ease-out;
-              animation-timing-function: ease-out;
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
     }
+
     33% {
-      -webkit-transform: scale(0.87);
-              transform: scale(0.87);
-      -webkit-animation-timing-function: ease-in;
-              animation-timing-function: ease-in;
+        -webkit-transform: scale(0.87);
+        transform: scale(0.87);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
     }
+
     45% {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-      -webkit-animation-timing-function: ease-out;
-              animation-timing-function: ease-out;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
     }
-  }
+}
