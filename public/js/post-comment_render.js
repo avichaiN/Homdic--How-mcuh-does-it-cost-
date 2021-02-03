@@ -1,3 +1,11 @@
+function hendelImgClick(src){
+  Swal.fire({      
+    imageUrl: src,
+    imageWidth: 400,
+    imageHeight: 400,
+    imageAlt: '',
+  })
+}
 function buildOnePost(
   type /*post or comment*/,
   title,
@@ -12,7 +20,7 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
-  let img = `<img id="postImg" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`;
+  let img = `<img id="postImg" onclick="hendelImgClick('data:image/jpg;base64,${PostImgSrc}')" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`;
   if (!PostImgSrc) {
     img = "";
   }

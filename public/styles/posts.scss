@@ -306,9 +306,7 @@ body {
 
                 }
 
-                img:hover {
-                    transform: scale(1.5);
-                }
+               
 
                 @include mq(260px) {
                     padding: 3% 5% 0.5% 5%;
