@@ -1,6 +1,9 @@
 function timeSince(date) {
   let israel = moment().tz("Asia/Jerusalem").format()
-  let seconds = Math.floor((new Date(israel) - date) / 1000);
+  console.log(israel)
+  const x = Date.parse(israel)
+  console.log(x)
+  let seconds = Math.floor((x - date) / 1000);
 
 
   let interval = seconds / 31536000;
