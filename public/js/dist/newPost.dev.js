@@ -65,18 +65,9 @@ var handleNewPost = function handleNewPost(e, file) {
           userId = user.id;
           imgFile = img.files[0]; /////////////////error
 
+          newSentenc = '';
           wordsArry = desc.split(" ");
-          wordsArry.forEach(word = function (_word) {
-            function word() {
-              return _word.apply(this, arguments);
-            }
-
-            word.toString = function () {
-              return _word.toString();
-            };
-
-            return word;
-          }(function () {
+          wordsArry.forEach(function (word) {
             if (word.length > 20) {
               newSentenc += 'X';
             } else {
@@ -84,7 +75,7 @@ var handleNewPost = function handleNewPost(e, file) {
             }
 
             desc = newSentenc;
-          }));
+          });
 
           if (categoryId === "choseCategory") {
             categoryId = undefined;
@@ -151,7 +142,7 @@ var handleNewPost = function handleNewPost(e, file) {
             });
           });
 
-        case 20:
+        case 21:
         case "end":
           return _context2.stop();
       }

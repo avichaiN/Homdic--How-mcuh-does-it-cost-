@@ -74,9 +74,9 @@ const handleNewPost = async (e, file) => {
 
 
   /////////////////error
-let newSentenc;
+let newSentenc ='';
 let wordsArry = desc.split(" ");
-wordsArry.forEach(   word =() =>{
+wordsArry.forEach(   (word) =>{
   if (word.length > 20) {
     newSentenc += 'X';
   } else {
