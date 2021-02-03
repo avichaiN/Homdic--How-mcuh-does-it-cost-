@@ -474,11 +474,13 @@ const handleHidePostsComments = (postId) => {
         const hideCommentsButton = document.querySelector(
           `.closeComments-${postId}`
         );
-        hideCommentsButton.style.display = "none";
-        const app = document.querySelector(`.renderComment-${postId}`);
-        app.innerHTML = "";
         const sortComments = document.querySelector(`.sortComments-${postId}`);
+        const app = document.querySelector(`.renderComment-${postId}`);
+        const averageDom = document.querySelector(`.average-${postId}`)
+        hideCommentsButton.style.display = "none";
+        app.innerHTML = "";
         sortComments.style.display = "none";
+        averageDom.style.display = "none"
       }
     });
 };
