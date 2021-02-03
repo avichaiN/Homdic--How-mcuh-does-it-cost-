@@ -43,18 +43,18 @@ exports.loginUser = async function (req, res) {
 };
 
 exports.registerUser = async function (req, res) {
-  try {
-    const { firstName, lastName, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password } = req.body;
 
-    const newUser = new User({
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      username: username,
-      password: password,
-    });
+  const newUser = new User({
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    username: username,
+    password: password,
+  });
 
-    bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
+  bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
+    try {
       newUser.password = hash;
       await newUser.save();
 
@@ -74,11 +74,12 @@ exports.registerUser = async function (req, res) {
         httpOnly: true,
       });
       res.send({ status: "authorized" });
-    });
-  } catch (e) {
-    console.log(e.message);
-    res.send({ status: "unauthorized" });
-  }
+    } catch (e) {
+      console.log(e.message);
+      res.send({ status: "unauthorized" });
+      res.end();
+    }
+  });
 };
 exports.logUserOut = function (req, res) {
   try {

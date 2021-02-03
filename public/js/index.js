@@ -75,6 +75,7 @@ function handleRegisterForm(e) {
     .then((res) => res.json())
     .then(async (data) => {
       try {
+        console.log(data)
         if (data.status == "unauthorized") {
           Swal.fire({
             icon: "error",
