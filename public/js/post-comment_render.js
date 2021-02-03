@@ -62,9 +62,9 @@ function buildOnePost(
     </div>
     <!--  end add comment form -->
     <div class="futter">
-      <div id="NotificationsButton" class="Notifications commentArrow-${postID}">
-        <span data-id='${postID}' data-comments='${numberOfComments}' onclick="handleGetComments('${postID}', '${sort}')" class="material-icons">arrow_downward</span>
-        <p data-id='${postID}' data-comments='${numberOfComments}' onclick="handleGetComments('${postID}', '${sort}')">תגובות: ${numberOfComments}</p>
+      <div onclick="handleGetComments('${postID}', '${sort}')" id="NotificationsButton" class="Notifications commentArrow-${postID}">
+        <span data-id='${postID}' class="material-icons">arrow_downward</span>
+        <p data-id='${postID}'>תגובות: ${numberOfComments}</p>
       </div>
       <div id="FavoriteButton" class="Notifications fav-${postID}">
       ${favoriteButton}
@@ -91,7 +91,7 @@ function buildOnePost(
   <div class="loadingComments loadingComments-${postID}" data-title=".dot-spin">
   <div class="dot-spin"></div>
 </div>
-  <button class='closeComments closeComments-${postID}' onclick="handleHidePostsComments('${postID}')">החבא תגובות של פוסט זה</button>`;
+  <button class='closeComments closeComments-${postID}' onclick="handleGetComments('${postID}', '${sort}')">החבא תגובות של פוסט זה</button>`;
 
   return html;
 }

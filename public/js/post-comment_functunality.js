@@ -333,33 +333,32 @@ const checkIfPostFavorite = async (postID, userId) => {
 };
 
 const handleGetComments = async (postId, sort) => {
+  const showCommentsButton = document.querySelector(`.commentArrow-${postId}`)
+  const commentSection = document.querySelector(`.renderComment-${postId}`)
   const numberOfComments = await checkHowMuchComments(postId);
-  if (numberOfComments >= 1) {
-    const app = document.querySelector(`.renderComment-${postId}`);
+  if (commentSection.innerHTML.length > 0 || numberOfComments < 1) {
+    handleHidePostsComments(postId);
+  } else {
+    showCommentsButton.classList.add("cantClick")
     const loadingComments = document.querySelector(
       `.loadingComments-${postId}`
     );
     loadingComments.style.display = "flex";
-    if (app.innerHTML.length > 0) {
-      loadingComments.style.display = "none";
-      handleHidePostsComments(postId);
-    } else {
-      fetch(`/comments/${postId}`)
-        .then((res) => res.json())
-        .then(async (data) => {
-          if (data.status === "unauthorized") {
-            window.location.href = "index.html";
+    fetch(`/comments/${postId}`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        if (data.status === "unauthorized") {
+          window.location.href = "index.html";
+        } else {
+          if (sort == "date") {
+            renderCommentsToDom(postId, data, "date");
+          } else if (sort == "like") {
+            renderCommentsToDom(postId, data, "like");
           } else {
-            if (sort == "date") {
-              renderCommentsToDom(postId, data, "date");
-            } else if (sort == "like") {
-              renderCommentsToDom(postId, data, "like");
-            } else {
-              renderCommentsToDom(postId, data, "");
-            }
+            renderCommentsToDom(postId, data, "def");
           }
-        });
-    }
+        }
+      });
   }
 };
 
@@ -378,6 +377,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
   const numberOfComments = await checkHowMuchComments(postId);
   let sortByLike = false;
   let sortByDate = false;
+
   if (sort == "like") {
     sortByLike = true;
   } else if (sort == "date") {
@@ -385,15 +385,16 @@ const renderCommentsToDom = async (postId, data, sort) => {
   }
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`);
+  const showCommentsButton = document.querySelector(`.commentArrow-${postId}`)
+
   document.querySelector(
     `.commentArrow-${postId}`
-  ).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')" class="material-icons">arrow_upward</span>
-<p data-id='${postId}' data-comments='${numberOfComments}' onclick="handleHidePostsComments('${postId}')">תגובות: ${numberOfComments}</p>`;
+  ).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}'  class="material-icons">arrow_upward</span>
+<p data-id='${postId}' data-comments='${numberOfComments}'>תגובות: ${numberOfComments}</p>`;
+
   app.innerHTML = "";
   let commentsHtml = "";
   let comments = data.comments;
-  let userInfo = await getUserInfo();
-  let userId = userInfo.id;
   let isAdmin = false;
   isAdmin = await handleCheckAdmin();
 
@@ -405,10 +406,9 @@ const renderCommentsToDom = async (postId, data, sort) => {
       return b.likes.length - a.likes.length;
     });
   }
-
   for (i = 0; i < comments.length; i++) {
     const getUserWhoPosted = await getWhoPosted(comments[i].publishedBy)
-    userInfo = await getUserInfo();
+    const userInfo = await getUserInfo();
     userId = userInfo.id;
     let isUsersComment = false;
     if (comments[i].publishedBy === userId || isAdmin) {
@@ -438,6 +438,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
   const sortComments = document.querySelector(`.sortComments-${postId}`);
   hideCommentsButton.style.display = "block";
   sortComments.style.display = "flex";
+  showCommentsButton.classList.remove("cantClick")
 };
 const handleHidePostsComments = (postId) => {
   fetch(`/comments/${postId}`)
@@ -449,8 +450,8 @@ const handleHidePostsComments = (postId) => {
         const commentsLength = data.comments.length;
         document.querySelector(
           `.commentArrow-${postId}`
-        ).innerHTML = `<span data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')" class="material-icons">arrow_downward</span>
-      <p data-id='${postId}' data-comments='${commentsLength}' onclick="handleGetComments('${postId}', 'date')">תגובות: ${commentsLength}</p>`;
+        ).innerHTML = `<span data-id='${postId}' class="material-icons">arrow_downward</span>
+      <p data-id='${postId}'>תגובות: ${commentsLength}</p>`;
         const hideCommentsButton = document.querySelector(
           `.closeComments-${postId}`
         );
