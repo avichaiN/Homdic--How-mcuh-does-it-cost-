@@ -467,6 +467,9 @@ body #app .renderComment .hideCommentsButton {
   margin: 5px;
   width: 20%;
 }
+body #app .average {
+  display: none;
+}
 body #app .cantClick {
   pointer-events: none;
 }
