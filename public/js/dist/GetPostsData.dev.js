@@ -349,45 +349,75 @@ var checkHowMuchComments = function checkHowMuchComments(postId) {
   });
 };
 
-var renderPosts = function renderPosts(postsArray) {
-  var userInfo, userId, isAdmin, isFavorite, commentsLength, isUsersPost, postCreatedTime, timeAgo, html;
-  return regeneratorRuntime.async(function renderPosts$(_context11) {
+var getWhoPosted = function getWhoPosted(userId) {
+  var fNamelName;
+  return regeneratorRuntime.async(function getWhoPosted$(_context11) {
     while (1) {
       switch (_context11.prev = _context11.next) {
         case 0:
           _context11.next = 2;
+          return regeneratorRuntime.awrap(fetch("/posts/user/".concat(userId)).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            fNamelName = data.userFNameLName;
+          }));
+
+        case 2:
+          return _context11.abrupt("return", fNamelName);
+
+        case 3:
+        case "end":
+          return _context11.stop();
+      }
+    }
+  });
+};
+
+var renderPosts = function renderPosts(postsArray) {
+  var userInfo, userId, isAdmin, isFavorite, commentsLength, isUsersPost, postCreatedTime, timeAgo, _getUserWhoPosted, html;
+
+  return regeneratorRuntime.async(function renderPosts$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          _context12.next = 2;
           return regeneratorRuntime.awrap(getUserInfo());
 
         case 2:
-          userInfo = _context11.sent;
+          userInfo = _context12.sent;
           userId = userInfo.id;
           isAdmin = false;
-          _context11.next = 7;
+          _context12.next = 7;
           return regeneratorRuntime.awrap(handleCheckAdmin());
 
         case 7:
-          isAdmin = _context11.sent;
+          isAdmin = _context12.sent;
           i = 0;
 
         case 9:
           if (!(i < postsArray.length)) {
-            _context11.next = 26;
+            _context12.next = 29;
             break;
           }
 
-          _context11.next = 12;
+          _context12.next = 12;
           return regeneratorRuntime.awrap(checkIfPostFavorite(postsArray[i]._id, userId));
 
         case 12:
-          isFavorite = _context11.sent;
-          _context11.next = 15;
+          isFavorite = _context12.sent;
+          _context12.next = 15;
           return regeneratorRuntime.awrap(checkHowMuchComments(postsArray[i]._id));
 
         case 15:
-          commentsLength = _context11.sent;
+          commentsLength = _context12.sent;
           isUsersPost = false;
           postCreatedTime = Date.parse(postsArray[i].createdAt);
           timeAgo = timeSince(postCreatedTime);
+          _context12.next = 21;
+          return regeneratorRuntime.awrap(getWhoPosted(postsArray[i].publishedBy));
+
+        case 21:
+          _getUserWhoPosted = _context12.sent;
 
           if (postsArray[i].publishedBy === userId) {
             isUsersPost = true;
@@ -395,19 +425,19 @@ var renderPosts = function renderPosts(postsArray) {
 
           html = buildOnePost("post"
           /*post or comment*/
-          , postsArray[i].title, postsArray[i].desc, postsArray[i].img, postCreatedTime, timeAgo, "0", commentsLength, postsArray[i]._id, postsArray[i].fName, postsArray[i].lName, isFavorite);
+          , postsArray[i].title, postsArray[i].desc, postsArray[i].img, postCreatedTime, timeAgo, "0", commentsLength, postsArray[i]._id, _getUserWhoPosted.fName, _getUserWhoPosted.lName, isFavorite);
           document.getElementById("app").innerHTML += html;
 
           if (isUsersPost || isAdmin) {
             document.getElementById("".concat(postsArray[i]._id)).innerHTML = "<button class='deletePostButton' style=\"display:block;\" onclick=\"handleDeletePost(event)\">\u05DE\u05D7\u05E7 \u05E4\u05D5\u05E1\u05D8</button>";
           }
 
-        case 23:
+        case 26:
           i++;
-          _context11.next = 9;
+          _context12.next = 9;
           break;
 
-        case 26:
+        case 29:
           document.querySelector("#loader").style.display = "none";
           document.querySelector("#categoryHeder").style.visibility = "visible";
           document.querySelector("#app").style.visibility = "visible";
@@ -416,9 +446,9 @@ var renderPosts = function renderPosts(postsArray) {
             blockLoadMore = false;
           }, 50);
 
-        case 30:
+        case 33:
         case "end":
-          return _context11.stop();
+          return _context12.stop();
       }
     }
   });
@@ -433,17 +463,17 @@ var getCurrentCategory = function getCurrentCategory() {
 
 var numOfPostsAmountOnLoad = function numOfPostsAmountOnLoad(id) {
   var numOfPostsAmountOnLoad;
-  return regeneratorRuntime.async(function numOfPostsAmountOnLoad$(_context13) {
+  return regeneratorRuntime.async(function numOfPostsAmountOnLoad$(_context14) {
     while (1) {
-      switch (_context13.prev = _context13.next) {
+      switch (_context14.prev = _context14.next) {
         case 0:
-          _context13.next = 2;
+          _context14.next = 2;
           return regeneratorRuntime.awrap(fetch("/posts/get/".concat(id)).then(function (res) {
             return res.json();
           }).then(function _callee4(data) {
-            return regeneratorRuntime.async(function _callee4$(_context12) {
+            return regeneratorRuntime.async(function _callee4$(_context13) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context13.prev = _context13.next) {
                   case 0:
                     if (data.status === "unauthorized") {
                       window.location.href = "index.html";
@@ -453,41 +483,16 @@ var numOfPostsAmountOnLoad = function numOfPostsAmountOnLoad(id) {
 
                   case 1:
                   case "end":
-                    return _context12.stop();
+                    return _context13.stop();
                 }
               }
             });
           }));
 
         case 2:
-          return _context13.abrupt("return", numOfPostsAmountOnLoad);
+          return _context14.abrupt("return", numOfPostsAmountOnLoad);
 
         case 3:
-        case "end":
-          return _context13.stop();
-      }
-    }
-  });
-};
-
-var skipLimitPostsCategory = function skipLimitPostsCategory(categoryId, skip) {
-  var foundPosts, popNewPosts, sortedPosts;
-  return regeneratorRuntime.async(function skipLimitPostsCategory$(_context14) {
-    while (1) {
-      switch (_context14.prev = _context14.next) {
-        case 0:
-          canLoadMore = false;
-          _context14.next = 3;
-          return regeneratorRuntime.awrap(getPostsByCategory(categoryId));
-
-        case 3:
-          foundPosts = _context14.sent;
-          popNewPosts = foundPosts.length - postsOnLoad;
-          foundPosts.reverse();
-          sortedPosts = foundPosts.slice(skip + popNewPosts, popNewPosts + skip + 10);
-          renderPosts(sortedPosts);
-
-        case 8:
         case "end":
           return _context14.stop();
       }
@@ -495,22 +500,24 @@ var skipLimitPostsCategory = function skipLimitPostsCategory(categoryId, skip) {
   });
 };
 
-var skipLimitPostsByUser = function skipLimitPostsByUser(skip) {
-  var foundPosts, sortedPosts;
-  return regeneratorRuntime.async(function skipLimitPostsByUser$(_context15) {
+var skipLimitPostsCategory = function skipLimitPostsCategory(categoryId, skip) {
+  var foundPosts, popNewPosts, sortedPosts;
+  return regeneratorRuntime.async(function skipLimitPostsCategory$(_context15) {
     while (1) {
       switch (_context15.prev = _context15.next) {
         case 0:
           canLoadMore = false;
           _context15.next = 3;
-          return regeneratorRuntime.awrap(getPostsByUser());
+          return regeneratorRuntime.awrap(getPostsByCategory(categoryId));
 
         case 3:
           foundPosts = _context15.sent;
-          sortedPosts = foundPosts.slice(skip, skip + 10);
+          popNewPosts = foundPosts.length - postsOnLoad;
+          foundPosts.reverse();
+          sortedPosts = foundPosts.slice(skip + popNewPosts, popNewPosts + skip + 10);
           renderPosts(sortedPosts);
 
-        case 6:
+        case 8:
         case "end":
           return _context15.stop();
       }
@@ -518,25 +525,22 @@ var skipLimitPostsByUser = function skipLimitPostsByUser(skip) {
   });
 };
 
-var skipLimitPostsFavorite = function skipLimitPostsFavorite(skip) {
-  var foundPosts, sortedPostsSkip;
-  return regeneratorRuntime.async(function skipLimitPostsFavorite$(_context16) {
+var skipLimitPostsByUser = function skipLimitPostsByUser(skip) {
+  var foundPosts, sortedPosts;
+  return regeneratorRuntime.async(function skipLimitPostsByUser$(_context16) {
     while (1) {
       switch (_context16.prev = _context16.next) {
         case 0:
           canLoadMore = false;
           _context16.next = 3;
-          return regeneratorRuntime.awrap(getUserFavorites());
+          return regeneratorRuntime.awrap(getPostsByUser());
 
         case 3:
           foundPosts = _context16.sent;
-          foundPosts.sort(function (a, b) {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-          });
-          sortedPostsSkip = foundPosts.slice(skip, skip + 10);
-          renderPosts(sortedPostsSkip);
+          sortedPosts = foundPosts.slice(skip, skip + 10);
+          renderPosts(sortedPosts);
 
-        case 7:
+        case 6:
         case "end":
           return _context16.stop();
       }
@@ -544,15 +548,15 @@ var skipLimitPostsFavorite = function skipLimitPostsFavorite(skip) {
   });
 };
 
-var skipLimitPostsBySearched = function skipLimitPostsBySearched(searchedWords, skip) {
+var skipLimitPostsFavorite = function skipLimitPostsFavorite(skip) {
   var foundPosts, sortedPostsSkip;
-  return regeneratorRuntime.async(function skipLimitPostsBySearched$(_context17) {
+  return regeneratorRuntime.async(function skipLimitPostsFavorite$(_context17) {
     while (1) {
       switch (_context17.prev = _context17.next) {
         case 0:
           canLoadMore = false;
           _context17.next = 3;
-          return regeneratorRuntime.awrap(getPostsBySearch(searchedWords, skip));
+          return regeneratorRuntime.awrap(getUserFavorites());
 
         case 3:
           foundPosts = _context17.sent;
@@ -570,25 +574,51 @@ var skipLimitPostsBySearched = function skipLimitPostsBySearched(searchedWords, 
   });
 };
 
-var skipLimitPostsForAdminPage = function skipLimitPostsForAdminPage(params, skip) {
-  var foundPosts, sortedPosts;
-  return regeneratorRuntime.async(function skipLimitPostsForAdminPage$(_context18) {
+var skipLimitPostsBySearched = function skipLimitPostsBySearched(searchedWords, skip) {
+  var foundPosts, sortedPostsSkip;
+  return regeneratorRuntime.async(function skipLimitPostsBySearched$(_context18) {
     while (1) {
       switch (_context18.prev = _context18.next) {
         case 0:
           canLoadMore = false;
           _context18.next = 3;
-          return regeneratorRuntime.awrap(getPostsUserIdForAdmin(params));
+          return regeneratorRuntime.awrap(getPostsBySearch(searchedWords, skip));
 
         case 3:
           foundPosts = _context18.sent;
+          foundPosts.sort(function (a, b) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
+          sortedPostsSkip = foundPosts.slice(skip, skip + 10);
+          renderPosts(sortedPostsSkip);
+
+        case 7:
+        case "end":
+          return _context18.stop();
+      }
+    }
+  });
+};
+
+var skipLimitPostsForAdminPage = function skipLimitPostsForAdminPage(params, skip) {
+  var foundPosts, sortedPosts;
+  return regeneratorRuntime.async(function skipLimitPostsForAdminPage$(_context19) {
+    while (1) {
+      switch (_context19.prev = _context19.next) {
+        case 0:
+          canLoadMore = false;
+          _context19.next = 3;
+          return regeneratorRuntime.awrap(getPostsUserIdForAdmin(params));
+
+        case 3:
+          foundPosts = _context19.sent;
           foundPosts.reverse();
           sortedPosts = foundPosts.slice(skip, skip + 10);
           renderPosts(sortedPosts);
 
         case 7:
         case "end":
-          return _context18.stop();
+          return _context19.stop();
       }
     }
   });
