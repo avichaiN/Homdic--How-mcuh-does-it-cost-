@@ -78,7 +78,7 @@ const handleNewPost = async (e, file) => {
   let wordsArry = desc.split(" ");
   wordsArry.forEach(word => {
     if (word.length > 11) {
-      newSentenc += 'X';
+      newSentenc += ' מילה ארוכה ';
     } else {
       newSentenc += word;
     }

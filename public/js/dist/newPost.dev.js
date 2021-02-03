@@ -68,7 +68,7 @@ var handleNewPost = function handleNewPost(e, file) {
           wordsArry = desc.split(" ");
           wordsArry.forEach(function (word) {
             if (word.length > 11) {
-              newSentenc += 'X';
+              newSentenc += ' מילה ארוכה ';
             } else {
               newSentenc += word;
             }

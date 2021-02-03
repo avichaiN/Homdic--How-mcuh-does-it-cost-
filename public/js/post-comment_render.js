@@ -127,7 +127,7 @@ function buildOneComment(
      <p>
       ${comment}
      </p>
-     מחיר: ${price}
+     מחיר: ${price}₪
    </div>
    <div id="authRouter">
    <p title="${fullDate}">לפני ${atTdate}</p>
