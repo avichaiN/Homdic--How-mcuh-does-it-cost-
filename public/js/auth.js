@@ -1,5 +1,6 @@
 const handleCheckAdmin = async () => {
   let admin = false;
+  console.log('here')
   await fetch("/admin/check")
     .then((res) => res.json())
     .then((data) => {

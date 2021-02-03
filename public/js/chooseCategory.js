@@ -1,6 +1,5 @@
 const startLoad = () => {
   getDisplayCategories();
-  displayAdminCategory();
 };
 
 // get all categories when loading page
@@ -33,6 +32,7 @@ const writeCategoiresToDom = (categories) => {
     </div>`;
   });
   categoryDiv.innerHTML = categoriesHtml;
+  displayAdminCategory();
 };
 
 // go to clicked category
