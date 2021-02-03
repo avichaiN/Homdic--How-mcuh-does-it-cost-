@@ -538,11 +538,11 @@ body {
                     grid-column: 7;
                     justify-self: end;
                     display: flex;
-                    flex-direction: row;
+                    // flex-direction: row;
                     flex-direction: row-reverse;
-                    margin: auto;
+                    // margin: auto;
                     align-self: flex-end;
-                    
+
                     .likesAmount {
                         font-size: 1rem;
                         font-weight: 550;
