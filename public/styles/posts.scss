@@ -25,7 +25,10 @@ $postheder-bg-color: #247C99;
 .show {
     display: block;
 }
-
+.postsPage{
+    width: 100%;
+    height: 100vh;
+}
 body {
     background-color: $body-bg-color;
     margin: 0;
@@ -78,12 +81,16 @@ body {
         display: grid;
         grid-template-columns: 4fr 4fr 4fr;
         overflow: hidden;
-        height: 15%;
-        z-index: 1;
+        height: 12%;
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        top: 5%;
         background-color: $categoryHeder-bg-color;
         text-align: center;
         border-bottom: 1px solid darkgray;
         padding: 1%;
+        opacity: 0.9;
 
         button{
             margin: auto;
@@ -126,11 +133,11 @@ body {
 
     #app {
         margin: auto;
-
+        width: 100%;
         height: 100%;
         background-color: $body-bg-color;
         position: relative;
-        top: 25%;
+        top: 20%;
 
         @include mq(260px) {
             width: 100%;

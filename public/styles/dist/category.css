@@ -27,10 +27,16 @@ body button {
   background-color: #247c99;
   border-radius: 5px;
 }
+body .cateogryPage {
+  width: 100%;
+  height: 100vh;
+}
 body .titles {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: auto;
+  position: relative;
+  top: 5%;
 }
 body .titles .newPostButton {
   margin: auto;
@@ -108,6 +114,8 @@ body .titles .category__adminAddCategoryForm div {
   margin-bottom: 10px;
 }
 body .cateogryPage__categorys {
+  position: relative;
+  top: 3%;
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));

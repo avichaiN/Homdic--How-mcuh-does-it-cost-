@@ -2,7 +2,12 @@
     display: grid;
     grid-template-columns: repeat(12, auto);
     background-color: #247c99;
-    position: sticky;
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
 
     h1{
         margin-top:5px;
