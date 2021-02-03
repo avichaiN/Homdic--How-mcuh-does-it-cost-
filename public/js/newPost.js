@@ -40,7 +40,7 @@ const hideNewPostBox = () => {
 
 const handleImgSelect = () => {
   const imgUpload = document.querySelector(".imgUpload");
-  const fileChosen = document.querySelector("#file-chosen");  
+  const fileChosen = document.querySelector("#file-chosen");
   fileChosen.textContent = imgUpload.files[0].name;
 
 };
@@ -74,19 +74,24 @@ const handleNewPost = async (e, file) => {
 
 
   /////////////////error
-let newSentenc;
-let wordsArry = desc.split(" ");
-wordsArry.forEach(   word =() =>{
-  if (word.length > 20) {
-    newSentenc += 'X';
-  } else {
-    newSentenc += word;
-  }
-  
-  desc = newSentenc;
-}
-  
-)
+  let newSentenc;
+  let wordsArry = desc.split(" ");
+  wordsArry.forEach(word => {
+    if (word.length > 20) {
+      newSentenc += 'X';
+    } else {
+      newSentenc += word;
+    }
+    desc = newSentenc;
+  })
+  // wordsArry.forEach(word = () => {
+  //   if (word.length > 20) {
+  //     newSentenc += 'X';
+  //   } else {
+  //     newSentenc += word;
+  //   }
+  //   desc = newSentenc;
+  // })
 
 
 
