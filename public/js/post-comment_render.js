@@ -1,5 +1,5 @@
-function hendelImgClick(src){
-  Swal.fire({      
+function hendelImgClick(src) {
+  Swal.fire({
     imageUrl: src,
     imageWidth: 400,
     imageHeight: 400,
@@ -185,5 +185,6 @@ const renderTitlePostForAdmin = (username) => {
 const renderTitlePostFavorits = () => {
   document.querySelector(
     `#categoryHeder`
-  ).innerHTML = `<h1>פוסטים מועדפים</h1>`;
+  ).innerHTML = `<h1>פוסטים מועדפים</h1>
+  <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>`;
 };
