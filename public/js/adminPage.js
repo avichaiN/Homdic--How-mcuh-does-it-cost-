@@ -61,7 +61,7 @@ const handleOpenEditUser = (e) => {
   const id = e.target.parentNode.dataset.id;
 
 
-  document.querySelector(".editUserForm").style.display = "block";
+  document.querySelector(".editUserForm").style.display = "flex";
   let html = document.querySelector(".editUserForm");
   html.innerHTML = `<form class="editUserFormm" onsubmit="handleEditUser(event, '${username}','${email}','${firstName}','${lastName}','${role}','${id}')">
 
@@ -75,7 +75,7 @@ const handleOpenEditUser = (e) => {
         <option value="public">Public</option>
         <option value="admin">Admin</option>
       </select>
-        <input type="submit" value="ערוך משתמש">
+        <input type="submit" class='submitButton' value="ערוך משתמש">
     </form>
     <button onclick='hideEditForm()'>בטל</button>`;
 };

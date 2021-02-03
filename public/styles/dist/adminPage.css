@@ -69,14 +69,16 @@ body {
   position: absolute;
   top: 20%;
   left: 37%;
-  width: 50%;
+  width: 25%;
   display: none;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: #e0dede;
+  border: 1px solid mediumseagreen;
 }
 .adminPage .editUserForm .editUserFormm {
   width: 100%;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
   z-index: 5;
 }
 .adminPage .editUserForm .editUserFormm input {
@@ -84,4 +86,11 @@ body {
 }
 .adminPage .editUserForm .editUserFormm #role {
   width: 50%;
+}
+.adminPage .editUserForm .editUserFormm .submitButton {
+  border: 1px solid white;
+  color: white;
+  background-color: #247c99;
+  border-radius: 5px;
+  padding: 3px;
 }

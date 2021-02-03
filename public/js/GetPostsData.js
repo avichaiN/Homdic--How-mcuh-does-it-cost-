@@ -157,29 +157,17 @@ const checkHowMuchComments = async (postId) => {
         comments = data.commentLength;
       }
     });
-<<<<<<< HEAD
   return comments;
 };
-=======
-  return comments
-}
->>>>>>> master
 const getWhoPosted = async (userId) => {
   let fNamelName;
   await fetch(`/posts/user/${userId}`)
     .then((res) => res.json())
     .then((data) => {
-<<<<<<< HEAD
       fNamelName = data.userFNameLName;
     });
   return fNamelName;
 };
-=======
-      fNamelName = data.userFNameLName
-    })
-    return fNamelName
-}
->>>>>>> master
 
 const renderPosts = async (postsArray) => {
   let userInfo = await getUserInfo();
