@@ -565,6 +565,7 @@ body #app .dot-spin {
 
 .active {
   cursor: pointer;
+  color: #247C99;
 }
 
 .deletePostButton {
