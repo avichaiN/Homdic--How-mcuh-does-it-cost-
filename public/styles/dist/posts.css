@@ -468,6 +468,13 @@ body #app .renderComment .hideCommentsButton {
 }
 body #app .average {
   display: none;
+  font-family: "Rubik", sans-serif;
+  color: #247c99;
+  border-radius: 5px;
+  border: 1px solid #247c99;
+  box-shadow: 1px 1px black;
+  max-width: 150px;
+  margin: auto;
 }
 body #app .cantClick {
   pointer-events: none;
