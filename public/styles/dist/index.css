@@ -14,6 +14,9 @@ body {
 body h2 {
   font-family: "FontAwesome", sans-serif;
 }
+body h1, body h2, body h3, body p {
+  color: #1d5f75;
+}
 body .wrapper {
   position: absolute;
   top: 50%;
