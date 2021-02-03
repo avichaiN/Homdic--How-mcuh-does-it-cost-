@@ -114,7 +114,6 @@ exports.editCategory =  async function (req, res) {
                 { img: Buffer, Name: newCategoryName },
                 async (err, category) => {
                     if (err) {
-                        // console.log(err);
                         res.send({ ok: false });
                     } else {
                         let categories = await categoriesFind();

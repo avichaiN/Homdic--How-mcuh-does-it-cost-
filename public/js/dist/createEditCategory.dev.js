@@ -1,30 +1,5 @@
 "use strict";
 
-//if admin display this.
-var displayAdminCategory = function displayAdminCategory() {
-  var checkAdmin;
-  return regeneratorRuntime.async(function displayAdminCategory$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return regeneratorRuntime.awrap(handleCheckAdmin());
-
-        case 2:
-          checkAdmin = _context.sent;
-
-          if (checkAdmin) {
-            document.querySelector(".category__admin").style.display = "block";
-          }
-
-        case 4:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
-};
-
 var handleDisplayAddCategory = function handleDisplayAddCategory() {
   document.querySelector(".category__adminAddCategoryForm").style.display = "block";
 }; // handle new category ( admin )
@@ -95,7 +70,6 @@ var deleteCategory = function deleteCategory(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    // console.log(data)
     writeCategoiresToDom(data.categories);
   });
 }; //edit category

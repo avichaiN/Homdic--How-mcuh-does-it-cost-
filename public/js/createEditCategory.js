@@ -68,7 +68,6 @@ const deleteCategory = (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data)
       writeCategoiresToDom(data.categories);
     });
 };
