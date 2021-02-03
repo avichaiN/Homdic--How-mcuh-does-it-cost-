@@ -80,7 +80,7 @@ const handleNewPost = async (e, file) => {
     if (word.length > 11) {
       newSentenc += ' מילה ארוכה ';
     } else {
-      newSentenc += word;
+      newSentenc +=  word +' ';
     }
     desc = newSentenc;
   })
