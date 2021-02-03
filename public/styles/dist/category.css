@@ -137,7 +137,7 @@ body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img:hover {
   }
   body .cateogryPage__categorys {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img {
     border-radius: 10px;
