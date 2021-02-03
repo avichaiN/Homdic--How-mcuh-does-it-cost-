@@ -48,6 +48,7 @@ body {
     }
 
     button{
+        cursor: pointer;
         border: 1px solid white;
         color: white;
         background-color: #247C99;
@@ -404,6 +405,9 @@ body {
                         background-color: rgb(255, 0, 0);
                     }
 
+                }
+                .cantClick{
+                    pointer-events: none;
                 }
 
                 .Notifications {

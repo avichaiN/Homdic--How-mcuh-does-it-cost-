@@ -32,6 +32,7 @@ body h1, body h2, body h3, body h4, body p, body label, body button, body input 
   font-family: "Rubik", sans-serif;
 }
 body button {
+  cursor: pointer;
   border: 1px solid white;
   color: white;
   background-color: #247C99;
@@ -345,6 +346,9 @@ body #app .post .futter .deletePost .deletePostButton {
 }
 body #app .post .futter .deletePost .deletePostButton:hover {
   background-color: red;
+}
+body #app .post .futter .cantClick {
+  pointer-events: none;
 }
 body #app .post .futter .Notifications {
   cursor: pointer;
