@@ -124,7 +124,7 @@ exports.resetPassword = async function (req, res) {
         from: "Homdic, תמיכה",
         to: `${userEmail}`,
         subject: "Homdic, אפס סיסמה",
-        html: `<p>היי ${userFound.fName}<br> שמענו ששכחת את הסיסמא שלך, אל דאגה! נא להכנס לקישור המצורף לאיפוס , צוות</p><br>http://homdic.herokuapp.com/updateUserPassword.html?${encodedId} `,
+        html: `<p>היי ${userFound.firstName}<br> שמענו ששכחת את הסיסמא שלך, אל דאגה! נא להכנס לקישור המצורף לאיפוס , צוות</p><br>http://homdic.herokuapp.com/updateUserPassword.html?${encodedId} `,
       };
 
       tranporter.sendMail(mailOptions, function (e, info) {
