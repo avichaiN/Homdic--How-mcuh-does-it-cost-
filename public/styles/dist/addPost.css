@@ -21,7 +21,6 @@
 .newPostBox .closeNewPost {
   cursor: pointer;
   display: inline;
-  max-width: 3%;
   height: 6%;
   float: left;
 }
