@@ -366,11 +366,15 @@ const handleGetComments = async (postId, sort) => {
 };
 
 const sortCommentsByDate = (postId) => {
+  const sortCommentsButtons = document.querySelector(`.sortComments-${postId}`)
+  sortCommentsButtons.classList.add("cantClick")
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = "";
   handleGetComments(postId, "date");
 };
 const sortCommentsByLike = (postId) => {
+  const sortCommentsButtons = document.querySelector(`.sortComments-${postId}`)
+  sortCommentsButtons.classList.add("cantClick")
   const app = document.querySelector(`.renderComment-${postId}`);
   app.innerHTML = "";
   handleGetComments(postId, "like");
@@ -389,6 +393,9 @@ const renderCommentsToDom = async (postId, data, sort) => {
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`);
   const showCommentsButton = document.querySelector(`.commentArrow-${postId}`)
+  const sortCommentsButtons = document.querySelector(`.sortComments-${postId}`)
+  const hideCommentsButton = document.querySelector(`.closeComments-${postId}`);
+  const sortComments = document.querySelector(`.sortComments-${postId}`);
 
   document.querySelector(
     `.commentArrow-${postId}`
@@ -437,11 +444,10 @@ const renderCommentsToDom = async (postId, data, sort) => {
   }
   app.innerHTML = commentsHtml;
   loadingComments.style.display = "none";
-  const hideCommentsButton = document.querySelector(`.closeComments-${postId}`);
-  const sortComments = document.querySelector(`.sortComments-${postId}`);
   hideCommentsButton.style.display = "block";
   sortComments.style.display = "flex";
   showCommentsButton.classList.remove("cantClick")
+  sortCommentsButtons.classList.remove("cantClick")
 };
 const handleHidePostsComments = (postId) => {
   fetch(`/comments/${postId}`)
