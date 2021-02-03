@@ -69,8 +69,6 @@ const handleNewPost = async (e, file) => {
   const desc = e.target.children.desc.value;
   const img = e.target.children.img;
   const userId = user.id;
-  const userFname = user.fName;
-  const userLname = user.lName;
 
   let imgFile = img.files[0];
 
@@ -87,8 +85,6 @@ const handleNewPost = async (e, file) => {
   formData.append('title', title);
   formData.append('desc', desc);
   formData.append('userId', userId);
-  formData.append('userFname', userFname);
-  formData.append('userLname', userLname);
   if (imgFile) {
     formData.append('img', imgFile, imgFile.name);
   }

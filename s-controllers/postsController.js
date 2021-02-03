@@ -7,14 +7,12 @@ const mongoose = require("mongoose");
 
 exports.createPost = async function (req, res) {
     try {
-        const { userId, userFname, userLname, categoryId, title, desc } = req.body;
+        const { userId, categoryId, title, desc } = req.body;
 
         const post = new Post({
             title: title,
             desc: desc,
             categoryId: categoryId,
-            fName: userFname,
-            lName: userLname,
             publishedBy: userId,
         });
 
@@ -72,8 +70,8 @@ exports.getPostsByKeywords = async function (req, res) {
         const searchedKeywords = req.params.id;
         const searchedSplitted = searchedKeywords.replace(/[-]+/, " ");
         let foundPosts = await searchRegExp(searchedSplitted);
-      
-      
+
+
         res.send({ foundPosts, searchedSplitted });
     } catch (e) {
         console.log(e.message);
@@ -142,7 +140,7 @@ exports.checkIfPostFavorite = async function (req, res) {
 };
 exports.getFavoritePosts = async function (req, res) {
     try {
-        const  userId = req.params.id;
+        const userId = req.params.id;
         const userInfo = await getUserFavoritePostsId(userId);
         const favPostsIds = userInfo.favPosts;
         let favPosts = [];
@@ -152,6 +150,17 @@ exports.getFavoritePosts = async function (req, res) {
             favPosts.push(post);
         }
         res.send({ favPosts });
+    } catch (e) {
+        console.log(e.message);
+        res.send({ status: "unauthorized" });
+    }
+};
+
+exports.getUserWhoPostedName = async function (req, res) {
+    try {
+        const userId = req.params.id
+        const userFNameLName = await getFnameAndlName(userId)
+        res.send({ userFNameLName })
     } catch (e) {
         console.log(e.message);
         res.send({ status: "unauthorized" });
@@ -207,13 +216,17 @@ const checkIfPostInFavorite = async (postID, userId) => {
 };
 const getUserFavoritePostsId = (userId) => {
     return User.findOne({ _id: userId }).exec();
-  };
-  const findPostById = async (postId) => {
+};
+const findPostById = async (postId) => {
     const ObjectId = mongoose.Types.ObjectId;
     return Post.aggregate([
-      {
-        $match: { _id: ObjectId(`${postId}`) }
-      }
+        {
+            $match: { _id: ObjectId(`${postId}`) }
+        }
     ])
-  
-  };
+
+};
+const getFnameAndlName = async (userId) => {
+    let user = await User.findById({ _id: userId }).exec()
+    return {fName:user.firstName, lName:user.lastName}
+}

@@ -6,8 +6,6 @@ const commentSchema = new Schema({
     desc: String,
     price: { type: Number, required: true },
     postId: String,
-    fName: String,
-    lName: String,
     publishedBy: String,
     likes: [{
         type: String

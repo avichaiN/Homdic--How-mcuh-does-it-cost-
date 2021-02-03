@@ -123,8 +123,6 @@ const handleNewComment = async (e, postID) => {
   e.preventDefault();
   let user = await getUserWhoPosted();
   const userId = user.id;
-  const fName = user.fName;
-  const lName = user.lName;
   const commentMessage = e.target.children.message.value;
   const commentPrice = e.target.children.price.value;
   fetch("/comments", {
@@ -135,8 +133,6 @@ const handleNewComment = async (e, postID) => {
     body: JSON.stringify({
       postID,
       userId,
-      fName,
-      lName,
       commentMessage,
       commentPrice,
     }),
@@ -411,6 +407,7 @@ const renderCommentsToDom = async (postId, data, sort) => {
   }
 
   for (i = 0; i < comments.length; i++) {
+    const getUserWhoPosted = await getWhoPosted(comments[i].publishedBy)
     userInfo = await getUserInfo();
     userId = userInfo.id;
     let isUsersComment = false;
@@ -424,8 +421,8 @@ const renderCommentsToDom = async (postId, data, sort) => {
     const fullComment = buildOneComment(
       comments[i].desc,
       comments[i].price,
-      comments[i].fName,
-      comments[i].lName,
+      getUserWhoPosted.fName,
+      getUserWhoPosted.lName,
       comments[i],
       timeAgo,
       comments[i]._id,

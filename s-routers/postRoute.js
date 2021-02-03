@@ -34,6 +34,10 @@ router
   .route("/user/get")
   .post(checkUserToken, postsController.getPostsByUser)
 
+  router
+  .route("/user/:id")
+  .get(checkUserToken, postsController.getUserWhoPostedName)
+
 router
   .route("/admin/user/get")
   .post(checkAdmin, postsController.getPostsByUserAdmin)

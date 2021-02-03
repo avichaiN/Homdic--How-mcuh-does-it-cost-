@@ -20,7 +20,12 @@ const renderNavToDom = () => {
 
   let header = document.querySelector(".header");
   header.innerHTML = html;
-  getUserInfo(), displayGoToAdminPage();
+  const url = window.location.href
+  const params = url.split('/')[3];
+  if(params.includes("Categories")){
+    displayGoToAdminPage()
+  }
+  getUserInfo()
 };
 const getUserInfo = async () => {
   let user;

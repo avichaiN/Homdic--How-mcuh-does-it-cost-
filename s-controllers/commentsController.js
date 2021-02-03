@@ -3,9 +3,9 @@ const Post = require("../s-models/post");
 
 exports.createComment = async function (req, res) {
     try {
-        const { postID, userId, fName, lName, commentMessage, commentPrice } = req.body
+        const { postID, userId, commentMessage, commentPrice } = req.body
 
-        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, fName: fName, lName: lName, publishedBy: userId });
+        const comment = new Comment({ desc: commentMessage, price: commentPrice, postId: postID, publishedBy: userId });
         await comment.save();
         const comments = await findCommentsByPostId(postID)
         const commentLength = comments.length
