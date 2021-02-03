@@ -121,7 +121,7 @@ body {
     color: #c4c9c9;
   }
   
-  button.button {
+  .button {
     background: #247C99;
     color: #ffffff;
     font-size: 18px;
@@ -136,9 +136,10 @@ body {
     outline: none;
   }
   
-  button.button:hover {
+  .button:hover {
     transition: 0.3s;
-    background-color: #0c6886;
+    background-color:#09546D;
+    cursor: pointer;
   }
   
   .social {

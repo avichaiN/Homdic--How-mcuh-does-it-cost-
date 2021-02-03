@@ -107,7 +107,7 @@ body .input:hover {
 body ::-webkit-input-placeholder {
   color: #c4c9c9;
 }
-body button.button {
+body .button {
   background: #247C99;
   color: #ffffff;
   font-size: 18px;
@@ -120,9 +120,10 @@ body button.button {
   width: 100%;
   outline: none;
 }
-body button.button:hover {
+body .button:hover {
   transition: 0.3s;
-  background-color: #0c6886;
+  background-color: #09546D;
+  cursor: pointer;
 }
 body .social {
   display: flex;

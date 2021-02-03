@@ -258,7 +258,7 @@ body #app .post #postheder img {
   place-self: center;
 }
 body #app .post #postheder img:hover {
-  transform: scale(2.5);
+  transform: scale(1.5);
 }
 @media only screen and (min-width: 260px) {
   body #app .post #postheder {
