@@ -248,7 +248,7 @@ body #app .post #postheder .postbudy {
   max-width: 500px;
 }
 body #app .post #postheder img {
-  max-width: 90%;
+  height: 150px;
   grid-row: 1;
   grid-column: 2;
   border-radius: 5px;
@@ -466,6 +466,13 @@ body #app .renderComment .hideCommentsButton {
 }
 body #app .average {
   display: none;
+  font-family: "Rubik", sans-serif;
+  color: #247c99;
+  border-radius: 5px;
+  border: 1px solid #247c99;
+  box-shadow: 1px 1px black;
+  max-width: 150px;
+  margin: auto;
 }
 body #app .cantClick {
   pointer-events: none;
