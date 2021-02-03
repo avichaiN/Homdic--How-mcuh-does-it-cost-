@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jwt-simple");
 const saltRounds = 12;
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 exports.loginUser = async function (req, res) {
     try {

@@ -29,6 +29,22 @@ exports.editUser = async function (req, res) {
                 email: email,
             }
         );
+        const userFound = await User.findOne({ username: username });
+        const token = jwt.encode(
+            {
+                id: userFound._id,
+                role: userFound.role,
+                username: userFound.username,
+                fName: userFound.firstName,
+                lName: userFound.lastName,
+                time: new Date().getTime(),
+            },
+            process.env.SECRET
+        );
+        res.cookie("userLoggedIn", token, {
+            maxAge: 7200000,
+            httpOnly: true,
+        });
         res.send({ user: "updated" });
     } catch (e) {
         console.log(e.message);
