@@ -343,6 +343,8 @@ const handleGetComments = async (postId, sort) => {
     handleHidePostsComments(postId);
     showCommentsButton.classList.remove("cantClick")
   } else {
+    blockLoadMore = true;
+    canLoadMore = false;
     const loadingComments = document.querySelector(
       `.loadingComments-${postId}`
     );
@@ -380,8 +382,6 @@ const sortCommentsByLike = (postId) => {
   handleGetComments(postId, "like");
 };
 const renderCommentsToDom = async (postId, data, sort) => {
-  blockLoadMore = true;
-  canLoadMore = false;
   const numberOfComments = await checkHowMuchComments(postId);
   let sortByLike = false;
   let sortByDate = false;

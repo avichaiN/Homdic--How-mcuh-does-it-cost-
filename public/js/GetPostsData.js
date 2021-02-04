@@ -168,8 +168,22 @@ const getWhoPosted = async (userId) => {
     });
   return fNamelName;
 };
-
+function blockClickComments(blockClick) {
+  showCommentsButton = document.querySelectorAll(".commentArrow");
+  let i;
+  if (blockClick === 'block') {
+    for (i = 0; i < showCommentsButton.length; i++) {
+      showCommentsButton[i].classList.add("cantClick")
+    }
+  } else {
+    for (i = 0; i < showCommentsButton.length; i++) {
+      showCommentsButton[i].classList.remove("cantClick")
+    }
+  }
+}
 const renderPosts = async (postsArray) => {
+  blockClickComments('block')
+
   let userInfo = await getUserInfo();
   const userId = userInfo.id;
   let isAdmin = false;
@@ -203,7 +217,7 @@ const renderPosts = async (postsArray) => {
       isFavorite
     );
     document.getElementById("app").innerHTML += html;
-    if(isUsersPost){
+    if (isUsersPost) {
       document.getElementById(`favoriteIcon-${postsArray[i]._id}`).style.visibility = 'hidden'
       document.getElementById(`favoriteWord-${postsArray[i]._id}`).style.visibility = 'hidden'
     }
@@ -216,7 +230,7 @@ const renderPosts = async (postsArray) => {
   document.querySelector("#loader").style.display = "none";
   document.querySelector("#categoryHeder").style.visibility = "visible";
   document.querySelector("#app").style.visibility = "visible";
-
+  blockClickComments('allow')
   setTimeout(function () {
     canLoadMore = true;
     blockLoadMore = false;
@@ -249,14 +263,14 @@ const skipLimitPostsCategory = async (categoryId, skip) => {
   foundPosts.reverse();
   const sortedPosts = foundPosts.slice(
     skip + popNewPosts,
-    popNewPosts + skip + 10
+    popNewPosts + skip + 6
   );
   renderPosts(sortedPosts);
 };
 const skipLimitPostsByUser = async (skip) => {
   canLoadMore = false;
   let foundPosts = await getPostsByUser();
-  const sortedPosts = foundPosts.slice(skip, skip + 10);
+  const sortedPosts = foundPosts.slice(skip, skip + 6);
   renderPosts(sortedPosts);
 };
 const skipLimitPostsFavorite = async (skip) => {
@@ -265,7 +279,7 @@ const skipLimitPostsFavorite = async (skip) => {
   foundPosts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
-  const sortedPostsSkip = foundPosts.slice(skip, skip + 10);
+  const sortedPostsSkip = foundPosts.slice(skip, skip + 6);
   renderPosts(sortedPostsSkip);
 };
 const skipLimitPostsBySearched = async (searchedWords, skip) => {
@@ -274,14 +288,14 @@ const skipLimitPostsBySearched = async (searchedWords, skip) => {
   foundPosts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
-  const sortedPostsSkip = foundPosts.slice(skip, skip + 10);
+  const sortedPostsSkip = foundPosts.slice(skip, skip + 6);
   renderPosts(sortedPostsSkip);
 };
 const skipLimitPostsForAdminPage = async (params, skip) => {
   canLoadMore = false;
   let foundPosts = await getPostsUserIdForAdmin(params);
   foundPosts.reverse();
-  const sortedPosts = foundPosts.slice(skip, skip + 10);
+  const sortedPosts = foundPosts.slice(skip, skip + 6);
   renderPosts(sortedPosts);
 };
 

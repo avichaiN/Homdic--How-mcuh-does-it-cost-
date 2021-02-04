@@ -70,7 +70,7 @@ function buildOnePost(
     </div>
     <!--  end add comment form -->
     <div class="futter">
-      <div onclick="handleGetComments('${postID}', '${sort}') " id="NotificationsButton" class="Notifications commentArrow-${postID}">
+      <div onclick="handleGetComments('${postID}', '${sort}') " id="NotificationsButton" class="Notifications commentArrow commentArrow-${postID}">
         <span data-id='${postID}' class="material-icons">arrow_downward</span>
         <p data-id='${postID}'>תגובות: ${numberOfComments}</p>
       </div>
