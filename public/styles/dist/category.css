@@ -22,6 +22,7 @@ body input {
   font-family: "Rubik", sans-serif;
 }
 body button {
+  cursor: pointer;
   border: 1px solid white;
   color: white;
   background-color: #247c99;
@@ -115,10 +116,14 @@ body .titles .category__adminAddCategoryForm div {
 }
 body .cateogryPage__categorys {
   position: relative;
-  top: 3%;
-  margin-top: 50px;
+  top: 10%;
+  width: 80%;
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+body .cateogryPage__categorys .cateogryPage__categorysBoxContainer {
+  cursor: pointer;
 }
 body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img {
   /* width: 300px;
@@ -131,6 +136,11 @@ body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img {
 body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img:hover {
   animation: heartbeat 1.5s ease-in-out infinite both;
 }
+@media only screen and (max-width: 1500px) {
+  body .cateogryPage__categorys {
+    width: 100%;
+  }
+}
 @media only screen and (max-width: 600px) {
   body .category__admin {
     max-width: 80px;
@@ -138,9 +148,5 @@ body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img:hover {
   body .cateogryPage__categorys {
     display: grid;
     grid-template-columns: 1fr;
-  }
-  body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img {
-    border-radius: 10px;
-    box-shadow: 3px 3px 3px black;
   }
 }

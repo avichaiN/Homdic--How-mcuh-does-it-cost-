@@ -14,7 +14,10 @@ body {
 body h2 {
   font-family: "FontAwesome", sans-serif;
 }
-body h1, body h2, body h3, body p {
+body h1,
+body h2,
+body h3,
+body p {
   color: #1d5f75;
 }
 body .wrapper {
@@ -142,6 +145,9 @@ body .social + a {
   display: block;
   font-size: 16px;
   text-align: center;
+}
+body .cantClick {
+  pointer-events: none;
 }
 @media only screen and (max-width: 1400px) {
   body .formsContainer {

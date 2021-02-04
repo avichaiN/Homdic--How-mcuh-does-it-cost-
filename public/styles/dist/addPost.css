@@ -88,6 +88,9 @@
   cursor: pointer;
   background-color: #247C99;
 }
+.newPostBox form .cantClick {
+  pointer-events: none;
+}
 .newPostBox form input[type=submit]:hover {
   transition: 0.3s;
   background-color: #0c6886;
