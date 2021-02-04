@@ -5,7 +5,8 @@ function hendelImgClick(src) {
     imageUrl: src,
     imageWidth: 400,
     imageHeight: 400,
-    imageAlt: ''
+    imageAlt: "",
+    confirmButtonText: "X"
   });
 }
 

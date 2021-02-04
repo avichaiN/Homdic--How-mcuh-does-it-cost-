@@ -1,10 +1,11 @@
-function hendelImgClick(src){
-  Swal.fire({      
+function hendelImgClick(src) {
+  Swal.fire({
     imageUrl: src,
     imageWidth: 400,
     imageHeight: 400,
-    imageAlt: '',
-  })
+    imageAlt: "",
+    confirmButtonText: "X",
+  });
 }
 function buildOnePost(
   type /*post or comment*/,
