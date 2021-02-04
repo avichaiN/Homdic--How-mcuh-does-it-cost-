@@ -1,6 +1,6 @@
 function getUserName() {
   const encodedId = window.location.href.replace(
-    "http://localhost:3000/updateUserPassword.html?",
+    "http://homdic.herokuapp.com/updateUserPassword.html?",
     ""
   );
   fetch("updateUserData/resetpassword", {
@@ -14,9 +14,7 @@ function getUserName() {
     .then((data) => {
       try {
         if (data.user) {
-          const title = (document.getElementById(
-            "firstName"
-          ).innerHTML = `<h2>שלום לך  ${data.user}</h2>`);
+          document.getElementById("firstName").innerHTML = `<h2>שלום לך  ${data.user}</h2>`
         } else {
           console.log("can't get first name");
         }
