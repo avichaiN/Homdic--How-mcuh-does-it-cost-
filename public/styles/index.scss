@@ -1,22 +1,25 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-image: url(../img/loft.jpg);
-    -webkit-background-size: cover;
-    background-size: cover;
-    text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../img/loft.jpg);
+  -webkit-background-size: cover;
+  background-size: cover;
+  text-align: center;
 
-    h2{
-      font-family: "FontAwesome", sans-serif;
+  h2 {
+    font-family: "FontAwesome", sans-serif;
 
-    }
+  }
 
-    h1,h2,h3,p{
-      color: #1d5f75;
-    }
-  
-  
+  h1,
+  h2,
+  h3,
+  p {
+    color: #1d5f75;
+  }
+
+
   .wrapper {
     position: absolute;
     top: 50%;
@@ -24,15 +27,17 @@ body {
     transform: translate(-50%, -50%);
     margin-top: 70px;
   }
-  
+
   .input::placeholder {
     text-align: right;
   }
+
   .formsContainer {
     background-color: rgba(77, 77, 77, 0.4);
     padding: 10px;
     width: 35vw;
   }
+
   .tab--form {
     background-color: #fff;
     display: none;
@@ -41,16 +46,17 @@ body {
     border-radius: 5px;
 
   }
-  
+
   .tab--form.active {
     display: block;
   }
-  
+
   .tab--form a {
     text-decoration: none;
     transition: 0.3s;
     color: #247C99;
   }
+
   /* .tab--form a:hover{
       color: #36d2ff;
   } */
@@ -59,11 +65,12 @@ body {
     padding: 0;
     margin: 0;
   }
+
   .tab--form input {
     display: block;
     width: 100%;
   }
-  
+
   label.tab {
     color: #ffffff;
     font-weight: 600;
@@ -73,20 +80,21 @@ body {
     margin-bottom: -1px;
     cursor: pointer;
   }
-  
+
   label.tab.active {
     background-color: #fff;
     color: #1d5f75;
   }
-  
-  input[name="tabs"]:checked + label {
+
+  input[name="tabs"]:checked+label {
     background-color: #fff;
     color: #1d5f75;
   }
+
   input[name="tabs"] {
     display: none;
   }
-  
+
   .tab::before {
     content: "\f090";
     font-family: "FontAwesome", sans-serif;
@@ -94,13 +102,15 @@ body {
     margin-right: 11px;
     font-weight: normal;
   }
+
   .tab[for*="2"]::before {
     content: "\f234";
   }
-  
+
   .del {
     display: none;
   }
+
   .input {
     font-size: 16px;
     border: 2px solid #e9eaea;
@@ -112,15 +122,16 @@ body {
     outline: none;
     direction: rtl;
   }
+
   .input:hover {
     border: 2px solid #bebebe;
     transition: 0.3;
   }
-  
+
   ::-webkit-input-placeholder {
     color: #c4c9c9;
   }
-  
+
   .button {
     background: #247C99;
     color: #ffffff;
@@ -135,18 +146,19 @@ body {
     width: 100%;
     outline: none;
   }
-  
+
   .button:hover {
     transition: 0.3s;
-    background-color:#09546D;
+    background-color: #09546D;
     cursor: pointer;
   }
-  
+
   .social {
     display: flex;
     justify-content: space-between;
     font-size: 24px;
   }
+
   .social a {
     width: 40px;
     height: 40px;
@@ -154,61 +166,72 @@ body {
     line-height: 40px;
     text-align: center;
   }
-  
-  .social + a {
+
+  .social+a {
     margin-top: 10px;
     display: block;
     font-size: 16px;
     text-align: center;
   }
-  
+
+  .cantClick {
+    pointer-events: none;
+  }
+
   @media only screen and (max-width: 1400px) {
     .formsContainer {
       width: 60vw;
     }
+
     .tab--form {
       padding: 70px 100px 50px;
     }
   }
-  
+
   @media only screen and (max-width: 600px) {
     .formsContainer {
       width: 70vw;
     }
+
     .tab--form {
       padding: 70px 70px 50px;
     }
   }
-  
+
   @media only screen and (max-width: 480px) {
     .formsContainer {
       width: 80vw;
     }
+
     .tab {
       font-size: 80%;
     }
+
     .tab::before {
       font-size: 100%;
     }
+
     .tab--form {
       padding: 30px 50px 50px;
     }
   }
-  
+
   @media only screen and (max-width: 280px) {
     .formsContainer {
       width: 80vw;
     }
+
     .tab {
       font-size: 68%;
     }
+
     .tab::before {
       font-size: 100%;
     }
+
     .tab--form {
       padding: 30px 30px 30px;
     }
   }
 
 }
-  

@@ -58,6 +58,7 @@ function handleLoginForm(e) {
 }
 
 function handleRegisterForm(e) {
+  document.querySelector(".submitButton").classList.add("cantClick")
   e.preventDefault();
   const firstName = e.target.children.firstName.value;
   const lastName = e.target.children.lastName.value;
@@ -84,6 +85,7 @@ function handleRegisterForm(e) {
             confirmButtonColor: "red",
             confirmButtonText: "אישור",
           });
+          document.querySelector(".submitButton").classList.remove("cantClick")
         } else {
           await Swal.fire({
             position: "top-center",

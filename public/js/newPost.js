@@ -11,7 +11,7 @@ const HtmlNewPostForm = () => {
       <label class='img box' name='imgLable' for="img">העלה תמונה</label>
       <input class='box imgUpload' onchange='handleImgSelect()' id='img' type="file" style="visibility:hidden;display: none;" name="img" accept="image/*">
       <span class='box' id="file-chosen"></span>
-      <input class='box' type="submit" value="פרסם">
+      <input class='box submitButton' type="submit" value="פרסם">
   </form> `
   return html;
 }
@@ -62,6 +62,7 @@ const getCategoiresCheckBox = () => {
 
 
 const handleNewPost = async (e, file) => {
+  document.querySelector(".submitButton").classList.add("cantClick")
   e.preventDefault();
   const user = await getUserWhoPosted();
   let categoryId = e.target.children.category.value;
@@ -74,13 +75,13 @@ const handleNewPost = async (e, file) => {
 
 
 
-  let newSentenc ='';
+  let newSentenc = '';
   let wordsArry = desc.split(" ");
   wordsArry.forEach(word => {
     if (word.length > 11) {
       newSentenc += ' מילה ארוכה ';
     } else {
-      newSentenc +=  word +' ';
+      newSentenc += word + ' ';
     }
     desc = newSentenc;
   })
@@ -126,6 +127,7 @@ const handleNewPost = async (e, file) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        document.querySelector(".submitButton").classList.remove("cantClick")
       } else {
         await Swal.fire({
           position: "center",
@@ -135,6 +137,7 @@ const handleNewPost = async (e, file) => {
           timer: 2000,
         });
         hideNewPostBox();
+        document.querySelector(".submitButton").classList.remove("cantClick")
 
         window.location.href = `/posts.html?${categoryId}`;
       }
