@@ -22,6 +22,7 @@ body input {
   font-family: "Rubik", sans-serif;
 }
 body button {
+  cursor: pointer;
   border: 1px solid white;
   color: white;
   background-color: #247c99;
@@ -120,6 +121,9 @@ body .cateogryPage__categorys {
   margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+body .cateogryPage__categorys .cateogryPage__categorysBoxContainer {
+  cursor: pointer;
 }
 body .cateogryPage__categorys .cateogryPage__categorysBoxContainer img {
   /* width: 300px;

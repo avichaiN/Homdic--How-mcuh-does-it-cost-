@@ -95,51 +95,58 @@ const handleNewPost = async (e, file) => {
   // })
 
 
-
   if (categoryId === "choseCategory") {
     categoryId = undefined;
-  }
-
-
-  let formData = new FormData();
-  formData.append('categoryId', categoryId);
-  formData.append('title', title);
-  formData.append('desc', desc);
-  formData.append('userId', userId);
-  if (imgFile) {
-    formData.append('img', imgFile, imgFile.name);
-  }
-
-  fetch("/posts", {
-    method: "POST",
-    headers: {
-
-    },
-    body: formData,
-  })
-    .then((res) => res.json())
-    .then(async (data) => {
-      if (!data.posted) {
-        await Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "אנא בדוק שכל השדות תקינים",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        document.querySelector(".submitButton").classList.remove("cantClick")
-      } else {
-        await Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "פוסט פורסם בהצלחה",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-        hideNewPostBox();
-        document.querySelector(".submitButton").classList.remove("cantClick")
-
-        window.location.href = `/posts.html?${categoryId}`;
-      }
+    await Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "אנא בדוק שבחרת קטגוריה",
+      showConfirmButton: false,
+      timer: 1500,
     });
+    document.querySelector(".submitButton").classList.remove("cantClick")
+  } else {
+
+    let formData = new FormData();
+    formData.append('categoryId', categoryId);
+    formData.append('title', title);
+    formData.append('desc', desc);
+    formData.append('userId', userId);
+    if (imgFile) {
+      formData.append('img', imgFile, imgFile.name);
+    }
+
+    fetch("/posts", {
+      method: "POST",
+      headers: {
+
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        if (!data.posted) {
+          await Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "אנא בדוק שכל השדות תקינים",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          document.querySelector(".submitButton").classList.remove("cantClick")
+        } else {
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "פוסט פורסם בהצלחה",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          hideNewPostBox();
+          document.querySelector(".submitButton").classList.remove("cantClick")
+
+          // window.location.href = `/posts.html?${categoryId}`;
+        }
+      });
+  }
 };

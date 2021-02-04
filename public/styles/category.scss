@@ -24,6 +24,7 @@ body {
     }
 
     button {
+        cursor: pointer;
         border: 1px solid white;
         color: white;
         background-color: #247c99;
@@ -139,6 +140,7 @@ body {
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 
         .cateogryPage__categorysBoxContainer {
+            cursor: pointer;
             img {
                 /* width: 300px;
                     height: 130px; */
