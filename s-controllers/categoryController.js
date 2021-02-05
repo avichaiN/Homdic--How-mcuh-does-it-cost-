@@ -79,7 +79,7 @@ exports.createCategory = async function (req, res) {
     try {
         const { newCategoryName } = req.body;
         const Buffer = await sharp(req.file.buffer)
-            .resize({ width: 240, high: 240 })
+            .resize({ width: 1024, high: 768 })
             .toBuffer();
 
 
@@ -107,7 +107,7 @@ exports.editCategory =  async function (req, res) {
     try {
         if (req.file) {
             const Buffer = await sharp(req.file.buffer)
-                .resize({ width: 240, high: 240 })
+                .resize({ width: 1024, high: 768 })
                 .toBuffer();
             await Category.findOneAndUpdate(
                 { _id: categoryId },

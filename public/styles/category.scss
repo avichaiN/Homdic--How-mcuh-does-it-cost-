@@ -141,6 +141,7 @@ body {
 
         .cateogryPage__categorysBoxContainer {
             cursor: pointer;
+
             img {
                 /* width: 300px;
                     height: 130px; */
@@ -156,6 +157,7 @@ body {
             }
         }
     }
+
 
     @media only screen and (max-width: 1500px) {
         .cateogryPage__categorys {
@@ -173,5 +175,28 @@ body {
             grid-template-columns: 1fr;
 
         }
+    }
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20%;
+    z-index: 8;
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #444444;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
     }
 }

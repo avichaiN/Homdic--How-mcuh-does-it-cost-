@@ -31,6 +31,7 @@ const writeCategoiresToDom = (categories) => {
         </div>
     </div>`;
   });
+  document.querySelector("#loader").style.display = "none";
   categoryDiv.innerHTML = categoriesHtml;
   displayAdminCategory();
 };

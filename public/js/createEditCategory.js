@@ -81,7 +81,7 @@ const editCategoryForm = (e) => {
 
   let editCategoryFormHtml = `
   <label>שם קטגוריה: ${categoryName}</label><br>
-  <img src="data:image/jpg;base64,${categoryImg}">
+  <img style='width:450px;height:250px;' src="data:image/jpg;base64,${categoryImg}">
   <form onsubmit="editCategory(event)">
   <input type="text" data-name='${categoryName}' data-id='${categoryId}' name='name' placeholder="שם חדש"><br>
       <input style="margin-top:10px;margin-right:120px;margin-bottom:10px;" type="file" data-img='${categoryImg}' name='img' placeholder="תמונה חדשה"><br>
