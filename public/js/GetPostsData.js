@@ -181,13 +181,11 @@ function blockClickComments(blockClick) {
     }
   }
 }
+
 const renderPosts = async (postsArray) => {
   blockClickComments('block')
 
-  let userInfo = await getUserInfo();
   const userId = userInfo.id;
-  let isAdmin = false;
-  isAdmin = await handleCheckAdmin();
 
   for (i = 0; i < postsArray.length; i++) {
     const isFavorite = await checkIfPostFavorite(postsArray[i]._id, userId);

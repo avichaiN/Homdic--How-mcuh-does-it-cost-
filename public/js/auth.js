@@ -31,3 +31,11 @@ const handleLogout = () => {
       }
     });
 };
+
+let userInfo
+let isAdmin = false;
+// isAdmin = await handleCheckAdmin();
+const checkUserInfoAndAdmin = async () => {
+  userInfo = await getUserInfo();
+  isAdmin = await handleCheckAdmin();
+}

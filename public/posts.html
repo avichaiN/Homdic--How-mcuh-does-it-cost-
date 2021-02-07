@@ -31,7 +31,7 @@
     ></script>
   </head>
 
-  <body onload="renderNavToDom(), getPosts()">
+  <body onload="checkUserInfoAndAdmin(), renderNavToDom(), getPosts()">
     <div class="postsPage">
       <div id="loader" class="center"></div>
       <!-- header  -->
@@ -44,6 +44,7 @@
         <div class="newPostBox box"></div>
         <!-- end post -->
       </div>
+
       <div class="loadingNewPosts" data-title=".dot-spin">
         <div class="dot-spin"></div>
       </div>

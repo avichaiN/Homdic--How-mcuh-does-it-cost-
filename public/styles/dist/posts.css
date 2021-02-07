@@ -632,3 +632,7 @@ body #app .dot-spin {
     animation-timing-function: ease-out;
   }
 }
+#postImg {
+  cursor: pointer;
+  width: 100%;
+}

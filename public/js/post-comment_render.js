@@ -1,8 +1,13 @@
-function hendelImgClick(src) {
+function hendelImgClick(src, postID) {
+  let x = document.querySelector(`.postImg-${postID}`)
+  const currWidth = x.clientWidth;
+  const currHeight = x.clientHeight;
+  console.log(currWidth,currHeight)
+
   Swal.fire({
     imageUrl: src,
-    imageWidth: 400,
-    imageHeight: 400,
+    imageWidth: currWidth+100,
+    imageHeight: currHeight+100,
     imageAlt: "",
     confirmButtonText: "X",
   });
@@ -21,7 +26,7 @@ function buildOnePost(
   lName,
   isFavorite
 ) {
-  let img = `<img id="postImg" onclick="hendelImgClick('data:image/jpg;base64,${PostImgSrc}')" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`;
+  let img = `<img id="postImg" class='postImg-${postID}' onclick="hendelImgClick('data:image/jpg;base64,${PostImgSrc}', '${postID}')" src="data:image/jpg;base64,${PostImgSrc}" alt="" />`;
   if (!PostImgSrc) {
     img = "";
   }
@@ -125,10 +130,10 @@ function buildOneComment(
   }
   let likedButton = "";
   if (liked) {
-    likedButton = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
+    likedButton = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked likeHeart-${commentId}" title="הורד לייק">favorite_border
     </span>`;
   } else {
-    likedButton = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
+    likedButton = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked likeHeart-${commentId}" title="לייק לתגובה">favorite_border
     </span>`;
   }
   const Html = `<article class="comment">

@@ -115,14 +115,16 @@ const checkHowMuchLikes = async (commentId) => {
     .then((res) => res.json())
     .then((data) => {
       likedAmount = data.likeAmount;
+      whoLiked = data.whoLiked
     });
-  return likedAmount;
+  return [likedAmount, whoLiked];
 };
 
 const handleNewComment = async (e, postID) => {
   e.preventDefault();
-  let user = await getUserWhoPosted();
-  const userId = user.id;
+
+  const userId = userInfo.id;
+
   const commentMessage = e.target.children.message.value;
   const commentPrice = e.target.children.price.value;
   fetch("/comments", {
@@ -207,8 +209,13 @@ const handleDeleteComment = (commentId) => {
 };
 
 const handleLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted();
-  const userId = user.id;
+  const userId = userInfo.id;
+  const addLike = document.querySelector(`.likeComment-${commentId}`)
+  addLike.classList.add("cantClick")
+
+  const likeHeart = document.querySelector(`.likeHeart-${commentId}`)
+  likeHeart.classList.add("liked")
+
   fetch("/comments/like", {
     method: "POST",
     headers: {
@@ -224,14 +231,21 @@ const handleLikeComment = async (commentId) => {
       const likesAmount = await checkHowMuchLikes(commentId);
       document.querySelector(
         `.likeComment-${commentId}`
-      ).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked" title="הורד לייק">favorite_border
-      </span><span class='likesAmount' >${likesAmount}</span>`;
+      ).innerHTML = `<span onclick="handleUnLikeComment('${commentId}')" class="material-icons active center liked likeHeart-${commentId}" title="הורד לייק">favorite_border
+      </span><span class='likesAmount' >${likesAmount[0]}</span>`
+      addLike.classList.remove("cantClick");
     });
 };
 
 const handleUnLikeComment = async (commentId) => {
-  let user = await getUserWhoPosted();
-  const userId = user.id;
+  const userId = userInfo.id;
+  const addLike = document.querySelector(`.likeComment-${commentId}`)
+  addLike.classList.add("cantClick")
+
+  const likeHeart = document.querySelector(`.likeHeart-${commentId}`)
+  likeHeart.classList.remove("liked")
+  likeHeart.classList.add("unliked")
+
   fetch("/comments/like", {
     method: "DELETE",
     headers: {
@@ -247,14 +261,15 @@ const handleUnLikeComment = async (commentId) => {
       const likesAmount = await checkHowMuchLikes(commentId);
       document.querySelector(
         `.likeComment-${commentId}`
-      ).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked" title="לייק לתגובה">favorite_border
-      </span><span class='likesAmount'>${likesAmount}</span>`;
+      ).innerHTML = `<span onclick="handleLikeComment('${commentId}')" class="material-icons active center unliked likeHeart-${commentId}" title="לייק לתגובה">favorite_border
+      </span><span class='likesAmount'>${likesAmount[0]}</span>`
+      addLike.classList.remove("cantClick");;
     });
 };
 
 const handleFavoritePost = async (postID) => {
-  let user = await getUserWhoPosted();
-  const userId = user.id;
+
+  const userId = userInfo.id;
   fetch("/posts/favorite", {
     method: "POST",
     headers: {
@@ -281,8 +296,8 @@ const handleFavoritePost = async (postID) => {
 };
 
 const handleDeleteFavoritePost = async (postID) => {
-  let user = await getUserWhoPosted();
-  const userId = user.id;
+
+  const userId = userInfo.id;
   fetch("/posts/favorite", {
     method: "DELETE",
     headers: {
@@ -383,66 +398,67 @@ const sortCommentsByLike = (postId) => {
 };
 const renderCommentsToDom = async (postId, data, sort) => {
   const numberOfComments = await checkHowMuchComments(postId);
-  let sortByLike = false;
-  let sortByDate = false;
+  let comments = data.comments;
+  const whenCommentsPosted = data.whenPostedArray
+  userId = userInfo.id;
 
   if (sort == "like") {
-    sortByLike = true;
+    comments.sort(function (a, b) {
+      return b.likes.length - a.likes.length;
+    });
   } else if (sort == "date") {
-    sortByDate = true;
+    comments = comments.reverse();
   }
+
   const app = document.querySelector(`.renderComment-${postId}`);
   const loadingComments = document.querySelector(`.loadingComments-${postId}`);
   const showCommentsButton = document.querySelector(`.commentArrow-${postId}`)
   const sortCommentsButtons = document.querySelector(`.sortComments-${postId}`)
   const hideCommentsButton = document.querySelector(`.closeComments-${postId}`);
   const sortComments = document.querySelector(`.sortComments-${postId}`);
+  app.innerHTML = "";
+  let commentsHtml = "";
+
+  const priceAverage = getAveragePrice(comments)
+  const averageDom = document.querySelector(`.average-${postId}`)
+  averageDom.innerHTML = `מחיר ממוצע לפי תגובות: ${priceAverage}₪`
 
   document.querySelector(
     `.commentArrow-${postId}`
   ).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}'  class="material-icons">arrow_upward</span>
 <p data-id='${postId}' data-comments='${numberOfComments}'>תגובות: ${numberOfComments}</p>`;
 
-  app.innerHTML = "";
-  let commentsHtml = "";
-  let comments = data.comments;
-  let isAdmin = false;
-  isAdmin = await handleCheckAdmin();
-
-  const priceAverage = getAveragePrice(comments)
-  const averageDom = document.querySelector(`.average-${postId}`)
-  averageDom.innerHTML = `מחיר ממוצע לפי תגובות: ${priceAverage}₪`
-
-  if (sortByDate) {
-    comments = comments.reverse();
-  }
-  if (sortByLike) {
-    comments.sort(function (a, b) {
-      return b.likes.length - a.likes.length;
-    });
-  }
   for (i = 0; i < comments.length; i++) {
-    const getUserWhoPosted = await getWhoPosted(comments[i].publishedBy)
-    const userInfo = await getUserInfo();
-    userId = userInfo.id;
     let isUsersComment = false;
+    let timeAgoPosted
+    let liked = false
+    const getUserWhoPosted = await getWhoPosted(comments[i].publishedBy)
+    const likesAmount = await checkHowMuchLikes(comments[i]._id)
+    
     if (comments[i].publishedBy === userId || isAdmin) {
       isUsersComment = true;
     }
-    const commentCreatedTime = Date.parse(comments[i].createdAt);
-    const timeAgo = await timeSince(commentCreatedTime)
-    const liked = await checkIfUserLikedComment(comments[i]._id, userId);
-    const likesAmount = await checkHowMuchLikes(comments[i]._id);
+
+    whenCommentsPosted.forEach(timeAgo => {
+      if (timeAgo.commentId === comments[i]._id) {
+        timeAgoPosted = timeAgo.timeAgo
+      }
+    })
+
+    if (likesAmount[1].includes(userInfo.id)) {
+      liked = true
+    }
+
     const fullComment = buildOneComment(
       comments[i].desc,
       comments[i].price,
       getUserWhoPosted.fName,
       getUserWhoPosted.lName,
       comments[i],
-      timeAgo,
+      timeAgoPosted,
       comments[i]._id,
       liked,
-      likesAmount,
+      likesAmount[0],
       isUsersComment
     );
     commentsHtml += fullComment;

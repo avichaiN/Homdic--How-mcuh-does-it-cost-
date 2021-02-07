@@ -30,10 +30,19 @@ exports.deleteComment = async function (req, res) {
 exports.getPostsComments = async function (req, res) {
     try {
         const postId = req.params.id
-        const post = await findPostById(postId)
+        // const post = await findPostById(postId)
         const comments = await findCommentsByPostId(postId)
+        const whenPostedArray = []
 
-        res.send({ post, comments })
+
+        for (i = 0; i < comments.length; i++) {
+            const commentCreatedTime = Date.parse(comments[i].createdAt);
+            let whenPosted = await howLongAgoPosted(commentCreatedTime)
+            let whenPostedInfo = { timeAgo: `${whenPosted}`, commentId: `${comments[i]._id}` }
+            whenPostedArray.push(whenPostedInfo)
+        }
+
+        res.send({ comments, whenPostedArray })
     } catch (e) {
         console.log(e.message);
         res.send({ status: "unauthorized" });
@@ -65,9 +74,10 @@ exports.checkHowMuchLiked = async function (req, res) {
     try {
         const { commentId } = req.body
         const checkLikeAmount = await checkHowMuchLikesComment(commentId)
+        const whoLiked = checkLikeAmount[0].likes
         const likeAmount = checkLikeAmount[0].likes.length
 
-        res.send({ likeAmount })
+        res.send({ likeAmount, whoLiked })
     } catch (e) {
         console.log(e.message);
         res.send({ status: "unauthorized" });
@@ -125,4 +135,33 @@ const checkIfUserLikedComment = async (commentId, userId) => {
 }
 const checkHowMuchLikesComment = (commentId) => {
     return Comment.find({ _id: commentId }).exec()
+}
+const howLongAgoPosted = async (date) => {
+    let israel = moment().tz("Asia/Jerusalem").format()
+    const x = Date.parse(israel)
+    let seconds = Math.floor((x - date) / 1000);
+
+
+    let interval = seconds / 31536000;
+
+    if (interval > 1) {
+        return Math.floor(interval) + " שנים";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) + " חודשים";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) + " ימים";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) + " שעות";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) + " דקות";
+    }
+    return Math.floor(seconds) + " שניות";
 }

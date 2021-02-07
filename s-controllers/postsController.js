@@ -30,7 +30,7 @@ exports.createPost = async function (req, res) {
         });
         if (req.file) {
             const Buffer = await sharp(req.file.buffer)
-                .resize({ width: 240, high: 240 })
+                .resize({ width: 350, high: 350 })
                 .toBuffer();
 
             post.img = Buffer

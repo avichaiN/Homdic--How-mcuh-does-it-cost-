@@ -145,7 +145,7 @@ const handleNewPost = async (e, file) => {
           hideNewPostBox();
           document.querySelector(".submitButton").classList.remove("cantClick")
 
-          // window.location.href = `/posts.html?${categoryId}`;
+          window.location.href = `/posts.html?${categoryId}`;
         }
       });
   }
