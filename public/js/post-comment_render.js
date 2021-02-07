@@ -179,7 +179,7 @@ const renderSearchedPostsTitle = (keywords) => {
 const renderTitleFoundPostsUser = (name) => {
   document.querySelector(
     `#categoryHeder`
-  ).innerHTML = `<h1>שלום ${name}, הפוסטים שפירסמת:</h1>
+  ).innerHTML = `<h1>הפוסטים שפירסמת:</h1>
     <button onclick="displayPostBox(event)" class="newPostButton">פוסט חדש</button>`;
 };
 const renderTitlePostForAdmin = (username) => {
