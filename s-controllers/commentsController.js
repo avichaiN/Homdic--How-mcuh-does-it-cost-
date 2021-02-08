@@ -2,7 +2,7 @@ const Comment = require("../s-models/comment");
 const Post = require("../s-models/post");
 const moment = require('moment-timezone');
 
-exports.createComment = async function (req, res) {
+exports.createComment = async  (req, res)=> {
     try {
         const { postID, userId, commentMessage, commentPrice } = req.body
 
@@ -16,7 +16,7 @@ exports.createComment = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.deleteComment = async function (req, res) {
+exports.deleteComment = async  (req, res)=> {
     try {
         const { commentId } = req.body
         const deleteCommentFunc = await deleteComment(commentId)
@@ -27,7 +27,7 @@ exports.deleteComment = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getPostsComments = async function (req, res) {
+exports.getPostsComments = async  (req, res)=> {
     try {
         const postId = req.params.id
         // const post = await findPostById(postId)
@@ -48,7 +48,7 @@ exports.getPostsComments = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.addLike = async function (req, res) {
+exports.addLike = async  (req, res)=> {
     try {
         const { commentId, userId } = req.body
         const addLike = await addLikeToComment(commentId, userId)
@@ -59,7 +59,7 @@ exports.addLike = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.deleteLike = async function (req, res) {
+exports.deleteLike = async  (req, res)=> {
     try {
         const { commentId, userId } = req.body
         const deleteLike = await deleteLikeToComment(commentId, userId)
@@ -70,7 +70,7 @@ exports.deleteLike = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.checkHowMuchLiked = async function (req, res) {
+exports.checkHowMuchLiked = async  (req, res)=> {
     try {
         const { commentId } = req.body
         const checkLikeAmount = await checkHowMuchLikesComment(commentId)
@@ -83,7 +83,7 @@ exports.checkHowMuchLiked = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.checkHowMuchComments = async function (req, res) {
+exports.checkHowMuchComments = async  (req, res)=> {
     try {
         const { postId } = req.body
         const comments = await findCommentsByPostId(postId)
@@ -94,7 +94,7 @@ exports.checkHowMuchComments = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.checkIfUserLiked = async function (req, res) {
+exports.checkIfUserLiked = async  (req, res)=> {
     try {
         const { commentId, userId } = req.body
         let checkLike = await checkIfUserLikedComment(commentId, userId)

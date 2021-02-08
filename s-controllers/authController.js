@@ -5,7 +5,7 @@ const saltRounds = 12;
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-exports.loginUser = async function (req, res) {
+exports.loginUser = async  (req, res)=> {
   try {
     const { username, password } = req.body;
     const userFound = await User.findOne({
@@ -42,7 +42,7 @@ exports.loginUser = async function (req, res) {
   }
 };
 
-exports.registerUser = async function (req, res) {
+exports.registerUser = async  (req, res)=> {
   const { firstName, lastName, username, email, password } = req.body;
 
   const newUser = new User({
@@ -81,7 +81,7 @@ exports.registerUser = async function (req, res) {
     }
   });
 };
-exports.logUserOut = function (req, res) {
+exports.logUserOut =  (req, res)=> {
   try {
     res.cookie("userLoggedIn", "", { expires: new Date(0) }); // this delete cookie (sets it to a date that is gone)
 
@@ -91,7 +91,7 @@ exports.logUserOut = function (req, res) {
     res.send({ status: "unauthorized" });
   }
 };
-exports.getUserInfo = function (req, res) {
+exports.getUserInfo =  (req, res)=> {
   try {
     const token = req.cookies.userLoggedIn;
     if (token) {
@@ -105,7 +105,7 @@ exports.getUserInfo = function (req, res) {
     res.send({ status: "unauthorized" });
   }
 };
-exports.resetPassword = async function (req, res) {
+exports.resetPassword = async  (req, res)=> {
   try {
     const userEmail = req.body.userEmail;
     const userFound = await User.findOne({ email: userEmail });
@@ -142,7 +142,7 @@ exports.resetPassword = async function (req, res) {
     res.send({ status: "unauthorized" });
   }
 };
-exports.checkUserCookie = function (req, res) {
+exports.checkUserCookie =  (req, res)=> {
   try {
     res.send({ validCookie: true });
   } catch (e) {

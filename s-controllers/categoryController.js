@@ -64,7 +64,7 @@ const getCategoryInfo = (id) => {
     }
 }
 
-exports.goToCategoryPage = function (req, res) {
+exports.goToCategoryPage =  (req, res)=> {
     try {
         res.sendFile(path.join(__dirname, "../public", "Categories.html"));
     } catch (err) {
@@ -75,7 +75,7 @@ exports.goToCategoryPage = function (req, res) {
 };
 
 
-exports.createCategory = async function (req, res) {
+exports.createCategory = async  (req, res)=> {
     try {
         const { newCategoryName } = req.body;
         const Buffer = await sharp(req.file.buffer)
@@ -101,7 +101,7 @@ exports.createCategory = async function (req, res) {
 };
 
 
-exports.editCategory =  async function (req, res) {
+exports.editCategory =  async  (req, res)=> {
     const { categoryId, newCategoryName, newCategoryImg } = req.body;
 
     try {
@@ -144,7 +144,7 @@ exports.editCategory =  async function (req, res) {
 };
 
 
-exports.deleteCategory = async function (req, res) {
+exports.deleteCategory = async  (req, res)=> {
     try {
         const { chosenCategoryid } = req.body;
         await Category.findOneAndDelete(
@@ -166,7 +166,7 @@ exports.deleteCategory = async function (req, res) {
     }
 };
 
-exports.getCategories = async function (req, res) {
+exports.getCategories = async  (req, res)=> {
     try {
         let categories = await categoriesFind()
 
@@ -182,7 +182,7 @@ exports.getCategories = async function (req, res) {
     }
 };
 
-exports.getCategoryInfo = async function (req, res) {
+exports.getCategoryInfo = async  (req, res)=> {
     try {
         const categoryId = req.params.id
         let categoryInfo = await getCategoryInfo(categoryId)

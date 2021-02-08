@@ -5,7 +5,7 @@ const Comment = require("../s-models/comment");
 
 require("dotenv").config();
 
-exports.getAllUsers = async function (req, res) {
+exports.getAllUsers = async  (req, res)=> {
     try {
         const usersAmount = await getAllUsersLength()
         let allUsers = await getAllUsers();
@@ -15,7 +15,7 @@ exports.getAllUsers = async function (req, res) {
         res.status(404).send({ status: "unauthorized" });
     }
 };
-exports.deleteUser = async function (req, res) {
+exports.deleteUser = async  (req, res)=> {
     try {
         const { userId } = req.body;
         await deleteUserPosts(userId)
@@ -29,7 +29,7 @@ exports.deleteUser = async function (req, res) {
         res.status(404).send({ status: "unauthorized" });
     }
 };
-exports.editUser = async function (req, res) {
+exports.editUser = async  (req, res)=> {
     try {
         const { newEmail, newUsername, newfName, newlName, newRole, id } = req.body;
 
@@ -49,7 +49,7 @@ exports.editUser = async function (req, res) {
         res.status(404).send({ status: "unauthorized" });
     }
 };
-exports.checkAdminF = function (req, res) {
+exports.checkAdminF =  (req, res)=> {
     try {
         res.send({ admin: true });
     } catch (err) {

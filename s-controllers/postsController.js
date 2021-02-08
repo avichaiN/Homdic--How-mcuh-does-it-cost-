@@ -6,7 +6,7 @@ const sharp = require("sharp");
 const mongoose = require("mongoose");
 const moment = require('moment-timezone');
 
-exports.timeAgo = async function (req, res) {
+exports.timeAgo = async  (req, res)=> {
     try {
         const postedAgo = await howLongAgoPosted(req.body.date)
         res.send({ postedAgo })
@@ -15,7 +15,7 @@ exports.timeAgo = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.createPost = async function (req, res) {
+exports.createPost = async  (req, res)=> {
     try {
         moment.tz.setDefault("Asia/Jerusalem");
         console.log(moment().format())
@@ -46,7 +46,7 @@ exports.createPost = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.deletePost = async function (req, res) {
+exports.deletePost = async  (req, res)=> {
     try {
         const { postId } = req.body;
 
@@ -65,7 +65,7 @@ exports.deletePost = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getPostsByCategory = async function (req, res) {
+exports.getPostsByCategory = async  (req, res)=> {
     try {
         chosenCategoryId = req.params.id;
         let foundPostsByCategoryId = await Post.aggregate([
@@ -78,7 +78,7 @@ exports.getPostsByCategory = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getPostsByKeywords = async function (req, res) {
+exports.getPostsByKeywords = async  (req, res)=> {
     try {
         const searchedKeywords = req.params.id;
         const searchedSplitted = searchedKeywords.replace(/[-]+/, " ");
@@ -91,7 +91,7 @@ exports.getPostsByKeywords = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getPostsByUser = async function (req, res) {
+exports.getPostsByUser = async  (req, res)=> {
     try {
         const { userId } = req.body;
         let foundPosts = await findPostsByUser(userId);
@@ -101,7 +101,7 @@ exports.getPostsByUser = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getPostsByUserAdmin = async function (req, res) {
+exports.getPostsByUserAdmin = async  (req, res)=> {
     try {
         const { userId } = req.body;
         let userInfo = await findUserById(userId);
@@ -112,7 +112,7 @@ exports.getPostsByUserAdmin = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.addPostToFavorite = async function (req, res) {
+exports.addPostToFavorite = async  (req, res)=> {
     try {
         const { postID, userId } = req.body;
         let checkIfAlreadyFav = await checkIfPostInFavorite(postID, userId);
@@ -127,7 +127,7 @@ exports.addPostToFavorite = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.deletePostFromFavorite = async function (req, res) {
+exports.deletePostFromFavorite = async  (req, res)=> {
     try {
         const { postID, userId } = req.body;
         const deleteFromFavoritePosts = await deletePostFromFavorite(postID, userId);
@@ -137,7 +137,7 @@ exports.deletePostFromFavorite = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.checkIfPostFavorite = async function (req, res) {
+exports.checkIfPostFavorite = async  (req, res)=> {
     try {
         const { postID, userId } = req.body;
         let checkIfAlreadyFav = await checkIfPostInFavorite(postID, userId);
@@ -151,7 +151,7 @@ exports.checkIfPostFavorite = async function (req, res) {
         res.send({ status: "unauthorized" });
     }
 };
-exports.getFavoritePosts = async function (req, res) {
+exports.getFavoritePosts = async  (req, res)=> {
     try {
         const userId = req.params.id;
         const userInfo = await getUserFavoritePostsId(userId);
@@ -169,7 +169,7 @@ exports.getFavoritePosts = async function (req, res) {
     }
 };
 
-exports.getUserWhoPostedName = async function (req, res) {
+exports.getUserWhoPostedName = async  (req, res)=> {
     try {
         const userId = req.params.id
         const userFNameLName = await getFnameAndlName(userId)

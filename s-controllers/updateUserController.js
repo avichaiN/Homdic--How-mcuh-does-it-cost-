@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 12;
 require("dotenv").config();
 
-exports.getUserInfo = async function (req, res) {
+exports.getUserInfo = async  (req, res)=> {
   try {
     const userCookie = req.cookies.userLoggedIn;
     const decoded = jwt.decode(userCookie, process.env.SECRET);
@@ -15,7 +15,7 @@ exports.getUserInfo = async function (req, res) {
     res.send({ status: "unauthorized" });
   }
 };
-exports.editUser = async function (req, res) {
+exports.editUser = async  (req, res)=> {
   try {
     const { firstName, lastName, username, email } = req.body;
     const userCookie = req.cookies.userLoggedIn;
@@ -52,7 +52,7 @@ exports.editUser = async function (req, res) {
   }
 };
 
-exports.sendEmail = async function (req, res) {
+exports.sendEmail = async  (req, res)=> {
   let newPassword = req.body.newPassword;
   bcrypt.hash(newPassword, saltRounds, async function (err, hash) {
     try {
@@ -93,7 +93,7 @@ exports.sendEmail = async function (req, res) {
     }
   });
 };
-exports.getUserName = async function (req, res) {
+exports.getUserName = async  (req, res)=> {
   try {
     const encodedId = req.body.encodedId;
     const decodedId = jwt.decode(encodedId, process.env.SECRET);
