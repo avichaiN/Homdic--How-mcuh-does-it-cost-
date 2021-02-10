@@ -184,47 +184,64 @@ function blockClickComments(blockClick) {
 
 const renderPosts = async (postsArray) => {
   blockClickComments('block')
-
+  // console.log(postsArray[0].test = '123')
   const userId = userInfo.id;
+  // postsArray.map(async post => {
+  //   console.log(post)
+  //   const isFavorite = await checkIfPostFavorite(post._id, userId);
+  //   const commentsLength = await checkHowMuchComments(post._id);
+  //   console.log(isFavorite)
+  //   console.log(commentsLength)
+  //   post.isFav = 'no'
+  // })
 
-  for (i = 0; i < postsArray.length; i++) {
-    const isFavorite = await checkIfPostFavorite(postsArray[i]._id, userId);
-    const commentsLength = await checkHowMuchComments(postsArray[i]._id);
+  await Promise.all(
+    postsArray.map(async (post) => {
+      const isFavorite = await checkIfPostFavorite(post._id, userId);
+      const commentsLength = await checkHowMuchComments(post._id);
+      const postCreatedTime = Date.parse(post.createdAt);
+      const timeAgo = await timeSince(postCreatedTime)
+      const getUserWhoPosted = await getWhoPosted(post.publishedBy);
+      post.isFav = isFavorite
+      post.commentsLength = commentsLength
+      post.postCreatedTime = postCreatedTime
+      post.timeAgo = timeAgo
+      post.fName = getUserWhoPosted.fName
+      post.lName = getUserWhoPosted.lName
+    })
+  )
+  postsArray.forEach(post=>{
     let isUsersPost = false;
 
-    const postCreatedTime = Date.parse(postsArray[i].createdAt);
-    const timeAgo = await timeSince(postCreatedTime)
-
-    const getUserWhoPosted = await getWhoPosted(postsArray[i].publishedBy);
-
-    if (postsArray[i].publishedBy === userId) {
+    if (post.publishedBy === userId) {
       isUsersPost = true;
     }
     const html = buildOnePost(
       "post" /*post or comment*/,
-      postsArray[i].title,
-      postsArray[i].desc,
-      postsArray[i].img,
-      postCreatedTime,
-      timeAgo,
+      post.title,
+      post.desc,
+      post.img,
+      post.postCreatedTime,
+      post.timeAgo,
       "0",
-      commentsLength,
-      postsArray[i]._id,
-      getUserWhoPosted.fName,
-      getUserWhoPosted.lName,
-      isFavorite
+      post.commentsLength,
+      post._id,
+      post.fName,
+      post.lName,
+      post.isFav
     );
     document.getElementById("app").innerHTML += html;
     if (isUsersPost) {
-      document.getElementById(`favoriteIcon-${postsArray[i]._id}`).style.visibility = 'hidden'
-      document.getElementById(`favoriteWord-${postsArray[i]._id}`).style.visibility = 'hidden'
+      document.getElementById(`favoriteIcon-${post._id}`).style.visibility = 'hidden'
+      document.getElementById(`favoriteWord-${post._id}`).style.visibility = 'hidden'
     }
     if (isUsersPost || isAdmin) {
       document.getElementById(
-        `${postsArray[i]._id}`
+        `${post._id}`
       ).innerHTML = `<button class='deletePostButton' style="display:block;" onclick="handleDeletePost(event)">מחק פוסט</button>`;
     }
-  }
+  })
+ 
   document.querySelector("#loader").style.display = "none";
   document.querySelector("#categoryHeder").style.visibility = "visible";
   document.querySelector("#app").style.visibility = "visible";

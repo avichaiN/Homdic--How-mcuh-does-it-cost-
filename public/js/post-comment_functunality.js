@@ -428,41 +428,52 @@ const renderCommentsToDom = async (postId, data, sort) => {
   ).innerHTML = `<span data-id='${postId}' data-comments='${numberOfComments}'  class="material-icons">arrow_upward</span>
 <p data-id='${postId}' data-comments='${numberOfComments}'>תגובות: ${numberOfComments}</p>`;
 
-  for (i = 0; i < comments.length; i++) {
-    let isUsersComment = false;
-    let timeAgoPosted
-    let liked = false
-    const getUserWhoPosted = await getWhoPosted(comments[i].publishedBy)
-    const likesAmount = await checkHowMuchLikes(comments[i]._id)
-    
-    if (comments[i].publishedBy === userId || isAdmin) {
-      isUsersComment = true;
-    }
+await Promise.all(
+  comments.map(async (comment) => {
+    const getUserWhoPosted = await getWhoPosted(comment.publishedBy)
+    const likesAmount = await checkHowMuchLikes(comment._id)
+    comment.fName = getUserWhoPosted.fName
+    comment.lName = getUserWhoPosted.lName
+    comment.isLiked = likesAmount[1]
+    comment.likeAmount = likesAmount[0]
+  })
+)
+console.log(comments)
+comments.forEach(comment=>{
+  let isUsersComment = false;
+  let timeAgoPosted
+  let liked = false
 
-    whenCommentsPosted.forEach(timeAgo => {
-      if (timeAgo.commentId === comments[i]._id) {
-        timeAgoPosted = timeAgo.timeAgo
-      }
-    })
-
-    if (likesAmount[1].includes(userInfo.id)) {
-      liked = true
-    }
-
-    const fullComment = buildOneComment(
-      comments[i].desc,
-      comments[i].price,
-      getUserWhoPosted.fName,
-      getUserWhoPosted.lName,
-      comments[i],
-      timeAgoPosted,
-      comments[i]._id,
-      liked,
-      likesAmount[0],
-      isUsersComment
-    );
-    commentsHtml += fullComment;
+  
+  if (comment.publishedBy === userId || isAdmin) {
+    isUsersComment = true;
   }
+
+  whenCommentsPosted.forEach(timeAgo => {
+    if (timeAgo.commentId === comment._id) {
+      timeAgoPosted = timeAgo.timeAgo
+    }
+  })
+
+  if (comment.isLiked.includes(userInfo.id)) {
+    liked = true
+  }
+
+  const fullComment = buildOneComment(
+    comment.desc,
+    comment.price,
+    comment.fName,
+    comment.lName,
+    comment,
+    timeAgoPosted,
+    comment._id,
+    liked,
+    comment.likeAmount,
+    isUsersComment
+  );
+  commentsHtml += fullComment;
+})
+ 
   app.innerHTML = commentsHtml;
   loadingComments.style.display = "none";
   hideCommentsButton.style.display = "block";
